@@ -50,7 +50,8 @@ public class UseEPPlusFun : MonoBehaviour {
                 //}
                 //print(worksheet.GetValue(i, 1).ToString());
             //}
-            GetValueFromId(11, worksheet);
+            //GetValueFromId(5,worksheet);
+            GetSpecificValue(5, worksheet,"3");
                 
 
         }//完成一些列操作后，关闭excel文件
@@ -72,10 +73,10 @@ public class UseEPPlusFun : MonoBehaviour {
         }
     }
     //通过id拿到整行数据
-    static int num;
+    //static int num;
     static void GetValueFromId(int id, ExcelWorksheet worksheet)
     {
-        
+        int num = 0;
         for (int i = 1; i < 3 + 1; i++)
         {
             for (int j = 1; j < 4 + 1; j++)
@@ -95,7 +96,41 @@ public class UseEPPlusFun : MonoBehaviour {
             print(worksheet.Cells[num,y].Value.ToString());
         }
     }
-    //通过id和列名拿到具体某单元格的值
+    //根据id和列名拿到具体的值
+    static void GetSpecificValue(int id, ExcelWorksheet worksheet, string name)
+    {
+        int num = 0;
+        string numy = "";
+        for (int i = 1; i < 3 + 1; i++)
+        {
+            for (int j = 1; j < 4 + 1; j++)
+            {
+                if (j == 1)
+                {
+                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == id)
+                    {
+                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
+                        num = int.Parse(n[1].ToString());
+                    }
+                }
+                if (i == 1)
+                {
+                    if (worksheet.Cells[i, j].Value.ToString() == name)
+                    {
+                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
+                        numy =n[0].ToString();
+                    }
+                }
+            }
+        }
+        for (int y = 1; y < 4 + 1; y++)
+        {
+            if (worksheet.Cells[num, y].GetEnumerator().ToString() == numy + num.ToString())
+            {
+                print(worksheet.Cells[num, y].Value.ToString());
+            }
+        } 
+    }
 
     /// <summary>
     /// 创建和删除excel文件
