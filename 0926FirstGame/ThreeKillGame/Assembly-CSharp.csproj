@@ -53,6 +53,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\excelFile\UseEPPlusFun.cs" />
+     <Compile Include="Assets\fight_scripts\CardMove.cs" />
+     <Compile Include="Assets\fight_scripts\FightCardSP.cs" />
      <Compile Include="Assets\Script\AddPrefix.cs" />
      <Compile Include="Assets\Script\BrightnessSaturationAndContrast.cs" />
      <Compile Include="Assets\Script\DropScroll.cs" />
@@ -279,6 +282,9 @@
  </Reference>
  <Reference Include="UnityEngine.SpatialTracking">
  <HintPath>F:/unity/2018.2.21f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
+ </Reference>
+ <Reference Include="EPPlus">
+ <HintPath>F:/dev/GameCommon/0926FirstGame/ThreeKillGame/Assets/excelFile/EPPlus.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.Analytics">
  <HintPath>C:/Users/LOVE/AppData/Local/Unity/cache/packages/packages.unity.com/com.unity.analytics@2.0.16/UnityEngine.Analytics.dll</HintPath>
