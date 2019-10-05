@@ -51,7 +51,7 @@ public class UseEPPlusFun : MonoBehaviour {
                 //print(worksheet.GetValue(i, 1).ToString());
             //}
             //GetValueFromId(5,worksheet);
-            GetSpecificValue(5, worksheet,"3");
+            GetSpecificValue(5, worksheet, "roleName");
                 
 
         }//完成一些列操作后，关闭excel文件
