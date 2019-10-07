@@ -242,6 +242,7 @@ MonoBehaviour:
   money: 2
   playerLevel: 2
   peopleHearts: 55
+  moraleNum: 0
 --- !u!1 &14994253
 GameObject:
   m_ObjectHideFlags: 0

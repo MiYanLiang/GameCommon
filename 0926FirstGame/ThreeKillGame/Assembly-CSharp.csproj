@@ -63,6 +63,7 @@
      <Compile Include="Assets\Script\DropScroll.cs" />
      <Compile Include="Assets\Script\ExitGame.cs" />
      <Compile Include="Assets\Script\FateControl.cs" />
+     <Compile Include="Assets\Script\GoNext.cs" />
      <Compile Include="Assets\Script\HelpControl.cs" />
      <Compile Include="Assets\Script\IdentityChange.cs" />
      <Compile Include="Assets\Script\IdentityControl.cs" />
