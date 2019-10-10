@@ -19,11 +19,12 @@ public class ChangeAndGet : MonoBehaviour {
 
     public GameObject hero_Card;    //英雄卡片预制件
     public Transform preparation;   //备战位
-    ExcelWorksheet worksheet_warriorTable;  //存储武将表
+    TableDatas tableData = new TableDatas();    //存储武将表
+    UseEPPlusFun useepplusfun = new UseEPPlusFun();
     void Awake()
     {
         string tableName = "RoleTable";
-        worksheet_warriorTable = UseEPPlusFun.FindExcelFiles(tableName); //获取武将数据表
+        tableData = useepplusfun.FindExcelFiles(tableName); //获取武将数据表
     }
 
     // Use this for initialization
@@ -92,7 +93,7 @@ public class ChangeAndGet : MonoBehaviour {
             for (int i = 1; i < 21; i++)
             {
                 //存储英雄所有数值
-                heroData.Add(worksheet_warriorTable.Cells[index,i].Value.ToString());
+                heroData.Add(tableData.worksheet.Cells[index,i].Value.ToString());
             }
             int num = 0;
             while (preparation.GetChild(num).childCount>0)
@@ -124,7 +125,7 @@ public class ChangeAndGet : MonoBehaviour {
             ExcelWorksheet worksheet_111file = excelpackge.Workbook.Worksheets[1];
             GetHeroId(btnTag, worksheet_111file);   //获取武将的ID
 
-            GetSpecificValue(heroId, worksheet_warriorTable, "recruitingMoney");
+            GetSpecificValue(heroId, tableData.worksheet, "recruitingMoney");
             //print(price);
         }
     }

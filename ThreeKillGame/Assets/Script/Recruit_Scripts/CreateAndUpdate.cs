@@ -50,11 +50,14 @@ public class CreateAndUpdate : MonoBehaviour {
     public int moraleNum;
     int damageAll;
 
-    ExcelWorksheet worksheet_warriorTable;  //存储武将表
+    UseEPPlusFun useepplusfun = new UseEPPlusFun();
+    TableDatas tableData = new TableDatas();    //存储武将表
+    
     void Awake()
     {
         string tableName = "RoleTable";
-        worksheet_warriorTable = UseEPPlusFun.FindExcelFiles(tableName); //获取武将数据表
+        tableData = useepplusfun.FindExcelFiles(tableName); //获取武将数据表
+
     }
 
 	// Use this for initialization
@@ -84,7 +87,7 @@ public class CreateAndUpdate : MonoBehaviour {
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
-            ExcelWorksheet worksheet1 = worksheet_warriorTable;
+            ExcelWorksheet worksheet1 = tableData.worksheet;
             ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets["RandowTable"];
             //print(worksheet.Cells[2,1].Value.ToString());
             //GetValueFromId(18, worksheet2);
@@ -95,7 +98,7 @@ public class CreateAndUpdate : MonoBehaviour {
             }
             for (int i = 0; i < excelText.Count; i++)
             {
-                GetSpecificValue(excelText[i], worksheet_warriorTable, "roleName");
+                GetSpecificValue(excelText[i], tableData.worksheet, "roleName");
             }
             GetHeroRarity(worksheet1, "rarity");
             GetHeroRarityId(worksheet2);
@@ -115,7 +118,7 @@ public class CreateAndUpdate : MonoBehaviour {
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
-            ExcelWorksheet worksheet1 = worksheet_warriorTable;
+            ExcelWorksheet worksheet1 = tableData.worksheet;
             ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets["RandowTable"];
             GetHeroRarity(worksheet1, "rarity");
             GetHeroRarityId(worksheet2);

@@ -4,35 +4,45 @@ using UnityEngine;
 using System.IO;
 using OfficeOpenXml;    //引入使用EPPlus类库
 
+
+public class TableDatas     //数据表类
+{
+    public ExcelWorksheet worksheet;   //存储表的数据
+
+    public int rows, columns;  //存储表的总行数和列数
+}
+
 public class UseEPPlusFun : MonoBehaviour {
+
+    
 
 	private void Start ()
     {
         //RoleTable
 
-        //FindExcelFiles("RoleTable");
-
-
-        //GetExcelFile(); //读取Excel表格文件
-
-        //UpdateExcelFile();
-
-        //CreatAndDeleteExcel();
+        //TableDatas tableData = FindExcelFiles("RoleTable");
+        //int i = 1;
+        //while (tableData.worksheet.Cells[2, i].Value != null)
+        //{ i++; }
+        //Debug.Log("Excel测试:" + i);
+        
     }
 
     /// <summary>
-    /// 根据表名获取到表数据
+    /// 根据表名获取到表数据存放到TableDatas类中
     /// </summary>
-    /// <param name="tableName"></param>
+    /// <param name="tableName">表名</param>
     /// <returns></returns>
-    public static ExcelWorksheet FindExcelFiles(string tableName)
+    public TableDatas FindExcelFiles(string tableName)
     {
         string filePath = Application.streamingAssetsPath + "\\TableFiles\\GameTable.xlsx";  //StreamingAssets文件夹的相对路径
         FileInfo fileinfo = new FileInfo(filePath);
         Debug.Log("打开文件路径："+fileinfo);
         ExcelPackage excelPackage = new ExcelPackage(fileinfo);
-        ExcelWorksheet worksheet = excelPackage.Workbook.Worksheets[tableName];
-        if (worksheet == null || excelPackage == null)
+        TableDatas tableData = new TableDatas();
+        tableData.worksheet = excelPackage.Workbook.Worksheets[tableName];
+
+        if (tableData.worksheet == null || excelPackage == null)
         {
             Debug.Log(tableName + "表数据或许为null");
             return null;
@@ -40,9 +50,87 @@ public class UseEPPlusFun : MonoBehaviour {
         else
         {
             Debug.Log("获取 " + tableName + " 表数据 " + excelPackage);
-            return worksheet;
+            int num = 1;
+            //计算表的总行数和列数
+            while (tableData.worksheet.Cells[num++, 1].Value != null){ }
+            tableData.rows = num - 2;
+            num = 1;
+            while (tableData.worksheet.Cells[1, num++].Value != null) { }
+            tableData.columns = num - 2;
+            return tableData;
+        }
+
+        
+
+
+    }
+
+    /// <summary>
+    /// 根据行列值获取表数据类中的某个数据
+    /// </summary>
+    /// <param name="tabledata"></param>
+    /// <param name="row"></param>
+    /// <param name="column"></param>
+    /// <returns></returns>
+    public string GetRowAndColumnData(TableDatas tabledata, int row, int column)
+    {
+        if (row > tabledata.rows || column > tabledata.columns)
+        {
+            Debug.Log("索引超出表格范围！");
+            return null;
+        }
+        else
+        {
+            if (tabledata.worksheet.Cells[row,column].Value==null)
+            {
+                Debug.Log("该表格数据为空");
+                return "";
+            }
+            else
+            {
+                return tabledata.worksheet.Cells[row, column].Value.ToString();
+            }
         }
     }
+
+    /// <summary>
+    /// 获取到相应行的所有数据
+    /// </summary>
+    /// <param name="tabledata"></param>
+    /// <param name="row"></param>
+    /// <returns></returns>
+    public List<string> GetRowDatas(TableDatas tabledata, int row)
+    {
+        List<string> datas = new List<string>();
+        int i = 1;
+        while (i <= tabledata.columns)
+        {
+            datas.Add((tabledata.worksheet.Cells[row, i].Value != null) ? tabledata.worksheet.Cells[row, i].Value.ToString() : "");
+        }
+        return datas;
+    }
+
+    /// <summary>
+    /// 获取到相应列的所有数据
+    /// </summary>
+    /// <param name="tabledata"></param>
+    /// <param name="column"></param>
+    /// <returns></returns>
+    public List<string> GetColumnDatas(TableDatas tabledata, int column)
+    {
+        List<string> datas = new List<string>();
+        int i = 1;
+        while (i <= tabledata.rows)
+        {
+            datas.Add((tabledata.worksheet.Cells[i, column].Value != null) ? tabledata.worksheet.Cells[i, column].Value.ToString() : "");
+        }
+        return datas;
+    }
+
+
+
+
+
 
 
     /// <summary>
