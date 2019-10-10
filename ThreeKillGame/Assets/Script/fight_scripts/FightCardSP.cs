@@ -5,22 +5,46 @@ using UnityEngine;
 
 public class FightCardSP : MonoBehaviour
 {
-
     private int roundNum;   //记录当前回合数量
     private int fightNum;   //记录当前攻击武将的位置
     private bool isPlayerBout;  //记录是否是玩家的武将攻击回合
     public static bool isFightNow;  //记录现在是否正在攻击
 
 
+    public Transform jiugongge_player;  //记录上阵九宫格
+    public GameObject heroFightCard; //英雄战斗卡片
+    public Transform OwnJiuGonggePos;  //玩家自己卡牌战斗槽位置
     public GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
-    public GameObject[] playerCards = new GameObject[9];//存储己方卡牌
+    GameObject[] playerCards = new GameObject[9];//存储己方卡牌
 
-    private void Awake()
+    /// <summary>
+    /// 初始化战斗卡牌
+    /// </summary>
+    public void InitializeBattleCard()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (jiugongge_player.GetChild(i).childCount > 0)
+            {
+                playerCards[i] = Instantiate(heroFightCard, OwnJiuGonggePos.GetChild(i));
+                heroFightCard.transform.position = new Vector3(0, 0, 0);
+                playerCards[i].AddComponent<CardMove>();
+                //heroFightCard.transform.SetParent(OwnJiuGonggePos.GetChild(i));
+            }
+        }
+        OtherInitialization();
+    }
+
+    private void Start()
     {
         fightNum = 0;
         roundNum = 1;
         isPlayerBout = true;
         isFightNow = false;
+    }
+
+    private void OtherInitialization()
+    {
         //敌方卡牌初始化
         for (int i = 0; i < enemyCards.Length; i++)
         {
@@ -36,7 +60,6 @@ public class FightCardSP : MonoBehaviour
         {
             if (playerCards[i] != null)
             {
-                playerCards[i].AddComponent<CardMove>();
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
             }
         }
@@ -122,7 +145,7 @@ public class FightCardSP : MonoBehaviour
             else
             {
                 selectEnemy = 0;
-                while (enemyCards[selectEnemy].GetComponent<CardMove>().Health <= 0 || enemyCards[selectEnemy] == null)
+                while (enemyCards[selectEnemy] == null || enemyCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
                 {
                     selectEnemy++;
                     if (selectEnemy > enemyCards.Length)
@@ -143,7 +166,7 @@ public class FightCardSP : MonoBehaviour
             else
             {
                 selectEnemy = 0;
-                while (playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0 || playerCards[selectEnemy] == null)
+                while (playerCards[selectEnemy] == null || playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
                 {
                     selectEnemy++;
                     if (selectEnemy > playerCards.Length)
