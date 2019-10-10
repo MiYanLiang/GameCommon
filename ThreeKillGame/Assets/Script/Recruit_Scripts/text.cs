@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using System.IO;
 using OfficeOpenXml;    //引入使用EPPlus类库
 
-public class CreateAndUpdate : MonoBehaviour
+public class text : MonoBehaviour
 {
 
     List<int> heroId = new List<int>();
@@ -50,6 +50,17 @@ public class CreateAndUpdate : MonoBehaviour
     int peopleHearts_red;
     public int moraleNum;
     int damageAll;
+
+    UseEPPlusFun useepplusfun = new UseEPPlusFun();
+    TableDatas tableData = new TableDatas();    //存储武将表
+
+    void Awake()
+    {
+        string tableName = "RoleTable";
+        tableData = useepplusfun.FindExcelFiles(tableName); //获取武将数据表
+
+    }
+
     // Use this for initialization
     void Start()
     {
@@ -75,12 +86,12 @@ public class CreateAndUpdate : MonoBehaviour
     {
         excelText.Clear();
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
+            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["RoleTable"];
+            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets["RandowTable"];
             //print(worksheet.Cells[2,1].Value.ToString());
             //GetValueFromId(18, worksheet2);
             for (int i = 0; i < myCard.Count; i++)
@@ -90,7 +101,7 @@ public class CreateAndUpdate : MonoBehaviour
             }
             for (int i = 0; i < excelText.Count; i++)
             {
-                GetSpecificValue(excelText[i], worksheet1, "roleName");
+                GetSpecificValue(excelText[i], tableData.worksheet, "roleName");
             }
             GetHeroRarity(worksheet1, "rarity");
             GetHeroRarityId(worksheet2);
@@ -99,7 +110,6 @@ public class CreateAndUpdate : MonoBehaviour
                 //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
                 print(getCardId[i]);
             }
-            //print(worksheet1.Cells.Columns);
         }
     }
     //读取获得各种稀有度英雄
@@ -107,12 +117,12 @@ public class CreateAndUpdate : MonoBehaviour
     {
         excelText.Clear();
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
+            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["RoleTable"];
+            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets["RandowTable"];
             GetHeroRarity(worksheet1, "rarity");
             GetHeroRarityId(worksheet2);
         }
@@ -122,14 +132,13 @@ public class CreateAndUpdate : MonoBehaviour
     {
         excelText.Clear();
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSpecificValue(1, worksheet1, "attack");
-            print(attack);
-        }
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //ExcelWorksheet worksheet1 = worksheet_warriorTable;
+        //GetSpecificValue(1, worksheet_warriorTable, "attack");
+        print(attack);
+        //}
     }
     //玩家卡牌随机
     void RandomList()
@@ -1548,7 +1557,7 @@ public class CreateAndUpdate : MonoBehaviour
     {
         int Num = 0;
         string rowTxt = "";
-        for (int i = 1; i < 784 + 1; i++)
+        for (int i = 1; i < 850 + 1; i++)
         {
             for (int j = 1; j < 2 + 1; j++)
             {
@@ -1579,7 +1588,7 @@ public class CreateAndUpdate : MonoBehaviour
         int num = 0;
         string numy = "";
         string rowTxt = "";
-        for (int i = 1; i < 87 + 1; i++)
+        for (int i = 1; i < 106 + 1; i++)
         {
             for (int j = 1; j < 21 + 1; j++)
             {
@@ -1633,7 +1642,7 @@ public class CreateAndUpdate : MonoBehaviour
     void GetHeroRarity(ExcelWorksheet worksheet, string name)
     {
         string numy = "";
-        for (int i = 1; i < 87 + 1; i++)
+        for (int i = 1; i < 106 + 1; i++)
         {
             for (int j = 1; j < 21 + 1; j++)
             {
@@ -1673,7 +1682,7 @@ public class CreateAndUpdate : MonoBehaviour
     //在表2中拿到相关稀有度的英雄Id并存储
     void GetHeroRarityId(ExcelWorksheet worksheet)
     {
-        for (int i = 1; i < 784 + 1; i++)
+        for (int i = 1; i < 850 + 1; i++)
         {
             if (i > 1)
             {
