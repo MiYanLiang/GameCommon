@@ -26,7 +26,7 @@ public class HeroDataControll : MonoBehaviour {
     {
         if (heroData != null)
         {
-            Debug.Log(heroData[2]);
+            Debug.Log("//传递成功--"+heroData[1]);
             //显示英雄名等信息
             gameObject.transform.GetChild(0).GetComponent<Text>().text = heroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = heroData[6];

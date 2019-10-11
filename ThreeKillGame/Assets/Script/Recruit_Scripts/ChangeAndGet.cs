@@ -86,12 +86,13 @@ public class ChangeAndGet : MonoBehaviour
                 }
             }
             //实例化武将卡牌到备战位,并传递数据过去
-            Instantiate(hero_Card, preparation.GetChild(num));
+            GameObject newheroCard = Instantiate(hero_Card, preparation.GetChild(num));
             //hero_Card.transform.SetParent(preparation.GetChild(num));
-            hero_Card.transform.position = preparation.GetChild(num).position;
-            hero_Card.transform.position = new Vector3(0, 0, 0);
-            hero_Card.GetComponent<HeroDataControll>().heroData = heroData;
-            hero_Card.GetComponent<HeroDataControll>().ShowThisHeroData();
+            newheroCard.transform.position = preparation.GetChild(num).position;
+            //newheroCard.transform.position = new Vector3(0, 0, 0);
+            newheroCard.AddComponent<HeroDataControll>();
+            newheroCard.GetComponent<HeroDataControll>().heroData = heroData;
+            newheroCard.GetComponent<HeroDataControll>().ShowThisHeroData();
             heroData.Clear();
 
         }

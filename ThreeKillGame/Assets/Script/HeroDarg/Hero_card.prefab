@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 56
+  m_Text: 
 --- !u!1 &5760532879993438556
 GameObject:
   m_ObjectHideFlags: 0
@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 6521204432748774449}
   - component: {fileID: 278681616237987811}
   - component: {fileID: 3481649041332553580}
-  - component: {fileID: 3891735757123244849}
   m_Layer: 5
   m_Name: Hero_card
   m_TagString: Card
@@ -236,19 +235,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c986f0247c8dad84a8a4c439462286c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &3891735757123244849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5760532879993438556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9496198c8ede221478c463de4456c328, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  heroData: []
 --- !u!1 &7660007700779504347
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,7 +313,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 68
+  m_Text: 
 --- !u!1 &8720646319320420980
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,4 +392,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u5C71\u9B3C"
+  m_Text: 
