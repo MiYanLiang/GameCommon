@@ -981,6 +981,8 @@ public class CreateAndUpdate : MonoBehaviour
     //玩家点击刷新
     public void UpdateCard()
     {
+
+
         SetPeopleHarets();
         myCard.Clear();
         heroName.Clear();
@@ -1530,6 +1532,7 @@ public class CreateAndUpdate : MonoBehaviour
         for (int i = 0; i < myCard.Count; i++)
         {
             heroBtn[i].transform.Find("Image").gameObject.SetActive(false);
+            heroBtn[i].GetComponent<Button>().enabled = true;   //开启点击事件
         }
     }
     //招募显示

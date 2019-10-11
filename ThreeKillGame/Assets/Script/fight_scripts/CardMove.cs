@@ -12,15 +12,15 @@ public enum StateOfAttack
 
 public class CardMove : MonoBehaviour
 {
-
-    private int moveSpeed = 1000;    //卡牌移动速度
-
-
+    private int moveSpeed = 500;    //卡牌移动速度
+    
     private int realDamage; //造成的真实伤害
 
     public bool isFightInThisBout; //当前回合是否进行过攻击
 
     private int fullhealth;//满血量
+    public int Fullhealth { get => fullhealth; set => fullhealth = value; }
+
     private int health; //血量
     public int Health
     {
@@ -177,8 +177,7 @@ public class CardMove : MonoBehaviour
             critDamage = value;
         }
     }
-
-
+    
     private float armorPenetrationRate; //破甲百分比
     public float ArmorPenetrationRate
     {
@@ -193,13 +192,14 @@ public class CardMove : MonoBehaviour
         }
     }
 
+
     Vector3 vec = new Vector3();    //记录卡牌初始位置
 
     private void Awake()
     {
         isFightInThisBout = false;
         Health = 100;
-        fullhealth = health;
+        Fullhealth = health;
         Force = 60;
         Defence = 5;
         ChangeToFight(StateOfAttack.ReadyForFight);
@@ -221,7 +221,7 @@ public class CardMove : MonoBehaviour
                 enemyindex.GetComponent<CardMove>().Health = enemyindex.GetComponent<CardMove>().Health - realDamage;
                 if (enemyindex.GetComponent<CardMove>().Health < 0)
                     enemyindex.GetComponent<CardMove>().Health = 0;
-                enemyindex.GetComponent<Slider>().value = ((float)enemyindex.GetComponent<CardMove>().Health) / ((float)enemyindex.GetComponent<CardMove>().fullhealth);
+                enemyindex.GetComponent<Slider>().value = ((float)enemyindex.GetComponent<CardMove>().Health) / ((float)enemyindex.GetComponent<CardMove>().Fullhealth);
             }
         }
         if (IsAttack == StateOfAttack.FightOver)

@@ -33,7 +33,7 @@ public class UseEPPlusFun : MonoBehaviour {
     /// <returns></returns>
     public TableDatas FindExcelFiles(string tableName)
     {
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\GameTable.xlsx";  //StreamingAssets文件夹的相对路径
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //StreamingAssets文件夹的相对路径
         FileInfo fileinfo = new FileInfo(filePath);
         Debug.Log("打开文件路径："+fileinfo);
         ExcelPackage excelPackage = new ExcelPackage(fileinfo);
@@ -57,10 +57,6 @@ public class UseEPPlusFun : MonoBehaviour {
             tableData.columns = num - 2;
             return tableData;
         }
-
-        
-
-
     }
 
     /// <summary>

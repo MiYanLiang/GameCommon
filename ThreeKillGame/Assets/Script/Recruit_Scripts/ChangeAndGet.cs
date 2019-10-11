@@ -38,6 +38,7 @@ public class ChangeAndGet : MonoBehaviour
         {
             boolIndex = true;
             transform.Find("Image").gameObject.SetActive(true);
+            transform.GetComponent<Button>().enabled = false;   //关闭点击事件
             //print(btnTag);
             money = money - price;
             GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money = money;
@@ -86,10 +87,11 @@ public class ChangeAndGet : MonoBehaviour
             }
             //实例化武将卡牌到备战位,并传递数据过去
             Instantiate(hero_Card, preparation.GetChild(num));
-            hero_Card.transform.position = new Vector3(0, 0, 0);
-            hero_Card.transform.SetParent(preparation.GetChild(num));
+            //hero_Card.transform.SetParent(preparation.GetChild(num));
             hero_Card.transform.position = preparation.GetChild(num).position;
+            hero_Card.transform.position = new Vector3(0, 0, 0);
             hero_Card.GetComponent<HeroDataControll>().heroData = heroData;
+            hero_Card.GetComponent<HeroDataControll>().ShowThisHeroData();
             heroData.Clear();
 
         }
@@ -123,6 +125,40 @@ public class ChangeAndGet : MonoBehaviour
             //print(price);
         }
     }
+
+    //获取表中英雄的所有数据
+    void GetHeroDateFromId(int id, ExcelWorksheet worksheet)
+    {
+        int num = 0;
+        string rowTxt = "";
+        for (int i = 1; i < 87 + 1; i++)
+        {
+            for (int j = 1; j < 21 + 1; j++)
+            {
+                if (j == 1 && i > 1)
+                {
+                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == id)    //通过Id获取当前单元格在第几行
+                    {
+                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
+                        for (int x = 0; x < n.Length; x++)
+                        {
+                            if (x > 0)
+                            {
+                                rowTxt = rowTxt + n[x];
+                            }
+                        }
+                        num = int.Parse(rowTxt);
+                    }
+                }
+            }
+        }
+        for (int y = 1; y < 15 + 1; y++)
+        {
+            //获取存储该英雄的所有数据到heroData
+            heroData.Add(worksheet.Cells[num, y].Value.ToString());
+        }
+    }
+
     //获取表中英雄的价格
     void GetSpecificValue(int id, ExcelWorksheet worksheet, string name)
     {
@@ -169,37 +205,7 @@ public class ChangeAndGet : MonoBehaviour
             }
         }
     }
-    //获取表中英雄的所有数据
-    void GetHeroDateFromId(int id, ExcelWorksheet worksheet)
-    {
-        int num = 0;
-        string rowTxt = "";
-        for (int i = 1; i < 87 + 1; i++)
-        {
-            for (int j = 1; j < 21 + 1; j++)
-            {
-                if (j == 1 && i > 1)
-                {
-                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == id)    //通过Id获取当前单元格在第几行
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        for (int x = 0; x < n.Length; x++)
-                        {
-                            if (x > 0)
-                            {
-                                rowTxt = rowTxt + n[x];
-                            }
-                        }
-                        num = int.Parse(rowTxt);
-                    }
-                }
-            }
-        }
-        for (int y = 1; y < 15 + 1; y++)
-        {
-            heroData.Add(worksheet.Cells[num, y].Value.ToString());
-        }
-    }
+    
     //在表一中拿到点击英雄的id
     void GetHeroId(int num, ExcelWorksheet worksheet)
     {
