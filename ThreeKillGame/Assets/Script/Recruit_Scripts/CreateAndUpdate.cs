@@ -97,7 +97,7 @@ public class CreateAndUpdate : MonoBehaviour
             for (int i = 0; i < getCardId.Count; i++)
             {
                 //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
-                print(getCardId[i]);
+                print("CardId:"+ getCardId[i]);
             }
             //print(worksheet1.Cells.Columns);
         }
@@ -128,7 +128,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
             GetSpecificValue(1, worksheet1, "attack");
-            print(attack);
+            //print(attack);
         }
     }
     //玩家卡牌随机
@@ -982,7 +982,7 @@ public class CreateAndUpdate : MonoBehaviour
     public void UpdateCard()
     {
 
-
+        getCardId.Clear();
         SetPeopleHarets();
         myCard.Clear();
         heroName.Clear();

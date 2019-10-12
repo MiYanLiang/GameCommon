@@ -74,7 +74,7 @@ public class ChangeAndGet : MonoBehaviour
         {
             txt.GetComponent<Text>().text = txt.GetComponent<Text>().text + getCard[getCard.Count - 1].ToString() + "  ";
             GetExcelFile2();
-            print(heroId);
+            print("heroId:"+heroId);
             int num = 0;
             while (preparation.GetChild(num).childCount > 0)
             {
