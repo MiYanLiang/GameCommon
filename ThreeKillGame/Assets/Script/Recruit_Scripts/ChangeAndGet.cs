@@ -20,6 +20,7 @@ public class ChangeAndGet : MonoBehaviour
     public GameObject hero_Card;    //英雄卡片预制件
     public Transform preparation;   //备战位
     List<string> heroData = new List<string>();
+    List<int> ChickenRibsHeroId = new List<int>();  //存放所有的拥有的英雄Id
     // Use this for initialization
     void Start()
     {
@@ -34,6 +35,7 @@ public class ChangeAndGet : MonoBehaviour
     public void ChangeBtnColor()
     {
         GetExcelFile1();
+        ChickenRibsHeroId.Add(heroId);
         if (money >= price)
         {
             boolIndex = true;
@@ -60,6 +62,7 @@ public class ChangeAndGet : MonoBehaviour
         btnTag = int.Parse(btn.name);
         mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
         money = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money;
+        ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
         //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
         //for (int i = 0; i < GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId.Count; i++)
         //{
@@ -74,7 +77,7 @@ public class ChangeAndGet : MonoBehaviour
         {
             txt.GetComponent<Text>().text = txt.GetComponent<Text>().text + getCard[getCard.Count - 1].ToString() + "  ";
             GetExcelFile2();
-            print("heroId:"+heroId);
+            print("heroId:" + heroId);
             int num = 0;
             while (preparation.GetChild(num).childCount > 0)
             {
@@ -113,6 +116,7 @@ public class ChangeAndGet : MonoBehaviour
             ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
             GetHeroId(btnTag, worksheet2);
             GetSpecificValue(heroId, worksheet1, "recruitingMoney");
+            //ChickenRibsHeroId.Add(heroId);
             //print(price);
         }
     }

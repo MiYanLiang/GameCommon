@@ -17,6 +17,8 @@ public class CreateAndUpdate : MonoBehaviour
     public List<int> getCardId = new List<int>();
     [HideInInspector]
     public List<int> sendCardId = new List<int>();
+    [HideInInspector]
+    public List<int> ChickenRibsHeroId = new List<int>();
     List<int> playerCardAll = new List<int>();
     List<int> player1Card = new List<int>();
     List<int> player2Card = new List<int>();

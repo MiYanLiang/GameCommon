@@ -398,6 +398,7 @@ MonoBehaviour:
   getCard: []
   getCardId: 
   sendCardId: 
+  ChickenRibsHeroId: 
   heroBtn:
   - {fileID: 822489761}
   - {fileID: 598001222}
@@ -5028,6 +5029,7 @@ GameObject:
   m_Component:
   - component: {fileID: 715868100}
   - component: {fileID: 715868101}
+  - component: {fileID: 715868102}
   m_Layer: 5
   m_Name: ChickenRibs
   m_TagString: Untagged
@@ -5069,6 +5071,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ChickenRibsPanel: {fileID: 715868099}
+--- !u!114 &715868102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 715868099}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae86de4b18c451047b2248fa4216c2de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &737558222
 GameObject:
   m_ObjectHideFlags: 0
