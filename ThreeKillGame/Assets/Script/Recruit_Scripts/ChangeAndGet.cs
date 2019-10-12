@@ -92,8 +92,12 @@ public class ChangeAndGet : MonoBehaviour
             //newheroCard.transform.position = new Vector3(0, 0, 0);
             newheroCard.AddComponent<HeroDataControll>();
             newheroCard.GetComponent<HeroDataControll>().heroData = heroData;
+            //Debug.Log("///ChangeAndGet///+" + newheroCard.GetComponent<HeroDataControll>().heroData.Count);
+
             newheroCard.GetComponent<HeroDataControll>().ShowThisHeroData();
-            heroData.Clear();
+            preparation.GetChild(num).GetChild(0).GetComponent<HeroDataControll>().heroData = heroData;
+            
+            //heroData.Clear();
 
         }
     }

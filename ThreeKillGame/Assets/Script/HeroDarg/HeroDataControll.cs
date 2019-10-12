@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HeroDataControll : MonoBehaviour {
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<string> heroData=new List<string>(); //存储当前武将的数据
     //index	    roleName	所属势力    soldierKind	  rarity  recruitingMoney  attack    defense	soldierNum	    闪避率	
     //0         1           2           3             4       5                6         7          8               9       
@@ -26,7 +26,7 @@ public class HeroDataControll : MonoBehaviour {
     {
         if (heroData != null)
         {
-            Debug.Log("//传递成功--"+heroData[1]);
+            //Debug.Log("//传递成功--"+heroData[1]);
             //显示英雄名等信息
             gameObject.transform.GetChild(0).GetComponent<Text>().text = heroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = heroData[6];

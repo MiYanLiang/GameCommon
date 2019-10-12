@@ -19,7 +19,7 @@ public class UIDynamicDisplay : MonoBehaviour
     /// <summary>
     /// 刷新 上阵0/0 和 备战0/0 的值
     /// </summary>
-    private void ChangeNumOfPeople()
+    public void ChangeNumOfPeople()
     {
         int sum, own_car=0;
         sum = parentTf.childCount;

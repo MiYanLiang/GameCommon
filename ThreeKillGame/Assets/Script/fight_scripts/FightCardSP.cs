@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FightCardSP : MonoBehaviour
 {
-    private bool isEndOFInit;   //记录是否初始化结束
+    private bool isEndOFInit = false;   //记录是否初始化结束
     private int roundNum;   //记录当前回合数量
     private int fightNum;   //记录当前攻击武将的位置
     private bool isPlayerBout;  //记录是否是玩家的武将攻击回合
@@ -18,12 +19,12 @@ public class FightCardSP : MonoBehaviour
     
     [SerializeField]
     GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
+    [SerializeField]
     GameObject[] playerCards = new GameObject[9];//存储己方卡牌
 
 
     private void Start()
     {
-        isEndOFInit = false;
         fightNum = 0;
         roundNum = 1;
         isPlayerBout = true;
@@ -32,7 +33,9 @@ public class FightCardSP : MonoBehaviour
 
     private void OnEnable()
     {
+        //Debug.Log("OnEnable()执行");
         InitializeBattleCard();
+        
         isEndOFInit = true;
     }
 
@@ -47,7 +50,7 @@ public class FightCardSP : MonoBehaviour
             if (jiugongge_BrforeFight.GetChild(i).childCount>0)
             {
                 playerCards[i]=Instantiate(heroFightCard,OwnJiuGonggePos[i]);
-                playerCards[i].transform.position = new Vector3(0,0,0);
+                playerCards[i].transform.position = OwnJiuGonggePos[i].position;
                 playerCards[i].transform.SetParent(OwnJiuGonggePos[i].parent.parent);
             }
         }
@@ -64,9 +67,10 @@ public class FightCardSP : MonoBehaviour
                 //enemyCards[i].AddComponent<CardMove>();
                 
                 enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = 100;
-                enemyCards[i].GetComponent<CardMove>().Force = 60;
-                enemyCards[i].GetComponent<CardMove>().Defence = 5;
+                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = 1000;
+                enemyCards[i].GetComponent<CardMove>().Force = 1;
+                enemyCards[i].GetComponent<CardMove>().Defence = 50;
+                enemyCards[i].GetComponent<CardMove>().OtherDataSet();
             }
         }
         //玩家卡牌初始化
@@ -74,13 +78,15 @@ public class FightCardSP : MonoBehaviour
         {
             if (playerCards[i] != null)
             {
-                Debug.Log("///////+"+jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData.Count);//
+                //Debug.Log("///FightCardSP////+" + jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData.Count);//
                 //playerCards[i].AddComponent<CardMove>();
-                //设置地方卡牌的默认先后手情况/血量/攻击力/防御力
+                //设置地方卡牌的默认先后手情况/血量/攻击力/防御力/名字
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
                 playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[8]);
                 playerCards[i].GetComponent<CardMove>().Force = int.Parse(jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[6]);
                 playerCards[i].GetComponent<CardMove>().Defence = int.Parse(jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[7]);
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[1];
+                playerCards[i].GetComponent<CardMove>().OtherDataSet();
             }
         }
 
@@ -96,6 +102,7 @@ public class FightCardSP : MonoBehaviour
         //回合增加
         if (fightNum >= playerCards.Length)
         {
+            Debug.Log("///回合数=" + roundNum);
             roundNum++;
             fightNum = 0;
         }
@@ -154,8 +161,10 @@ public class FightCardSP : MonoBehaviour
             }
             return;
         }
-
+        fightNum++;
     }
+
+
     int selectEnemy;
     //找到要攻击的对手
     private GameObject FindAnalogue(int i)

@@ -198,13 +198,19 @@ public class CardMove : MonoBehaviour
     private void Awake()
     {
         isFightInThisBout = false;
-        Health = 100;
-        Fullhealth = health;
-        Force = 60;
-        Defence = 5;
+
+    }
+
+    /// <summary>
+    /// 其他必要值的赋值
+    /// </summary>
+    public void OtherDataSet()
+    {
         ChangeToFight(StateOfAttack.ReadyForFight);
         vec = gameObject.transform.position;
         realDamage = force;
+        //Debug.Log("//vec//" + vec);
+        //Debug.Log("//force//" + force);
     }
 
     private void Update()
@@ -261,8 +267,8 @@ public class CardMove : MonoBehaviour
             }
         }
 
-        //添加破甲值的计算
-        return force - (int)(enemyindex.GetComponent<CardMove>().defence * (1 - armorPenetrationRate));
+        //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
+        return (int)(force * (140 / (70 + enemyindex.GetComponent<CardMove>().defence * (1 - armorPenetrationRate))));
     }
 
 

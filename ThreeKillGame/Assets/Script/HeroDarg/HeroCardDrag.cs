@@ -94,7 +94,8 @@ public class HeroCardDrag : MonoBehaviour {
             transform.GetComponent<Image>().raycastTarget = true;
         }
         //transform.GetChild(0).gameObject.SetActive(true);
-
+        GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
+        GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
     }
 
     /// <summary>
