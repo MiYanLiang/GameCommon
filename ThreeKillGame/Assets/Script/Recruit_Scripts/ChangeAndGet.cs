@@ -32,8 +32,25 @@ public class ChangeAndGet : MonoBehaviour
     {
 
     }
+    
+    public void GetResidueCard()
+    {
+        if (SearchEmptyEpace(0) == -1) { return; }  //若没有空位直接返回
+        btnNum = btn.GetComponentInChildren<Text>().text;
+        btnTag = int.Parse(btn.name);
+        mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
+        money = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money;
+        ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
+        //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
+        //for (int i = 0; i < GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId.Count; i++)
+        //{
+        //    print(GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId[i]);
+        //}
+    }
+
     public void ChangeBtnColor()
     {
+        if (SearchEmptyEpace(0) == -1) { return; }  //若没有空位直接返回
         GetExcelFile1();
         ChickenRibsHeroId.Add(heroId);
         if (money >= price)
@@ -56,38 +73,23 @@ public class ChangeAndGet : MonoBehaviour
             getCard.Add(btnNum);
         }
     }
-    public void GetResidueCard()
-    {
-        btnNum = btn.GetComponentInChildren<Text>().text;
-        btnTag = int.Parse(btn.name);
-        mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
-        money = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money;
-        ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
-        //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
-        //for (int i = 0; i < GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId.Count; i++)
-        //{
-        //    print(GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId[i]);
-        //}
-    }
+    
+
     //购买英雄
     public void UpdateGetCard()
     {
         //getCard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard;
         if (boolIndex == true)
         {
+            int num = 0;
+            num = SearchEmptyEpace(num);
+            if (num == -1) { return; }
+
             txt.GetComponent<Text>().text = txt.GetComponent<Text>().text + getCard[getCard.Count - 1].ToString() + "  ";
             GetExcelFile2();
             print("heroId:" + heroId);
-            int num = 0;
-            while (preparation.GetChild(num).childCount > 0)
-            {
-                num++;
-                if (num >= preparation.childCount)
-                {
-                    Debug.Log("备战位已满");
-                    return;
-                }
-            }
+            Debug.Log("heroData,name//"+ heroData[1]);
+            
             //实例化武将卡牌到备战位,并传递数据过去
             GameObject newheroCard = Instantiate(hero_Card, preparation.GetChild(num));
             //hero_Card.transform.SetParent(preparation.GetChild(num));
@@ -99,11 +101,28 @@ public class ChangeAndGet : MonoBehaviour
 
             newheroCard.GetComponent<HeroDataControll>().ShowThisHeroData();
             preparation.GetChild(num).GetChild(0).GetComponent<HeroDataControll>().heroData = heroData;
-            
-            //heroData.Clear();
-
         }
     }
+
+    /// <summary>
+    /// 查询备战位是否有空位
+    /// </summary>
+    /// <param name="num"></param>
+    /// <returns></returns>
+    private int SearchEmptyEpace(int num)
+    {
+        while (preparation.GetChild(num).childCount > 0)
+        {
+            num++;
+            if (num >= preparation.childCount)
+            {
+                Debug.Log("备战位已满");
+                return -1;
+            }
+        }
+        return num;
+    }
+
     //读表
     void GetExcelFile1()
     {
@@ -161,6 +180,7 @@ public class ChangeAndGet : MonoBehaviour
                 }
             }
         }
+        heroData.Clear();   //清空上一次所购买的英雄数据
         for (int y = 1; y < 15 + 1; y++)
         {
             //获取存储该英雄的所有数据到heroData

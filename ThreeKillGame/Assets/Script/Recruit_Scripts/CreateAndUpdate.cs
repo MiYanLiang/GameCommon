@@ -99,7 +99,7 @@ public class CreateAndUpdate : MonoBehaviour
             for (int i = 0; i < getCardId.Count; i++)
             {
                 //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
-                print("CardId:"+ getCardId[i]);
+                //print("CardId:"+ getCardId[i]);
             }
             //print(worksheet1.Cells.Columns);
         }

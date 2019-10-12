@@ -67,7 +67,7 @@ public class FightCardSP : MonoBehaviour
                 //enemyCards[i].AddComponent<CardMove>();
                 
                 enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = 1000;
+                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = 200;
                 enemyCards[i].GetComponent<CardMove>().Force = 1;
                 enemyCards[i].GetComponent<CardMove>().Defence = 50;
                 enemyCards[i].GetComponent<CardMove>().OtherDataSet();
@@ -102,15 +102,15 @@ public class FightCardSP : MonoBehaviour
         //回合增加
         if (fightNum >= playerCards.Length)
         {
-            Debug.Log("///回合数=" + roundNum);
+            Debug.Log("///回合" + roundNum + "结束///");
             roundNum++;
             fightNum = 0;
         }
         //若有武将正在攻击
         if (isFightNow)
             return;
-
-        if (playerCards[fightNum] != null && playerCards[fightNum].GetComponent<CardMove>().IsAttack_first && playerCards[fightNum].GetComponent<CardMove>().Health > 0)
+        //  玩家卡牌槽此位置有卡牌            此卡牌位为先手攻击                                                 此卡牌为后手                                                     敌方此卡牌位无卡牌                玩家此卡牌位卡牌武将血量不为零
+        if (playerCards[fightNum] != null && (playerCards[fightNum].GetComponent<CardMove>().IsAttack_first || (!playerCards[fightNum].GetComponent<CardMove>().IsAttack_first && enemyCards[fightNum] == null)) && playerCards[fightNum].GetComponent<CardMove>().Health > 0)
         {
             if (!playerCards[fightNum].GetComponent<CardMove>().isFightInThisBout)
             {
@@ -138,7 +138,7 @@ public class FightCardSP : MonoBehaviour
             return;
         }
 
-        if (enemyCards[fightNum] != null && enemyCards[fightNum].GetComponent<CardMove>().IsAttack_first && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
+        if (enemyCards[fightNum] != null && (enemyCards[fightNum].GetComponent<CardMove>().IsAttack_first || (!enemyCards[fightNum].GetComponent<CardMove>().IsAttack_first && playerCards[fightNum] == null)) && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
         {
             if (!enemyCards[fightNum].GetComponent<CardMove>().isFightInThisBout)
             {
@@ -181,7 +181,7 @@ public class FightCardSP : MonoBehaviour
                 while (enemyCards[selectEnemy] == null || enemyCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
                 {
                     selectEnemy++;
-                    if (selectEnemy > enemyCards.Length)
+                    if (selectEnemy >= enemyCards.Length)
                     {
                         Debug.Log("玩家获胜");
                         return null;
@@ -202,7 +202,7 @@ public class FightCardSP : MonoBehaviour
                 while (playerCards[selectEnemy] == null || playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
                 {
                     selectEnemy++;
-                    if (selectEnemy > playerCards.Length)
+                    if (selectEnemy >= playerCards.Length)
                     {
                         Debug.Log("电脑获胜");
                         return null;
