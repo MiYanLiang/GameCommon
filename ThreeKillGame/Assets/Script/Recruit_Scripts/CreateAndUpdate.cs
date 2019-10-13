@@ -7,7 +7,6 @@ using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class CreateAndUpdate : MonoBehaviour
 {
-
     List<int> heroId = new List<int>();
     [HideInInspector]
     public List<int> myCard = new List<int>();
@@ -50,7 +49,8 @@ public class CreateAndUpdate : MonoBehaviour
     int peopleHearts_purple;
     int peopleHearts_orange;
     int peopleHearts_red;
-    public int moraleNum;
+    public int moraleNum;   //士气
+    public int hp;//血量
     int damageAll;
     // Use this for initialization
     void Start()
@@ -70,7 +70,7 @@ public class CreateAndUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     //读取excel表格
     void GetExcelFile()
@@ -983,56 +983,17 @@ public class CreateAndUpdate : MonoBehaviour
     //玩家点击刷新
     public void UpdateCard()
     {
-
-        getCardId.Clear();
-        SetPeopleHarets();
-        myCard.Clear();
-        heroName.Clear();
-        switch (level)
+        if (money > 2)
         {
-            case 1:
-                while (myCard.Count < count)
-                {
-                    temp_num = Random.Range(0, greenCard.Count);
-                    if (!myCard.Contains(greenCard[temp_num]))
-                    {
-                        if (!playerCardAll.Contains(greenCard[temp_num]))
-                        {
-                            if (!getCardId.Contains(greenCard[temp_num]))
-                            {
-                                myCard.Add(greenCard[temp_num]);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                break;
-            case 2:
-                while (myCard.Count < count)
-                {
-                    int pr2 = Random.Range(1, 101);
-                    if (pr2 < 6 + peopleHearts_blue)
-                    {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(blueCard[temp_num]))
-                                {
-                                    myCard.Add(blueCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
+            money -= 2;
+            getCardId.Clear();
+            SetPeopleHarets();
+            myCard.Clear();
+            heroName.Clear();
+            switch (level)
+            {
+                case 1:
+                    while (myCard.Count < count)
                     {
                         temp_num = Random.Range(0, greenCard.Count);
                         if (!myCard.Contains(greenCard[temp_num]))
@@ -1050,491 +1011,537 @@ public class CreateAndUpdate : MonoBehaviour
                             continue;
                         }
                     }
-                }
-                break;
-            case 3:
-                while (myCard.Count < count)
-                {
-                    int pr3 = Random.Range(1, 101);
-                    if (pr3 < 11 + peopleHearts_blue)
+                    break;
+                case 2:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
+                        int pr2 = Random.Range(1, 101);
+                        if (pr2 < 6 + peopleHearts_blue)
                         {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
                             {
-                                if (!getCardId.Contains(blueCard[temp_num]))
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
                                 {
-                                    myCard.Add(blueCard[temp_num]);
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                    else
+                    break;
+                case 3:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
+                        int pr3 = Random.Range(1, 101);
+                        if (pr3 < 11 + peopleHearts_blue)
                         {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
                             {
-                                if (!getCardId.Contains(greenCard[temp_num]))
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
                                 {
-                                    myCard.Add(greenCard[temp_num]);
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                }
-                break;
-            case 4:
-                while (myCard.Count < count)
-                {
-                    int pr4 = Random.Range(1, 101);
-                    if (pr4 < 4 + peopleHearts_purple)
+                    break;
+                case 4:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, purpleCard.Count);
-                        if (!myCard.Contains(purpleCard[temp_num]))
+                        int pr4 = Random.Range(1, 101);
+                        if (pr4 < 4 + peopleHearts_purple)
                         {
-                            if (!playerCardAll.Contains(purpleCard[temp_num]))
+                            temp_num = Random.Range(0, purpleCard.Count);
+                            if (!myCard.Contains(purpleCard[temp_num]))
                             {
-                                if (!getCardId.Contains(purpleCard[temp_num]))
+                                if (!playerCardAll.Contains(purpleCard[temp_num]))
                                 {
-                                    myCard.Add(purpleCard[temp_num]);
+                                    if (!getCardId.Contains(purpleCard[temp_num]))
+                                    {
+                                        myCard.Add(purpleCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (pr4 > 3 && pr4 < 20 + peopleHearts_blue)
+                        {
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                    else if (pr4 > 3 && pr4 < 20 + peopleHearts_blue)
+                    break;
+                case 5:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
+                        int pr5 = Random.Range(1, 101);
+                        if (pr5 < 7 + peopleHearts_purple)
                         {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
+                            temp_num = Random.Range(0, purpleCard.Count);
+                            if (!myCard.Contains(purpleCard[temp_num]))
                             {
-                                if (!getCardId.Contains(blueCard[temp_num]))
+                                if (!playerCardAll.Contains(purpleCard[temp_num]))
                                 {
-                                    myCard.Add(blueCard[temp_num]);
+                                    if (!getCardId.Contains(purpleCard[temp_num]))
+                                    {
+                                        myCard.Add(purpleCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (pr5 > 6 && pr5 < 30 + peopleHearts_blue)
+                        {
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                    else
+                    break;
+                case 6:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
+                        int pr6 = Random.Range(1, 101);
+                        if (pr6 < 2 + peopleHearts_orange)
                         {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
+                            temp_num = Random.Range(0, orangeCard.Count);
+                            if (!myCard.Contains(orangeCard[temp_num]))
                             {
-                                if (!getCardId.Contains(greenCard[temp_num]))
+                                if (!playerCardAll.Contains(orangeCard[temp_num]))
                                 {
-                                    myCard.Add(greenCard[temp_num]);
+                                    if (!getCardId.Contains(orangeCard[temp_num]))
+                                    {
+                                        myCard.Add(orangeCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        if (1 < pr6 && pr6 < 12 + peopleHearts_purple)
+                        {
+                            temp_num = Random.Range(0, purpleCard.Count);
+                            if (!myCard.Contains(purpleCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(purpleCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(purpleCard[temp_num]))
+                                    {
+                                        myCard.Add(purpleCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (pr6 > 11 && pr6 < 43 + peopleHearts_blue)
+                        {
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                }
-                break;
-            case 5:
-                while (myCard.Count < count)
-                {
-                    int pr5 = Random.Range(1, 101);
-                    if (pr5 < 7 + peopleHearts_purple)
+                    break;
+                case 7:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, purpleCard.Count);
-                        if (!myCard.Contains(purpleCard[temp_num]))
+                        int pr7 = Random.Range(1, 101);
+                        if (pr7 < 3 + peopleHearts_orange)
                         {
-                            if (!playerCardAll.Contains(purpleCard[temp_num]))
+                            temp_num = Random.Range(0, orangeCard.Count);
+                            if (!myCard.Contains(orangeCard[temp_num]))
                             {
-                                if (!getCardId.Contains(purpleCard[temp_num]))
+                                if (!playerCardAll.Contains(orangeCard[temp_num]))
                                 {
-                                    myCard.Add(purpleCard[temp_num]);
+                                    if (!getCardId.Contains(orangeCard[temp_num]))
+                                    {
+                                        myCard.Add(orangeCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        if (2 < pr7 && pr7 < 18 + peopleHearts_purple)
+                        {
+                            temp_num = Random.Range(0, purpleCard.Count);
+                            if (!myCard.Contains(purpleCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(purpleCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(purpleCard[temp_num]))
+                                    {
+                                        myCard.Add(purpleCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (pr7 > 17 && pr7 < 52 + peopleHearts_blue)
+                        {
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                    else if (pr5 > 6 && pr5 < 30 + peopleHearts_blue)
+                    break;
+                case 8:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
+                        int pr8 = Random.Range(1, 101);
+                        if (pr8 < 4 + peopleHearts_orange)
                         {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
+                            temp_num = Random.Range(0, orangeCard.Count);
+                            if (!myCard.Contains(orangeCard[temp_num]))
                             {
-                                if (!getCardId.Contains(blueCard[temp_num]))
+                                if (!playerCardAll.Contains(orangeCard[temp_num]))
                                 {
-                                    myCard.Add(blueCard[temp_num]);
+                                    if (!getCardId.Contains(orangeCard[temp_num]))
+                                    {
+                                        myCard.Add(orangeCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        if (3 < pr8 && pr8 < 20 + peopleHearts_purple)
+                        {
+                            temp_num = Random.Range(0, purpleCard.Count);
+                            if (!myCard.Contains(purpleCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(purpleCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(purpleCard[temp_num]))
+                                    {
+                                        myCard.Add(purpleCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (pr8 > 20 && pr8 < 56 + peopleHearts_blue)
+                        {
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
                         }
                     }
-                    else
+                    break;
+                case 9:
+                    while (myCard.Count < count)
                     {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
+                        int pr9 = Random.Range(1, 101);
+                        if (pr9 < 4 + peopleHearts_orange)
                         {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
+                            temp_num = Random.Range(0, orangeCard.Count);
+                            if (!myCard.Contains(orangeCard[temp_num]))
                             {
-                                if (!getCardId.Contains(greenCard[temp_num]))
+                                if (!playerCardAll.Contains(orangeCard[temp_num]))
                                 {
-                                    myCard.Add(greenCard[temp_num]);
+                                    if (!getCardId.Contains(orangeCard[temp_num]))
+                                    {
+                                        myCard.Add(orangeCard[temp_num]);
+                                    }
                                 }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        if (3 < pr9 && pr9 < 20 + peopleHearts_purple)
+                        {
+                            temp_num = Random.Range(0, purpleCard.Count);
+                            if (!myCard.Contains(purpleCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(purpleCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(purpleCard[temp_num]))
+                                    {
+                                        myCard.Add(purpleCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
+                            }
+                        }
+                        else if (pr9 > 20 && pr9 < 56 + peopleHearts_blue)
+                        {
+                            temp_num = Random.Range(0, blueCard.Count);
+                            if (!myCard.Contains(blueCard[temp_num]))
+                            {
+                                if (!playerCardAll.Contains(blueCard[temp_num]))
+                                {
+                                    if (!getCardId.Contains(blueCard[temp_num]))
+                                    {
+                                        myCard.Add(blueCard[temp_num]);
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                continue;
                             }
                         }
                         else
                         {
-                            continue;
-                        }
-                    }
-                }
-                break;
-            case 6:
-                while (myCard.Count < count)
-                {
-                    int pr6 = Random.Range(1, 101);
-                    if (pr6 < 2 + peopleHearts_orange)
-                    {
-                        temp_num = Random.Range(0, orangeCard.Count);
-                        if (!myCard.Contains(orangeCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(orangeCard[temp_num]))
+                            temp_num = Random.Range(0, greenCard.Count);
+                            if (!myCard.Contains(greenCard[temp_num]))
                             {
-                                if (!getCardId.Contains(orangeCard[temp_num]))
+                                if (!playerCardAll.Contains(greenCard[temp_num]))
                                 {
-                                    myCard.Add(orangeCard[temp_num]);
+                                    if (!getCardId.Contains(greenCard[temp_num]))
+                                    {
+                                        myCard.Add(greenCard[temp_num]);
+                                    }
                                 }
                             }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    if (1 < pr6 && pr6 < 12 + peopleHearts_purple)
-                    {
-                        temp_num = Random.Range(0, purpleCard.Count);
-                        if (!myCard.Contains(purpleCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(purpleCard[temp_num]))
+                            else
                             {
-                                if (!getCardId.Contains(purpleCard[temp_num]))
-                                {
-                                    myCard.Add(purpleCard[temp_num]);
-                                }
+                                continue;
                             }
                         }
-                        else
-                        {
-                            continue;
-                        }
                     }
-                    else if (pr6 > 11 && pr6 < 43 + peopleHearts_blue)
-                    {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(blueCard[temp_num]))
-                                {
-                                    myCard.Add(blueCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(greenCard[temp_num]))
-                                {
-                                    myCard.Add(greenCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                break;
-            case 7:
-                while (myCard.Count < count)
-                {
-                    int pr7 = Random.Range(1, 101);
-                    if (pr7 < 3 + peopleHearts_orange)
-                    {
-                        temp_num = Random.Range(0, orangeCard.Count);
-                        if (!myCard.Contains(orangeCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(orangeCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(orangeCard[temp_num]))
-                                {
-                                    myCard.Add(orangeCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    if (2 < pr7 && pr7 < 18 + peopleHearts_purple)
-                    {
-                        temp_num = Random.Range(0, purpleCard.Count);
-                        if (!myCard.Contains(purpleCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(purpleCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(purpleCard[temp_num]))
-                                {
-                                    myCard.Add(purpleCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else if (pr7 > 17 && pr7 < 52 + peopleHearts_blue)
-                    {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(blueCard[temp_num]))
-                                {
-                                    myCard.Add(blueCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(greenCard[temp_num]))
-                                {
-                                    myCard.Add(greenCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                break;
-            case 8:
-                while (myCard.Count < count)
-                {
-                    int pr8 = Random.Range(1, 101);
-                    if (pr8 < 4 + peopleHearts_orange)
-                    {
-                        temp_num = Random.Range(0, orangeCard.Count);
-                        if (!myCard.Contains(orangeCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(orangeCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(orangeCard[temp_num]))
-                                {
-                                    myCard.Add(orangeCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    if (3 < pr8 && pr8 < 20 + peopleHearts_purple)
-                    {
-                        temp_num = Random.Range(0, purpleCard.Count);
-                        if (!myCard.Contains(purpleCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(purpleCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(purpleCard[temp_num]))
-                                {
-                                    myCard.Add(purpleCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else if (pr8 > 20 && pr8 < 56 + peopleHearts_blue)
-                    {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(blueCard[temp_num]))
-                                {
-                                    myCard.Add(blueCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(greenCard[temp_num]))
-                                {
-                                    myCard.Add(greenCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                break;
-            case 9:
-                while (myCard.Count < count)
-                {
-                    int pr9 = Random.Range(1, 101);
-                    if (pr9 < 4 + peopleHearts_orange)
-                    {
-                        temp_num = Random.Range(0, orangeCard.Count);
-                        if (!myCard.Contains(orangeCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(orangeCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(orangeCard[temp_num]))
-                                {
-                                    myCard.Add(orangeCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    if (3 < pr9 && pr9 < 20 + peopleHearts_purple)
-                    {
-                        temp_num = Random.Range(0, purpleCard.Count);
-                        if (!myCard.Contains(purpleCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(purpleCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(purpleCard[temp_num]))
-                                {
-                                    myCard.Add(purpleCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else if (pr9 > 20 && pr9 < 56 + peopleHearts_blue)
-                    {
-                        temp_num = Random.Range(0, blueCard.Count);
-                        if (!myCard.Contains(blueCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(blueCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(blueCard[temp_num]))
-                                {
-                                    myCard.Add(blueCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                    else
-                    {
-                        temp_num = Random.Range(0, greenCard.Count);
-                        if (!myCard.Contains(greenCard[temp_num]))
-                        {
-                            if (!playerCardAll.Contains(greenCard[temp_num]))
-                            {
-                                if (!getCardId.Contains(greenCard[temp_num]))
-                                {
-                                    myCard.Add(greenCard[temp_num]);
-                                }
-                            }
-                        }
-                        else
-                        {
-                            continue;
-                        }
-                    }
-                }
-                break;
-            default:
-                break;
+                    break;
+                default:
+                    break;
+            }
+            GetExcelFile();
+            HeroLocation();
+            for (int i = 0; i < myCard.Count; i++)
+            {
+                heroBtn[i].transform.Find("Image").gameObject.SetActive(false);
+                heroBtn[i].GetComponent<Button>().enabled = true;   //开启点击事件
+            }
         }
-        GetExcelFile();
-        HeroLocation();
-        for (int i = 0; i < myCard.Count; i++)
+        else
         {
-            heroBtn[i].transform.Find("Image").gameObject.SetActive(false);
-            heroBtn[i].GetComponent<Button>().enabled = true;   //开启点击事件
+            print("啊，呸，穷鬼");
         }
     }
     //招募显示

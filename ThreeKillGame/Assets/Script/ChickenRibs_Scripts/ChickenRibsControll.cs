@@ -8,7 +8,6 @@ public class ChickenRibsControll : MonoBehaviour
     public GameObject ChickenRibsPanel;
     void Start()
     {
-        
     }
 
     // Update is called once per frame
