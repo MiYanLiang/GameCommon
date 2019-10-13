@@ -51,6 +51,7 @@ public class CreateAndUpdate : MonoBehaviour
     int peopleHearts_red;
     public int moraleNum;   //士气
     public int hp;//血量
+    public int experience;//经验
     int damageAll;
     // Use this for initialization
     void Start()

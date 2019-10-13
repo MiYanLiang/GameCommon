@@ -24,6 +24,7 @@ public class ChickenRibsRealize : MonoBehaviour
     List<int> type_null = new List<int>();
     List<int> equip_heroId = new List<int>();//拿到装备对应的所有Id
     List<int> hasHeroId = new List<int>();//拥有的英雄中有装备有关的英雄Id
+    List<string> currenEventDate = new List<string>();
     List<string> eventDate = new List<string>();
     int weight_total;  //权重总和
     int index;  //当前鸡肋事件下标
@@ -41,6 +42,8 @@ public class ChickenRibsRealize : MonoBehaviour
 
     List<string> buyHeroDate = new List<string>();
     List<string> buyEquipmentDate = new List<string>();
+
+    public GameObject textSee;
     int days;
 
     void Start()
@@ -50,15 +53,11 @@ public class ChickenRibsRealize : MonoBehaviour
         money = cau.money;
         peopleHeart = cau.peopleHearts;
         morale = cau.moraleNum;
-        //GetInEventId();
         GetExcelFile();
         GetCurrentChickenRibsId();
-        //for (int i = 0; i < weightId_All.Count; i++)
-        //{
-        //    print("....."+weightId_All[i]);
-        //}
         init();
-        print("money:" + money + ".." + "peopleHeart:" + peopleHeart + ".." + "morale:" + morale);
+        //print(buyEquipmentDate[1]);
+        //textSee.GetComponent<Text>().text = eventDate[1];
     }
     //点击跳过
     public void Jump()
@@ -89,10 +88,6 @@ public class ChickenRibsRealize : MonoBehaviour
         {
             print("您吃饱了");
         }
-        //for (int i = 0; i < weight_All.Count; i++)
-        //{
-        //    print("....." + weight_All[i]);
-        //}
 
     }
     // Update is called once per frame
@@ -241,11 +236,13 @@ public class ChickenRibsRealize : MonoBehaviour
     /////////////////////////////////////下面对事件进行判断及操作
     void init()
     {
+        currenEventDate.Clear();
         GetExcelFile1();
         print("eventType:" + eventType);
         ShowType();
         GetExcelFile2();
         RealizeFunctionFromType();
+        textSee.GetComponent<Text>().text = currenEventDate[1];
     }
     void GetExcelFile1()
     {
@@ -258,6 +255,7 @@ public class ChickenRibsRealize : MonoBehaviour
             ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
             ExcelWorksheet worksheet3 = excelpackge.Workbook.Worksheets[3];
             GetTypeFromCurrenId(worksheet3, CurrenId);
+            GetAllDateFromCurrenId(worksheet3,CurrenId);
         }
     }
     //根据CurrenId当前鸡肋事件，拿到事件类型
@@ -279,6 +277,20 @@ public class ChickenRibsRealize : MonoBehaviour
                 if (worksheet.Cells[i, num].Value.ToString() == "A/B/跳过")
                 {
                     eventType = 1;
+                }
+            }
+        }
+    }
+    //通过当前事件id拿到当前事件所有数据
+    void GetAllDateFromCurrenId(ExcelWorksheet worksheet, int CurrenId)
+    {
+        for (int i = 2; i < 92 + 1; i++)
+        {
+            if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == CurrenId)
+            {
+                for (int j = 1; j < 3 + 1; j++)
+                {
+                    currenEventDate.Add(worksheet.Cells[i, j].Value.ToString());
                 }
             }
         }
