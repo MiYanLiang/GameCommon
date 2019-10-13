@@ -40,8 +40,8 @@ public class ChickenRibsRealize : MonoBehaviour
     string pointId_B;
     string currenPointId;//当前指向id
 
-    List<string> buyHeroDate = new List<string>();
-    List<string> buyEquipmentDate = new List<string>();
+    List<string> buyHeroDate = new List<string>();     //购买英雄后存入
+    List<string> buyEquipmentDate = new List<string>();//购买武器后存入
 
     public GameObject textSee;
     int days;
