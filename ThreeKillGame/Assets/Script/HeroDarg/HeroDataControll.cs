@@ -12,7 +12,7 @@ public class HeroDataControll : MonoBehaviour {
     //0         1           2           3             4       5                6         7          8               9       
     //暴击率	暴击伤害	重击率	    重击伤害	  破甲    装备id           典故id	 武器技id	强化兵种技id	羁绊技id
     //10        11          12          13            14      15               16        17         18              19
-
+    public int grade_hero;  //记录卡牌品阶
 
     // Use this for initialization
     void Start () {

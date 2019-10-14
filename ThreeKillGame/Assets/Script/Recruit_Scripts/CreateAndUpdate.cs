@@ -1594,7 +1594,7 @@ public class CreateAndUpdate : MonoBehaviour
         string rowTxt = "";
         for (int i = 1; i < 87 + 1; i++)
         {
-            for (int j = 1; j < 21 + 1; j++)
+            for (int j = 1; j < 15 + 1; j++)
             {
                 if (j == 1 && i > 1)
                 {
@@ -1621,7 +1621,7 @@ public class CreateAndUpdate : MonoBehaviour
                 }
             }
         }
-        for (int y = 1; y < 21 + 1; y++)
+        for (int y = 1; y < 15 + 1; y++)
         {
             if (name == "roleName")
             {
@@ -1648,7 +1648,7 @@ public class CreateAndUpdate : MonoBehaviour
         string numy = "";
         for (int i = 1; i < 87 + 1; i++)
         {
-            for (int j = 1; j < 21 + 1; j++)
+            for (int j = 1; j < 15 + 1; j++)
             {
                 if (i == 1)
                 {

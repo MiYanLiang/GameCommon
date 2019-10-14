@@ -1953,6 +1953,7 @@ MonoBehaviour:
   hero_Card: {fileID: 5760532879993438556, guid: bd44d993d38830c4f860268c4735b9f4,
     type: 3}
   preparation: {fileID: 643303287}
+  jiugongge: {fileID: 556946925}
 --- !u!1 &231210962
 GameObject:
   m_ObjectHideFlags: 0
@@ -2138,6 +2139,7 @@ MonoBehaviour:
   hero_Card: {fileID: 5760532879993438556, guid: bd44d993d38830c4f860268c4735b9f4,
     type: 3}
   preparation: {fileID: 643303287}
+  jiugongge: {fileID: 556946925}
 --- !u!1001 &261088777
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4622,6 +4624,7 @@ MonoBehaviour:
   hero_Card: {fileID: 5760532879993438556, guid: bd44d993d38830c4f860268c4735b9f4,
     type: 3}
   preparation: {fileID: 643303287}
+  jiugongge: {fileID: 556946925}
 --- !u!114 &598001227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6378,6 +6381,7 @@ MonoBehaviour:
   hero_Card: {fileID: 5760532879993438556, guid: bd44d993d38830c4f860268c4735b9f4,
     type: 3}
   preparation: {fileID: 643303287}
+  jiugongge: {fileID: 556946925}
 --- !u!1 &846337262
 GameObject:
   m_ObjectHideFlags: 0
@@ -14058,6 +14062,7 @@ MonoBehaviour:
   hero_Card: {fileID: 5760532879993438556, guid: bd44d993d38830c4f860268c4735b9f4,
     type: 3}
   preparation: {fileID: 643303287}
+  jiugongge: {fileID: 556946925}
 --- !u!1 &1909109695
 GameObject:
   m_ObjectHideFlags: 0

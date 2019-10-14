@@ -89,13 +89,31 @@ public class FightCardSP : MonoBehaviour
             {
                 //获得武将id和品阶
                 string[] heroIdandclass = worksheet_NPC.worksheet.Cells[battles + 1, 6 + i].Value.ToString().Split(',');
+                int grade_Addition = (int)Mathf.Pow(2,(heroIdandclass[1] != null ? int.Parse(heroIdandclass[1]) : 1)-1);  //获取武将品阶加成
+                //根据品阶，设置敌方武将卡牌外观
+                switch (heroIdandclass[1])
+                {
+                    case "1":
+                        enemyCards[i].transform.GetComponent<Image>().color = Color.white;
+                        break;
+                    case "2":
+                        enemyCards[i].transform.GetComponent<Image>().color = Color.blue;
+                        break;
+                    case "3":
+                        enemyCards[i].transform.GetComponent<Image>().color = Color.red;
+                        break;
+                    default:
+                        enemyCards[i].transform.GetComponent<Image>().color = Color.white;
+                        break;
+                }
+
                 //在武将表中获取武将数据
                 enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                Debug.Log("///NPC第///"+(i+1)+ "位武将ID：" + heroIdandclass[0]);
+                Debug.Log("///NPC第"+(i+1)+ "位武将ID：" + heroIdandclass[0]);
                 enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 2].Value.ToString();
-                enemyCards[i].GetComponent<CardMove>().Force = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 7].Value.ToString());
+                enemyCards[i].GetComponent<CardMove>().Force = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 7].Value.ToString());
                 enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 8].Value.ToString());
-                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 9].Value.ToString());
+                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 9].Value.ToString());
                 enemyCards[i].GetComponent<CardMove>().OtherDataSet();
             }
         }
