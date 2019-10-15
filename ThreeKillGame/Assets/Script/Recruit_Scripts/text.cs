@@ -56,7 +56,7 @@ public class text : MonoBehaviour
 
     void Awake()
     {
-        string tableName = "RoleTable";
+        string tableName = "RoleTable1";
         tableData = useepplusfun.FindExcelFiles(tableName); //获取武将数据表
 
     }
@@ -90,7 +90,7 @@ public class text : MonoBehaviour
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["RoleTable"];
+            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["RoleTable1"];
             ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets["RandowTable"];
             //print(worksheet.Cells[2,1].Value.ToString());
             //GetValueFromId(18, worksheet2);
@@ -121,7 +121,7 @@ public class text : MonoBehaviour
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["RoleTable"];
+            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["RoleTable1"];
             ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets["RandowTable"];
             GetHeroRarity(worksheet1, "rarity");
             GetHeroRarityId(worksheet2);

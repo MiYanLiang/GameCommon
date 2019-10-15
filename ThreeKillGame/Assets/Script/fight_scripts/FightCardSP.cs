@@ -39,7 +39,7 @@ public class FightCardSP : MonoBehaviour
     private void Awake()
     {
         worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
-        worksheet_Role = useepplusfun.FindExcelFiles("RoleTable");   //武将表数据
+        worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
     }
 
     private void Start()

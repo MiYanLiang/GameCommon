@@ -24,7 +24,7 @@ public class text2 : MonoBehaviour
     UseEPPlusFun useepplusfun = new UseEPPlusFun();
     void Awake()
     { 
-        string tableName = "RoleTable";
+        string tableName = "RoleTable1";
         tableData = useepplusfun.FindExcelFiles(tableName); //获取武将数据表
     }
 

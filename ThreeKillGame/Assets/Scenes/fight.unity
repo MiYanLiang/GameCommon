@@ -405,10 +405,10 @@ MonoBehaviour:
   - {fileID: 212797750}
   - {fileID: 1894719166}
   - {fileID: 231210962}
-  level: 5
+  level: 1
   money: 100
   playerLevel: 1
-  peopleHearts: 90
+  peopleHearts: 50
   moraleNum: 90
   hp: 100
   experience: 0
