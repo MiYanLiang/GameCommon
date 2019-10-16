@@ -244,10 +244,13 @@ public class ChangeAndGet : MonoBehaviour
                 newheroCard.transform.GetComponent<Image>().color = Color.white;
                 break;
         }
-        card_parant.GetChild(0).GetComponent<HeroDataControll>().grade_hero = grade;
-        card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData = heroData;
-        card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[6])).ToString();
-        card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[8])).ToString();
+        newheroCard.GetComponent<HeroDataControll>().grade_hero = grade;
+        newheroCard.GetComponent<HeroDataControll>().heroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().heroData[6])).ToString();
+        newheroCard.GetComponent<HeroDataControll>().heroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().heroData[8])).ToString();
+        //card_parant.GetChild(0).GetComponent<HeroDataControll>().grade_hero = grade;
+        //card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData = heroData;
+        //card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[6])).ToString();
+        //card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[8])).ToString();
     }
 
     /// <summary>
