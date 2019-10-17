@@ -231,7 +231,7 @@ public class ChangeAndGet : MonoBehaviour
         //实例化武将卡牌到备战位,并传递数据过去
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
-        newheroCard.AddComponent<HeroDataControll>();
+        //newheroCard.AddComponent<HeroDataControll>();
         newheroCard.GetComponent<HeroDataControll>().heroData = heroData;
         //设置品阶颜色表现和属性
         switch (grade)
@@ -275,6 +275,10 @@ public class ChangeAndGet : MonoBehaviour
         return num;
     }
 
+
+
+
+
     //读表
     void GetExcelFile1()
     {
@@ -294,13 +298,11 @@ public class ChangeAndGet : MonoBehaviour
     //读取相应英雄的所有数据
     void GetExcelFile2()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
         string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
         FileInfo fileinfo = new FileInfo(filePath);
         using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         {
             ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
             GetHeroDateFromId(heroId, worksheet1);
             //print(price);
         }
