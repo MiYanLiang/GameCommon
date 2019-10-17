@@ -100,42 +100,43 @@ public class ChangeAndGet : MonoBehaviour
     /// <param name="num"></param>
     private void ShowAndGradeHero(int num)
     {
+        int count_pos_heroId = HeroIdChangeAndSave.pos_heroId.Length;   //记录总位置数
+
         //判断该英雄卡牌数量是否到达升阶要求
         List<int> gradeone = new List<int>();   //一阶单位 父亲位置索引号
         List<int> gradetwo = new List<int>();   //二阶单位
         int index_pos = 0;  //索引位置
-        while (index_pos < 9)
+        while (index_pos < count_pos_heroId)
         {
-            if (jiugongge.GetChild(index_pos).childCount > 0 && int.Parse(jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().heroData[0]) == heroId)
+            if (HeroIdChangeAndSave.pos_heroId[index_pos]== heroId)
             {
-                if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 1)
+                if (index_pos<9)
                 {
-                    gradeone.Add(index_pos);    //九宫格中要销毁的卡牌的父亲位置 0-8
+                    if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 1)
+                    {
+                        gradeone.Add(index_pos);    //要销毁的卡牌的父亲位置 0-16
+                    }
+                    if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 2)
+                    {
+                        gradetwo.Add(index_pos);
+                    }
                 }
-                if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 2)
+                else
                 {
-                    gradetwo.Add(index_pos);
+                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 1)
+                    {
+                        gradeone.Add(index_pos);
+                    }
+                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 2)
+                    {
+                        gradetwo.Add(index_pos);
+                    }
                 }
             }
             index_pos++;
         }
         index_pos = 0;  //归零
-        while (index_pos < 7)
-        {
-            if (preparation.GetChild(index_pos).childCount > 0 && int.Parse(preparation.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().heroData[0]) == heroId)
-            {
-                if (preparation.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 1)
-                {
-                    gradeone.Add(index_pos + 9);
-                }
-                if (preparation.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 2)
-                {
-                    gradetwo.Add(index_pos + 9);
-                }
-            }
-            index_pos++;
-        }
-        index_pos = 0;
+        
         if (gradeone.Count >= 2)
         {
             if (gradetwo.Count >= 2)
@@ -143,10 +144,10 @@ public class ChangeAndGet : MonoBehaviour
                 //升级三阶
                 for (int i = 0; i < 2; i++)
                 {
+                    HeroIdChangeAndSave.pos_heroId[gradeone[i]] = 0;
                     if (gradeone[i] < 9)  //在九宫格中
                     {
                         //Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁一阶武将卡牌
-
                         jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    //在备战位中
@@ -157,15 +158,16 @@ public class ChangeAndGet : MonoBehaviour
                 }
                 for (int i = 0; i < 2; i++)
                 {
+                    HeroIdChangeAndSave.pos_heroId[gradetwo[i]] = 0;
                     if (gradetwo[i] < 9)  
                     {
                         //Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁二阶武将卡牌
-                        jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        jiugongge.GetChild(gradetwo[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    
                     {
                         //Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0));
-                        preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        preparation.GetChild(gradetwo[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 //放置三阶卡牌
@@ -177,16 +179,17 @@ public class ChangeAndGet : MonoBehaviour
                 {
                     PutCardToPos(preparation.GetChild(gradetwo[0] - 9), 3);
                 }
-
+                HeroIdChangeAndSave.pos_heroId[gradetwo[0]] = heroId;
             }
             else
             {
                 //升级二阶
                 for (int i = 0; i < 2; i++)
                 {
+                    HeroIdChangeAndSave.pos_heroId[gradeone[i]] = 0;
                     if (gradeone[i]<9)  //在九宫格中
                     {
-                       // Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁一阶武将卡牌
+                        //Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁一阶武将卡牌
                         jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    //在备战位中
@@ -204,12 +207,15 @@ public class ChangeAndGet : MonoBehaviour
                 {
                     PutCardToPos(preparation.GetChild(gradeone[0] - 9), 2);
                 }
+                HeroIdChangeAndSave.pos_heroId[gradeone[0]] = heroId;
             }
         }
         else
         {
             //购买展示一阶
             PutCardToPos(preparation.GetChild(num),1);
+            //Debug.Log("");
+            HeroIdChangeAndSave.pos_heroId[num + 9] = heroId;   //记录购买武将的id信息
         }
         index_pos = 0;
         gradeone.Clear();
@@ -220,14 +226,13 @@ public class ChangeAndGet : MonoBehaviour
     /// 放置卡牌
     /// </summary>
     /// <param name="card_parant">父亲位置</param>
-    private void PutCardToPos(Transform card_parant,int grade)
+    private void PutCardToPos(Transform card_parant, int grade)
     {
         //实例化武将卡牌到备战位,并传递数据过去
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
         newheroCard.AddComponent<HeroDataControll>();
         newheroCard.GetComponent<HeroDataControll>().heroData = heroData;
-        newheroCard.GetComponent<HeroDataControll>().ShowThisHeroData();
         //设置品阶颜色表现和属性
         switch (grade)
         {
@@ -247,10 +252,8 @@ public class ChangeAndGet : MonoBehaviour
         newheroCard.GetComponent<HeroDataControll>().grade_hero = grade;
         newheroCard.GetComponent<HeroDataControll>().heroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().heroData[6])).ToString();
         newheroCard.GetComponent<HeroDataControll>().heroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().heroData[8])).ToString();
-        //card_parant.GetChild(0).GetComponent<HeroDataControll>().grade_hero = grade;
-        //card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData = heroData;
-        //card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[6])).ToString();
-        //card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(card_parant.GetChild(0).GetComponent<HeroDataControll>().heroData[8])).ToString();
+
+        newheroCard.GetComponent<HeroDataControll>().ShowThisHeroData();
     }
 
     /// <summary>

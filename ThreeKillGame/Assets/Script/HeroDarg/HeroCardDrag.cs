@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class HeroCardDrag : MonoBehaviour {
 
+
     private Transform beginParentTransform; //记录拖拽卡片的父级对象
     /// <summary>
     /// UI界面的顶层Canvas
@@ -18,6 +19,7 @@ public class HeroCardDrag : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         canvas_Transform = GameObject.Find("Canvas").transform;
+
 	}
 
     /// <summary>
@@ -59,11 +61,18 @@ public class HeroCardDrag : MonoBehaviour {
 
         if (go.tag == "Grid")  //如果拖动卡牌下是：没有卡牌的格子时
         {
+            //将原先的位置武将卡牌号存为0
+            HeroIdChangeAndSave.pos_heroId[int.Parse(beginParentTransform.name)] = 0;
             SetPosAndParent(transform, go.transform);
             transform.GetComponent<Image>().raycastTarget = true;
+            //将新的位置的武将卡牌号存为当前武将的id
+            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.name)] = int.Parse(transform.GetComponent<HeroDataControll>().heroData[0]);
         }
         else if (go.tag == "Card") //如果是其他卡牌
         {
+            HeroIdChangeAndSave.pos_heroId[int.Parse(beginParentTransform.name)] = int.Parse(go.transform.GetComponent<HeroDataControll>().heroData[0]);
+            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.parent.name)] = int.Parse(transform.GetComponent<HeroDataControll>().heroData[0]);
+
             SetPosAndParent(transform, go.transform.parent);   //将当前拖动卡牌设置到目标位置
             go.transform.SetParent(canvas_Transform);          //目标位置的原卡牌父级设置到Canvas
 
@@ -96,6 +105,14 @@ public class HeroCardDrag : MonoBehaviour {
         //transform.GetChild(0).gameObject.SetActive(true);
         GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
         GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
+
+        string strid = "";
+        for (int i = 0; i < HeroIdChangeAndSave.pos_heroId.Length; i++)
+        {
+            strid = strid + "  " + HeroIdChangeAndSave.pos_heroId[i];
+        }
+        Debug.Log("/pos_Id/:            "+strid);
+
     }
 
     /// <summary>

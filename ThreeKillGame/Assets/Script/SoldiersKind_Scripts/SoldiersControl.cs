@@ -414,7 +414,7 @@ public class SoldiersControl : MonoBehaviour
         GetExcelFile3();
         for (int i = 0; i < shieldSoldierName.Count; i++)
         {
-            print(shieldSoldierName[i]);
+            //print(shieldSoldierName[i]);
         }
     }
     void GetExcelFile3()
