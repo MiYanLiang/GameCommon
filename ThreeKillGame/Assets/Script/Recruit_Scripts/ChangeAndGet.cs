@@ -112,22 +112,22 @@ public class ChangeAndGet : MonoBehaviour
             {
                 if (index_pos<9)
                 {
-                    if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 1)
+                    if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 1)
                     {
                         gradeone.Add(index_pos);    //要销毁的卡牌的父亲位置 0-16
                     }
-                    if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 2)
+                    if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 2)
                     {
                         gradetwo.Add(index_pos);
                     }
                 }
                 else
                 {
-                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 1)
+                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 1)
                     {
                         gradeone.Add(index_pos);
                     }
-                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().grade_hero == 2)
+                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 2)
                     {
                         gradetwo.Add(index_pos);
                     }
@@ -232,7 +232,7 @@ public class ChangeAndGet : MonoBehaviour
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
         //newheroCard.AddComponent<HeroDataControll>();
-        newheroCard.GetComponent<HeroDataControll>().heroData = heroData;
+        newheroCard.GetComponent<HeroDataControll>().HeroData = heroData;
         //设置品阶颜色表现和属性
         switch (grade)
         {
@@ -249,9 +249,9 @@ public class ChangeAndGet : MonoBehaviour
                 newheroCard.transform.GetComponent<Image>().color = Color.white;
                 break;
         }
-        newheroCard.GetComponent<HeroDataControll>().grade_hero = grade;
-        newheroCard.GetComponent<HeroDataControll>().heroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().heroData[6])).ToString();
-        newheroCard.GetComponent<HeroDataControll>().heroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().heroData[8])).ToString();
+        newheroCard.GetComponent<HeroDataControll>().Grade_hero = grade;
+        newheroCard.GetComponent<HeroDataControll>().HeroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[6])).ToString();
+        newheroCard.GetComponent<HeroDataControll>().HeroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[8])).ToString();
 
         newheroCard.GetComponent<HeroDataControll>().ShowThisHeroData();
     }

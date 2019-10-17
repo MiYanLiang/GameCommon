@@ -66,12 +66,12 @@ public class HeroCardDrag : MonoBehaviour {
             SetPosAndParent(transform, go.transform);
             transform.GetComponent<Image>().raycastTarget = true;
             //将新的位置的武将卡牌号存为当前武将的id
-            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.name)] = int.Parse(transform.GetComponent<HeroDataControll>().heroData[0]);
+            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.name)] = int.Parse(transform.GetComponent<HeroDataControll>().HeroData[0]);
         }
         else if (go.tag == "Card") //如果是其他卡牌
         {
-            HeroIdChangeAndSave.pos_heroId[int.Parse(beginParentTransform.name)] = int.Parse(go.transform.GetComponent<HeroDataControll>().heroData[0]);
-            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.parent.name)] = int.Parse(transform.GetComponent<HeroDataControll>().heroData[0]);
+            HeroIdChangeAndSave.pos_heroId[int.Parse(beginParentTransform.name)] = int.Parse(go.transform.GetComponent<HeroDataControll>().HeroData[0]);
+            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.parent.name)] = int.Parse(transform.GetComponent<HeroDataControll>().HeroData[0]);
 
             SetPosAndParent(transform, go.transform.parent);   //将当前拖动卡牌设置到目标位置
             go.transform.SetParent(canvas_Transform);          //目标位置的原卡牌父级设置到Canvas

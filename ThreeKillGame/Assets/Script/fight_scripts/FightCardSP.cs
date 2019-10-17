@@ -122,15 +122,32 @@ public class FightCardSP : MonoBehaviour
         {
             if (playerCards[i] != null)
             {
-                //Debug.Log("///FightCardSP////+" + jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData.Count);//
-                //playerCards[i].AddComponent<CardMove>();
-                //设置地方卡牌的默认先后手情况/血量/攻击力/防御力/名字
+                //临时存储玩家数据，传递给战斗卡牌
+                List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
+                //设置地方卡牌的默认先后手情况
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
-                playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[8]);
-                playerCards[i].GetComponent<CardMove>().Force = int.Parse(jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[6]);
-                playerCards[i].GetComponent<CardMove>().Defence = int.Parse(jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[7]);
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().heroData[1];
+                //血量
+                playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
+                //攻击力
+                playerCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
+                //防御力
+                playerCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
+                //闪避率
+                playerCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
+                //重击率
+                playerCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
+                //重击伤害百分比
+                playerCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
+                //暴击率
+                playerCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
+                //暴击伤害百分比
+                playerCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
+                //破甲百分比
+                playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
+                //显示武将名
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];    
                 playerCards[i].GetComponent<CardMove>().OtherDataSet();
+                datas.Clear();
             }
         }
 

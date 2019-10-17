@@ -22,59 +22,17 @@ public class CardMove : MonoBehaviour
     public int Fullhealth { get => fullhealth; set => fullhealth = value; }
 
     private int health; //血量
-    public int Health
-    {
-        get
-        {
-            return health;
-        }
-
-        set
-        {
-            health = value;
-        }
-    }
+    public int Health { get => health; set => health = value; }
 
     private int defence;//防御
-    public int Defence
-    {
-        get
-        {
-            return defence;
-        }
-
-        set
-        {
-            defence = value;
-        }
-    }
+    public int Defence { get => defence; set => defence = value; }
 
     private int force;  //攻击力
-    public int Force
-    {
-        get
-        {
-            return force;
-        }
-
-        set
-        {
-            force = value;
-        }
-    }
+    public int Force { get => force; set => force = value; }
 
     private StateOfAttack isAttack;  //记录武将的攻击状态
-    public StateOfAttack IsAttack
-    {
-        get
-        {
-            return isAttack;
-        }
-        set
-        {
-            isAttack = value;
-        }
-    }
+    public StateOfAttack IsAttack { get => isAttack; set => isAttack = value; }
+
     //更换攻击状态
     public void ChangeToFight(StateOfAttack state)
     {
@@ -82,123 +40,34 @@ public class CardMove : MonoBehaviour
     }
 
     private GameObject enemyindex; //要攻击的敌人
-    public GameObject Enemyindex
-    {
-        get
-        {
-            return enemyindex;
-        }
-
-        set
-        {
-            enemyindex = value;
-        }
-    }
+    public GameObject Enemyindex { get => enemyindex; set => enemyindex = value; }
 
     private bool isAttack_first;    //是否为先手
-    public bool IsAttack_first
-    {
-        get
-        {
-            return isAttack_first;
-        }
-        set
-        {
-            isAttack_first = value;
-        }
-    }
+    public bool IsAttack_first { get => isAttack_first; set => isAttack_first = value; }
 
     private float dodgeRate;    //闪避率
-    public float DodgeRate
-    {
-        get
-        {
-            return dodgeRate;
-        }
-
-        set
-        {
-            dodgeRate = value;
-        }
-    }
+    public float DodgeRate { get => dodgeRate; set => dodgeRate = value; }
 
     private float thumpRate;    //重击率
-    public float ThumpRate
-    {
-        get
-        {
-            return thumpRate;
-        }
-
-        set
-        {
-            thumpRate = value;
-        }
-    }
+    public float ThumpRate { get => thumpRate; set => thumpRate = value; }
 
     private float thumpDamage;  //重击伤害
-    public float ThumpDamage
-    {
-        get
-        {
-            return thumpDamage;
-        }
-
-        set
-        {
-            thumpDamage = value;
-        }
-    }
+    public float ThumpDamage { get => thumpDamage; set => thumpDamage = value; }
 
     private float critRate; //暴击率
-    public float CritRate
-    {
-        get
-        {
-            return critRate;
-        }
-
-        set
-        {
-            critRate = value;
-        }
-    }
+    public float CritRate { get => critRate; set => critRate = value; }
 
     private float critDamage;   //暴击伤害
-    public float CritDamage
-    {
-        get
-        {
-            return critDamage;
-        }
+    public float CritDamage { get => critDamage; set => critDamage = value; }
 
-        set
-        {
-            critDamage = value;
-        }
-    }
-    
     private float armorPenetrationRate; //破甲百分比
-    public float ArmorPenetrationRate
-    {
-        get
-        {
-            return armorPenetrationRate;
-        }
-
-        set
-        {
-            armorPenetrationRate = value;
-        }
-    }
-
+    public float ArmorPenetrationRate { get => armorPenetrationRate; set => armorPenetrationRate = value; }
 
     Vector3 vec = new Vector3();    //记录卡牌初始位置
 
     private void Awake()
     {
         isFightInThisBout = false;
-
     }
 
     /// <summary>
@@ -208,26 +77,26 @@ public class CardMove : MonoBehaviour
     {
         ChangeToFight(StateOfAttack.ReadyForFight);
         vec = gameObject.transform.position;
-        realDamage = force;
+        realDamage = Force;
         //Debug.Log("//vec//" + vec);
         //Debug.Log("//force//" + force);
     }
 
     private void Update()
     {
-        if (IsAttack == StateOfAttack.FightNow && enemyindex != null)
+        if (IsAttack == StateOfAttack.FightNow && Enemyindex != null)
         {
             //攻击目标，武将先移动到目标身上
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, enemyindex.transform.position, moveSpeed * Time.deltaTime);
-            if (gameObject.transform.position == enemyindex.transform.position)
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position, moveSpeed * Time.deltaTime);
+            if (gameObject.transform.position == Enemyindex.transform.position)
             {
-                realDamage = AttackTheEnemy(force);   //得到造成的真实伤害
+                realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
 
                 //敌方血条的计算和显示
-                enemyindex.GetComponent<CardMove>().Health = enemyindex.GetComponent<CardMove>().Health - realDamage;
-                if (enemyindex.GetComponent<CardMove>().Health < 0)
-                    enemyindex.GetComponent<CardMove>().Health = 0;
-                enemyindex.GetComponent<Slider>().value = ((float)enemyindex.GetComponent<CardMove>().Health) / ((float)enemyindex.GetComponent<CardMove>().Fullhealth);
+                Enemyindex.GetComponent<CardMove>().Health = Enemyindex.GetComponent<CardMove>().Health - realDamage;
+                if (Enemyindex.GetComponent<CardMove>().Health < 0)
+                    Enemyindex.GetComponent<CardMove>().Health = 0;
+                Enemyindex.GetComponent<Slider>().value = ((float)Enemyindex.GetComponent<CardMove>().Health) / ((float)Enemyindex.GetComponent<CardMove>().Fullhealth);
             }
         }
         if (IsAttack == StateOfAttack.FightOver)
@@ -246,29 +115,29 @@ public class CardMove : MonoBehaviour
     {
         ChangeToFight(StateOfAttack.FightOver);
         //计算是否敌方闪避
-        if (TakeSpecialAttack(enemyindex.GetComponent<CardMove>().dodgeRate))
+        if (TakeSpecialAttack(Enemyindex.GetComponent<CardMove>().DodgeRate))
         {
             Debug.Log("闪避");
             return 0;
         }
         //计算是否触发重击
-        if (TakeSpecialAttack(thumpRate))
+        if (TakeSpecialAttack(ThumpRate))
         {
             Debug.Log("重击");
-            force = (int)(force * thumpDamage);
+            force = (int)(force * ThumpDamage);
         }
         else
         {
             //计算是否触发暴击
-            if (TakeSpecialAttack(critRate))
+            if (TakeSpecialAttack(CritRate))
             {
                 Debug.Log("暴击");
-                force = (int)(force * critDamage);
+                force = (int)(force * CritDamage);
             }
         }
 
         //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
-        return (int)(force * (140 / (70 + enemyindex.GetComponent<CardMove>().defence * (1 - armorPenetrationRate))));
+        return (int)(force * (140 / (70 + Enemyindex.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
     }
 
 
