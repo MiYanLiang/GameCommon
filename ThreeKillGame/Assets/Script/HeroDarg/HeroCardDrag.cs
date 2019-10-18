@@ -19,14 +19,19 @@ public class HeroCardDrag : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         canvas_Transform = GameObject.Find("Canvas").transform;
-
-	}
+        print("zzzzzzzzzzzzzzzzzzzz" + transform.GetComponent<HeroDataControll>().HeroData[0]);
+    }
+    private void Update()
+    {
+        //print("pppppppppppppppppppp" + transform.GetComponent<HeroDataControll>().HeroData[0]);
+    }
 
     /// <summary>
     /// 开始拖拽
     /// </summary>
     public void Begin(BaseEventData data)
     {
+        print("tttttttttttttttttttt" + transform.GetComponent<HeroDataControll>().HeroData[0]);
         if (transform.parent == canvas_Transform)
             return;
         //记录原始父级控件
@@ -67,6 +72,7 @@ public class HeroCardDrag : MonoBehaviour {
             transform.GetComponent<Image>().raycastTarget = true;
             //将新的位置的武将卡牌号存为当前武将的id
             HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.name)] = int.Parse(transform.GetComponent<HeroDataControll>().HeroData[0]);
+            print("sssssssssssss"+int.Parse(transform.GetComponent<HeroDataControll>().HeroData[0]));
         }
         else if (go.tag == "Card") //如果是其他卡牌
         {
@@ -111,7 +117,7 @@ public class HeroCardDrag : MonoBehaviour {
         {
             strid = strid + "  " + HeroIdChangeAndSave.pos_heroId[i];
         }
-        Debug.Log("/pos_Id/:            "+strid);
+        //Debug.Log("/pos_Id/:            "+strid);
 
     }
 

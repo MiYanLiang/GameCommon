@@ -39,7 +39,8 @@ public class ChangeAndGet : MonoBehaviour
         if (SearchEmptyEpace(0) == -1) { return; }  //若没有空位直接返回
         btnNum = btn.GetComponentInChildren<Text>().text;
         btnTag = int.Parse(btn.name);
-        mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
+        print("btnName:"+btnTag);
+        //mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
         money = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money;
         ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
         //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
@@ -313,7 +314,7 @@ public class ChangeAndGet : MonoBehaviour
     {
         int num = 0;
         string rowTxt = "";
-        for (int i = 1; i < 87 + 1; i++)
+        for (int i = 1; i < 88 + 1; i++)
         {
             for (int j = 1; j < 21 + 1; j++)
             {
@@ -348,7 +349,7 @@ public class ChangeAndGet : MonoBehaviour
         int num = 0;
         string numy = "";
         string rowTxt = "";
-        for (int i = 1; i < 87 + 1; i++)
+        for (int i = 1; i < 88 + 1; i++)
         {
             for (int j = 1; j < 21 + 1; j++)
             {

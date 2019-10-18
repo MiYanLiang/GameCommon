@@ -21,7 +21,7 @@ public class HeroDataControll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
+        print(HeroData[0] + ":" + HeroData[1]);
     }
 
     /// <summary>

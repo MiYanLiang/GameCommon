@@ -991,6 +991,7 @@ public class CreateAndUpdate : MonoBehaviour
             SetPeopleHarets();
             myCard.Clear();
             heroName.Clear();
+            //heroBtn.Clear();
             switch (level)
             {
                 case 1:
@@ -1592,7 +1593,7 @@ public class CreateAndUpdate : MonoBehaviour
         int num = 0;
         string numy = "";
         string rowTxt = "";
-        for (int i = 1; i < 87 + 1; i++)
+        for (int i = 1; i < 88 + 1; i++)
         {
             for (int j = 1; j < 15 + 1; j++)
             {
@@ -1646,7 +1647,7 @@ public class CreateAndUpdate : MonoBehaviour
     void GetHeroRarity(ExcelWorksheet worksheet, string name)
     {
         string numy = "";
-        for (int i = 1; i < 87 + 1; i++)
+        for (int i = 1; i < 88 + 1; i++)
         {
             for (int j = 1; j < 15 + 1; j++)
             {
