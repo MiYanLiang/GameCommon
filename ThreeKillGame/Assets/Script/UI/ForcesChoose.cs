@@ -1,0 +1,151 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using System.IO;
+using OfficeOpenXml;    //引入使用EPPlus类库
+
+public class ForcesChoose : MonoBehaviour
+{
+    // Start is called before the first frame update
+    public List<GameObject> forcesObj = new List<GameObject>();
+    int count = 6;
+    List<int> getForces = new List<int>();  //拿到获取到的随机6个势力的下标
+    List<string> forcesName = new List<string>();//存放6个势力的昵称
+    [HideInInspector]
+    public int currentForcesIndex;
+    bool canShow = false;
+    void Start()
+    {
+
+        RandomList();
+        ShowForces();
+        GetExcelFile1();
+        SetNameForObj();
+        forcesObj[0].SetActive(true);
+        //forcesObj[0].transform.Find("Back").gameObject.SetActive(true);
+        SetClickObj();
+        //    for (int i = 0; i < forcesName.Count; i++)
+        //    {
+        //        print(forcesName[i]);
+        //    }
+    }
+
+    // Update is called once per frame
+    private void Update()
+    {
+        ShowSelected();
+        //print(currentForcesIndex);
+    }
+    //读表
+    void GetExcelFile1()
+    {
+        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        FileInfo fileinfo = new FileInfo(filePath);
+        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        {
+            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["ForcesTable"];
+            for (int i = 0; i < getForces.Count; i++)
+            {
+                GetForcesName(worksheet1, getForces[i] + 1);
+            }
+        }
+    }
+    //随机6个势力
+    void RandomList()
+    {
+        //print(forcesObj.Count);
+        while (getForces.Count < count)
+        {
+            int temp_num = Random.Range(0, forcesObj.Count);
+            if (!getForces.Contains(temp_num))
+            {
+                getForces.Add(temp_num);
+            }
+        }
+    }
+    //显示6个势力
+    void ShowForces()
+    {
+        for (int i = 0; i < getForces.Count; i++)
+        {
+            forcesObj[getForces[i]].SetActive(true);
+        }
+    }
+    //读表获取势力名称显示
+    void GetForcesName(ExcelWorksheet worksheets, int index)
+    {
+        for (int i = 1; i < 11 + 1; i++)
+        {
+            if (i > 1)
+            {
+                if (int.Parse(worksheets.Cells[i, 1].Value.ToString()) == index)
+                {
+                    forcesName.Add(worksheets.Cells[i, 2].Value.ToString());
+                }
+            }
+        }
+    }
+    //将势力名字赋值给前端
+    void SetNameForObj()
+    {
+        for (int i = 0; i < getForces.Count; i++)
+        {
+            forcesObj[getForces[i]].GetComponentInChildren<Text>().text = forcesName[i];
+        }
+    }
+    //给随机出来的势力添加点击事件
+    void SetClickObj()
+    {
+        forcesObj[getForces[0]].GetComponent<Button>().onClick.AddListener(delegate ()
+         {
+             canShow = true;
+             currentForcesIndex = getForces[0];
+         });
+        forcesObj[getForces[1]].GetComponent<Button>().onClick.AddListener(delegate ()
+        {
+            canShow = true;
+            currentForcesIndex = getForces[1];
+        });
+        forcesObj[getForces[2]].GetComponent<Button>().onClick.AddListener(delegate ()
+        {
+            canShow = true;
+            currentForcesIndex = getForces[2];
+        });
+        forcesObj[getForces[3]].GetComponent<Button>().onClick.AddListener(delegate ()
+        {
+            canShow = true;
+            currentForcesIndex = getForces[3];
+        });
+        forcesObj[getForces[4]].GetComponent<Button>().onClick.AddListener(delegate ()
+        {
+            canShow = true;
+            currentForcesIndex = getForces[4];
+        });
+        forcesObj[getForces[5]].GetComponent<Button>().onClick.AddListener(delegate ()
+        {
+            canShow = true;
+            currentForcesIndex = getForces[5];
+        });
+    }
+    //选中圈显示
+    void ShowSelected()
+    {
+        if (canShow)
+        {
+            for (int i = 0; i < forcesObj.Count; i++)
+            {
+                if (i == currentForcesIndex)
+                {
+                    forcesObj[i].transform.Find("Back").gameObject.SetActive(true);
+                }
+                else
+                {
+                    forcesObj[i].transform.Find("Back").gameObject.SetActive(false);
+                }
+            }
+        }
+    }
+}
+
