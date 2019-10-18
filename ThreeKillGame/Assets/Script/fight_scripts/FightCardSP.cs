@@ -33,13 +33,14 @@ public class FightCardSP : MonoBehaviour
     GameObject[] playerCards = new GameObject[9];//存储己方卡牌
 
     UseEPPlusFun useepplusfun = new UseEPPlusFun();
-    TableDatas worksheet_NPC;   //存储npc表
+    //TableDatas worksheet_NPC;   //存储npc表
     TableDatas worksheet_Role;  //存储武将表
 
     private void Awake()
     {
-        worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
+        //worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
         worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
+        CreateEnemyUnits(); //初始化敌方发展阵容
     }
 
     private void Start()
@@ -60,12 +61,22 @@ public class FightCardSP : MonoBehaviour
         isEndOFInit = true;
     }
 
+    int[] enemyUnits = new int[3];  //记录敌方势力要发展的兵种类型
+    //初始化创建敌方后期要发展的兵种类型
+    private void CreateEnemyUnits()
+    {
+        enemyUnits[0]= UnityEngine.Random.Range(1, 7);
+        enemyUnits[1] = UnityEngine.Random.Range(1, 10);
+        enemyUnits[2] = UnityEngine.Random.Range(4, 10);
+    }
+
+    List<string>[] enemyHreoData = new List<string>[9];  //记录敌方上阵英雄的数据
     /// <summary>
     /// 初始化战斗卡牌
     /// </summary>
     public void InitializeBattleCard()
     {
-        for (int i = 0; i < 9; i++)
+        for (int i = 0; i < 9; i++) //玩家战斗卡牌，空卡牌就位
         {
             playerCards[i] = null;
             if (jiugongge_BrforeFight.GetChild(i).childCount>0)
@@ -75,6 +86,23 @@ public class FightCardSP : MonoBehaviour
                 playerCards[i].transform.SetParent(OwnJiuGonggePos[i].parent.parent);
             }
         }
+        //敌方上阵英雄数据获取和传递
+        for (int i = 0; i < 9; i++)
+        {
+            if (enemyCards[i] != null)
+            {
+                //传递ID,品阶,战斗周目数
+                enemyHreoData[i].Add(enemyCards[i].GetComponent<CardMove>().HeroId.ToString());
+                enemyHreoData[i].Add(enemyCards[i].GetComponent<CardMove>().Grade.ToString());
+                enemyHreoData[i].Add((enemyCards[i].GetComponent<CardMove>().FightNums += 1).ToString());
+            }
+            else
+            {
+                enemyHreoData[i] = null;
+            }
+        }
+        enemyHreoData = EmFightControll.SendHeroData(enemyHreoData, enemyUnits, battles-1);    //npc武将数据更新
+        //上阵初始化
         OtherInitialization();
     }
 
@@ -82,6 +110,7 @@ public class FightCardSP : MonoBehaviour
 
     private void OtherInitialization()
     {
+        /*
         //敌方卡牌初始化
         for (int i = 0; i < enemyCards.Length; i++)
         {
@@ -117,6 +146,7 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[i].GetComponent<CardMove>().OtherDataSet();
             }
         }
+        */
         //玩家卡牌初始化
         for (int i = 0; i < playerCards.Length; i++)
         {
@@ -126,6 +156,10 @@ public class FightCardSP : MonoBehaviour
                 List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
                 //设置地方卡牌的默认先后手情况
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
+                //武将ID
+                playerCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
+                //品阶
+                playerCards[i].GetComponent<CardMove>().Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
                 //血量
                 playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力

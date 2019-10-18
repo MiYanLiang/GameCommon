@@ -18,6 +18,15 @@ public class CardMove : MonoBehaviour
 
     public bool isFightInThisBout; //当前回合是否进行过攻击
 
+    private int fightNums;  //参与战斗周目数
+    public int FightNums { get => fightNums; set => fightNums = value; }
+
+    private int heroId; //武将ID
+    public int HeroId { get => heroId; set => heroId = value; }
+
+    private int grade;  //品阶
+    public int Grade { get => grade; set => grade = value; }
+
     private int fullhealth;//满血量
     public int Fullhealth { get => fullhealth; set => fullhealth = value; }
 
@@ -68,6 +77,7 @@ public class CardMove : MonoBehaviour
     private void Awake()
     {
         isFightInThisBout = false;
+        FightNums = 0;
     }
 
     /// <summary>
