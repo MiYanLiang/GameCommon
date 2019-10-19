@@ -13,14 +13,24 @@ public class EmFightControll : MonoBehaviour
     static TableDatas worksheet_Role;  //存储武将表
     static TableDatas worksheet_DFC;   //存储难度选择表
 
+    //存放相关种类可以使用的士兵id
+    static List<int> soldiersKind1 = new List<int>();
+    static List<int> soldiersKind2 = new List<int>();
+    static List<int> soldiersKind3 = new List<int>();
+    //记录三种兵种的个数
+    static int soldiersKindNum1;
+    static int soldiersKindNum2;
+    static int soldiersKindNum3;
+    //可随机的英雄id
+    static List<int> canGetHeroId = new List<int>();
+    //存放最后拿到的英雄Id
+    static List<int> getHeroId = new List<int>();
+
+
     private void Awake()
     {
         worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
         worksheet_DFC = useepplusfun.FindExcelFiles("DifficultyChoose");
-
-        //测试
-        array_str_like_init();
-        AddHeros_Like(enemyUnits_like, 3);
     }
 
     //上阵位置和开启周目                          [0,0]                                 [1,1]     
@@ -35,12 +45,12 @@ public class EmFightControll : MonoBehaviour
     /// <param name="enemyUnits">阵容兵种定位[前排，中排，后排]</param>
     /// <param name="battles">总周目数</param>
     /// <returns></returns>
-    public static List<string>[] SendHeroData(List<string>[] arrHeroData, int[] enemyUnits,int battles)
+    public static List<string>[] SendHeroData(List<string>[] arrHeroData, int[] enemyUnits, int battles)
     {
         int heroCount = 0;  //记录英雄数
         for (int i = 0; i < arrHeroData.Length; i++)    //依次处理传过来的九个位置
         {
-            if (arrHeroData[i]!=null)   //若该位置有英雄
+            if (arrHeroData[i] != null)   //若该位置有英雄
             {
                 heroCount++;
                 switch (arrHeroData[i][1])  //判断英雄的品阶       
@@ -49,7 +59,7 @@ public class EmFightControll : MonoBehaviour
                         switch (useepplusfun.GetRowAndColumnData(worksheet_Role, int.Parse(arrHeroData[i][0]), 5))   //判断稀有度
                         {
                             case "1":   //绿1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum+1, 8)))  //判断此卡牌参与的战斗周目
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 8)))  //判断此卡牌参与的战斗周目
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -58,7 +68,7 @@ public class EmFightControll : MonoBehaviour
                                     else                //升色
                                     {
                                         array_str[i] = UpColor(useepplusfun.GetRowAndColumnData(worksheet_Role, int.Parse(arrHeroData[i][0]) + 1, 4), "2");  //执行升色方法传递所需兵种和升色值（稀有度1234）
-                                        if (array_str[i]==null) HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                        if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                     }
                                 }
                                 else
@@ -67,7 +77,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "2":   //蓝1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 9)))  
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 9)))
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -76,7 +86,7 @@ public class EmFightControll : MonoBehaviour
                                     else                //升色
                                     {
                                         array_str[i] = UpColor(useepplusfun.GetRowAndColumnData(worksheet_Role, int.Parse(arrHeroData[i][0]) + 1, 4), "3");  //执行升色方法传递所需兵种和升色值（稀有度1234）
-                                        if (array_str[i]==null) HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                        if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                     }
                                 }
                                 else
@@ -85,7 +95,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "3":   //紫1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 10)))  
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 10)))
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -94,7 +104,7 @@ public class EmFightControll : MonoBehaviour
                                     else                //升色
                                     {
                                         array_str[i] = UpColor(useepplusfun.GetRowAndColumnData(worksheet_Role, int.Parse(arrHeroData[i][0]) + 1, 4), "4");  //执行升色方法传递所需兵种和升色值（稀有度1234）
-                                        if (array_str[i]==null) HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                        if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                     }
                                 }
                                 else
@@ -103,7 +113,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "4":   //橙1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 11))) 
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 11)))
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -182,20 +192,22 @@ public class EmFightControll : MonoBehaviour
         }
 
         //更新英雄上阵位置和个数
-        if (battles<arrayBattles[1,1])
+        if (battles < arrayBattles[1, 1])
         {
-            if (heroCount<arrayBattles[0,0])
+            if (heroCount < arrayBattles[0, 0])
             {
                 //添加英雄 
+                ClearDate();
                 AddHeros(enemyUnits, arrayBattles[0, 0] - heroCount);
             }
         }
         else
         {
-            if (battles<arrayBattles[1,2])
+            if (battles < arrayBattles[1, 2])
             {
-                if (heroCount<arrayBattles[0,1])
+                if (heroCount < arrayBattles[0, 1])
                 {
+                    ClearDate(); 
                     AddHeros(enemyUnits, arrayBattles[0, 1] - heroCount);
                 }
             }
@@ -205,6 +217,7 @@ public class EmFightControll : MonoBehaviour
                 {
                     if (heroCount < arrayBattles[0, 2])
                     {
+                        ClearDate();
                         AddHeros(enemyUnits, arrayBattles[0, 2] - heroCount);
                     }
                 }
@@ -214,6 +227,7 @@ public class EmFightControll : MonoBehaviour
                     {
                         if (heroCount < arrayBattles[0, 3])
                         {
+                            ClearDate();
                             AddHeros(enemyUnits, arrayBattles[0, 3] - heroCount);
                         }
                     }
@@ -223,6 +237,7 @@ public class EmFightControll : MonoBehaviour
                         {
                             if (heroCount < arrayBattles[0, 4])
                             {
+                                ClearDate();
                                 AddHeros(enemyUnits, arrayBattles[0, 4] - heroCount);
                             }
                         }
@@ -232,6 +247,7 @@ public class EmFightControll : MonoBehaviour
                             {
                                 if (heroCount < arrayBattles[0, 5])
                                 {
+                                    ClearDate();
                                     AddHeros(enemyUnits, arrayBattles[0, 5] - heroCount);
                                 }
                             }
@@ -241,6 +257,7 @@ public class EmFightControll : MonoBehaviour
                                 {
                                     if (heroCount < arrayBattles[0, 6])
                                     {
+                                        ClearDate();
                                         AddHeros(enemyUnits, arrayBattles[0, 6] - heroCount);
                                     }
                                 }
@@ -250,6 +267,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (heroCount < arrayBattles[0, 7])
                                         {
+                                            ClearDate();
                                             AddHeros(enemyUnits, arrayBattles[0, 7] - heroCount);
                                         }
                                     }
@@ -259,6 +277,7 @@ public class EmFightControll : MonoBehaviour
                                         {
                                             if (heroCount < arrayBattles[0, 8])
                                             {
+                                                ClearDate();
                                                 AddHeros(enemyUnits, arrayBattles[0, 8] - heroCount);
                                             }
                                         }
@@ -266,6 +285,7 @@ public class EmFightControll : MonoBehaviour
                                         {
                                             if (heroCount < arrayBattles[0, 9])
                                             {
+                                                ClearDate();
                                                 AddHeros(enemyUnits, arrayBattles[0, 9] - heroCount);
                                             }
                                         }
@@ -285,34 +305,19 @@ public class EmFightControll : MonoBehaviour
     /// </summary>
     /// <param name="enemyUnits">兵种类型</param>
     /// <param name="v">添加个数</param>
+    //调用AddHeros方法时，所需调用清空方法
+    static void ClearDate()
+    {
+        soldiersKind1.Clear();
+        soldiersKind2.Clear();
+        soldiersKind3.Clear();
+        soldiersKindNum1 = 0;
+        soldiersKindNum2 = 0;
+        soldiersKindNum3 = 0;
+        canGetHeroId.Clear();
+        getHeroId.Clear();
+    }
     private static void AddHeros(int[] enemyUnits, int v)
-    {
-       
-    }
-    //用来测试
-    static int[] enemyUnits_like = {1,4,6 };
-    static List<string>[] array_str_like = new List<string>[9];
-    static List<string> arrDate = new List<string>() { "1", "谛听", "9", "1", "1" };
-    static List<string> arrDate1 = new List<string>() { "2", "狴犴", "9", "1", "1" };  //第四个数据是兵种
-    //存放相关种类可以使用的士兵id
-    static List<int> soldiersKind1 = new List<int>();
-    static List<int> soldiersKind2 = new List<int>();
-    static List<int> soldiersKind3 = new List<int>();
-    //记录三种兵种的个数
-    static int soldiersKindNum1;
-    static int soldiersKindNum2;
-    static int soldiersKindNum3;
-    //可随机的英雄id
-    static List<int> canGetHeroId = new List<int>();
-    //存放最后拿到的英雄Id
-    static List<int> getHeroId = new List<int>();
-
-    void array_str_like_init()
-    {
-        array_str_like[4] = arrDate;
-        array_str_like[8] = arrDate1;
-    }
-    private static void AddHeros_Like(int[] enemyUnits, int v)
     {
         //将可以添加的英雄id存储
         for (int j = 2; j < 88 + 1; j++)
@@ -334,38 +339,38 @@ public class EmFightControll : MonoBehaviour
             }
         }
         //拿到已有英雄所属兵种与三种一样的个数,及去重
-        for (int i = 0; i < array_str_like.Length; i++)
+        for (int i = 0; i < array_str.Length; i++)
         {
-            if (array_str_like[i] != null)
+            if (array_str[i] != null)
             {
-                if (int.Parse(array_str_like[i][3]) == enemyUnits[0])
+                if (int.Parse(array_str[i][3]) == enemyUnits[0])
                 {
                     soldiersKindNum1++;
                     for (int j = 0; j < soldiersKind1.Count; j++)
                     {
-                        if (soldiersKind1[j] == int.Parse(array_str_like[i][0]))
+                        if (soldiersKind1[j] == int.Parse(array_str[i][0]))
                         {
                             soldiersKind1.RemoveAt(j);
                         }
                     }
                 }
-                else if (int.Parse(array_str_like[i][3]) == enemyUnits[1])
+                else if (int.Parse(array_str[i][3]) == enemyUnits[1])
                 {
                     soldiersKindNum2++;
                     for (int j = 0; j < soldiersKind2.Count; j++)
                     {
-                        if (soldiersKind2[j] == int.Parse(array_str_like[i][0]))
+                        if (soldiersKind2[j] == int.Parse(array_str[i][0]))
                         {
                             soldiersKind2.RemoveAt(j);
                         }
                     }
                 }
-                else if (int.Parse(array_str_like[i][3]) == enemyUnits[2])
+                else if (int.Parse(array_str[i][3]) == enemyUnits[2])
                 {
                     soldiersKindNum1++;
                     for (int j = 0; j < soldiersKind3.Count; j++)
                     {
-                        if (soldiersKind3[j] == int.Parse(array_str_like[i][0]))
+                        if (soldiersKind3[j] == int.Parse(array_str[i][0]))
                         {
                             soldiersKind3.RemoveAt(j);
                         }
@@ -454,35 +459,25 @@ public class EmFightControll : MonoBehaviour
                 }
             }
         }
-        print("NUM:"+getHeroId.Count);
         //通过获取到的英雄id将整行数据存放
         for (int i = 0; i < getHeroId.Count; i++)
         {
             List<string> herodate = new List<string>();
-            //herodate = useepplusfun.GetRowDatas(worksheet_Role, getHeroId[i] + 1);
             for (int j = 1; j < 15 + 1; j++)
             {
-                herodate.Add(worksheet_Role.worksheet.Cells[getHeroId[i]+1,j].Value.ToString());
+                herodate.Add(worksheet_Role.worksheet.Cells[getHeroId[i] + 1, j].Value.ToString());
             }
-            for (int j = 0; j < array_str_like.Length; j++)
+            for (int j = 0; j < array_str.Length; j++)
             {
-                if (array_str_like[j] == null)
+                if (array_str[j] == null)
                 {
-                    array_str_like[j] = herodate;
+                    array_str[j] = herodate;
                     break;
                 }
             }
         }
-
-        //输出测试
-        for (int i = 0; i < array_str_like.Length; i++)
-        {
-            if (array_str_like[i] != null)
-            {
-                print("i:" + i + ".." + "array_str_like[i][0]:" + array_str_like[i][0]);
-            }
-        }
     }
+
 
     /// <summary>
     /// 升色方法
