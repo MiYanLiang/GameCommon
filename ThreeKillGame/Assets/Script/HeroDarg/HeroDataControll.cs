@@ -39,8 +39,11 @@ public class HeroDataControll : MonoBehaviour {
         }
     }
 
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    //获取点击当前卡牌武将的id
+    public void GetThisCardId()
+    {
+        int heroId =int.Parse(HeroData[0]);
+        //传递给显示详细信息
+        Debug.Log("当前英雄ID:"+heroId);
+    }
 }

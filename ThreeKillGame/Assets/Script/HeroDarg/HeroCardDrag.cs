@@ -7,8 +7,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class HeroCardDrag : MonoBehaviour {
-
-
+    
+    private Transform backGround;    //背景存放id数据
     private Transform beginParentTransform; //记录拖拽卡片的父级对象
     /// <summary>
     /// UI界面的顶层Canvas
@@ -19,7 +19,7 @@ public class HeroCardDrag : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         canvas_Transform = GameObject.Find("Canvas").transform;
-        print("zzzzzzzzzzzzzzzzzzzz" + transform.GetComponent<HeroDataControll>().HeroData[0]);
+        backGround = canvas_Transform.GetChild(0);
     }
     private void Update()
     {
@@ -117,7 +117,8 @@ public class HeroCardDrag : MonoBehaviour {
         {
             strid = strid + "  " + HeroIdChangeAndSave.pos_heroId[i];
         }
-        //Debug.Log("/pos_Id/:            "+strid);
+
+        backGround.GetComponent<HeroIdChangeAndSave>().SaveNowHeroId(); //刷新保存当前拥有的武将id
 
     }
 
