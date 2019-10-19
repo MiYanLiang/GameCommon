@@ -42,10 +42,6 @@ public class FightCardSP : MonoBehaviour
     {
         //worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
         worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
-    }
-
-    private void Start()
-    {
         battles = 1;
     }
 

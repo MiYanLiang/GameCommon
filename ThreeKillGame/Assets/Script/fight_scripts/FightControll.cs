@@ -1,73 +1,131 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 战斗控制脚本
 /// </summary>
 public class FightControll : MonoBehaviour
 {
-    //记录敌方五个势力的卡牌
-    //public List<GameObject[]> enemyCards_Controll=new List<GameObject[]>();
+    public GameObject hero_Card;    //英雄卡片预制件
+    //各个npc上阵九宫格
+    public Transform[] JiuGongGes = new Transform[5];
     //各个战斗控制控件0为玩家
     public Transform[] FightCardSps=new Transform[6];
     //各个战斗画面
     public GameObject[] FightTVs = new GameObject[6];
+    //记录敌方势力要发展的兵种类型
+    int[][] enemyUnits = new int[5][];
+    //记录NPC上阵英雄的数据
+    List<List<string>[]> enemyHeroDatas = new List<List<string>[]>(); 
+    List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
 
     private void Awake()
     {
-        //添加五个敌方势力的初始卡牌
-        //for (int i = 0; i < 5; i++)
-        //{
-        //    enemyCards_Controll.Add(new GameObject[9]);
-        //}
-        CreateEnemyUnits(); //初始化敌方发展阵容
+        for (int i = 0; i < 5; i++)
+        {
+            enemyHeroDatas.Add(new List<string>[9]);
+        }
+        CreateEnemyUnits(); //初始化所有NPC势力发展阵容
     }
 
-    int[] enemyUnits = new int[3];  //记录敌方势力要发展的兵种类型
-    //初始化创建敌方后期要发展的兵种类型
-    private void CreateEnemyUnits()
+    private void Start()
     {
-        enemyUnits[0] = UnityEngine.Random.Range(1, 7);      //前排
-        enemyUnits[1] = UnityEngine.Random.Range(1, 10);    //中排
-        enemyUnits[2] = UnityEngine.Random.Range(4, 10);    //后排
+        ChangeAllEnemyCards();
     }
-
-    List<string>[] enemyHreoData = new List<string>[9];  //记录敌方上阵英雄的数据
-    List<string>[] sendDatas = new List<string>[9];     //存储需要传递的数据
     /// <summary>
-    /// 更新所有敌方阵容
+    /// 更新所有NPC阵容
     /// </summary>
     public void ChangeAllEnemyCards()
     {
-        //玩家的敌方上阵英雄数据获取和传递
-        for (int i = 0; i < 9; i++)
-        {
-            if (enemyHreoData[i] != null)
-            {
-                //传递ID,品阶,战斗周目数
-                sendDatas[i].Add(enemyHreoData[i][0]);
-                sendDatas[i].Add(enemyHreoData[i][enemyHreoData[i].Count - 2]);
-                sendDatas[i].Add(enemyHreoData[i][enemyHreoData[i].Count - 1]);
-            }
-            else
-            {
-                sendDatas[i] = null;
-            }
-        }
-        FightCardSps[0].GetComponent<FightCardSP>().array_str= EmFightControll.SendHeroData(sendDatas, enemyUnits, FightCardSps[0].GetComponent<FightCardSP>().battles- 1);    //npc武将数据更新
-        for (int i = 0; i < sendDatas.Length; i++)
-        {
-            if (sendDatas[i]!=null)
-            {
-                sendDatas[i].Clear();
-            }
-        }
+        List<string>[] enemyHeroData = new List<string>[9];
 
-        FightCardSps[0].gameObject.SetActive(true);
+        for (int i = 0; i < enemyHeroDatas.Count; i++)
+        {
+            enemyHeroData = enemyHeroDatas[i];
 
+            for (int j  = 0; j < 9; j++)
+            {
+                if (enemyHeroData[j] != null)
+                {
+                    //传递ID,品阶,战斗周目数
+                    sendData[j].Add(enemyHeroData[j][0]);
+                    sendData[j].Add(enemyHeroData[j][enemyHeroData[j].Count - 2]);
+                    sendData[j].Add(enemyHeroData[j][enemyHeroData[j].Count - 1]);
+                    enemyHeroData[j].Clear();   //传递后清理
+                }
+                else
+                {
+                    sendData[j] = null;
+                }
+            }
+            //npc上阵武将数据更新
+            enemyHeroDatas[i]= EmFightControll.SendHeroData(sendData, enemyUnits[i], FightCardSps[0].GetComponent<FightCardSP>().battles - 1);
+            //清理临时传递的数据
+            for (int n = 0; n < sendData.Length; n++)
+            {
+                if (sendData[n] != null)
+                {
+                    sendData[n].Clear();
+                }
+            }
+            //清空当前NPC九宫格武将卡牌
+            for (int m = 0; m < 9; m++)
+            {
+                if (JiuGongGes[i].GetChild(m).childCount > 0)
+                {
+                    Destroy(JiuGongGes[i].GetChild(m).GetChild(0));
+                }
+            }
+            //NPC新的武将卡牌上阵九宫格
+            for (int m = 0; m < 9; m++)
+            {
+                if (enemyHeroDatas[i][m]!=null)
+                {
+                    //实例化武将卡牌到备战位,并传递数据过去
+                    GameObject newheroCard = Instantiate(hero_Card, JiuGongGes[i].GetChild(m));
+                    newheroCard.transform.position = JiuGongGes[i].GetChild(m).position;
+                    newheroCard.GetComponent<Image>().raycastTarget = false;    //关闭射线控制拖拽
+                    newheroCard.GetComponent<HeroDataControll>().HeroData = enemyHeroDatas[i][m];   //传递卡牌数据
+                    newheroCard.GetComponent<HeroDataControll>().Grade_hero = int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count-2]); //传递阶值
+                    //设置品阶颜色表现和属性
+                    switch (int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2]))
+                    {
+                        case 1:
+                            newheroCard.GetComponent<Image>().color = Color.white;
+                            break;
+                        case 2:
+                            newheroCard.GetComponent<Image>().color = Color.blue;
+                            break;
+                        case 3:
+                            newheroCard.transform.GetComponent<Image>().color = Color.red;
+                            break;
+                        default:
+                            newheroCard.transform.GetComponent<Image>().color = Color.white;
+                            break;
+                    }
+                    //显示英雄名等信息
+                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][0] + ":" + enemyHeroDatas[i][m][1];
+                    newheroCard.transform.GetChild(1).GetComponent<Text>().text = enemyHeroDatas[i][m][6];
+                    newheroCard.transform.GetChild(2).GetComponent<Text>().text = enemyHeroDatas[i][m][7];
+                }
+            }
+
+        }
     }
 
+    /// <summary>
+    /// 开始战斗，传递数据到战斗界面
+    /// </summary>
+    public void StartFightSendHeroData()
+    {
+        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[0];
+        FightCardSps[0].gameObject.SetActive(true);
+    }
+
+
+    //打开或者关闭战斗界面
     public void OpenOrCloseFightTV(bool boo)
     {
         for (int i = 0; i < 6; i++)
@@ -76,4 +134,18 @@ public class FightControll : MonoBehaviour
         }
     }
 
+
+
+    //初始化创建敌方后期要发展的兵种类型
+    private void CreateEnemyUnits()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            enemyUnits[i] = new int[3];
+            enemyUnits[i][0] = Random.Range(1, 7);     //前排
+            enemyUnits[i][1] = Random.Range(1, 10);    //中排
+            enemyUnits[i][2] = Random.Range(4, 10);    //后排
+            //Debug.Log("///" + enemyUnits[i][0] + "///" + enemyUnits[i][1] + "////" + enemyUnits[i][2]);
+        }
+    }
 }

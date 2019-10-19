@@ -37,7 +37,7 @@ public class UseEPPlusFun : MonoBehaviour {
     {
         string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //StreamingAssets文件夹的相对路径
         FileInfo fileinfo = new FileInfo(filePath);
-        Debug.Log("打开文件路径："+fileinfo);
+        //Debug.Log("打开文件路径："+fileinfo);
         ExcelPackage excelPackage = new ExcelPackage(fileinfo);
         TableDatas tableData = new TableDatas();
         tableData.worksheet = excelPackage.Workbook.Worksheets[tableName];

@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class EmFightCardSP : MonoBehaviour
 {
     [SerializeField]
-    private Slider player_hp;//玩家血条
+    private Slider player_hp;//势力npc血条
     [SerializeField]
     private GameObject updateBtn;   //招募刷新控件，用来获取脚本
-    [SerializeField]
-    private Text victoryOrFailureText;  //战斗胜负显示
+    
 
     private bool isEndOFInit = false;   //记录是否初始化结束
     private int battles;       //记录对战次数
@@ -23,7 +22,9 @@ public class EmFightCardSP : MonoBehaviour
     public Transform jiugongge_BrforeFight;  //上阵布阵的九宫格
     public GameObject heroFightCard;    //英雄战斗卡片预制件
     public Transform[] OwnJiuGonggePos = new Transform[9];  //战斗槽位置_玩家
-
+    public Transform[] enemyJiuGonggePos = new Transform[9];    //战斗槽位置_敌人
+    [HideInInspector]
+    public List<string>[] array_str = new List<string>[9]; //接收传递的敌方上阵英雄数据
     [SerializeField]
     GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
     [SerializeField]
@@ -295,31 +296,7 @@ public class EmFightCardSP : MonoBehaviour
                         //金币
                         updateBtn.GetComponent<CreateAndUpdate>().money += 1;   //玩家加金币
 
-                        //展示战斗胜负信息
-                        if (remainScale >= 0.75f)
-                        {
-                            victoryOrFailureText.text = "完胜";
-                        }
-                        else
-                        {
-                            if (remainScale >= 0.5f)
-                            {
-                                victoryOrFailureText.text = "大胜";
-                            }
-                            else
-                            {
-                                if (remainScale >= 0.25f)
-                                {
-                                    victoryOrFailureText.text = "小胜";
-                                }
-                                else
-                                {
-                                    victoryOrFailureText.text = "险胜";
-                                }
-                            }
-                        }
-                        victoryOrFailureText.gameObject.SetActive(true);
-                        //RecoverCardData();  //战斗结算结束恢复卡牌数值
+                        
                         return null;
                     }
                 }
@@ -359,31 +336,7 @@ public class EmFightCardSP : MonoBehaviour
                         //金币
                         updateBtn.GetComponent<CreateAndUpdate>().money += 0;   //玩家不加金币
 
-                        //展示战斗胜负信息
-                        if (remainScale >= 0.75f)
-                        {
-                            victoryOrFailureText.text = "惨败";
-                        }
-                        else
-                        {
-                            if (remainScale >= 0.5f)
-                            {
-                                victoryOrFailureText.text = "大败";
-                            }
-                            else
-                            {
-                                if (remainScale >= 0.25f)
-                                {
-                                    victoryOrFailureText.text = "小败";
-                                }
-                                else
-                                {
-                                    victoryOrFailureText.text = "惜败";
-                                }
-                            }
-                        }
-                        victoryOrFailureText.gameObject.SetActive(true);
-                        //RecoverCardData();  
+                        
                         return null;
                     }
                 }

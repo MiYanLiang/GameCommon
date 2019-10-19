@@ -297,6 +297,15 @@ public class EmFightControll : MonoBehaviour
                 }
             }
         }
+        //List<string>[] array_strr = new List<string>[9];
+        //array_strr = array_str;
+        //for (int pp = 0; pp < 9; pp++)
+        //{
+        //    if (array_str[pp]!=null)
+        //    {
+        //        array_str[pp].Clear();
+        //    }
+        //}
         return array_str;
     }
 

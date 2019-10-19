@@ -16,7 +16,7 @@ public class UIControl : MonoBehaviour
     {
         DifficultyType = PlayerPrefs.GetInt("DifficultyType");
         forcesId = PlayerPrefs.GetInt("forcesId");
-        print("DifficultyType:"+ DifficultyType+"........"+ "forcesId:"+ forcesId);
+        //print("DifficultyType:"+ DifficultyType+"........"+ "forcesId:"+ forcesId);
     }
 
     // Update is called once per frame
