@@ -12,9 +12,11 @@ public class ForcesChoose : MonoBehaviour
     int count = 6;
     List<int> getForces = new List<int>();  //拿到获取到的随机6个势力的下标
     List<string> forcesName = new List<string>();//存放6个势力的昵称
+    List<string> forcesExplain = new List<string>();//存放6个势力的说明文字
     [HideInInspector]
     public int currentForcesIndex;
     bool canShow = false;
+    public GameObject forcesText;
     void Start()
     {
 
@@ -22,13 +24,9 @@ public class ForcesChoose : MonoBehaviour
         ShowForces();
         GetExcelFile1();
         SetNameForObj();
-        forcesObj[0].SetActive(true);
-        //forcesObj[0].transform.Find("Back").gameObject.SetActive(true);
         SetClickObj();
-        //    for (int i = 0; i < forcesName.Count; i++)
-        //    {
-        //        print(forcesName[i]);
-        //    }
+        forcesObj[0].SetActive(true);
+        forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
     }
 
     // Update is called once per frame
@@ -83,6 +81,7 @@ public class ForcesChoose : MonoBehaviour
                 if (int.Parse(worksheets.Cells[i, 1].Value.ToString()) == index)
                 {
                     forcesName.Add(worksheets.Cells[i, 2].Value.ToString());
+                    forcesExplain.Add(worksheets.Cells[i, 3].Value.ToString());
                 }
             }
         }
@@ -102,38 +101,44 @@ public class ForcesChoose : MonoBehaviour
          {
              canShow = true;
              currentForcesIndex = getForces[0];
+             forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
          });
         forcesObj[getForces[1]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[1];
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[1];
         });
         forcesObj[getForces[2]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[2];
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[2];
         });
         forcesObj[getForces[3]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[3];
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[3];
         });
         forcesObj[getForces[4]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[4];
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[4];
         });
         forcesObj[getForces[5]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[5];
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[5];
         });
     }
     //选中圈显示
     void ShowSelected()
     {
-        if (canShow)
-        {
+        //if (canShow)
+        //{
             for (int i = 0; i < forcesObj.Count; i++)
             {
                 if (i == currentForcesIndex)
@@ -145,7 +150,7 @@ public class ForcesChoose : MonoBehaviour
                     forcesObj[i].transform.Find("Back").gameObject.SetActive(false);
                 }
             }
-        }
+        //}
     }
 }
 

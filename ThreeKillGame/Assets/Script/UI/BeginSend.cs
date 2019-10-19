@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
 using OfficeOpenXml;    //引入使用EPPlus类库
+using UnityEngine.SceneManagement;
 public class BeginSend : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -25,8 +26,11 @@ public class BeginSend : MonoBehaviour
     {
         GetDifficultyType();
         GetForcesId();
-        print("难度："+DifficultyType);
-        print("势力ID："+ forcesId);
+        //print("难度："+DifficultyType);
+        //print("势力ID："+ forcesId);
+        PlayerPrefs.SetInt("DifficultyType", DifficultyType);
+        PlayerPrefs.SetInt("forcesId",forcesId);
+        SceneManager.LoadScene(1);
     }
     void GetDifficultyType()
     {
