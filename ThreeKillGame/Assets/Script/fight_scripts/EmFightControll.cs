@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 //敌方武将卡牌数据初始化和控制
 public class EmFightControll : MonoBehaviour
@@ -16,6 +17,10 @@ public class EmFightControll : MonoBehaviour
     {
         worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
         worksheet_DFC = useepplusfun.FindExcelFiles("DifficultyChoose");
+
+        //测试
+        array_str_like_init();
+        AddHeros_Like(enemyUnits_like, 3);
     }
 
     //上阵位置和开启周目                          [0,0]                                 [1,1]     
@@ -272,7 +277,6 @@ public class EmFightControll : MonoBehaviour
                 }
             }
         }
-
         return null;
     }
 
@@ -283,7 +287,182 @@ public class EmFightControll : MonoBehaviour
     /// <param name="v">添加个数</param>
     private static void AddHeros(int[] enemyUnits, int v)
     {
-        throw new NotImplementedException();
+       
+    }
+    //用来测试
+    static int[] enemyUnits_like = {1,4,6 };
+    static List<string>[] array_str_like = new List<string>[9];
+    static List<string> arrDate = new List<string>() { "1", "谛听", "9", "1", "1" };
+    static List<string> arrDate1 = new List<string>() { "2", "狴犴", "9", "1", "1" };  //第四个数据是兵种
+    //存放相关种类可以使用的士兵id
+    static List<int> soldiersKind1 = new List<int>();
+    static List<int> soldiersKind2 = new List<int>();
+    static List<int> soldiersKind3 = new List<int>();
+    //记录三种兵种的个数
+    static int soldiersKindNum1;
+    static int soldiersKindNum2;
+    static int soldiersKindNum3;
+    //可随机的英雄id
+    static List<int> canGetHeroId = new List<int>();
+    //存放最后拿到的英雄Id
+    static List<int> getHeroId = new List<int>();
+
+    void array_str_like_init()
+    {
+        array_str_like[4] = arrDate;
+        array_str_like[8] = arrDate1;
+    }
+    private static void AddHeros_Like(int[] enemyUnits, int v)
+    {
+        //将可以添加的英雄id存储
+        for (int j = 2; j < 88 + 1; j++)
+        {
+            if (int.Parse(worksheet_Role.worksheet.Cells[j, 5].Value.ToString()) == 1)
+            {
+                if (int.Parse(worksheet_Role.worksheet.Cells[j, 4].Value.ToString()) == enemyUnits[0])
+                {
+                    soldiersKind1.Add(int.Parse(worksheet_Role.worksheet.Cells[j, 1].Value.ToString()));
+                }
+                else if (int.Parse(worksheet_Role.worksheet.Cells[j, 4].Value.ToString()) == enemyUnits[1])
+                {
+                    soldiersKind2.Add(int.Parse(worksheet_Role.worksheet.Cells[j, 1].Value.ToString()));
+                }
+                else if (int.Parse(worksheet_Role.worksheet.Cells[j, 4].Value.ToString()) == enemyUnits[2])
+                {
+                    soldiersKind3.Add(int.Parse(worksheet_Role.worksheet.Cells[j, 1].Value.ToString()));
+                }
+            }
+        }
+        //拿到已有英雄所属兵种与三种一样的个数,及去重
+        for (int i = 0; i < array_str_like.Length; i++)
+        {
+            if (array_str_like[i] != null)
+            {
+                if (int.Parse(array_str_like[i][3]) == enemyUnits[0])
+                {
+                    soldiersKindNum1++;
+                    for (int j = 0; j < soldiersKind1.Count; j++)
+                    {
+                        if (soldiersKind1[j] == int.Parse(array_str_like[i][0]))
+                        {
+                            soldiersKind1.RemoveAt(j);
+                        }
+                    }
+                }
+                else if (int.Parse(array_str_like[i][3]) == enemyUnits[1])
+                {
+                    soldiersKindNum2++;
+                    for (int j = 0; j < soldiersKind2.Count; j++)
+                    {
+                        if (soldiersKind2[j] == int.Parse(array_str_like[i][0]))
+                        {
+                            soldiersKind2.RemoveAt(j);
+                        }
+                    }
+                }
+                else if (int.Parse(array_str_like[i][3]) == enemyUnits[2])
+                {
+                    soldiersKindNum1++;
+                    for (int j = 0; j < soldiersKind3.Count; j++)
+                    {
+                        if (soldiersKind3[j] == int.Parse(array_str_like[i][0]))
+                        {
+                            soldiersKind3.RemoveAt(j);
+                        }
+                    }
+                }
+            }
+        }
+        //将可以随机的英雄id存放
+        for (int i = 0; i < soldiersKind1.Count; i++)
+        {
+            canGetHeroId.Add(soldiersKind1[i]);
+        }
+        for (int i = 0; i < soldiersKind2.Count; i++)
+        {
+            canGetHeroId.Add(soldiersKind2[i]);
+        }
+        for (int i = 0; i < soldiersKind3.Count; i++)
+        {
+            canGetHeroId.Add(soldiersKind3[i]);
+        }
+        //要几个随机几个英雄Id
+        for (int i = 0; i < v; i++)
+        {
+            int temp_num = Random.Range(0, canGetHeroId.Count);
+            if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[0])
+            {
+                soldiersKindNum1++;
+                if (soldiersKindNum1 < 3)
+                {
+                    if (!getHeroId.Contains(canGetHeroId[temp_num]))
+                    {
+                        getHeroId.Add(canGetHeroId[temp_num]);
+                    }
+                }
+                else
+                {
+                    i--;
+                }
+            }
+            else if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[1])
+            {
+                soldiersKindNum2++;
+                if (soldiersKindNum2 < 3)
+                {
+                    if (!getHeroId.Contains(canGetHeroId[temp_num]))
+                    {
+                        getHeroId.Add(canGetHeroId[temp_num]);
+                    }
+                }
+                else
+                {
+                    i--;
+                }
+            }
+            else if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[2])
+            {
+                soldiersKindNum3++;
+                if (soldiersKindNum3 < 3)
+                {
+                    if (!getHeroId.Contains(canGetHeroId[temp_num]))
+                    {
+                        getHeroId.Add(canGetHeroId[temp_num]);
+                    }
+                }
+                else
+                {
+                    i--;
+                }
+            }
+        }
+        //通过获取到的英雄id将整行数据存放
+        for (int i = 0; i < getHeroId.Count; i++)
+        {
+            List<string> herodate = new List<string>();
+            //herodate = useepplusfun.GetRowDatas(worksheet_Role, getHeroId[i] + 1);
+            for (int j = 1; j < 15 + 1; j++)
+            {
+                herodate.Add(worksheet_Role.worksheet.Cells[getHeroId[i]+1,j].Value.ToString());
+            }
+            for (int j = 0; j < array_str_like.Length; j++)
+            {
+                if (array_str_like[j] == null)
+                {
+                    array_str_like[j] = herodate;
+                    break;
+                }
+            }
+        }
+
+        //输出测试
+        for (int i = 0; i < array_str_like.Length; i++)
+        {
+            if (array_str_like[i] != null)
+            {
+                print("i:" + i + ".." + "array_str_like[i][0]:" + array_str_like[i][0]);
+            }
+        }
     }
 
     /// <summary>
