@@ -399,13 +399,19 @@ public class EmFightControll : MonoBehaviour
                     {
                         getHeroId.Add(canGetHeroId[temp_num]);
                     }
+                    else
+                    {
+                        i--;
+                        soldiersKindNum1--;
+                    }
                 }
                 else
                 {
                     i--;
+                    soldiersKindNum1--;
                 }
             }
-            else if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[1])
+            if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[1])
             {
                 soldiersKindNum2++;
                 if (soldiersKindNum2 < 3)
@@ -414,13 +420,19 @@ public class EmFightControll : MonoBehaviour
                     {
                         getHeroId.Add(canGetHeroId[temp_num]);
                     }
+                    else
+                    {
+                        i--;
+                        soldiersKindNum2--;
+                    }
                 }
                 else
                 {
                     i--;
+                    soldiersKindNum2--;
                 }
             }
-            else if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[2])
+            if (int.Parse(worksheet_Role.worksheet.Cells[canGetHeroId[temp_num] + 1, 4].Value.ToString()) == enemyUnits[2])
             {
                 soldiersKindNum3++;
                 if (soldiersKindNum3 < 3)
@@ -429,13 +441,20 @@ public class EmFightControll : MonoBehaviour
                     {
                         getHeroId.Add(canGetHeroId[temp_num]);
                     }
+                    else
+                    {
+                        i--;
+                        soldiersKindNum3--;
+                    }
                 }
                 else
                 {
                     i--;
+                    soldiersKindNum3--;
                 }
             }
         }
+        print("NUM:"+getHeroId.Count);
         //通过获取到的英雄id将整行数据存放
         for (int i = 0; i < getHeroId.Count; i++)
         {
