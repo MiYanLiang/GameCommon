@@ -65,9 +65,9 @@ public class FightCardSP : MonoBehaviour
     //初始化创建敌方后期要发展的兵种类型
     private void CreateEnemyUnits()
     {
-        enemyUnits[0]= UnityEngine.Random.Range(1, 7);
-        enemyUnits[1] = UnityEngine.Random.Range(1, 10);
-        enemyUnits[2] = UnityEngine.Random.Range(4, 10);
+        enemyUnits[0]= UnityEngine.Random.Range(1, 7);      //前排
+        enemyUnits[1] = UnityEngine.Random.Range(1, 10);    //中排
+        enemyUnits[2] = UnityEngine.Random.Range(4, 10);    //后排
     }
 
     List<string>[] enemyHreoData = new List<string>[9];  //记录敌方上阵英雄的数据
