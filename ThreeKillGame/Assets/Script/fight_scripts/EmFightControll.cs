@@ -182,7 +182,7 @@ public class EmFightControll : MonoBehaviour
             if (heroCount<arrayBattles[0,0])
             {
                 //添加英雄 
-                AddHeros(array_str,enemyUnits, arrayBattles[0, 0]-heroCount);
+                AddHeros(enemyUnits, arrayBattles[0, 0] - heroCount);
             }
         }
         else
@@ -191,7 +191,7 @@ public class EmFightControll : MonoBehaviour
             {
                 if (heroCount<arrayBattles[0,1])
                 {
-                    AddHeros(array_str, enemyUnits, arrayBattles[0, 1] - heroCount);
+                    AddHeros(enemyUnits, arrayBattles[0, 1] - heroCount);
                 }
             }
             else
@@ -200,7 +200,7 @@ public class EmFightControll : MonoBehaviour
                 {
                     if (heroCount < arrayBattles[0, 2])
                     {
-                        AddHeros(array_str, enemyUnits, arrayBattles[0, 2] - heroCount);
+                        AddHeros(enemyUnits, arrayBattles[0, 2] - heroCount);
                     }
                 }
                 else
@@ -209,7 +209,7 @@ public class EmFightControll : MonoBehaviour
                     {
                         if (heroCount < arrayBattles[0, 3])
                         {
-                            AddHeros(array_str, enemyUnits, arrayBattles[0, 3] - heroCount);
+                            AddHeros(enemyUnits, arrayBattles[0, 3] - heroCount);
                         }
                     }
                     else
@@ -218,7 +218,7 @@ public class EmFightControll : MonoBehaviour
                         {
                             if (heroCount < arrayBattles[0, 4])
                             {
-                                AddHeros(array_str, enemyUnits, arrayBattles[0, 4] - heroCount);
+                                AddHeros(enemyUnits, arrayBattles[0, 4] - heroCount);
                             }
                         }
                         else
@@ -227,7 +227,7 @@ public class EmFightControll : MonoBehaviour
                             {
                                 if (heroCount < arrayBattles[0, 5])
                                 {
-                                    AddHeros(array_str, enemyUnits, arrayBattles[0, 5] - heroCount);
+                                    AddHeros(enemyUnits, arrayBattles[0, 5] - heroCount);
                                 }
                             }
                             else
@@ -236,7 +236,7 @@ public class EmFightControll : MonoBehaviour
                                 {
                                     if (heroCount < arrayBattles[0, 6])
                                     {
-                                        AddHeros(array_str, enemyUnits, arrayBattles[0, 6] - heroCount);
+                                        AddHeros(enemyUnits, arrayBattles[0, 6] - heroCount);
                                     }
                                 }
                                 else
@@ -245,7 +245,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (heroCount < arrayBattles[0, 7])
                                         {
-                                            AddHeros(array_str, enemyUnits, arrayBattles[0, 7] - heroCount);
+                                            AddHeros(enemyUnits, arrayBattles[0, 7] - heroCount);
                                         }
                                     }
                                     else
@@ -254,14 +254,14 @@ public class EmFightControll : MonoBehaviour
                                         {
                                             if (heroCount < arrayBattles[0, 8])
                                             {
-                                                AddHeros(array_str, enemyUnits, arrayBattles[0, 8] - heroCount);
+                                                AddHeros(enemyUnits, arrayBattles[0, 8] - heroCount);
                                             }
                                         }
                                         else
                                         {
                                             if (heroCount < arrayBattles[0, 9])
                                             {
-                                                AddHeros(array_str, enemyUnits, arrayBattles[0, 9] - heroCount);
+                                                AddHeros(enemyUnits, arrayBattles[0, 9] - heroCount);
                                             }
                                         }
                                     }
@@ -279,10 +279,9 @@ public class EmFightControll : MonoBehaviour
     /// <summary>
     /// 添加敌方英雄卡牌
     /// </summary>
-    /// <param name="array_str">现有英雄</param>
     /// <param name="enemyUnits">兵种类型</param>
     /// <param name="v">添加个数</param>
-    private static void AddHeros(List<string>[] array_str, int[] enemyUnits, int v)
+    private static void AddHeros(int[] enemyUnits, int v)
     {
         throw new NotImplementedException();
     }
