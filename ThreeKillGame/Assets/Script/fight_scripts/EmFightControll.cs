@@ -297,7 +297,7 @@ public class EmFightControll : MonoBehaviour
                 }
             }
         }
-        return null;
+        return array_str;
     }
 
     /// <summary>

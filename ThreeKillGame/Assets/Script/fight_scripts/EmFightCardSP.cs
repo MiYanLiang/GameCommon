@@ -1,11 +1,9 @@
-﻿using OfficeOpenXml;
-using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FightCardSP : MonoBehaviour
+public class EmFightCardSP : MonoBehaviour
 {
     [SerializeField]
     private Slider player_hp;//玩家血条
@@ -15,38 +13,37 @@ public class FightCardSP : MonoBehaviour
     private Text victoryOrFailureText;  //战斗胜负显示
 
     private bool isEndOFInit = false;   //记录是否初始化结束
-    [HideInInspector]
-    public int battles;       //记录对战次数
+    private int battles;       //记录对战次数
     private int roundNum;   //记录当前回合数量
     private int fightNum;   //记录当前攻击武将的位置
     private bool isPlayerBout;  //记录是否是玩家的武将攻击回合
     [HideInInspector]
     public static bool isFightNow;  //记录现在是否正在攻击
-    
+
     public Transform jiugongge_BrforeFight;  //上阵布阵的九宫格
     public GameObject heroFightCard;    //英雄战斗卡片预制件
-    public Transform[] OwnJiuGonggePos=new Transform[9];  //战斗槽位置_玩家
-    public Transform[] enemyJiuGonggePos = new Transform[9];    //战斗槽位置_敌人
-    [HideInInspector]
-    public List<string>[] array_str = new List<string>[9]; //接收传递的敌方上阵英雄数据
+    public Transform[] OwnJiuGonggePos = new Transform[9];  //战斗槽位置_玩家
+
     [SerializeField]
     GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
     [SerializeField]
     GameObject[] playerCards = new GameObject[9];//存储己方卡牌
 
     UseEPPlusFun useepplusfun = new UseEPPlusFun();
-    //TableDatas worksheet_NPC;   //存储npc表
+    TableDatas worksheet_NPC;   //存储npc表
     TableDatas worksheet_Role;  //存储武将表
 
     private void Awake()
     {
-        //worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
+        worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
         worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
+        CreateEnemyUnits(); //初始化敌方发展阵容
     }
 
     private void Start()
     {
         battles = 1;
+        //isFightNow = false;
     }
 
     private void OnEnable()
@@ -54,72 +51,63 @@ public class FightCardSP : MonoBehaviour
         fightNum = 0;
         roundNum = 1;
         isPlayerBout = true;
-        battles += 1;
+        battles += 1;   //战斗次数增加
+        //Debug.Log("OnEnable()执行");
         InitializeBattleCard();
         isFightNow = false;
         isEndOFInit = true;
     }
 
+    int[] enemyUnits = new int[3];  //记录敌方势力要发展的兵种类型
+    //初始化创建敌方后期要发展的兵种类型
+    private void CreateEnemyUnits()
+    {
+        enemyUnits[0] = UnityEngine.Random.Range(1, 7);      //前排
+        enemyUnits[1] = UnityEngine.Random.Range(1, 10);    //中排
+        enemyUnits[2] = UnityEngine.Random.Range(4, 10);    //后排
+    }
+
+    List<string>[] enemyHreoData = new List<string>[9];  //记录敌方上阵英雄的数据
     /// <summary>
     /// 初始化战斗卡牌
     /// </summary>
     public void InitializeBattleCard()
     {
-        for (int i = 0; i < 9; i++) //玩家和敌方战斗卡牌，空卡牌就位
+        for (int i = 0; i < 9; i++) //玩家战斗卡牌，空卡牌就位
         {
             playerCards[i] = null;
-            if (jiugongge_BrforeFight.GetChild(i).childCount>0)
+            if (jiugongge_BrforeFight.GetChild(i).childCount > 0)
             {
-                playerCards[i]=Instantiate(heroFightCard,OwnJiuGonggePos[i]);
+                playerCards[i] = Instantiate(heroFightCard, OwnJiuGonggePos[i]);
                 playerCards[i].transform.position = OwnJiuGonggePos[i].position;
                 playerCards[i].transform.SetParent(OwnJiuGonggePos[i].parent.parent);
             }
-            if (array_str[i]!=null) //敌方卡牌此位置有武将数据
-            {
-                enemyCards[i] = Instantiate(heroFightCard, enemyJiuGonggePos[i]);
-                enemyCards[i].transform.position = enemyJiuGonggePos[i].position;
-                enemyCards[i].transform.SetParent(enemyJiuGonggePos[i].parent.parent);
-                List<string> datas = array_str[i];  //记录单个武将卡牌的数据，倒数第二个是品阶，倒数第一个是参与战斗周目数
-                //设置敌方卡牌的默认先后手情况
-                enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                //武将ID
-                enemyCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
-                //品阶
-                enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count-2]);
-                //血量
-                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
-                //攻击力
-                enemyCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
-                //防御力
-                enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
-                //闪避率
-                enemyCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
-                //重击率
-                enemyCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
-                //重击伤害百分比
-                enemyCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
-                //暴击率
-                enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
-                //暴击伤害百分比
-                enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
-                //破甲百分比
-                enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
-                //显示武将名
-                enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
-                enemyCards[i].GetComponent<CardMove>().OtherDataSet();
-                datas.Clear();
-
-            }
         }
+        //敌方上阵英雄数据获取和传递
+        //for (int i = 0; i < 9; i++)
+        //{
+        //    if (enemyCards[i] != null)
+        //    {
+        //        //传递ID,品阶,战斗周目数
+        //        enemyHreoData[i].Add(enemyCards[i].GetComponent<CardMove>().HeroId.ToString());
+        //        enemyHreoData[i].Add(enemyCards[i].GetComponent<CardMove>().Grade.ToString());
+        //        enemyHreoData[i].Add((enemyCards[i].GetComponent<CardMove>().FightNums += 1).ToString());
+        //    }
+        //    else
+        //    {
+        //        enemyHreoData[i] = null;
+        //    }
+        //}
+        //enemyHreoData = EmFightControll.SendHeroData(enemyHreoData, enemyUnits, battles-1);    //npc武将数据更新
         //上阵初始化
         OtherInitialization();
     }
 
+
+
     private void OtherInitialization()
-    {   
-        //BOSS_NPC
-        {   
-        /* 
+    {
+
         //敌方卡牌初始化
         for (int i = 0; i < enemyCards.Length; i++)
         {
@@ -127,7 +115,7 @@ public class FightCardSP : MonoBehaviour
             {
                 //获得武将id和品阶
                 string[] heroIdandclass = worksheet_NPC.worksheet.Cells[battles + 1, 6 + i].Value.ToString().Split(',');
-                int grade_Addition = (int)Mathf.Pow(2,(heroIdandclass[1] != null ? int.Parse(heroIdandclass[1]) : 1)-1);  //获取武将品阶加成
+                int grade_Addition = (int)Mathf.Pow(2, (heroIdandclass[1] != null ? int.Parse(heroIdandclass[1]) : 1) - 1);  //获取武将品阶加成
                 //根据品阶，设置敌方武将卡牌外观
                 switch (heroIdandclass[1])
                 {
@@ -147,7 +135,7 @@ public class FightCardSP : MonoBehaviour
 
                 //在武将表中获取武将数据
                 enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                Debug.Log("///NPC第"+(i+1)+ "位武将ID：" + heroIdandclass[0]);
+                Debug.Log("///NPC第" + (i + 1) + "位武将ID：" + heroIdandclass[0]);
                 enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 2].Value.ToString();
                 enemyCards[i].GetComponent<CardMove>().Force = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 7].Value.ToString());
                 enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 8].Value.ToString());
@@ -155,8 +143,7 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[i].GetComponent<CardMove>().OtherDataSet();
             }
         }
-        */
-        }
+
         //玩家卡牌初始化
         for (int i = 0; i < playerCards.Length; i++)
         {
@@ -164,7 +151,7 @@ public class FightCardSP : MonoBehaviour
             {
                 //临时存储玩家数据，传递给战斗卡牌
                 List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
-                //设置玩家卡牌的默认先后手情况
+                //设置地方卡牌的默认先后手情况
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
                 //武将ID
                 playerCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
@@ -189,7 +176,7 @@ public class FightCardSP : MonoBehaviour
                 //破甲百分比
                 playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];    
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
                 playerCards[i].GetComponent<CardMove>().OtherDataSet();
                 datas.Clear();
             }
@@ -302,26 +289,26 @@ public class FightCardSP : MonoBehaviour
                                 remainingHP += playerCards[j].GetComponent<CardMove>().Health;
                             }
                         }
-                        float remainScale= (float)remainingHP / fullHP;    //玩家剩余血量比例
+                        float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
                         //敌方扣血
 
                         //金币
                         updateBtn.GetComponent<CreateAndUpdate>().money += 1;   //玩家加金币
 
                         //展示战斗胜负信息
-                        if (remainScale>=0.75f)
+                        if (remainScale >= 0.75f)
                         {
                             victoryOrFailureText.text = "完胜";
                         }
                         else
                         {
-                            if (remainScale>=0.5f)
+                            if (remainScale >= 0.5f)
                             {
                                 victoryOrFailureText.text = "大胜";
                             }
                             else
                             {
-                                if (remainScale>=0.25f)
+                                if (remainScale >= 0.25f)
                                 {
                                     victoryOrFailureText.text = "小胜";
                                 }
@@ -371,7 +358,7 @@ public class FightCardSP : MonoBehaviour
                         updateBtn.GetComponent<CreateAndUpdate>().hp -= (int)(remainScale * 10);    //玩家扣血
                         //金币
                         updateBtn.GetComponent<CreateAndUpdate>().money += 0;   //玩家不加金币
-                        
+
                         //展示战斗胜负信息
                         if (remainScale >= 0.75f)
                         {
