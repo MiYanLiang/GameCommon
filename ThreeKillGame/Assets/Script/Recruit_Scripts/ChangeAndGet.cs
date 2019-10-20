@@ -148,13 +148,13 @@ public class ChangeAndGet : MonoBehaviour
                     HeroIdChangeAndSave.pos_heroId[gradeone[i]] = 0;
                     if (gradeone[i] < 9)  //在九宫格中
                     {
-                        //Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁一阶武将卡牌
-                        jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
+                        //jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    //在备战位中
                     {
-                        //Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0));
-                        preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
+                        //preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 for (int i = 0; i < 2; i++)
@@ -162,13 +162,13 @@ public class ChangeAndGet : MonoBehaviour
                     HeroIdChangeAndSave.pos_heroId[gradetwo[i]] = 0;
                     if (gradetwo[i] < 9)  
                     {
-                        //Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁二阶武将卡牌
-                        jiugongge.GetChild(gradetwo[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁二阶武将卡牌
+                        //jiugongge.GetChild(gradetwo[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    
                     {
-                        //Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0));
-                        preparation.GetChild(gradetwo[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
+                        //preparation.GetChild(gradetwo[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 //放置三阶卡牌
@@ -190,13 +190,13 @@ public class ChangeAndGet : MonoBehaviour
                     HeroIdChangeAndSave.pos_heroId[gradeone[i]] = 0;
                     if (gradeone[i]<9)  //在九宫格中
                     {
-                        //Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0));   //销毁一阶武将卡牌
-                        jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
+                        //jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    //在备战位中
                     {
-                        //Destroy(preparation.GetChild(gradeone[i]-9).GetChild(0));
-                        preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
+                        Destroy(preparation.GetChild(gradeone[i]-9).GetChild(0).gameObject);
+                        //preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 //放置二阶卡牌

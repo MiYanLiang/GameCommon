@@ -59,6 +59,7 @@ public class FightControll : MonoBehaviour
             {
                 if (enemyHeroData[j] != null)
                 {
+                    sendData[j] = new List<string>();
                     //传递ID,品阶,战斗周目数
                     sendData[j].Add(enemyHeroData[j][0]);
                     sendData[j].Add(enemyHeroData[j][enemyHeroData[j].Count - 2]);
@@ -86,7 +87,7 @@ public class FightControll : MonoBehaviour
             {
                 if (JiuGongGes[i].GetChild(m).childCount > 0)
                 {
-                    Destroy(JiuGongGes[i].GetChild(m).GetChild(0));
+                    Destroy(JiuGongGes[i].GetChild(m).GetChild(0).gameObject);
                 }
             }
             //NPC新的武将卡牌上阵九宫格

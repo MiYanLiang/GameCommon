@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Random = UnityEngine.Random;
 
 //敌方武将卡牌数据初始化和控制
@@ -9,8 +10,8 @@ public class EmFightControll : MonoBehaviour
 {
     private int hardNum;    //难度值
 
-    static UseEPPlusFun useepplusfun = new UseEPPlusFun();
-    static TableDatas worksheet_Role;  //存储武将表
+    UseEPPlusFun useepplusfun = new UseEPPlusFun();
+    TableDatas worksheet_Role;  //存储武将表
     static TableDatas worksheet_DFC;   //存储难度选择表
 
     //存放相关种类可以使用的士兵id
@@ -29,7 +30,7 @@ public class EmFightControll : MonoBehaviour
 
     private void Awake()
     {
-        worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
+        //worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
         worksheet_DFC = useepplusfun.FindExcelFiles("DifficultyChoose");
         hardNum = PlayerPrefs.GetInt("DifficultyType");  //难度值获取
     }
@@ -329,6 +330,8 @@ public class EmFightControll : MonoBehaviour
     }
     private void AddHeros(int[] enemyUnits, int v)
     {
+        //worksheet_Role = new TableDatas();
+        //worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
         //将可以添加的英雄id存储
         for (int j = 2; j < 88 + 1; j++)
         {
@@ -473,10 +476,9 @@ public class EmFightControll : MonoBehaviour
         for (int i = 0; i < getHeroId.Count; i++)
         {
             List<string> herodate = new List<string>();
-            for (int j = 1; j < 15 + 1; j++)
-            {
-                herodate.Add(worksheet_Role.worksheet.Cells[getHeroId[i] + 1, j].Value.ToString());
-            }
+            herodate = useepplusfun.GetRowDatas(worksheet_Role, getHeroId[i] + 1);  //存放整个英雄的数据
+            herodate.Add("1");  //品阶
+            herodate.Add("1");  //战斗周目数
             for (int j = 0; j < array_str.Length; j++)
             {
                 if (array_str[j] == null)
