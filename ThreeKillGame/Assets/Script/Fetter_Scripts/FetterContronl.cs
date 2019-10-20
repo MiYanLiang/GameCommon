@@ -8,10 +8,10 @@ using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class FetterContronl : MonoBehaviour
 {
-    List<string> array1 = new List<string>() { "29" };   //点击的英雄id
-    List<string> array0 = new List<string>() { "19", "89", "104", "67", "68" };  //上阵英雄数组
+    List<string> arrayTest = new List<string>() { "29" };   //点击的英雄id
+    List<string> arrayGo = new List<string>() { "19", "89", "104", "67", "68" };  //上阵英雄数组
 
-
+    int heroId_One;
     // Start is called before the first frame update
     List<string> fetterArray = new List<string>();
     List<string> intersectionArray = new List<string>();  //存放交集
@@ -19,6 +19,9 @@ public class FetterContronl : MonoBehaviour
     List<List<string>> fetterInformation = new List<List<string>>();//二维数组，存放激活的羁绊的所有信息
     List<int> fetterId = new List<int>();//存放点击英雄可能激活羁绊的id   每次传需要清除，现在没清
     List<List<string>> fetterInformationFromId = new List<List<string>>();//二维数组，存放点击英雄可能激活的羁绊的所有信息
+    [HideInInspector]
+    public List<List<string>> fetterInformationFromId1 = new List<List<string>>();
+    public List<List<string>> fetterInformation1 = new List<List<string>>();
 
     string[] a;
     string[] b;
@@ -26,17 +29,8 @@ public class FetterContronl : MonoBehaviour
 
     private void Awake()
     {
-        GetExcelFile();
-        MakeArray(array0);
-        GetExcelFile1();
-        //for (int j = 0; j < fetterInformation.Count; j++)
-        //{
-        //    for (int i = 0; i < fetterInformation[j].Count; i++)
-        //    {
-        //        print(fetterInformation[j][i]);
-        //    }
-        //}
-        init();
+        //init_Go(arrayGo);
+        //init_One(arrayTest);
     }
     void Start()
     {
@@ -47,6 +41,21 @@ public class FetterContronl : MonoBehaviour
     void Update()
     {
 
+    }
+    public void init_Go(List<string> array0)
+    {
+        fetterInformation.Clear();
+        GetExcelFile();
+        MakeArray(array0);
+        GetExcelFile1();
+        fetterInformation1 = fetterInformation;
+        //for (int j = 0; j < fetterInformation.Count; j++)
+        //{
+        //    for (int i = 0; i < fetterInformation[j].Count; i++)
+        //    {
+        //        print(fetterInformation[j][i]);
+        //    }
+        //}
     }
     //读表
     void GetExcelFile()
@@ -231,22 +240,30 @@ public class FetterContronl : MonoBehaviour
     }
     ////////////////////////////////////////上面实现了传进来上阵英雄数组，判断激活哪些羁绊
     ////////////////////////////////////////下面实现了点击英雄，通过英雄id获取与谁形成羁绊，且羁绊属性
-    void init()
+    public void init_One(List<string> array1)
     {
+        //for (int i = 0; i < fetterInformationFromId.Count; i++)
+        //{
+        //    fetterInformationFromId[i].Clear();
+        //}
+        fetterInformationFromId.Clear();
+        fetterId.Clear();
+        GetExcelFile();
         MakeArray1(array1);
         GetExcelFile2();
+        fetterInformationFromId1 = fetterInformationFromId;
         //GetExcelFile3();
         //for (int i = 0; i < fetterId.Count; i++)
         //{
         //    print(fetterId[i]);
         //}
-        for (int j = 0; j < fetterInformationFromId.Count; j++)
-        {
-            for (int i = 0; i < fetterInformationFromId[j].Count; i++)
-            {
-                print(fetterInformationFromId[j][i]);
-            }
-        }
+        //for (int j = 0; j < fetterInformationFromId1.Count; j++)
+        //{
+        //    for (int i = 0; i < fetterInformationFromId1[j].Count; i++)
+        //    {
+        //        print(fetterInformationFromId1[j][i]);
+        //    }
+        //}
 
     }
     //传进来点击的英雄id

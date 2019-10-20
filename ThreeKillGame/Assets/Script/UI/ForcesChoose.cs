@@ -25,8 +25,8 @@ public class ForcesChoose : MonoBehaviour
         GetExcelFile1();
         SetNameForObj();
         SetClickObj();
-        forcesObj[0].SetActive(true);
-        forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
+        //forcesObj[0].SetActive(true);
+        //forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
     }
 
     // Update is called once per frame
@@ -137,20 +137,21 @@ public class ForcesChoose : MonoBehaviour
     //选中圈显示
     void ShowSelected()
     {
-        //if (canShow)
-        //{
+        if (canShow)
+        {
             for (int i = 0; i < forcesObj.Count; i++)
             {
                 if (i == currentForcesIndex)
                 {
                     forcesObj[i].transform.Find("Back").gameObject.SetActive(true);
-                }
+                   //forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
+            }
                 else
                 {
                     forcesObj[i].transform.Find("Back").gameObject.SetActive(false);
                 }
             }
-        //}
+        }
     }
 }
 

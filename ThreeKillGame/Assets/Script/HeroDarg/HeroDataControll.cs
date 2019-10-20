@@ -8,6 +8,7 @@ public class HeroDataControll : MonoBehaviour {
 
     //[HideInInspector]
     public List<string> HeroData = new List<string>(); //存储当前武将的数据
+    List<string> heroIdDate = new List<string>();
     //public List<string> HeroData { get => heroData; set => heroData = value; }
     //index	    roleName	所属势力    soldierKind	  rarity  recruitingMoney  attack    defense	soldierNum	    闪避率	
     //0         1           2           3             4       5                6         7          8               9       
@@ -17,6 +18,7 @@ public class HeroDataControll : MonoBehaviour {
 
     private int grade_hero;  //记录卡牌品阶
     public int Grade_hero { get => grade_hero; set => grade_hero = value; }
+    List<List<string>> fetterInformation = new List<List<string>>();
 
 
     // Use this for initialization
@@ -42,8 +44,19 @@ public class HeroDataControll : MonoBehaviour {
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
-        int heroId =int.Parse(HeroData[0]);
+        int heroId = int.Parse(HeroData[0]);
+        heroIdDate.Add(heroId.ToString());
+        GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
+        fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().fetterInformationFromId1;
         //传递给显示详细信息
-        Debug.Log("当前英雄ID:"+heroId);
+        for (int j = 0; j < fetterInformation.Count; j++)
+        {
+            for (int i = 0; i < fetterInformation[j].Count; i++)
+            {
+                //print("ss");
+                print(fetterInformation[j][i]);
+            }
+        }
+        heroIdDate.Clear();
     }
 }

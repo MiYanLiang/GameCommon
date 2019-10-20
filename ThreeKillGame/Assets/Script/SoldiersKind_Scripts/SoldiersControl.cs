@@ -10,7 +10,7 @@ public class SoldiersControl : MonoBehaviour
 {
     // Start is called before the first frame update
     List<int> myHeroId = new List<int>() { 1, 1, 6, 16, 26 }; //我拥有的英雄id数列，，，，每次购买的时候给我传过来
-    List<int> battleHeroId = new List<int>() { 4, 6, 3, 21, 5, 5, 3,72,71,71,72,70 };  //传过来的上阵英雄Id数列
+    List<int> battleHeroId_ = new List<int>() { 4, 6, 3, 21, 5, 5, 3,72,71,71,72,70 };  //传过来的上阵英雄Id数列
     List<int> heroTypeAll = new List<int>();//存放我的所有兵种id
     List<int> battleHeroType = new List<int>();//存放上阵所有兵种id
     List<string> heroTypeName = new List<string>();//存放我的所有兵种名字，无重复
@@ -59,13 +59,15 @@ public class SoldiersControl : MonoBehaviour
     List<string> necromancerName = new List<string>();  //方士
     void Start()
     {
-        init();
-        init_up();
+        //init(myHeroId);
+
+        //init_up(battleHeroId_);
         //for (int i = 0; i < heroTypeName.Count; i++)
         //{
         //    print(heroTypeName[i]);
         //}
-        init_btn();
+        //init_btn();
+        //init_up(battleHeroId_);
     }
 
     // Update is called once per frame
@@ -73,12 +75,18 @@ public class SoldiersControl : MonoBehaviour
     {
 
     }
-    public void init()
+    public List<string> init(List<int> myHeroId)
     {
-        GetExcelFile();
+        heroTypeName.Clear();
+        GetExcelFile(myHeroId);
         GetHeroTypeName();
+        //for (int i = 0; i < heroTypeName.Count; i++)
+        //{
+        //    print("init:"+heroTypeName[i]);
+        //}
+        return heroTypeName;
     }
-    void GetExcelFile()
+    void GetExcelFile(List<int> myHeroId)
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   
         string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
@@ -154,6 +162,10 @@ public class SoldiersControl : MonoBehaviour
             {
                 name = "方士";
             }
+            else if (heroTypeAll[i] == 10)
+            {
+                name = "神兽";
+            }
             heroTypeName.Add(name);
         }
     }
@@ -176,10 +188,19 @@ public class SoldiersControl : MonoBehaviour
     }
     /////////////////////////////////////////////上面是玩家拥有的，也就是购买的所有英雄可能激活的左边信息
     /////////////////////////////////////////////下面是玩家拖上阵的英雄累计
-    void init_up()
+    public List<string> init_up(List<int> battleHeroId)
     {
-        De_weightForBattleHeroId();
-        GetExcelFile1();
+        shieldSoldierNum = 0;              //盾兵数量
+        mahoutNum = 0;                     //象兵数量
+        halberdierNum = 0;                //戟兵数量
+        lifeguardNum = 0;                 //禁卫数量
+        spearmanNum = 0;                   //枪兵数量
+        sowarNum = 0;                      //骑兵数量
+        counsellorNum = 0;                 //军师数量
+        sapperNum = 0;                      //工兵数量
+        necromancerNum = 0;                //方士数量
+        De_weightForBattleHeroId(battleHeroId);
+        GetExcelFile1(battleHeroId);
         GetSoldiersTypeNum();
         GetSkillId();
         GetExcelFile2();
@@ -187,16 +208,17 @@ public class SoldiersControl : MonoBehaviour
         //{
         //    print(skillInformation[i]);
         //}
+        return skillInformation;
     }
     //给传过来的上阵英雄数列去重
-    void De_weightForBattleHeroId()
+    void De_weightForBattleHeroId(List<int> battleHeroId)
     {
         int[] str = battleHeroId.ToArray();
         int[] str2 = str.Distinct().ToArray();
         battleHeroId = new List<int>(str2);
     }
     //读表
-    void GetExcelFile1()
+    void GetExcelFile1(List<int> battleHeroId)
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   
         string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
