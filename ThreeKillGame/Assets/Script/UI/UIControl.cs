@@ -10,12 +10,12 @@ public class UIControl : MonoBehaviour
     // Start is called before the first frame update
     public Text gold;       //玩家金币
     public CreateAndUpdate cau;
-    int DifficultyType;
-    int forcesId;
+    //int DifficultyType;
+    //int forcesId;
     void Start()
     {
-        DifficultyType = PlayerPrefs.GetInt("DifficultyType");
-        forcesId = PlayerPrefs.GetInt("forcesId");
+        //DifficultyType = PlayerPrefs.GetInt("DifficultyType");
+        //forcesId = PlayerPrefs.GetInt("forcesId");
         //print("DifficultyType:"+ DifficultyType+"........"+ "forcesId:"+ forcesId);
     }
 

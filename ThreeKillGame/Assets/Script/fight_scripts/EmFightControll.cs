@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 //敌方武将卡牌数据初始化和控制
 public class EmFightControll : MonoBehaviour
 {
-    public int hardNum;    //难度值
+    private int hardNum;    //难度值
 
     static UseEPPlusFun useepplusfun = new UseEPPlusFun();
     static TableDatas worksheet_Role;  //存储武将表
@@ -31,6 +31,7 @@ public class EmFightControll : MonoBehaviour
     {
         worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
         worksheet_DFC = useepplusfun.FindExcelFiles("DifficultyChoose");
+        hardNum = PlayerPrefs.GetInt("DifficultyType");  //难度值获取
     }
 
     //上阵位置和开启周目                   [0,0]                                 [1,1]     

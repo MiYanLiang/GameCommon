@@ -8,6 +8,11 @@ using UnityEngine.UI;
 /// </summary>
 public class FightControll : MonoBehaviour
 {
+    private int playerForce;    //玩家势力的ID
+    private int[] forceIds;     //记录其他势力的ID
+
+    public Text[] forceNames;   //游戏内势力单个字显示
+
     public GameObject hero_Card;    //英雄卡片预制件
     //各个npc上阵九宫格
     public Transform[] JiuGongGes = new Transform[5];
@@ -27,12 +32,13 @@ public class FightControll : MonoBehaviour
         {
             enemyHeroDatas.Add(new List<string>[9]);
         }
+
     }
 
     private void Start()
     {
         CreateEnemyUnits(); //初始化所有NPC势力发展阵容
-        ChangeAllEnemyCards();
+        //ChangeAllEnemyCards();
     }
     /// <summary>
     /// 更新所有NPC阵容
@@ -137,9 +143,10 @@ public class FightControll : MonoBehaviour
 
 
 
-    //初始化创建敌方后期要发展的兵种类型
+    //初始化创建敌方势力和后期要发展的兵种类型
     private void CreateEnemyUnits()
     {
+
         for (int i = 0; i < 5; i++)
         {
             enemyUnits[i] = new int[3];
@@ -147,6 +154,8 @@ public class FightControll : MonoBehaviour
             enemyUnits[i][1] = Random.Range(1, 10);    //中排
             enemyUnits[i][2] = Random.Range(4, 10);    //后排
             //Debug.Log("///" + enemyUnits[i][0] + "///" + enemyUnits[i][1] + "////" + enemyUnits[i][2]);
+
+            
         }
     }
 }
