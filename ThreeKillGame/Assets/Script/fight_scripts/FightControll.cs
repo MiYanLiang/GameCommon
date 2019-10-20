@@ -27,11 +27,11 @@ public class FightControll : MonoBehaviour
         {
             enemyHeroDatas.Add(new List<string>[9]);
         }
-        CreateEnemyUnits(); //初始化所有NPC势力发展阵容
     }
 
     private void Start()
     {
+        CreateEnemyUnits(); //初始化所有NPC势力发展阵容
         ChangeAllEnemyCards();
     }
     /// <summary>
@@ -60,8 +60,9 @@ public class FightControll : MonoBehaviour
                     sendData[j] = null;
                 }
             }
+            EmFightControll emFctll=new EmFightControll();
             //npc上阵武将数据更新
-            enemyHeroDatas[i]= EmFightControll.SendHeroData(sendData, enemyUnits[i], FightCardSps[0].GetComponent<FightCardSP>().battles - 1);
+            enemyHeroDatas[i]= emFctll.SendHeroData(sendData, enemyUnits[i], FightCardSps[0].GetComponent<FightCardSP>().battles - 1);
             //清理临时传递的数据
             for (int n = 0; n < sendData.Length; n++)
             {

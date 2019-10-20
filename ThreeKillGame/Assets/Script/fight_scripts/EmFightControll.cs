@@ -7,24 +7,24 @@ using Random = UnityEngine.Random;
 //敌方武将卡牌数据初始化和控制
 public class EmFightControll : MonoBehaviour
 {
-    public static int hardNum;    //难度值
+    public int hardNum;    //难度值
 
     static UseEPPlusFun useepplusfun = new UseEPPlusFun();
     static TableDatas worksheet_Role;  //存储武将表
     static TableDatas worksheet_DFC;   //存储难度选择表
 
     //存放相关种类可以使用的士兵id
-    static List<int> soldiersKind1 = new List<int>();
-    static List<int> soldiersKind2 = new List<int>();
-    static List<int> soldiersKind3 = new List<int>();
+    List<int> soldiersKind1 = new List<int>();
+    List<int> soldiersKind2 = new List<int>();
+    List<int> soldiersKind3 = new List<int>();
     //记录三种兵种的个数
-    static int soldiersKindNum1;
-    static int soldiersKindNum2;
-    static int soldiersKindNum3;
+    int soldiersKindNum1;
+    int soldiersKindNum2;
+    int soldiersKindNum3;
     //可随机的英雄id
-    static List<int> canGetHeroId = new List<int>();
+    List<int> canGetHeroId = new List<int>();
     //存放最后拿到的英雄Id
-    static List<int> getHeroId = new List<int>();
+    List<int> getHeroId = new List<int>();
 
 
     private void Awake()
@@ -33,10 +33,10 @@ public class EmFightControll : MonoBehaviour
         worksheet_DFC = useepplusfun.FindExcelFiles("DifficultyChoose");
     }
 
-    //上阵位置和开启周目                          [0,0]                                 [1,1]     
-    static int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 3, 4, 5, 6, 7, 11, 16, 21, 25 } };
+    //上阵位置和开启周目                   [0,0]                                 [1,1]     
+    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 3, 4, 5, 6, 7, 11, 16, 21, 25 } };
 
-    static List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
+    List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
 
     /// <summary>
     /// 接收敌方武将现有的上阵卡牌，进行卡牌变化和传递
@@ -45,7 +45,7 @@ public class EmFightControll : MonoBehaviour
     /// <param name="enemyUnits">阵容兵种定位[前排，中排，后排]</param>
     /// <param name="battles">总周目数</param>
     /// <returns></returns>
-    public static List<string>[] SendHeroData(List<string>[] arrHeroData, int[] enemyUnits, int battles)
+    public List<string>[] SendHeroData(List<string>[] arrHeroData, int[] enemyUnits, int battles)
     {
         int heroCount = 0;  //记录英雄数
         for (int i = 0; i < arrHeroData.Length; i++)    //依次处理传过来的九个位置
@@ -315,7 +315,7 @@ public class EmFightControll : MonoBehaviour
     /// <param name="enemyUnits">兵种类型</param>
     /// <param name="v">添加个数</param>
     //调用AddHeros方法时，所需调用清空方法
-    static void ClearDate()
+    void ClearDate()
     {
         soldiersKind1.Clear();
         soldiersKind2.Clear();
@@ -326,7 +326,7 @@ public class EmFightControll : MonoBehaviour
         canGetHeroId.Clear();
         getHeroId.Clear();
     }
-    private static void AddHeros(int[] enemyUnits, int v)
+    private void AddHeros(int[] enemyUnits, int v)
     {
         //将可以添加的英雄id存储
         for (int j = 2; j < 88 + 1; j++)
@@ -494,7 +494,7 @@ public class EmFightControll : MonoBehaviour
     /// <param name="v1">兵种</param>
     /// <param name="v2">颜色值</param>
     /// <returns></returns>
-    private static List<string> UpColor(string v1, string v2)
+    private List<string> UpColor(string v1, string v2)
     {
         List<string> str_list = new List<string>();
         //随机拿到符合要求的武将数据，给品阶和战斗周目数为1
@@ -525,7 +525,7 @@ public class EmFightControll : MonoBehaviour
     /// <param name="v1">所升阶数</param>
     /// <param name="v2">英雄id</param>
     /// <returns></returns>
-    private static List<string> UpGrade(int v1, int v2)
+    private List<string> UpGrade(int v1, int v2)
     {
         //传递武将数据链表尾部依次添加品阶和战斗周目数
         List<string> str_list = new List<string>();
@@ -535,7 +535,7 @@ public class EmFightControll : MonoBehaviour
         return str_list;
     }
 
-    private static void HoldHeroData(List<string>[] arrHeroData, int i)   //保持英雄数据
+    private void HoldHeroData(List<string>[] arrHeroData, int i)   //保持英雄数据
     {
         array_str[i] = useepplusfun.GetRowDatas(worksheet_Role, int.Parse(arrHeroData[i][0]) + 1);  //记录该英雄所有数据
         array_str[i].Add(arrHeroData[i][1]);    //记录他的品阶
@@ -543,7 +543,7 @@ public class EmFightControll : MonoBehaviour
     }
 
     //判断是升阶（true）还是升色（false）
-    private static bool GradeOrColor()
+    private bool GradeOrColor()
     {
         int num = UnityEngine.Random.Range(1, 101);
         if (num <= 30)  

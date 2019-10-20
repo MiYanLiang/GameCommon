@@ -2007,6 +2007,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1eec02d1bd7a74aaa1cedba9d1d4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hardNum: 0
 --- !u!1 &177451496
 GameObject:
   m_ObjectHideFlags: 0
@@ -14943,6 +14944,11 @@ MonoBehaviour:
   - {fileID: 357648972}
   - {fileID: 1416549394}
   - {fileID: 2051134816}
+  playerCanvas:
+  - {fileID: 643303287}
+  - {fileID: 872116448}
+  - {fileID: 1838931210}
+  - {fileID: 179936493}
 --- !u!1 &1119402790
 GameObject:
   m_ObjectHideFlags: 0
@@ -18300,6 +18306,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 1
         m_CallState: 2
+      - m_Target: {fileID: 1119116222}
+        m_MethodName: ChangePosShow
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1420345993
@@ -18989,6 +19006,17 @@ MonoBehaviour:
       - m_Target: {fileID: 171646702}
         m_MethodName: OpenOrCloseFightTV
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1119116222}
+        m_MethodName: ChangePosShow
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
