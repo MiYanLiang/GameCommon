@@ -68,9 +68,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
         {
             allIdList_int.Add(int.Parse(allIdList[i]));
         }
-        GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_Go(fightIdList);//羁绊信息
-        GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_Go(arrayGo);//羁绊信息
-        fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().fetterInformation1;
+        //GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_Go(fightIdList);//羁绊信息
+        //GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_Go(arrayGo);//羁绊信息
+        //fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().fetterInformation1;
         //for (int j = 0; j < fetterInformation.Count; j++)
         //{
         //    for (int i = 0; i < fetterInformation[j].Count; i++)
@@ -80,14 +80,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //    }
         //}
 
-        heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
-        skillInformation = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init_up(fightIdList_int);//激活技能名称
-        for (int i = 0; i < skillInformation.Count; i++)
-        {
-            print(skillInformation[i]);
-        }
+        //heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
+        //skillInformation = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init_up(fightIdList_int);//激活技能名称
+        //for (int i = 0; i < skillInformation.Count; i++)
+        //{
+        //    print(skillInformation[i]);
+        //}
 
-        fetterInformation.Clear();
+        //fetterInformation.Clear();
     }
     private void OnServerInitialized()
     {

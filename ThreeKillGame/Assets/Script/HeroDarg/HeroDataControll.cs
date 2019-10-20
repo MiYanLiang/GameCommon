@@ -6,9 +6,11 @@ using UnityEngine.UI;
 
 public class HeroDataControll : MonoBehaviour {
 
-    //[HideInInspector]
+    [HideInInspector]
     public List<string> HeroData = new List<string>(); //存储当前武将的数据
     List<string> heroIdDate = new List<string>();
+    int heroidtest;
+    List<string> HeroDataTest = new List<string>();
     //public List<string> HeroData { get => heroData; set => heroData = value; }
     //index	    roleName	所属势力    soldierKind	  rarity  recruitingMoney  attack    defense	soldierNum	    闪避率	
     //0         1           2           3             4       5                6         7          8               9       
@@ -23,7 +25,13 @@ public class HeroDataControll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        //print(HeroData[0] + ":" + HeroData[1]);
+        print(HeroData[0] + ":" + HeroData[1]);
+        heroidtest = int.Parse(HeroData[0]);
+        HeroDataTest = HeroData;
+        for (int i = 0; i < HeroDataTest.Count; i++)
+        {
+            print(HeroDataTest[i]);
+        }
     }
 
     /// <summary>
@@ -31,11 +39,19 @@ public class HeroDataControll : MonoBehaviour {
     /// </summary>
     public void ShowThisHeroData()
     {
+        //if (HeroDataTest != null)
+        //{
+        //    //Debug.Log("//传递成功--"+heroData[1]);
+        //    //显示英雄名等信息
+        //    gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroDataTest[0] + ":" + HeroDataTest[1];
+        //    gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroDataTest[6];
+        //    gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroDataTest[7];
+        //}
         if (HeroData != null)
         {
             //Debug.Log("//传递成功--"+heroData[1]);
             //显示英雄名等信息
-            gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[0]+":"+HeroData[1];
+            gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[0] + ":" + HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
             gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroData[7];
         }
@@ -44,9 +60,11 @@ public class HeroDataControll : MonoBehaviour {
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
+        
         GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
-        int heroId = int.Parse(HeroData[0]);
+        int heroId = heroidtest;
         heroIdDate.Add(heroId.ToString());
+        print("点击的"+heroId);
         fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         if (fetterInformation.Count > 0)
         {
@@ -55,7 +73,7 @@ public class HeroDataControll : MonoBehaviour {
             {
                 for (int i = 0; i < fetterInformation[j].Count; i++)
                 {
-                    print(fetterInformation[j][i]);
+                    //print(fetterInformation[j][i]);
                     GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text += "\u3000" + "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵," + "攻击+" + fetterInformation[j][3] + "%" + "防御+" + fetterInformation[j][4] + "%" + "士兵+" + fetterInformation[j][5] + "%" + "\t";
                     break;
                 }

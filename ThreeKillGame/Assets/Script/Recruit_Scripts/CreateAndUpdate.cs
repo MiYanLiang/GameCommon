@@ -1534,6 +1534,7 @@ public class CreateAndUpdate : MonoBehaviour
                     break;
             }
             GetExcelFile();
+            //heroBtn.Clear();
             HeroLocation();
             for (int i = 0; i < myCard.Count; i++)
             {

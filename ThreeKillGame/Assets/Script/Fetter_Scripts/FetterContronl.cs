@@ -242,7 +242,7 @@ public class FetterContronl : MonoBehaviour
     ////////////////////////////////////////下面实现了点击英雄，通过英雄id获取与谁形成羁绊，且羁绊属性
     public List<List<string>> init_One(List<string> array1)
     {
-        print("进来");
+        //print("进来");
         fetterInformationFromId.Clear();
         //fetterInformationFromId1.Clear();
         fetterId.Clear();

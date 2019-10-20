@@ -190,6 +190,7 @@ public class SoldiersControl : MonoBehaviour
     /////////////////////////////////////////////下面是玩家拖上阵的英雄累计
     public List<string> init_up(List<int> battleHeroId)
     {
+        print("进来");
         skillInformation.Clear();
         //shieldSoldierNum = 0;              //盾兵数量
         //mahoutNum = 0;                     //象兵数量
