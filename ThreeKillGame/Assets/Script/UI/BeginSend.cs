@@ -12,6 +12,7 @@ public class BeginSend : MonoBehaviour
     public ForcesChoose FC;
     int DifficultyType;
     int forcesId;
+    List<int> fetterId = new List<int>();
     void Start()
     {
 
@@ -30,7 +31,13 @@ public class BeginSend : MonoBehaviour
         //print("势力ID："+ forcesId);
         PlayerPrefs.SetInt("DifficultyType", DifficultyType);
         PlayerPrefs.SetInt("forcesId",forcesId);
-        SceneManager.LoadScene(1);
+        PlayerPrefs.SetInt("forcesId0",fetterId[0]+1);
+        PlayerPrefs.SetInt("forcesId1", fetterId[1]+1);
+        PlayerPrefs.SetInt("forcesId2", fetterId[2]+1);
+        PlayerPrefs.SetInt("forcesId3", fetterId[3]+1);
+        PlayerPrefs.SetInt("forcesId4", fetterId[4]+1);
+        PlayerPrefs.SetInt("forcesId5", fetterId[5]+1);
+        //SceneManager.LoadScene(1);
     }
     void GetDifficultyType()
     {
@@ -54,5 +61,6 @@ public class BeginSend : MonoBehaviour
     void GetForcesId()
     {
         forcesId = FC.currentForcesIndex+1;
+        fetterId = FC.getForces;
     }
 }

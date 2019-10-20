@@ -10,7 +10,7 @@ public class ForcesChoose : MonoBehaviour
     // Start is called before the first frame update
     public List<GameObject> forcesObj = new List<GameObject>();
     int count = 6;
-    List<int> getForces = new List<int>();  //拿到获取到的随机6个势力的下标
+    public List<int> getForces = new List<int>();  //拿到获取到的随机6个势力的下标
     List<string> forcesName = new List<string>();//存放6个势力的昵称
     List<string> forcesExplain = new List<string>();//存放6个势力的说明文字
     [HideInInspector]

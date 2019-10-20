@@ -190,15 +190,16 @@ public class SoldiersControl : MonoBehaviour
     /////////////////////////////////////////////下面是玩家拖上阵的英雄累计
     public List<string> init_up(List<int> battleHeroId)
     {
-        shieldSoldierNum = 0;              //盾兵数量
-        mahoutNum = 0;                     //象兵数量
-        halberdierNum = 0;                //戟兵数量
-        lifeguardNum = 0;                 //禁卫数量
-        spearmanNum = 0;                   //枪兵数量
-        sowarNum = 0;                      //骑兵数量
-        counsellorNum = 0;                 //军师数量
-        sapperNum = 0;                      //工兵数量
-        necromancerNum = 0;                //方士数量
+        skillInformation.Clear();
+        //shieldSoldierNum = 0;              //盾兵数量
+        //mahoutNum = 0;                     //象兵数量
+        //halberdierNum = 0;                //戟兵数量
+        //lifeguardNum = 0;                 //禁卫数量
+        //spearmanNum = 0;                   //枪兵数量
+        //sowarNum = 0;                      //骑兵数量
+        //counsellorNum = 0;                 //军师数量
+        //sapperNum = 0;                      //工兵数量
+        //necromancerNum = 0;                //方士数量
         De_weightForBattleHeroId(battleHeroId);
         GetExcelFile1(battleHeroId);
         GetSoldiersTypeNum();
