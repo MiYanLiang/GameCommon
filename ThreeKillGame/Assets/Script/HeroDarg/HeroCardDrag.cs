@@ -62,7 +62,6 @@ public class HeroCardDrag : MonoBehaviour {
             return;
 
         GameObject go = _eventData.pointerCurrentRaycast.gameObject;    //释放时鼠标透过拖动的Image后的物体
-
         if (go.tag == "Grid")  //如果拖动卡牌下是：没有卡牌的格子时
         {
             //将原先的位置武将卡牌号存为0
