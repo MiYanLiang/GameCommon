@@ -23,7 +23,7 @@ public class HeroDataControll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        print(HeroData[0] + ":" + HeroData[1]);
+        //print(HeroData[0] + ":" + HeroData[1]);
     }
 
     /// <summary>
@@ -44,18 +44,26 @@ public class HeroDataControll : MonoBehaviour {
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
+        GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
         int heroId = int.Parse(HeroData[0]);
         heroIdDate.Add(heroId.ToString());
-        GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
-        fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().fetterInformationFromId1;
-        //传递给显示详细信息
-        for (int j = 0; j < fetterInformation.Count; j++)
+        fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
+        if (fetterInformation.Count > 0)
         {
-            for (int i = 0; i < fetterInformation[j].Count; i++)
+            ////传递给显示详细信息
+            for (int j = 0; j < fetterInformation.Count; j++)
             {
-                //print("ss");
-                print(fetterInformation[j][i]);
+                for (int i = 0; i < fetterInformation[j].Count; i++)
+                {
+                    print(fetterInformation[j][i]);
+                    GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text += "\u3000" + "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵," + "攻击+" + fetterInformation[j][3] + "%" + "防御+" + fetterInformation[j][4] + "%" + "士兵+" + fetterInformation[j][5] + "%" + "\t";
+                    break;
+                }
             }
+        }
+        else
+        {
+            GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "\u3000" + "此英雄无羁绊";
         }
         heroIdDate.Clear();
     }

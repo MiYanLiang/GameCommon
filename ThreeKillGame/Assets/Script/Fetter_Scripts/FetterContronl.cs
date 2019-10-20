@@ -240,30 +240,33 @@ public class FetterContronl : MonoBehaviour
     }
     ////////////////////////////////////////上面实现了传进来上阵英雄数组，判断激活哪些羁绊
     ////////////////////////////////////////下面实现了点击英雄，通过英雄id获取与谁形成羁绊，且羁绊属性
-    public void init_One(List<string> array1)
+    public List<List<string>> init_One(List<string> array1)
     {
-        //for (int i = 0; i < fetterInformationFromId.Count; i++)
-        //{
-        //    fetterInformationFromId[i].Clear();
-        //}
+        print("进来");
         fetterInformationFromId.Clear();
+        //fetterInformationFromId1.Clear();
         fetterId.Clear();
         GetExcelFile();
         MakeArray1(array1);
         GetExcelFile2();
-        fetterInformationFromId1 = fetterInformationFromId;
+        //for (int i = 0; i < fetterInformationFromId.Count; i++)
+        //{
+        //    fetterInformationFromId[i].Clear();
+        //}
+        //fetterInformationFromId1 = fetterInformationFromId;
         //GetExcelFile3();
         //for (int i = 0; i < fetterId.Count; i++)
         //{
         //    print(fetterId[i]);
         //}
-        //for (int j = 0; j < fetterInformationFromId1.Count; j++)
+        //for (int j = 0; j < fetterInformationFromId.Count; j++)
         //{
-        //    for (int i = 0; i < fetterInformationFromId1[j].Count; i++)
+        //    for (int i = 0; i < fetterInformationFromId[j].Count; i++)
         //    {
-        //        print(fetterInformationFromId1[j][i]);
+        //        print(fetterInformationFromId[j][i]);
         //    }
         //}
+        return fetterInformationFromId;
 
     }
     //传进来点击的英雄id
