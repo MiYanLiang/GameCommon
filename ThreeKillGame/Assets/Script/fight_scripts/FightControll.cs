@@ -8,10 +8,10 @@ using UnityEngine.UI;
 /// </summary>
 public class FightControll : MonoBehaviour
 {
-    private int playerForce;    //玩家势力的ID
-    private int[] forceIds;     //记录其他势力的ID
+    //private int playerForceId;    //玩家势力的ID
+    //private int[] forceIds;     //记录其他势力的ID
 
-    public Text[] forceNames;   //游戏内势力单个字显示
+    //public Text[] forceNames;   //游戏内势力单个字显示
 
     public GameObject hero_Card;    //英雄卡片预制件
     //各个npc上阵九宫格
@@ -23,22 +23,26 @@ public class FightControll : MonoBehaviour
     //记录敌方势力要发展的兵种类型
     int[][] enemyUnits = new int[5][];
     //记录NPC上阵英雄的数据
-    List<List<string>[]> enemyHeroDatas = new List<List<string>[]>(); 
-    List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
+    static List<List<string>[]> enemyHeroDatas = new List<List<string>[]>(); 
+    static List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
 
     private void Awake()
     {
+        //playerForceId= PlayerPrefs.GetInt("forcesId"); //玩家自身的势力id
         for (int i = 0; i < 5; i++)
         {
             enemyHeroDatas.Add(new List<string>[9]);
         }
-
+        for (int i = 0; i < 9; i++)
+        {
+            sendData[i] = new List<string>();
+        }
     }
 
     private void Start()
     {
         CreateEnemyUnits(); //初始化所有NPC势力发展阵容
-        //ChangeAllEnemyCards();
+        ChangeAllEnemyCards();
     }
     /// <summary>
     /// 更新所有NPC阵容
@@ -127,7 +131,7 @@ public class FightControll : MonoBehaviour
     /// </summary>
     public void StartFightSendHeroData()
     {
-        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[0];
+        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[1];
         FightCardSps[0].gameObject.SetActive(true);
     }
 
@@ -146,7 +150,6 @@ public class FightControll : MonoBehaviour
     //初始化创建敌方势力和后期要发展的兵种类型
     private void CreateEnemyUnits()
     {
-
         for (int i = 0; i < 5; i++)
         {
             enemyUnits[i] = new int[3];
@@ -154,7 +157,6 @@ public class FightControll : MonoBehaviour
             enemyUnits[i][1] = Random.Range(1, 10);    //中排
             enemyUnits[i][2] = Random.Range(4, 10);    //后排
             //Debug.Log("///" + enemyUnits[i][0] + "///" + enemyUnits[i][1] + "////" + enemyUnits[i][2]);
-
             
         }
     }

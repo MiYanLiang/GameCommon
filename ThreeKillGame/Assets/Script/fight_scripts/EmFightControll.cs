@@ -536,7 +536,12 @@ public class EmFightControll : MonoBehaviour
         return str_list;
     }
 
-    private void HoldHeroData(List<string>[] arrHeroData, int i)   //保持英雄数据
+    /// <summary>
+    /// 保持英雄数据
+    /// </summary>
+    /// <param name="arrHeroData"></param>
+    /// <param name="i"></param>
+    private void HoldHeroData(List<string>[] arrHeroData, int i)   
     {
         array_str[i] = useepplusfun.GetRowDatas(worksheet_Role, int.Parse(arrHeroData[i][0]) + 1);  //记录该英雄所有数据
         array_str[i].Add(arrHeroData[i][1]);    //记录他的品阶
