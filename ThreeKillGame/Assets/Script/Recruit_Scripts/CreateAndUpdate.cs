@@ -1563,7 +1563,7 @@ public class CreateAndUpdate : MonoBehaviour
     {
         int Num = 0;
         string rowTxt = "";
-        for (int i = 1; i < 784 + 1; i++)
+        for (int i = 1; i < 793 + 1; i++)
         {
             for (int j = 1; j < 2 + 1; j++)
             {
@@ -1594,7 +1594,7 @@ public class CreateAndUpdate : MonoBehaviour
         int num = 0;
         string numy = "";
         string rowTxt = "";
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             for (int j = 1; j < 15 + 1; j++)
             {
@@ -1648,7 +1648,7 @@ public class CreateAndUpdate : MonoBehaviour
     void GetHeroRarity(ExcelWorksheet worksheet, string name)
     {
         string numy = "";
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             for (int j = 1; j < 15 + 1; j++)
             {
@@ -1688,7 +1688,7 @@ public class CreateAndUpdate : MonoBehaviour
     //在表2中拿到相关稀有度的英雄Id并存储
     void GetHeroRarityId(ExcelWorksheet worksheet)
     {
-        for (int i = 1; i < 784 + 1; i++)
+        for (int i = 1; i < 793 + 1; i++)
         {
             if (i > 1)
             {

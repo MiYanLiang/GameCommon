@@ -333,7 +333,7 @@ public class EmFightControll : MonoBehaviour
         //worksheet_Role = new TableDatas();
         //worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");
         //将可以添加的英雄id存储
-        for (int j = 2; j < 88 + 1; j++)
+        for (int j = 2; j < 89 + 1; j++)
         {
             if (int.Parse(worksheet_Role.worksheet.Cells[j, 5].Value.ToString()) == 1)
             {

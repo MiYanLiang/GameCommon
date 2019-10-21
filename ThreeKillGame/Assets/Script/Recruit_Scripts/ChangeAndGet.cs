@@ -318,7 +318,7 @@ public class ChangeAndGet : MonoBehaviour
     {
         int num = 0;
         string rowTxt = "";
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             for (int j = 1; j < 21 + 1; j++)
             {
@@ -353,7 +353,7 @@ public class ChangeAndGet : MonoBehaviour
         int num = 0;
         string numy = "";
         string rowTxt = "";
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             for (int j = 1; j < 21 + 1; j++)
             {
@@ -397,7 +397,7 @@ public class ChangeAndGet : MonoBehaviour
     //在表一中拿到点击英雄的id
     void GetHeroId(int num, ExcelWorksheet worksheet)
     {
-        for (int i = 1; i < 784 + 1; i++)
+        for (int i = 1; i < 793 + 1; i++)
         {
             for (int j = 1; j < 2 + 1; j++)
             {

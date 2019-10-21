@@ -109,7 +109,7 @@ public class SoldiersControl : MonoBehaviour
     void GetHeroType(ExcelWorksheet worksheet, int id)
     {
         int num = 4;
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             if (i > 1)
             {
@@ -238,7 +238,7 @@ public class SoldiersControl : MonoBehaviour
     void GetHeroTypeFromId(ExcelWorksheet worksheet, int id)
     {
         int num = 4;
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             if (i > 1)
             {
@@ -491,7 +491,7 @@ public class SoldiersControl : MonoBehaviour
     void GetSoldiersAll(ExcelWorksheet worksheet)
     {
         int num = 4;     
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             if (i > 1)
             {
@@ -537,7 +537,7 @@ public class SoldiersControl : MonoBehaviour
     string GetHeroNameFromId(ExcelWorksheet worksheet, int id)
     {
         string name = "";
-        for (int i = 1; i < 88 + 1; i++)
+        for (int i = 1; i < 89 + 1; i++)
         {
             if (i > 1)
             {

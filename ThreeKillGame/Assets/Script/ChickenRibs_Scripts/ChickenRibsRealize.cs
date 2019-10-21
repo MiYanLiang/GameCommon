@@ -526,7 +526,7 @@ public class ChickenRibsRealize : MonoBehaviour
     }
     void AllFromEventId_1(ExcelWorksheet worksheet, string eventId)
     {
-        for (int i = 2; i < 88 + 1; i++)
+        for (int i = 2; i < 89 + 1; i++)
         {
             if (worksheet.Cells[i, 1].Value.ToString().ToString() == eventId)
             {
