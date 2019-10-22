@@ -29,15 +29,15 @@ public class BeginSend : MonoBehaviour
         GetForcesId();
         //print("难度："+DifficultyType);
         //print("势力ID："+ forcesId);
-        PlayerPrefs.SetInt("DifficultyType", DifficultyType);
-        PlayerPrefs.SetInt("forcesId",forcesId);
-        PlayerPrefs.SetInt("forcesId0",fetterId[0]+1);
-        PlayerPrefs.SetInt("forcesId1", fetterId[1]+1);
-        PlayerPrefs.SetInt("forcesId2", fetterId[2]+1);
-        PlayerPrefs.SetInt("forcesId3", fetterId[3]+1);
-        PlayerPrefs.SetInt("forcesId4", fetterId[4]+1);
-        PlayerPrefs.SetInt("forcesId5", fetterId[5]+1);
-        //SceneManager.LoadScene(1);
+        PlayerPrefs.SetInt("DifficultyType", DifficultyType);   //难度值1-4
+        PlayerPrefs.SetInt("forcesId",forcesId);                //玩家势力ID 1-11
+        //PlayerPrefs.SetInt("forcesId0",fetterId[0]+1);
+        //PlayerPrefs.SetInt("forcesId1", fetterId[1]+1);
+        //PlayerPrefs.SetInt("forcesId2", fetterId[2]+1);
+        //PlayerPrefs.SetInt("forcesId3", fetterId[3]+1);
+        //PlayerPrefs.SetInt("forcesId4", fetterId[4]+1);
+        //PlayerPrefs.SetInt("forcesId5", fetterId[5]+1);
+        SceneManager.LoadScene(1);
     }
     void GetDifficultyType()
     {
