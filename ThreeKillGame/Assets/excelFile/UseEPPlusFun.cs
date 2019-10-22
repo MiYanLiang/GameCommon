@@ -8,24 +8,20 @@ using OfficeOpenXml;    //引入使用EPPlus类库
 public class TableDatas     //数据表类
 {
     public ExcelWorksheet worksheet;   //存储表的数据
-
     public int rows, columns;  //存储表的总行数和列数
 }
 
 public class UseEPPlusFun : MonoBehaviour {
+    
 
-	private void Start ()
+    private void Awake()
     {
 
+    }
 
-        //RoleTable
-
-        //TableDatas tableData = FindExcelFiles("RoleTable");
-        //int i = 1;
-        //while (tableData.worksheet.Cells[2, i].Value != null)
-        //{ i++; }
-        //Debug.Log("Excel测试:" + i);
-
+    private void Start ()
+    {
+        
     }
 
     /// <summary>
@@ -102,6 +98,7 @@ public class UseEPPlusFun : MonoBehaviour {
         while (i <= tabledata.columns)
         {
             datas.Add((tabledata.worksheet.Cells[row, i].Value != null) ? tabledata.worksheet.Cells[row, i].Value.ToString() : "");
+            i++;
         }
         return datas;
     }
@@ -119,15 +116,10 @@ public class UseEPPlusFun : MonoBehaviour {
         while (i <= tabledata.rows)
         {
             datas.Add((tabledata.worksheet.Cells[i, column].Value != null) ? tabledata.worksheet.Cells[i, column].Value.ToString() : "");
+            i++;
         }
         return datas;
     }
-
-
-
-
-
-
 
     /// <summary>
     /// 读取Excel表格文件
