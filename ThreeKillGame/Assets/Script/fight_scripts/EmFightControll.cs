@@ -348,9 +348,16 @@ public class EmFightControll : MonoBehaviour
             int id_newHero=0;
             if (hero_kindNum[0]<3)
             {
+                int index = 2;
+                while (true)
+                {
+                    if (worksheet_Role_EmFight.worksheet.Cells[index++, 4].Value.ToString() == enemyUnits[0].ToString() && worksheet_Role_EmFight.worksheet.Cells[index-1, 5].Value.ToString() == "1")
+                        break;
+                }
+                int id = index - 2;
                 do
                 {
-                    id_newHero = Random.Range(1, 4) + (enemyUnits[0] - 1) * 9;
+                    id_newHero = Random.Range(0, 3) + id;
                 } while (IsHadThisHero(heroIds, id_newHero));
                 newheroIds.Add(id_newHero);
                 hero_kindNum[0]++;
@@ -358,9 +365,16 @@ public class EmFightControll : MonoBehaviour
             }
             if (hero_kindNum[1]<3)
             {
+                int index = 2;
+                while (true)
+                {
+                    if (worksheet_Role_EmFight.worksheet.Cells[index++, 4].Value.ToString() == enemyUnits[1].ToString() && worksheet_Role_EmFight.worksheet.Cells[index - 1, 5].Value.ToString() == "1")
+                        break;
+                }
+                int id = index - 2;
                 do
                 {
-                    id_newHero = Random.Range(1, 4) + (enemyUnits[1] - 1) * 9;
+                    id_newHero = Random.Range(0, 3) + id;
                 } while (IsHadThisHero(heroIds, id_newHero));
                 newheroIds.Add(id_newHero);
                 hero_kindNum[1]++;
@@ -368,9 +382,16 @@ public class EmFightControll : MonoBehaviour
             }
             if (hero_kindNum[2]<3)
             {
+                int index = 2;
+                while (true)
+                {
+                    if (worksheet_Role_EmFight.worksheet.Cells[index++, 4].Value.ToString() == enemyUnits[2].ToString() && worksheet_Role_EmFight.worksheet.Cells[index - 1, 5].Value.ToString() == "1")
+                        break;
+                }
+                int id = index - 2;
                 do
                 {
-                    id_newHero = Random.Range(1, 4) + (enemyUnits[2] - 1) * 9;
+                    id_newHero = Random.Range(0, 3) + id;
                 } while (IsHadThisHero(heroIds, id_newHero));
                 newheroIds.Add(id_newHero);
                 hero_kindNum[2]++;
