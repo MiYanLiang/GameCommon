@@ -302,7 +302,7 @@ public class FightCardSP : MonoBehaviour
                         //敌方扣血
 
                         //金币
-                        updateBtn.GetComponent<CreateAndUpdate>().money += 1;   //玩家加金币
+                        CreateAndUpdate.money += 1;   //玩家加金币
 
                         //展示战斗胜负信息
                         if (remainScale>=0.75f)
@@ -366,7 +366,7 @@ public class FightCardSP : MonoBehaviour
                         float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
                         updateBtn.GetComponent<CreateAndUpdate>().hp -= (int)(remainScale * 10);    //玩家扣血
                         //金币
-                        updateBtn.GetComponent<CreateAndUpdate>().money += 0;   //玩家不加金币
+                        CreateAndUpdate.money += 0;   //玩家不加金币
                         
                         //展示战斗胜负信息
                         if (remainScale >= 0.75f)

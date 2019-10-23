@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroIdChangeAndSave : MonoBehaviour
 {
@@ -20,9 +21,26 @@ public class HeroIdChangeAndSave : MonoBehaviour
     List<string> skillInformation = new List<string>();//激活的技能详细信息
     List<List<string>> fetterInformation = new List<List<string>>(); //激活羁绊的详细信息
 
-    List<string> arrayGo = new List<string>() { "1", "2", "3", "4","5","6", "68" };  //上阵英雄数组,用以测试
+    List<string> arrayGo = new List<string>() { "1", "2", "3", "4", "5", "6", "68" };  //上阵英雄数组,用以测试
+
+    [SerializeField]
+    GameObject SellCardBtn; //出售卡牌按钮
+    [HideInInspector]
+    public Transform SelectHerpCard;   //选中的英雄卡牌
+
+    /// <summary>
+    /// 出售选中的卡牌武将
+    /// </summary>
+    public void SellSelectHeroCard()
+    {
+        CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
+        Destroy(SelectHerpCard.gameObject);
+        SelectHerpCard = null;
+    }
+
     private void Awake()
     {
+        SelectHerpCard = null;
         for (int i = 0; i < pos_heroId.Length; i++)
         {
             pos_heroId[i] = 0;
@@ -42,7 +60,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         fightIdList_int.Clear();
         for (int i = 0; i < 9; i++)
         {
-            if (JiuGongGe.GetChild(i).childCount>0)
+            if (JiuGongGe.GetChild(i).childCount > 0)
             {
                 fightIdList.Add(JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[0]);
                 allIdList.Add(JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[0]);
@@ -92,28 +110,23 @@ public class HeroIdChangeAndSave : MonoBehaviour
     }
     private void OnServerInitialized()
     {
-       
+
     }
 
     /// <summary>
     /// 恢复所有武将卡牌未选中状态（选中框显示等）
     /// </summary>
-    public void RestoreCardUnSelect()
+    public void RestoreCardUnSelect(Transform tran)
     {
-        for (int i = 0; i < 9; i++)
+        if (SelectHerpCard != null)
         {
-            if (JiuGongGe.GetChild(i).childCount>0)
-            {
-                JiuGongGe.GetChild(i).GetChild(0).GetChild(3).gameObject.SetActive(false);
-            }
+            SelectHerpCard.GetChild(3).gameObject.SetActive(false);
         }
-        for (int i = 0; i < 7; i++)
-        {
-            if (BeiZhanWei.GetChild(i).childCount > 0)
-            {
-                BeiZhanWei.GetChild(i).GetChild(0).GetChild(3).gameObject.SetActive(false);
-            }
-        }
+        SelectHerpCard = tran;
+        //显示出售按钮
+        SellCardBtn.transform.GetChild(1).GetComponent<Text>().text = tran.GetComponent<HeroDataControll>().Price_hero.ToString();
+        SellCardBtn.SetActive(true);
+
     }
 
 

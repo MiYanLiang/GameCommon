@@ -121,16 +121,16 @@ public class FightControll : MonoBehaviour
                     switch (int.Parse(enemyHeroDatas[i][m][4]))
                     {
                         case 1:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(49, 193, 82);  //绿色
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(49f/ 255f, 193f / 255f, 82f / 255f, 1);  //绿色
                             break;
                         case 2:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(48, 127, 192); //蓝色
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
                             break;
                         case 3:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(215, 37, 236); //紫色
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
                             break;
                         case 4:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(227, 16, 16);  //红色
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
                             break;
                     }
                     //显示英雄名等信息

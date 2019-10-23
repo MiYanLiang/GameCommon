@@ -10,7 +10,7 @@ public class UIControl : MonoBehaviour
 {
     // Start is called before the first frame update
     public Text gold;       //玩家金币
-    public CreateAndUpdate cau;
+    //public CreateAndUpdate cau;
 
     [SerializeField]
     Image playerForcePic;    //玩家势力头像
@@ -54,6 +54,6 @@ public class UIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gold.text = "金：" + cau.money;   //玩家金钱显示
+        gold.text = "金：" + CreateAndUpdate.money;   //玩家金钱显示
     }
 }

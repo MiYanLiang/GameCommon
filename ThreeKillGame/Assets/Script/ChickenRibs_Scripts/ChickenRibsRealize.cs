@@ -50,7 +50,7 @@ public class ChickenRibsRealize : MonoBehaviour
     {
         days = 1;
         hasHeroId = cau.ChickenRibsHeroId;  ///将CreateAndUpdate中的玩家拥有的所有英雄id传过来
-        money = cau.money;
+        money = CreateAndUpdate.money;
         peopleHeart = cau.peopleHearts;
         morale = cau.moraleNum;
         GetExcelFile();
@@ -77,7 +77,7 @@ public class ChickenRibsRealize : MonoBehaviour
             equip_heroId.Clear();
             hasHeroId.Clear();
             hasHeroId = cau.ChickenRibsHeroId;  ///将CreateAndUpdate中的玩家拥有的所有英雄id传过来
-            money = cau.money;
+            money = CreateAndUpdate.money;
             peopleHeart = cau.peopleHearts;
             morale = cau.moraleNum;
             GetExcelFile();
@@ -392,7 +392,7 @@ public class ChickenRibsRealize : MonoBehaviour
             if (money > int.Parse(eventDate[5]))
             {
                 money -= int.Parse(eventDate[5]);
-                cau.money = money;
+                CreateAndUpdate.money = money;
                 for (int i = 0; i < eventDate.Count; i++)
                 {
                     buyHeroDate.Add(eventDate[i]);
@@ -415,7 +415,7 @@ public class ChickenRibsRealize : MonoBehaviour
             if (money > int.Parse(eventDate[2]))
             {
                 money -= int.Parse(eventDate[2]);
-                cau.money = money;
+                CreateAndUpdate.money = money;
                 for (int i = 0; i < eventDate.Count; i++)
                 {
                     buyEquipmentDate.Add(eventDate[i]);
@@ -468,7 +468,7 @@ public class ChickenRibsRealize : MonoBehaviour
                 peopleHeart += int.Parse(eventDate[3]);
                 morale += int.Parse(eventDate[4]);
                 hp += int.Parse(eventDate[5]);
-                cau.money = money;
+                CreateAndUpdate.money = money;
                 cau.peopleHearts = peopleHeart;
                 cau.moraleNum = money;
                 cau.hp = hp;

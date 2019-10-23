@@ -8,7 +8,6 @@ using OfficeOpenXml;    //引入使用EPPlus类库
 public class ChangeAndGet : MonoBehaviour
 {
     public GameObject btn;
-    public GameObject txt;
     List<int> mycard = new List<int>();
     List<string> getCard = new List<string>();
     int price;  //武将价格
@@ -41,7 +40,7 @@ public class ChangeAndGet : MonoBehaviour
         btnTag = int.Parse(btn.name);
         print("btnName:"+btnTag);
         //mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
-        money = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money;
+        money = CreateAndUpdate.money;
         ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
         //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
         //for (int i = 0; i < GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId.Count; i++)
@@ -62,7 +61,7 @@ public class ChangeAndGet : MonoBehaviour
             transform.GetComponent<Button>().enabled = false;   //关闭点击事件
             //print(btnTag);
             money = money - price;
-            GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().money = money;
+            CreateAndUpdate.money = money;
         }
         else
         {
@@ -86,8 +85,7 @@ public class ChangeAndGet : MonoBehaviour
             int num = 0;
             num = SearchEmptyEpace(num);
             if (num == -1) { return; }
-
-            txt.GetComponent<Text>().text = txt.GetComponent<Text>().text + getCard[getCard.Count - 1].ToString() + "  ";
+            
             GetExcelFile2();
             print("heroId:" + heroId);
             Debug.Log("heroData,name//" + heroData[1]);
@@ -271,16 +269,16 @@ public class ChangeAndGet : MonoBehaviour
         switch (int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[4]))
         {
             case 1:
-                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(49, 193, 82);  //绿色
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
                 break;
             case 2:
-                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(48, 127, 192); //蓝色
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
                 break;
             case 3:
-                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(215, 37, 236); //紫色
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
                 break;
             case 4:
-                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(227, 16, 16);  //红色
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
                 break;
         }
         newheroCard.GetComponent<HeroDataControll>().HeroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[6])).ToString();

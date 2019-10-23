@@ -37,7 +37,6 @@ public class CreateAndUpdate : MonoBehaviour
     List<int> purpleHeroId = new List<int>();
     List<int> orangeHeroId = new List<int>();
     public int level = 1;
-    public int money;
     int count;
     int player_count;
     int temp_num;
@@ -51,9 +50,16 @@ public class CreateAndUpdate : MonoBehaviour
     int peopleHearts_red;
     public int moraleNum;   //士气
     public int hp;//血量
+    public static int money;    //金币
     public int experience;//经验
     int damageAll;
     // Use this for initialization
+
+    private void Awake()
+    {
+        money = 100; 
+    }
+
     void Start()
     {
         SetPeopleHarets();
