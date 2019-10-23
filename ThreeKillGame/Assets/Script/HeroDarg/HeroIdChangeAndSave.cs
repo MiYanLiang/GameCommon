@@ -29,7 +29,18 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public Transform SelectHerpCard;   //选中的英雄卡牌
 
     public Transform LeftInformationBar;//左侧信息栏
+    public GameObject heroTypePrefab;    //信息预制件
+    public GameObject forcesName;
 
+    int shieldSoldierNum;              //盾兵数量
+    int mahoutNum;                     //象兵数量
+    int halberdierNum ;                //戟兵数量
+    int lifeguardNum ;                 //禁卫数量
+    int spearmanNum ;                   //枪兵数量
+    int sowarNum ;                      //骑兵数量
+    int counsellorNum ;                 //军师数量
+    int sapperNum;                      //工兵数量
+    int necromancerNum ;                //方士数量
     /// <summary>
     /// 出售选中的卡牌武将
     /// </summary>
@@ -42,6 +53,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     private void Awake()
     {
+        forcesName.GetComponent<Text>().text = "炎";//左侧信息栏显示，暂时没有数据
         SelectHerpCard = null;
         for (int i = 0; i < pos_heroId.Length; i++)
         {
@@ -99,18 +111,27 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //        print(fetterInformation[j][i]);
         //    }
         //}
-
-        heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
-        //for (int i = 0; i < heroTypeName.Count; i++)
-        //{
-        //    print("HeroType"+i+heroTypeName[i]);
-        //}
-        MakeLeftInformation();
         //skillInformation = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init_up(fightIdList_int);//激活技能名称
         //for (int i = 0; i < skillInformation.Count; i++)
         //{
         //    print(skillInformation[i]);
         //}
+        heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
+        shieldSoldierNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().shieldSoldierNum;
+        mahoutNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().mahoutNum;
+        halberdierNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().halberdierNum;
+        lifeguardNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().lifeguardNum;
+        spearmanNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().spearmanNum;
+        sowarNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().sowarNum;
+        counsellorNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().counsellorNum;
+        sapperNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().sapperNum;
+        necromancerNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().necromancerNum;
+        for (int i = 0; i < heroTypeName.Count; i++)
+        {
+            print("HeroType" + i + heroTypeName[i]);
+        }
+        MakeLeftInformation();
+
 
         //fetterInformation.Clear();
     }
@@ -139,9 +160,48 @@ public class HeroIdChangeAndSave : MonoBehaviour
     //左侧信息栏显示
     void MakeLeftInformation()
     {
-        //GameObject obj = (GameObject)Resources.Load("Prefab/soldiersType1");
-        //Instantiate(obj);
-        //obj.transform.position
+        for (int i = 1; i < heroTypeName.Count+1; i++)
+        {
+            GameObject obj = Instantiate(heroTypePrefab, LeftInformationBar.GetChild(i));
+            obj.transform.position = LeftInformationBar.GetChild(i).position;
+            obj.GetComponentsInChildren<Text>()[0].text = heroTypeName[i - 1];
+            if (heroTypeName[i - 1] == "盾兵")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "象兵")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "戟兵")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "禁卫")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "枪兵")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "骑兵")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "军师")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "工兵")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "3";
+            }
+            else if (heroTypeName[i - 1] == "方士")
+            {
+                obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "3";
+            }
+        }
     }
 
 }

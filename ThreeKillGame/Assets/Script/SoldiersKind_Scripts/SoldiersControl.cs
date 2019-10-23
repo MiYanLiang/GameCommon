@@ -14,15 +14,24 @@ public class SoldiersControl : MonoBehaviour
     List<int> heroTypeAll = new List<int>();//存放我的所有兵种id
     List<int> battleHeroType = new List<int>();//存放上阵所有兵种id
     List<string> heroTypeName = new List<string>();//存放我的所有兵种名字，无重复
-    int shieldSoldierNum = 0;              //盾兵数量
-    int mahoutNum = 0;                     //象兵数量
-    int halberdierNum = 0;                //戟兵数量
-    int lifeguardNum = 0;                 //禁卫数量
-    int spearmanNum = 0;                   //枪兵数量
-    int sowarNum = 0;                      //骑兵数量
-    int counsellorNum = 0;                 //军师数量
-    int sapperNum = 0;                      //工兵数量
-    int necromancerNum = 0;                //方士数量
+    [HideInInspector]
+    public int shieldSoldierNum = 0;              //盾兵数量
+    [HideInInspector]
+    public int mahoutNum = 0;                     //象兵数量
+    [HideInInspector]
+    public int halberdierNum = 0;                //戟兵数量
+    [HideInInspector]
+    public int lifeguardNum = 0;                 //禁卫数量
+    [HideInInspector]
+    public int spearmanNum = 0;                   //枪兵数量
+    [HideInInspector]
+    public int sowarNum = 0;                      //骑兵数量
+    [HideInInspector]
+    public int counsellorNum = 0;                 //军师数量
+    [HideInInspector]
+    public int sapperNum = 0;                      //工兵数量
+    [HideInInspector]
+    public int necromancerNum = 0;                //方士数量
     ////////////////////////////////////////////////////////////下面是分母
     int shieldSoldierNum_All = 3;              //盾兵数量
     int mahoutNum_All = 3;                    //象兵数量
