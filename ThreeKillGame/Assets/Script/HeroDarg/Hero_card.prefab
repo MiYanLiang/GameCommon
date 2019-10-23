@@ -326,7 +326,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeroData: []
-  SellCardBtn: {fileID: 0}
 --- !u!114 &-2076634046918180954
 MonoBehaviour:
   m_ObjectHideFlags: 0

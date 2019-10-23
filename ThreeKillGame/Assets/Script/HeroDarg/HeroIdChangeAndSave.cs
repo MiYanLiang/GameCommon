@@ -17,7 +17,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     List<int> allIdList_int = new List<int>();     //全部英雄id
     List<int> fightIdList_int = new List<int>();   //上阵英雄id
 
-    List<string> heroTypeName = new List<string>();
+    public List<string> heroTypeName = new List<string>();
     List<string> skillInformation = new List<string>();//激活的技能详细信息
     List<List<string>> fetterInformation = new List<List<string>>(); //激活羁绊的详细信息
 
@@ -27,6 +27,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
     GameObject SellCardBtn; //出售卡牌按钮
     [HideInInspector]
     public Transform SelectHerpCard;   //选中的英雄卡牌
+
+    public Transform LeftInformationBar;//左侧信息栏
 
     /// <summary>
     /// 出售选中的卡牌武将
@@ -51,7 +53,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
     /// </summary>
     public void SaveNowHeroId()
     {
-        print("ss");
         heroTypeName.Clear();
         skillInformation.Clear();
         fightIdList.Clear();
@@ -78,10 +79,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
             fightIdList_int.Add(int.Parse(fightIdList[i]));
         }
         //测试
-        for (int i = 0; i < arrayGo.Count; i++)
-        {
-            fightIdList_int.Add(int.Parse(arrayGo[i]));
-        }
+        //for (int i = 0; i < arrayGo.Count; i++)
+        //{
+        //    fightIdList_int.Add(int.Parse(arrayGo[i]));
+        //}
 
         for (int i = 0; i < allIdList.Count; i++)
         {
@@ -99,7 +100,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //    }
         //}
 
-        //heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
+        heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
+        //for (int i = 0; i < heroTypeName.Count; i++)
+        //{
+        //    print("HeroType"+i+heroTypeName[i]);
+        //}
+        MakeLeftInformation();
         //skillInformation = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init_up(fightIdList_int);//激活技能名称
         //for (int i = 0; i < skillInformation.Count; i++)
         //{
@@ -129,5 +135,13 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     }
 
+
+    //左侧信息栏显示
+    void MakeLeftInformation()
+    {
+        //GameObject obj = (GameObject)Resources.Load("Prefab/soldiersType1");
+        //Instantiate(obj);
+        //obj.transform.position
+    }
 
 }

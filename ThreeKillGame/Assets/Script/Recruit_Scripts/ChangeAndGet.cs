@@ -231,10 +231,10 @@ public class ChangeAndGet : MonoBehaviour
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
         //newheroCard.AddComponent<HeroDataControll>();
-        for (int i = 0; i < heroData.Count; i++)
-        {
-            print("传递的：" + heroData[0]);
-        }
+        //for (int i = 0; i < heroData.Count; i++)
+        //{
+        //    print("传递的：" + heroData[0]);
+        //}
         newheroCard.GetComponent<HeroDataControll>().HeroData = heroData;
         //设置品阶颜色表现和属性
         switch (grade)
