@@ -129,4 +129,12 @@ public class HeroCardDrag : MonoBehaviour {
         t.SetParent(parent);
         t.position = parent.position;
     }
+
+    //调用背景图代码恢复选择框
+    public void RestoreUnSelect()
+    {
+        GameObject backGround = GameObject.Find("backGround");
+        backGround.GetComponent<HeroIdChangeAndSave>().RestoreCardUnSelect();
+    }
+
 }

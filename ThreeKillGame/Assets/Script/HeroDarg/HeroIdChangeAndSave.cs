@@ -9,6 +9,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public Transform JiuGongGe; //九宫格
     public Transform BeiZhanWei;//备战位
 
+
     public List<string> fightIdList = new List<string>();   //上阵英雄id
     public List<string> allIdList = new List<string>();     //全部英雄id
 
@@ -94,7 +95,26 @@ public class HeroIdChangeAndSave : MonoBehaviour
        
     }
 
-
+    /// <summary>
+    /// 恢复所有武将卡牌未选中状态（选中框显示等）
+    /// </summary>
+    public void RestoreCardUnSelect()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (JiuGongGe.GetChild(i).childCount>0)
+            {
+                JiuGongGe.GetChild(i).GetChild(0).GetChild(3).gameObject.SetActive(false);
+            }
+        }
+        for (int i = 0; i < 7; i++)
+        {
+            if (BeiZhanWei.GetChild(i).childCount > 0)
+            {
+                BeiZhanWei.GetChild(i).GetChild(0).GetChild(3).gameObject.SetActive(false);
+            }
+        }
+    }
 
 
 }

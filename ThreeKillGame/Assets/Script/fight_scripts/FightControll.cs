@@ -43,7 +43,7 @@ public class FightControll : MonoBehaviour
     {
         CreateEnemyUnits(); //初始化所有NPC势力发展阵容
 
-        Invoke("ChangeAllEnemyCards", 0.5f);    //延时加载npc武将
+        Invoke("ChangeAllEnemyCards", 0.3f);    //延时加载npc武将
         //ChangeAllEnemyCards();
     }
     /// <summary>
@@ -66,6 +66,7 @@ public class FightControll : MonoBehaviour
                     sendData[j].Add(enemyHeroData[j][0]);
                     sendData[j].Add(enemyHeroData[j][enemyHeroData[j].Count - 2]);
                     sendData[j].Add(enemyHeroData[j][enemyHeroData[j].Count - 1]);
+                    //Debug.Log("heroid:" + sendData[j][0] + "   herograde:" + sendData[j][1]+"   fightNums:"+sendData[j][2]);
                     enemyHeroData[j].Clear();   //传递后清理
                 }
                 else
@@ -115,8 +116,21 @@ public class FightControll : MonoBehaviour
                         case 3:
                             newheroCard.transform.GetComponent<Image>().color = Color.red;
                             break;
-                        default:
-                            newheroCard.transform.GetComponent<Image>().color = Color.white;
+                    }
+                    //设置文字颜色，体现卡牌稀有度
+                    switch (int.Parse(enemyHeroDatas[i][m][4]))
+                    {
+                        case 1:
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(49, 193, 82);  //绿色
+                            break;
+                        case 2:
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(48, 127, 192); //蓝色
+                            break;
+                        case 3:
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(215, 37, 236); //紫色
+                            break;
+                        case 4:
+                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(227, 16, 16);  //红色
                             break;
                     }
                     //显示英雄名等信息
@@ -130,11 +144,12 @@ public class FightControll : MonoBehaviour
     }
 
     /// <summary>
-    /// 开始战斗，传递数据到战斗界面
+    /// 点击开始战斗，传递数据到战斗界面
     /// </summary>
     public void StartFightSendHeroData()
     {
-        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[1];
+        //玩家的敌人设置
+        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[0];
         FightCardSps[0].gameObject.SetActive(true);
     }
 

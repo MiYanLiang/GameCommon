@@ -19,6 +19,10 @@ public class HeroDataControll : MonoBehaviour {
 
     private int grade_hero;  //记录卡牌品阶
     public int Grade_hero { get => grade_hero; set => grade_hero = value; }
+
+    private int price_hero; //记录此卡牌出售的价格
+    public int Price_hero { get => price_hero; set => price_hero = value; }
+
     List<List<string>> fetterInformation = new List<List<string>>();
 
     int heroidtest;

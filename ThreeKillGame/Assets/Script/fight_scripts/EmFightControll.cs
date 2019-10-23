@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 //敌方武将卡牌数据初始化和控制
 public class EmFightControll : MonoBehaviour
 {
-    private int hardNum;    //难度值
+    private static int hardNum;    //难度值
 
     UseEPPlusFun useepplusfun = new UseEPPlusFun();
     static TableDatas worksheet_Role_EmFight;  //存储武将表
@@ -50,7 +50,7 @@ public class EmFightControll : MonoBehaviour
                 switch (arrHeroData[i][1])  //判断英雄的品阶       
                 {
                     case "1":
-                        switch (useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]), 5))   //判断稀有度
+                        switch (useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0])+1, 5))   //判断稀有度
                         {
                             case "1":   //绿1
                                 if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 8)))  //判断此卡牌参与的战斗周目
@@ -122,7 +122,7 @@ public class EmFightControll : MonoBehaviour
                         }
                         break;
                     case "2":
-                        switch (useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]), 5))   //判断稀有度
+                        switch (useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0])+1, 5))   //判断稀有度
                         {
                             case "1":   //绿2
                                 if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 12)) && GradeOrColor())  //判断此卡牌参与的战斗周目
@@ -496,7 +496,7 @@ public class EmFightControll : MonoBehaviour
     {
         array_str[i] = useepplusfun.GetRowDatas(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]) + 1);  //记录该英雄所有数据
         array_str[i].Add(arrHeroData[i][1]);    //记录他的品阶
-        array_str[i].Add(arrHeroData[i][2]);    //记录他的参与战斗周目数
+        array_str[i].Add((int.Parse(arrHeroData[i][2])+1).ToString());    //记录他的参与战斗周目数+1
     }
 
     //判断是升阶（true）还是升色（false）

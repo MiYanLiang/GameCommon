@@ -250,11 +250,39 @@ public class ChangeAndGet : MonoBehaviour
             case 3:
                 newheroCard.transform.GetComponent<Image>().color = Color.red;
                 break;
-            default:
-                newheroCard.transform.GetComponent<Image>().color = Color.white;
-                break;
         }
         newheroCard.GetComponent<HeroDataControll>().Grade_hero = grade;
+        if (grade==1)
+        {
+            newheroCard.GetComponent<HeroDataControll>().Price_hero = price;
+        }
+        else
+        {
+            if (grade==2)
+            {
+                newheroCard.GetComponent<HeroDataControll>().Price_hero = price * 2;
+            }
+            else
+            {
+                newheroCard.GetComponent<HeroDataControll>().Price_hero = price * 6;
+            }
+        }
+        //设置文字颜色，体现卡牌稀有度
+        switch (int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[4]))
+        {
+            case 1:
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(49, 193, 82);  //绿色
+                break;
+            case 2:
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(48, 127, 192); //蓝色
+                break;
+            case 3:
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(215, 37, 236); //紫色
+                break;
+            case 4:
+                newheroCard.transform.GetChild(0).GetComponent<Text>().color = new Color(227, 16, 16);  //红色
+                break;
+        }
         newheroCard.GetComponent<HeroDataControll>().HeroData[6] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[6])).ToString();
         newheroCard.GetComponent<HeroDataControll>().HeroData[8] = (Mathf.Pow(2, grade - 1) * int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[8])).ToString();
 
