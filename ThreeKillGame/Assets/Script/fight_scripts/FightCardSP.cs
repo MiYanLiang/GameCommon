@@ -364,7 +364,7 @@ public class FightCardSP : MonoBehaviour
                             }
                         }
                         float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                        updateBtn.GetComponent<CreateAndUpdate>().hp -= (int)(remainScale * 10);    //玩家扣血
+                        updateBtn.GetComponent<CreateAndUpdate>().playerHp -= (int)(remainScale * 10);    //玩家扣血
                         //金币
                         CreateAndUpdate.money += 0;   //玩家不加金币
                         
@@ -420,7 +420,7 @@ public class FightCardSP : MonoBehaviour
             }
         }
         //玩家血条刷新
-        player_hp.value = updateBtn.GetComponent<CreateAndUpdate>().hp / 100f;
-        player_hp.transform.GetChild(3).GetComponent<Text>().text = updateBtn.GetComponent<CreateAndUpdate>().hp.ToString();
+        player_hp.value = updateBtn.GetComponent<CreateAndUpdate>().playerHp / 100f;
+        player_hp.transform.GetChild(3).GetComponent<Text>().text = updateBtn.GetComponent<CreateAndUpdate>().playerHp.ToString();
     }
 }

@@ -36,22 +36,23 @@ public class CreateAndUpdate : MonoBehaviour
     List<int> blueHeroId = new List<int>();
     List<int> purpleHeroId = new List<int>();
     List<int> orangeHeroId = new List<int>();
-    public int level = 1;
     int count;
     int player_count;
     int temp_num;
     int player_temp_num;
     public int playerLevel = 1;
     int attack;
-    public int peopleHearts;
     int peopleHearts_blue;
     int peopleHearts_purple;
     int peopleHearts_orange;
     int peopleHearts_red;
-    public int moraleNum;   //士气
-    public int hp;//血量
+
+    public int peopleHearts;    //民心
+    public int moraleNum;       //士气
+    public int playerHp;        //血量
     public static int money;    //金币
-    public int experience;//经验
+    public int level;           //等级
+    public int experience;      //经验
     int damageAll;
     // Use this for initialization
 
