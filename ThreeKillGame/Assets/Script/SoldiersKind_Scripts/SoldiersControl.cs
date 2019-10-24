@@ -32,6 +32,8 @@ public class SoldiersControl : MonoBehaviour
     public int sapperNum = 0;                      //工兵数量
     [HideInInspector]
     public int necromancerNum = 0;                //方士数量
+    [HideInInspector]
+    public int god_beast = 0;                      //神兽数量
     ////////////////////////////////////////////////////////////下面是分母
     int shieldSoldierNum_All = 3;              //盾兵数量
     int mahoutNum_All = 3;                    //象兵数量
@@ -201,20 +203,22 @@ public class SoldiersControl : MonoBehaviour
     {
         print("进来");
         skillInformation.Clear();
-        //shieldSoldierNum = 0;              //盾兵数量
-        //mahoutNum = 0;                     //象兵数量
-        //halberdierNum = 0;                //戟兵数量
-        //lifeguardNum = 0;                 //禁卫数量
-        //spearmanNum = 0;                   //枪兵数量
-        //sowarNum = 0;                      //骑兵数量
-        //counsellorNum = 0;                 //军师数量
-        //sapperNum = 0;                      //工兵数量
-        //necromancerNum = 0;                //方士数量
+        shieldSoldierNum = 0;              //盾兵数量
+        mahoutNum = 0;                     //象兵数量
+        halberdierNum = 0;                //戟兵数量
+        lifeguardNum = 0;                 //禁卫数量
+        spearmanNum = 0;                   //枪兵数量
+        sowarNum = 0;                      //骑兵数量
+        counsellorNum = 0;                 //军师数量
+        sapperNum = 0;                      //工兵数量
+        necromancerNum = 0;                //方士数量
+        god_beast = 0;                     //神兽数量
         De_weightForBattleHeroId(battleHeroId);
         GetExcelFile1(battleHeroId);
         GetSoldiersTypeNum();
         GetSkillId();
         GetExcelFile2();
+        print("sssssssssssssss"+"盾兵数量=" + shieldSoldierNum + "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
         //for (int i = 0; i < skillInformation.Count; i++)
         //{
         //    print(skillInformation[i]);
@@ -298,6 +302,10 @@ public class SoldiersControl : MonoBehaviour
             else if (battleHeroType[i] == 9)
             {
                 necromancerNum++;
+            }
+            else if (battleHeroType[i] == 10)
+            {
+                god_beast++;
             }
         }
     }

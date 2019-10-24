@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.IO;
+using OfficeOpenXml;    //引入使用EPPlus类库
+using System.Linq;  //去除重复
 
 public class HeroIdChangeAndSave : MonoBehaviour
 {
@@ -41,6 +44,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
     int counsellorNum ;                 //军师数量
     int sapperNum;                      //工兵数量
     int necromancerNum ;                //方士数量
+    int god_beast;                      //神兽数量
+    List<int> soldiersKindId = new List<int>();//上阵英雄的兵种类型
     /// <summary>
     /// 出售选中的卡牌武将
     /// </summary>
@@ -112,26 +117,17 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //    }
         //}
         //skillInformation = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init_up(fightIdList_int);//激活技能名称
-        //for (int i = 0; i < skillInformation.Count; i++)
+        //for (int i = 0; i < fightIdList_int.Count; i++)
         //{
-        //    print(skillInformation[i]);
+        //    print("fightIdList_int::"+fightIdList_int[i]);
         //}
         heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
-        shieldSoldierNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().shieldSoldierNum;
-        mahoutNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().mahoutNum;
-        halberdierNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().halberdierNum;
-        lifeguardNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().lifeguardNum;
-        spearmanNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().spearmanNum;
-        sowarNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().sowarNum;
-        counsellorNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().counsellorNum;
-        sapperNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().sapperNum;
-        necromancerNum = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().necromancerNum;
-        for (int i = 0; i < heroTypeName.Count; i++)
-        {
-            print("HeroType" + i + heroTypeName[i]);
-        }
-        MakeLeftInformation();
-
+        //for (int i = 0; i < heroTypeName.Count; i++)
+        //{
+        //    print("HeroType" + i + heroTypeName[i]);
+        //}
+        Show_Left(fightIdList_int);
+        print("盾兵数量=" + shieldSoldierNum+ "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
 
         //fetterInformation.Clear();
     }
@@ -157,6 +153,24 @@ public class HeroIdChangeAndSave : MonoBehaviour
     }
 
 
+    void Show_Left(List<int> battleHeroId)
+    {
+        shieldSoldierNum = 0;              //盾兵数量
+        mahoutNum = 0;                     //象兵数量
+        halberdierNum = 0;                //戟兵数量
+        lifeguardNum = 0;                 //禁卫数量
+        spearmanNum = 0;                   //枪兵数量
+        sowarNum = 0;                      //骑兵数量
+        counsellorNum = 0;                 //军师数量
+        sapperNum = 0;                      //工兵数量
+        necromancerNum = 0;                //方士数量
+        god_beast = 0;                     //神兽数量
+        soldiersKindId.Clear();
+        GetExcelFile1(battleHeroId);
+        GetSoldiersTypeNum();
+        MakeLeftInformation();
+    }
+
     //左侧信息栏显示
     void MakeLeftInformation()
     {
@@ -167,41 +181,191 @@ public class HeroIdChangeAndSave : MonoBehaviour
             obj.GetComponentsInChildren<Text>()[0].text = heroTypeName[i - 1];
             if (heroTypeName[i - 1] == "盾兵")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "3";
+                if (shieldSoldierNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "象兵")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "3";
+                if (mahoutNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "戟兵")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "3";
+                if (halberdierNum <3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "禁卫")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "3";
+                if (lifeguardNum <3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "枪兵")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "3";
+                if (spearmanNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "骑兵")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "3";
+                if (sowarNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "军师")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "3";
+                if (counsellorNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "工兵")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "3";
+                if (sapperNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "6";
+                }
             }
             else if (heroTypeName[i - 1] == "方士")
             {
-                obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "3";
+                if (necromancerNum < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "6";
+                }
+            }
+            else if (heroTypeName[i - 1] == "神兽")
+            {
+                if (god_beast < 3)
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = god_beast.ToString() + "/" + "3";
+                }
+                else
+                {
+                    obj.GetComponentsInChildren<Text>()[1].text = god_beast.ToString() + "/" + "6";
+                }
+            }
+
+        }
+    }
+    void GetExcelFile1(List<int> battleHeroId)
+    {
+        //string filePath = "F:/dev/GameCommon/111.xlsx";   
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        FileInfo fileinfo = new FileInfo(filePath);
+        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
+        {
+            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+            for (int i = 0; i < battleHeroId.Count; i++)
+            {
+                GetHeroTypeFromId(worksheet1, battleHeroId[i]);
             }
         }
     }
-
+    //传入英雄id，拿到英雄兵种类型
+    void GetHeroTypeFromId(ExcelWorksheet worksheet, int id)
+    {
+        int num = 4;
+        for (int i = 1; i < 89 + 1; i++)
+        {
+            if (i > 1)
+            {
+                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
+                {
+                    soldiersKindId.Add(int.Parse(worksheet.Cells[i, num].Value.ToString()));
+                }
+            }
+        }
+    }
+    //给上阵的兵种类型计数
+    void GetSoldiersTypeNum()
+    {
+        for (int i = 0; i < soldiersKindId.Count; i++)
+        {
+            if (soldiersKindId[i] == 1)
+            {
+                shieldSoldierNum++;
+            }
+            else if (soldiersKindId[i] == 2)
+            {
+                mahoutNum++;
+            }
+            else if (soldiersKindId[i] == 3)
+            {
+                halberdierNum++;
+            }
+            else if (soldiersKindId[i] == 4)
+            {
+                lifeguardNum++;
+            }
+            else if (soldiersKindId[i] == 5)
+            {
+                spearmanNum++;
+            }
+            else if (soldiersKindId[i] == 6)
+            {
+                sowarNum++;
+            }
+            else if (soldiersKindId[i] == 7)
+            {
+                counsellorNum++;
+            }
+            else if (soldiersKindId[i] == 8)
+            {
+                sapperNum++;
+            }
+            else if (soldiersKindId[i] == 9)
+            {
+                necromancerNum++;
+            }
+            else if (soldiersKindId[i] == 10)
+            {
+                god_beast++;
+            }
+        }
+    }
 }
