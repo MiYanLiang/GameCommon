@@ -12,6 +12,12 @@ public class FightControll : MonoBehaviour
     //private int[] forceIds;     //记录其他势力的ID
 
     //public Text[] forceNames;   //游戏内势力单个字显示
+    [SerializeField]
+    Transform backGround;   //用来获取背景上的代码UIControl
+    [SerializeField]
+    Image playerForceFlag;    //其他势力头像
+    [SerializeField]
+    Image rivalForceFlag;    //其他势力头像
 
     public GameObject hero_Card;    //英雄卡片预制件
     //各个npc上阵九宫格
@@ -148,8 +154,23 @@ public class FightControll : MonoBehaviour
     /// </summary>
     public void StartFightSendHeroData()
     {
+        int rivalId= Random.Range(0, 5);    //随机挑选对手
         //玩家的敌人设置
-        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[0];
+        while (true)
+        {
+            if (backGround.GetComponent<UIControl>().forces_Hp[rivalId]>0)
+            {
+                break;
+            }
+            else
+            {
+                rivalId = Random.Range(0, 5);
+            }
+        }
+        FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
+        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().array_forces[rivalId], typeof(Sprite)) as Sprite; //设置对手势力的头像
+
         FightCardSps[0].gameObject.SetActive(true);
     }
 

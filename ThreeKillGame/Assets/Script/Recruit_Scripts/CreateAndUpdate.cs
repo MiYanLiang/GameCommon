@@ -47,12 +47,12 @@ public class CreateAndUpdate : MonoBehaviour
     int peopleHearts_orange;
     int peopleHearts_red;
 
-    public int peopleHearts;    //民心
-    public int moraleNum;       //士气
-    public int playerHp;        //血量
-    public static int money;    //金币
-    public static int level;           //等级
-    public static int experience;      //经验
+    public int peopleHearts;        //民心
+    public int moraleNum;           //士气
+    public int playerHp;            //血量
+    public static int money;        //金币
+    public static int level;        //等级
+    public static int experience;   //经验
     int damageAll;
 
     [SerializeField]
@@ -107,12 +107,12 @@ public class CreateAndUpdate : MonoBehaviour
         text_level.text = level.ToString();
         experience = 0;
         levelTable = useFun.FindExcelFiles("levelTable");
-
         money = 100;
     }
 
     void Start()
     {
+        //ChangeLevelText();
         SetPeopleHarets();
         getCardId.Clear();
         count = 5;
