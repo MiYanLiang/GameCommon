@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HeroDataControll : MonoBehaviour {
 
-    [HideInInspector]
+    //[HideInInspector]
     public List<string> HeroData = new List<string>(); //存储当前武将的数据
     List<string> heroIdDate = new List<string>();
     List<string> HeroDataTest = new List<string>();

@@ -187,7 +187,7 @@ public class FightCardSP : MonoBehaviour
                 //显示武将名
                 playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];    
                 playerCards[i].GetComponent<CardMove>().OtherDataSet();
-                datas.Clear();
+                //datas.Clear();
             }
         }
 
@@ -402,10 +402,12 @@ public class FightCardSP : MonoBehaviour
     }
 
     /// <summary>
-    /// 重置卡牌数值
+    /// 重置卡牌数值，玩家加经验加金币
     /// </summary>
     public void RecoverCardData()
     {
+        CreateAndUpdate.AddMoneyAndExp();
+
         for (int n = 0; n < 9; n++)
         {
             if (playerCards[n] != null)
@@ -414,9 +416,7 @@ public class FightCardSP : MonoBehaviour
             }
             if (enemyCards[n] != null)
             {
-                enemyCards[n].GetComponent<Slider>().value = 1;
-                enemyCards[n].GetComponent<CardMove>().Health = enemyCards[n].GetComponent<CardMove>().Fullhealth;
-                //Destroy(enemyCards[n].gameObject);
+                Destroy(enemyCards[n].gameObject);
             }
         }
         //玩家血条刷新

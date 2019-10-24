@@ -51,14 +51,64 @@ public class CreateAndUpdate : MonoBehaviour
     public int moraleNum;       //士气
     public int playerHp;        //血量
     public static int money;    //金币
-    public int level;           //等级
-    public int experience;      //经验
+    public static int level;           //等级
+    public static int experience;      //经验
     int damageAll;
-    // Use this for initialization
+
+    [SerializeField]
+    Text text_level;    //等级显示
+    UseEPPlusFun useFun = new UseEPPlusFun();
+    static TableDatas levelTable;   //经验表
+
+    /// <summary>
+    /// 战斗结束后增加金币和经验
+    /// </summary>
+    public static void AddMoneyAndExp()
+    {
+        //Debug.Log("////"+levelTable.worksheet.Cells[level + 1, 4].Value.ToString());
+        money += int.Parse(levelTable.worksheet.Cells[level + 1, 4].Value.ToString());
+        experience++;
+        if (experience>= int.Parse(levelTable.worksheet.Cells[level+1,3].Value.ToString()))
+        {
+            level++;
+            experience = 0;
+        }
+    }
+    /// <summary>
+    /// 更新等级牌
+    /// </summary>
+    public void ChangeLevelText()
+    {
+        text_level.text = level.ToString();
+    }
+
+    /// <summary>
+    /// 使用金币进行升级
+    /// </summary>
+    public void BuyExpToLevel()
+    {
+        if (money >= (int.Parse(levelTable.worksheet.Cells[level + 1, 3].Value.ToString()) - experience))
+        {
+            money -= (int.Parse(levelTable.worksheet.Cells[level + 1, 3].Value.ToString()) - experience);
+            level++;
+            ChangeLevelText();
+            Debug.Log("使用金币升级");
+        }
+        else
+        {
+            Debug.Log("金币不够");
+        }
+    }
+
 
     private void Awake()
     {
-        money = 100; 
+        level = 1;
+        text_level.text = level.ToString();
+        experience = 0;
+        levelTable = useFun.FindExcelFiles("levelTable");
+
+        money = 100;
     }
 
     void Start()
