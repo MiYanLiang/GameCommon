@@ -42,20 +42,21 @@ public class FetterContronl : MonoBehaviour
     {
 
     }
-    public void init_Go(List<string> array0)
+    public List<List<string>> init_Go(List<string> array0)                        /////////////////////此方法暂时无用
     {
         fetterInformation.Clear();
+        fetterInformation1.Clear();
         GetExcelFile();
         MakeArray(array0);
         GetExcelFile1();
-        fetterInformation1 = fetterInformation;
-        //for (int j = 0; j < fetterInformation.Count; j++)
-        //{
-        //    for (int i = 0; i < fetterInformation[j].Count; i++)
-        //    {
-        //        print(fetterInformation[j][i]);
-        //    }
-        //}
+        for (int j = 0; j < fetterInformation1.Count; j++)
+        {
+            for (int i = 0; i < fetterInformation1[j].Count; i++)
+            {
+                print("ssssssssssssssssssssss"+fetterInformation1[j][i]);
+            }
+        }
+        return fetterInformation1;
     }
     //读表
     void GetExcelFile()

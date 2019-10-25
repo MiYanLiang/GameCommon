@@ -21,10 +21,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
     List<int> fightIdList_int = new List<int>();   //上阵英雄id
 
     public List<string> heroTypeName = new List<string>();
-    List<string> skillInformation = new List<string>();//激活的技能详细信息
-    List<List<string>> fetterInformation = new List<List<string>>(); //激活羁绊的详细信息
+    List<List<string>> fetterInformation = new List<List<string>>(); /////////////////////////////////////////////////////////////////////////激活羁绊的详细信息
 
-    List<string> arrayGo = new List<string>() { "1", "2", "3", "4", "5", "6", "68" };  //上阵英雄数组,用以测试
+    List<string> arrayGo = new List<string>() { "19", "89", "53", "54", "68" };  //上阵英雄数组,用以测试
 
     [SerializeField]
     GameObject SellCardBtn; //出售卡牌按钮
@@ -46,6 +45,13 @@ public class HeroIdChangeAndSave : MonoBehaviour
     int necromancerNum ;                //方士数量
     int god_beast;                      //神兽数量
     List<int> soldiersKindId = new List<int>();//上阵英雄的兵种类型
+    List<int> activationSkillId_soldiers = new List<int>();//////////////////////////////////////////////////////////////////激活的兵种技能
+    List<string> fetterArray = new List<string>();
+    List<string> intersectionArray = new List<string>();  //存放交集
+    List<int> fetterIndex = new List<int>();//存放激活羁绊的id   每次传需要清除，现在没清
+
+    string[] a;
+    string[] b;
     /// <summary>
     /// 出售选中的卡牌武将
     /// </summary>
@@ -71,10 +77,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public void SaveNowHeroId()
     {
         heroTypeName.Clear();
-        skillInformation.Clear();
         fightIdList.Clear();
         allIdList.Clear();
         allIdList_int.Clear();
+        fetterInformation.Clear();
         fightIdList_int.Clear();
         for (int i = 0; i < 9; i++)
         {
@@ -105,31 +111,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
         {
             allIdList_int.Add(int.Parse(allIdList[i]));
         }
-        //GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_Go(fightIdList);//羁绊信息
-        //GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_Go(arrayGo);//羁绊信息
-        //fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().fetterInformation1;
-        //for (int j = 0; j < fetterInformation.Count; j++)
-        //{
-        //    for (int i = 0; i < fetterInformation[j].Count; i++)
-        //    {
-        //        //print("ss");
-        //        print(fetterInformation[j][i]);
-        //    }
-        //}
-        //skillInformation = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init_up(fightIdList_int);//激活技能名称
-        //for (int i = 0; i < fightIdList_int.Count; i++)
-        //{
-        //    print("fightIdList_int::"+fightIdList_int[i]);
-        //}
+        init_Go(fightIdList);
         heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
-        //for (int i = 0; i < heroTypeName.Count; i++)
-        //{
-        //    print("HeroType" + i + heroTypeName[i]);
-        //}
         Show_Left(fightIdList_int);
         print("盾兵数量=" + shieldSoldierNum+ "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
-
-        //fetterInformation.Clear();
     }
     private void OnServerInitialized()
     {
@@ -166,9 +151,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
         necromancerNum = 0;                //方士数量
         god_beast = 0;                     //神兽数量
         soldiersKindId.Clear();
+        activationSkillId_soldiers.Clear();
         GetExcelFile1(battleHeroId);
         GetSoldiersTypeNum();
         MakeLeftInformation();
+        for (int i = 0; i < activationSkillId_soldiers.Count; i++)
+        {
+            print("activationSkillId_soldiers:"+ activationSkillId_soldiers[i]);
+        }
     }
 
     //左侧信息栏显示
@@ -188,6 +178,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "6";
+                    if (shieldSoldierNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(13);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(16);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "象兵")
@@ -199,6 +197,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "6";
+                    if (mahoutNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(23);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(26);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "戟兵")
@@ -210,6 +216,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "6";
+                    if (halberdierNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(33);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(36);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "禁卫")
@@ -221,6 +235,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "6";
+                    if (lifeguardNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(43);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(46);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "枪兵")
@@ -232,6 +254,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "6";
+                    if(spearmanNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(53);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(56);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "骑兵")
@@ -243,6 +273,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "6";
+                    if (sowarNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(63);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(66);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "军师")
@@ -254,6 +292,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "6";
+                    if (counsellorNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(73);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(76);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "工兵")
@@ -265,6 +311,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "6";
+                    if(sapperNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(83);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(86);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "方士")
@@ -276,6 +330,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "6";
+                    if (necromancerNum < 6)
+                    {
+                        activationSkillId_soldiers.Add(93);
+                    }
+                    else
+                    {
+                        activationSkillId_soldiers.Add(96);
+                    }
                 }
             }
             else if (heroTypeName[i - 1] == "神兽")
@@ -367,5 +429,200 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 god_beast++;
             }
         }
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////下面拿到激活的羁绊
+    public void init_Go(List<string> array0)
+    {
+        fetterInformation.Clear();
+        GetExcelFile();
+        MakeArray(array0);
+        GetExcelFile1();
+        //for (int j = 0; j < fetterInformation.Count; j++)
+        //{
+        //    for (int i = 0; i < fetterInformation[j].Count; i++)
+        //    {
+        //        print("ssssssssssssssssssssss" + fetterInformation[j][i]);
+        //    }
+        //}
+    }
+    //读表
+    void GetExcelFile()
+    {
+        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        FileInfo fileinfo = new FileInfo(filePath);
+        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        {
+            ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
+            GetAllFetterArray(worksheet7);
+        }
+    }
+    //将所有的羁绊数组储存
+    void GetAllFetterArray(ExcelWorksheet worksheet)
+    {
+        for (int i = 2; i < 44 + 1; i++)
+        {
+            fetterArray.Add(worksheet.Cells[i, 3].Value.ToString());     //羁绊数组的下标为羁绊表的id-1
+        }
+    }
+    //将读到的羁绊数组拆分，并组成数组
+    //传进来上阵英雄List
+    void MakeArray(List<string> battleHeroId)
+    {
+        for (int i = 0; i < fetterArray.Count; i++)
+        {
+            intersectionArray.Clear();
+            List<string> heroId = new List<string>();
+            //给字符串去掉首尾
+            string array1 = fetterArray[i];
+            string array2 = "";
+            for (int j = 0; j < array1.Length; j++)
+            {
+                if (j > 0 && j < array1.Length - 1)
+                {
+                    array2 += array1[j];
+                }
+            }
+            //将字符串按“，”分开，存储在List中
+            string[] heroId1 = array2.Split(',');
+            for (int j = 0; j < heroId1.Length; j++)
+            {
+                heroId.Add(heroId1[j]);
+            }
+            //将每一个羁绊数组和上阵数组做交运算
+            a = heroId.ToArray();
+            b = battleHeroId.ToArray();
+            GetIntersection(a, b);
+            ////////////////////////////////////////判断交集与heroid数组是否相等
+            //将两个比较的数组排序比较
+            ArraySort(intersectionArray);
+            ArraySort(heroId);
+            //print("i:" + i + ".." + "arr0"+".." + ArrayChangeString(intersectionArray));
+            //print("i:" + i + ".." + "arr1"+".." + ArrayChangeString(heroId));
+            if (ArrayChangeString(intersectionArray) == ArrayChangeString(heroId))
+            {
+                //print("i:" + i);
+                fetterIndex.Add(i + 1);
+            }
+        }
+    }
+    //读表  拿到羁绊的相关数据
+    void GetExcelFile1()
+    {
+        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
+        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        FileInfo fileinfo = new FileInfo(filePath);
+        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        {
+            ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
+            for (int i = 0; i < fetterIndex.Count; i++)
+            {
+                fetterInformation.Add(GetFetterInformation(worksheet7, fetterIndex[i]));
+            }
+        }
+    }
+    //获取羁绊信息
+    List<string> GetFetterInformation(ExcelWorksheet worksheet, int id)
+    {
+        List<string> arr = new List<string>();
+        for (int i = 1; i < 44 + 1; i++)
+        {
+            if (i > 1)
+            {
+                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
+                {
+                    for (int j = 1; j < 10 + 1; j++)
+                    {
+                        arr.Add(worksheet.Cells[i, j].Value.ToString());
+                    }
+                }
+
+            }
+        }
+        return arr;
+    }
+    //两个字符串取交集
+    void GetIntersection(string[] array1, string[] array2)
+    {
+        //数组1
+        int size1 = array1.Length;
+
+        //数组2
+        int size2 = array2.Length;
+
+        int end = size1;
+
+        bool swap = false;
+
+        for (int i = 0; i < end;)
+        {
+
+            swap = false;//开始假设是第一种情况
+
+            for (int j = i; j < size2; j++)//找到与该元素存在相同的元素，将这个相同的元素交换到与该元素相同下标的位置上
+            {
+
+                if (array1[i] == array2[j])//第二种情况，找到了相等的元素
+                {
+
+                    string tmp = array2[i];//对数组2进行交换
+
+                    array2[i] = array2[j];
+
+                    array2[j] = tmp;
+
+                    swap = true;//设置标志
+
+                    break;
+
+                }
+            }
+
+            if (swap != true)//第一种情况，没有相同元素存在时，将这个元素交换到尚未进行比较的尾部
+            {
+                string tmp = array1[i];
+
+                array1[i] = array1[--end];
+
+                array1[end] = tmp;
+            }
+            else
+            {
+                i++;
+            }
+        }
+        //输出交集
+        for (int i = 0; i < end; i++)
+        {
+            //print(array1[i].ToString());
+            intersectionArray.Add(array1[i].ToString());
+        }
+    }
+    //冒泡排序
+    void ArraySort(List<string> arr)
+    {
+        string temp = "";
+        for (int i = 0; i < arr.Count - 1; i++)
+        {
+            for (int j = 0; j < arr.Count - 1 - i; j++)
+            {
+                if (int.Parse(arr[j]) > int.Parse(arr[j + 1]))
+                {
+                    temp = arr[j + 1];
+                    arr[j + 1] = arr[j];
+                    arr[j] = temp;
+                }
+            }
+        }
+    }
+    //将数组转换成字符串,用于比较
+    string ArrayChangeString(List<string> arr)
+    {
+        string date = "";
+        for (int i = 0; i < arr.Count; i++)
+        {
+            date += arr[i];
+        }
+        return date;
     }
 }
