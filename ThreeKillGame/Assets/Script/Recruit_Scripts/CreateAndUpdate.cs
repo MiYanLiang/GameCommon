@@ -58,17 +58,15 @@ public class CreateAndUpdate : MonoBehaviour
     [SerializeField]
     Text text_level;    //等级显示
     UseEPPlusFun useFun = new UseEPPlusFun();
-    static TableDatas levelTable;   //经验表
 
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
     public static void AddMoneyAndExp()
     {
-        //Debug.Log("////"+levelTable.worksheet.Cells[level + 1, 4].Value.ToString());
-        money += int.Parse(levelTable.worksheet.Cells[level + 1, 4].Value.ToString());
+        money += int.Parse(LoadJsonFile.levelTableDatas[level][3]);
         experience++;
-        if (experience>= int.Parse(levelTable.worksheet.Cells[level+1,3].Value.ToString()))
+        if (experience >= int.Parse(LoadJsonFile.levelTableDatas[level][2]))
         {
             level++;
             experience = 0;
@@ -87,9 +85,9 @@ public class CreateAndUpdate : MonoBehaviour
     /// </summary>
     public void BuyExpToLevel()
     {
-        if (money >= (int.Parse(levelTable.worksheet.Cells[level + 1, 3].Value.ToString()) - experience))
+        if (money >= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience))
         {
-            money -= (int.Parse(levelTable.worksheet.Cells[level + 1, 3].Value.ToString()) - experience);
+            money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
             level++;
             ChangeLevelText();
             Debug.Log("使用金币升级");
@@ -106,7 +104,6 @@ public class CreateAndUpdate : MonoBehaviour
         level = 1;
         text_level.text = level.ToString();
         experience = 0;
-        levelTable = useFun.FindExcelFiles("levelTable");
         money = 100;
     }
 
@@ -128,7 +125,7 @@ public class CreateAndUpdate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
     //读取excel表格
     void GetExcelFile()
