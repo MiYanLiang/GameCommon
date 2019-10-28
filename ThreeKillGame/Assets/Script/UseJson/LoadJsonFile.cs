@@ -45,9 +45,13 @@ public class LoadJsonFile : MonoBehaviour
     /// 武将唯一索引表
     /// </summary>
     public static List<List<string>> RandowTableDates;
+
+    /// <summary>
     /// 羁绊表
     /// </summary>
     public static List<List<string>> FetterTableDates;
+
+
     /// <summary>
     /// 加载json文件获取数据至链表中
     /// </summary>
