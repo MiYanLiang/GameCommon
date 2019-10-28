@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable";
 
 
     /// <summary>
@@ -41,7 +41,13 @@ public class LoadJsonFile : MonoBehaviour
     /// </summary>
     public static List<List<string>> RoleTableDatas;
 
-
+    /// <summary>
+    /// 武将唯一索引表
+    /// </summary>
+    public static List<List<string>> RandowTableDates;
+    /// 羁绊表
+    /// </summary>
+    public static List<List<string>> FetterTableDates;
     /// <summary>
     /// 加载json文件获取数据至链表中
     /// </summary>
@@ -166,9 +172,49 @@ public class LoadJsonFile : MonoBehaviour
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
+        //加载武将唯一索引数据:RandowTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            RandowTableDates = new List<List<string>>(root.RandowTable.Count);
+            for (int i = 0; i < root.RandowTable.Count; i++)
+            {
+                RandowTableDates.Add(new List<string>());
+                RandowTableDates[i].Add(root.RandowTable[i].id);
+                RandowTableDates[i].Add(root.RandowTable[i].num);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载羁绊数据:FetterTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            FetterTableDates = new List<List<string>>(root.FetterTable.Count);
+            for (int i = 0; i < root.FetterTable.Count; i++)
+            {
+                FetterTableDates.Add(new List<string>());
+                FetterTableDates[i].Add(root.FetterTable[i].id);
+                FetterTableDates[i].Add(root.FetterTable[i].fetterName);
+                FetterTableDates[i].Add(root.FetterTable[i].rolesId);
+                FetterTableDates[i].Add(root.FetterTable[i].attackPCT);
+                FetterTableDates[i].Add(root.FetterTable[i].defensePCT);
+                FetterTableDates[i].Add(root.FetterTable[i].soldierNumPCT);
+                FetterTableDates[i].Add(root.FetterTable[i].attack);
+                FetterTableDates[i].Add(root.FetterTable[i].defense);
+                FetterTableDates[i].Add(root.FetterTable[i].soldierNum);
+                FetterTableDates[i].Add(root.FetterTable[i].heroName);
+                FetterTableDates[i].Add(root.FetterTable[i].dodgeRate);
+                FetterTableDates[i].Add(root.FetterTable[i].critRate);
+                FetterTableDates[i].Add(root.FetterTable[i].critDamage);
+                FetterTableDates[i].Add(root.FetterTable[i].thumpRate);
+                FetterTableDates[i].Add(root.FetterTable[i].thumpDamage);
+                FetterTableDates[i].Add(root.FetterTable[i].exposeArmor);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
 
 
-        
+
         if (indexTable>= tableNames.Length)
             Debug.Log("所有Json数据加载成功。");
         else

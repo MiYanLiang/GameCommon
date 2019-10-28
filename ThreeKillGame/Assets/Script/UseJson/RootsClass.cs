@@ -25,7 +25,14 @@ public class Roots
     /// 武将信息表
     /// </summary>
     public List<RoleTableItem> RoleTable { get; set; }
-
+    /// <summary>
+    /// 武将唯一索引表
+    /// </summary>
+    public List<RandowTableItem> RandowTable { get; set; }
+    /// <summary>
+    /// 羁绊表
+    /// </summary>
+    public List<FetterTableItem> FetterTable { get; set; }
 
 }
 
