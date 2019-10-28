@@ -45,7 +45,7 @@ public class UseEPPlusFun : MonoBehaviour {
         }
         else
         {
-            Debug.Log("获取 " + tableName + " 表数据 " + excelPackage);
+            //Debug.Log("获取 " + tableName + " 表数据 " + excelPackage);
             int num = 1;
             //计算表的总行数和列数
             while (tableData.worksheet.Cells[num++, 1].Value != null){ }

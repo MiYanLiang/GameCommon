@@ -1,0 +1,91 @@
+{
+	"ForcesTable": [{
+			"index": "1",
+			"forcesChoose": "炎帝",
+			"forceIntro": "东境有一富庶之国，烈山氏族长炎帝神农率火正祝融、水正共工，战将刑天等统御一方。炎帝神农好德向善，众望所归，万千部落一一臣服。",
+			"Prestige": "0",
+			"forcesSign": "炎",
+			"forcesName": "炎帝神农"
+		},
+		{
+			"index": "2",
+			"forcesChoose": "黄帝",
+			"forceIntro": "九州之北穷山恶水，常有妖兽出没。数百部族相互为敌，兵戈不断。至轩辕氏出一个奇人，天生不惧妖兽，纳常先、大鸿为臣，拜力牧、风后为将，又得九天玄女相助，一统北方部族，自号黄帝。",
+			"Prestige": "0",
+			"forcesSign": "黄",
+			"forcesName": "黄帝轩辕"
+		},
+		{
+			"index": "3",
+			"forcesChoose": "蚩尤",
+			"forceIntro": "南疆地势险要，数百部族各自称王。九黎部族长蚩尤率心腹81人，降服众族，于山岭之间筑起九黎城，屯兵聚强，一时名声大噪。",
+			"Prestige": "100",
+			"forcesSign": "蚩",
+			"forcesName": "魔王蚩尤"
+		},
+		{
+			"index": "4",
+			"forcesChoose": "羲和",
+			"forceIntro": "东海之外，甘水之间，有羲和之国。十日之母羲和，常憩于扶桑树下，遥望九州之境。",
+			"Prestige": "600",
+			"forcesSign": "御",
+			"forcesName": "御日羲和"
+		},
+		{
+			"index": "5",
+			"forcesChoose": "女娲",
+			"forceIntro": "南疆有一秘境，正神女娲携心腹归隐于此。不周山倾塌之时，女娲终于现世。",
+			"Prestige": "1000",
+			"forcesSign": "娲",
+			"forcesName": "娥皇女娲"
+		},
+		{
+			"index": "6",
+			"forcesChoose": "烛龙",
+			"forceIntro": "钟山之境有一正神，名曰烛阴。上古正神烛阴统领龙族，在此镇压万千海兽，成一方之主。",
+			"Prestige": "2000",
+			"forcesSign": "烛",
+			"forcesName": "钟山烛阴"
+		},
+		{
+			"index": "7",
+			"forcesChoose": "金乌",
+			"forceIntro": "九霄之外，白鸟争鸣，为飞兽之国。金翅鹏扇风起雾，九婴吞水吐火。金乌王统领万千飞兽，翱翔千里，俯瞰九州。",
+			"Prestige": "4000",
+			"forcesSign": "乌",
+			"forcesName": "太虚金乌"
+		},
+		{
+			"index": "8",
+			"forcesChoose": "大荒",
+			"forceIntro": "大荒之境有百兽沉眠，饕餮、穷奇、梼杌皆为鸿蒙凶兽。至天柱倾塌之时，凶兽之主混沌降世，大荒之国终于苏醒。",
+			"Prestige": "6000",
+			"forcesSign": "荒",
+			"forcesName": "大荒混沌"
+		},
+		{
+			"index": "9",
+			"forcesChoose": "伏羲",
+			"forceIntro": "伏羲依万物生息规律演绎八卦，令十二祖巫掌管风水雷电，天地初定。伏羲携带亲信归隐于东海深处，休养生息。",
+			"Prestige": "8000",
+			"forcesSign": "羲",
+			"forcesName": "天帝伏羲"
+		},
+		{
+			"index": "10",
+			"forcesChoose": "大禹",
+			"forceIntro": "神劫之后，大禹率领人族部众抵御水患火灾，消除妖兽祸根，开拓新的疆域。",
+			"Prestige": "10000",
+			"forcesSign": "禹",
+			"forcesName": "贤圣大禹"
+		},
+		{
+			"index": "11",
+			"forcesChoose": "逍遥",
+			"forceIntro": "逍遥三界，不问世事。",
+			"Prestige": "15000",
+			"forcesSign": "逍",
+			"forcesName": "逍遥"
+		}
+	]
+}

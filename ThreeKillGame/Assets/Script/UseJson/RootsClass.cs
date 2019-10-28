@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
 /// <summary>
-/// 控制数据Root
+/// 控制数据表Root
 /// </summary>
 public class Roots
 {
@@ -13,6 +13,21 @@ public class Roots
     /// 难度表
     /// </summary>
     public List<DifficultyChooseItem> DifficultyChoose { get; set; }
+    /// <summary>
+    /// 势力信息表
+    /// </summary>
+    public List<ForcesTableItem> ForcesTable { get; set; }
+    /// <summary>
+    /// 兵种技能表
+    /// </summary>
+    public List<SoldierSkillTableItem> SoldierSkillTable { get; set; }
+    /// <summary>
+    /// 武将信息表
+    /// </summary>
+    public List<RoleTableItem> RoleTable { get; set; }
 
 
 }
+
+
+

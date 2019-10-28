@@ -12,44 +12,179 @@ public class LoadJsonFile : MonoBehaviour
 {
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
+    //存放json数据名
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable";
 
-    private void Start()
-    {
-        //string data = LoadJsonByName("LevelTable");
-        //Roots root = JsonMapper.ToObject<Roots>(data);
-        //Debug.Log("LevelTable: "+root.LevelTable[0].prepareNum);
-        //string data1 = LoadJsonByName("DifficultyChoose");
-        //root = JsonMapper.ToObject<Roots>(data1);
-        //Debug.Log("DifficultyChoose: " + root.DifficultyChoose[0].difficulty);
-    }
 
-    private void Awake()
-    {
-        JsonDataToSheets();
-    }
     /// <summary>
     /// 经验等级表数据
     /// </summary>
     public static List<List<string>> levelTableDatas;
 
-    private void JsonDataToSheets()
+    /// <summary>
+    /// 难度表数据
+    /// </summary>
+    public static List<List<string>> difficultyChooseDatas;
+
+    /// <summary>
+    /// 势力信息表数据
+    /// </summary>
+    public static List<List<string>> forcesTableDatas;
+
+    /// <summary>
+    /// 兵种技能表数据
+    /// </summary>
+    public static List<List<string>> soldierSkillTableDatas;
+
+    /// <summary>
+    /// 武将信息表数据
+    /// </summary>
+    public static List<List<string>> RoleTableDatas;
+
+
+    /// <summary>
+    /// 加载json文件获取数据至链表中
+    /// </summary>
+    private void JsonDataToSheets(string[] tableNames)
     {
-        string jsonData = LoadJsonByName("LevelTable");
-        Roots root = JsonMapper.ToObject<Roots>(jsonData);
-        Debug.Log("加载成功 :"+ "LevelTable"+ ".Json");
-        levelTableDatas = new List<List<string>>(root.LevelTable.Count);
-        for (int i = 0; i < root.LevelTable.Count; i++)
+        //Json数据控制类
+        Roots root = new Roots();
+        //存放json数据
+        string jsonData = string.Empty;
+        //记录读取到第几个表
+        int indexTable = 0;
+
+        // 加载经验等级表数据:LevelTable
         {
-            levelTableDatas.Add(new List<string>(6));
-            levelTableDatas[i].Add(root.LevelTable[i].index);
-            levelTableDatas[i].Add(root.LevelTable[i].level);
-            levelTableDatas[i].Add(root.LevelTable[i].experience);
-            levelTableDatas[i].Add(root.LevelTable[i].money);
-            levelTableDatas[i].Add(root.LevelTable[i].battleNum);
-            levelTableDatas[i].Add(root.LevelTable[i].prepareNum);
+            //读取json文件数据
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            //解析数据存放至Root中
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            //实例化数据存储链表
+            levelTableDatas = new List<List<string>>(root.LevelTable.Count);
+            for (int i = 0; i < root.LevelTable.Count; i++)
+            {
+                //依次按属性存值
+                levelTableDatas.Add(new List<string>());
+                levelTableDatas[i].Add(root.LevelTable[i].index);
+                levelTableDatas[i].Add(root.LevelTable[i].level);
+                levelTableDatas[i].Add(root.LevelTable[i].experience);
+                levelTableDatas[i].Add(root.LevelTable[i].money);
+                levelTableDatas[i].Add(root.LevelTable[i].battleNum);
+                levelTableDatas[i].Add(root.LevelTable[i].prepareNum);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
+        //加载难度表数据:DifficultyChoose
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            difficultyChooseDatas = new List<List<string>>(root.DifficultyChoose.Count);
+            for (int i = 0; i < root.DifficultyChoose.Count; i++)
+            {
+                difficultyChooseDatas.Add(new List<string>());
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].id);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].difficulty);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].playerHp);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].playerGold);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].playerMind);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].playerMorale);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].NPCHp);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].green1);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].blue1);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].purple1);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].orange1);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].green2);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].blue2);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].purple2);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].orange2);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载势力信息表数据:ForcesTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            forcesTableDatas = new List<List<string>>(root.ForcesTable.Count);
+            for (int i = 0; i < root.ForcesTable.Count; i++)
+            {
+                forcesTableDatas.Add(new List<string>());
+                forcesTableDatas[i].Add(root.ForcesTable[i].index);
+                forcesTableDatas[i].Add(root.ForcesTable[i].forcesChoose);
+                forcesTableDatas[i].Add(root.ForcesTable[i].forceIntro);
+                forcesTableDatas[i].Add(root.ForcesTable[i].Prestige);
+                forcesTableDatas[i].Add(root.ForcesTable[i].forcesSign);
+                forcesTableDatas[i].Add(root.ForcesTable[i].forcesName);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载兵种技能表数据:SoldierSkillTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            soldierSkillTableDatas = new List<List<string>>(root.SoldierSkillTable.Count);
+            for (int i = 0; i < root.SoldierSkillTable.Count; i++)
+            {
+                soldierSkillTableDatas.Add(new List<string>());
+                soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].index);
+                soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].skillName);
+                soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].skillStaticIntro);
+                soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].skillDynamicIntro);
+                soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].corresArms);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载武将信息表数据:RoleTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            RoleTableDatas = new List<List<string>>(root.RoleTable.Count);
+            for (int i = 0; i < root.RoleTable.Count; i++)
+            {
+                RoleTableDatas.Add(new List<string>());
+                RoleTableDatas[i].Add(root.RoleTable[i].index);
+                RoleTableDatas[i].Add(root.RoleTable[i].roleName);
+                RoleTableDatas[i].Add(root.RoleTable[i].force);
+                RoleTableDatas[i].Add(root.RoleTable[i].soldierKind);
+                RoleTableDatas[i].Add(root.RoleTable[i].rarity);
+                RoleTableDatas[i].Add(root.RoleTable[i].recruitingMoney);
+                RoleTableDatas[i].Add(root.RoleTable[i].attack);
+                RoleTableDatas[i].Add(root.RoleTable[i].defense);
+                RoleTableDatas[i].Add(root.RoleTable[i].soldierNum);
+                RoleTableDatas[i].Add(root.RoleTable[i].dodgeRate);
+                RoleTableDatas[i].Add(root.RoleTable[i].critRate);
+                RoleTableDatas[i].Add(root.RoleTable[i].critDamage);
+                RoleTableDatas[i].Add(root.RoleTable[i].thumpRate);
+                RoleTableDatas[i].Add(root.RoleTable[i].thumpDamage);
+                RoleTableDatas[i].Add(root.RoleTable[i].exposeArmor);
+                RoleTableDatas[i].Add(root.RoleTable[i].equipmentId);
+                RoleTableDatas[i].Add(root.RoleTable[i].allusionId);
+                RoleTableDatas[i].Add(root.RoleTable[i].equipmentSkillId);
+                RoleTableDatas[i].Add(root.RoleTable[i].soldierSkillId);
+                RoleTableDatas[i].Add(root.RoleTable[i].fetterSkillId);
+                RoleTableDatas[i].Add(root.RoleTable[i].roleIntro);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+
+
+        
+        if (indexTable>= tableNames.Length)
+            Debug.Log("所有Json数据加载成功。");
+        else
+            Debug.Log("还有Json数据未进行加载。");
     }
 
+
+    private void Awake()
+    {
+        string[] arrStr = tableNameStrs.Split(';');
+        if (arrStr.Length > 0)
+            JsonDataToSheets(arrStr);   //传递Json文件名进行加载
+        else
+            Debug.Log("////请检查Json表名");
+    }
+    
 
     /// <summary>
     /// 通过json文件名获取json数据
@@ -64,7 +199,7 @@ public class LoadJsonFile : MonoBehaviour
         {
             path = Path.Combine(Folder, fileName);  //合并文件路径
             var asset = Resources.Load<TextAsset>(path);
-            Debug.Log("Loading JsonFile " + fileName + " from: " + path);
+            Debug.Log("Loading..." + fileName + " from---" + path);
             if (asset == null)
             {
                 Debug.LogError("No text asset could be found at resource path: " + path);
@@ -84,7 +219,6 @@ public class LoadJsonFile : MonoBehaviour
         }
         return data;
     }
-
 
     /// <summary>
     /// 通过StreamReader读取json,json存在StreamingAssets文件夹下
