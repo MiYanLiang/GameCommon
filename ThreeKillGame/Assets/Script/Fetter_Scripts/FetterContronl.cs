@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
+//using OfficeOpenXml;    //引入使用EPPlus类库
 
 
 public class FetterContronl : MonoBehaviour
@@ -62,20 +62,20 @@ public class FetterContronl : MonoBehaviour
     void GetExcelFile()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
-            GetAllFetterArray(worksheet7);
-        }
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
+            GetAllFetterArray();
+        //}
     }
     //将所有的羁绊数组储存
-    void GetAllFetterArray(ExcelWorksheet worksheet)
+    void GetAllFetterArray()
     {
-        for (int i = 2; i < 44 + 1; i++)
+        for (int i = 0; i < 46; i++)
         {
-            fetterArray.Add(worksheet.Cells[i, 3].Value.ToString());     //羁绊数组的下标为羁绊表的id-1
+            fetterArray.Add(LoadJsonFile.FetterTableDates[i][2]);     //羁绊数组的下标为羁绊表的id-1
         }
     }
     /// /////////////////////////////////////////////////////上面方法通用
@@ -124,33 +124,29 @@ public class FetterContronl : MonoBehaviour
     void GetExcelFile1()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
             for (int i = 0; i < fetterIndex.Count; i++)
             {
-                fetterInformation.Add(GetFetterInformation(worksheet7, fetterIndex[i]));
+                fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
             }
-        }
+        //}
     }
     //获取羁绊信息
-    List<string> GetFetterInformation(ExcelWorksheet worksheet, int id)
+    List<string> GetFetterInformation(int id)
     {
         List<string> arr = new List<string>();
-        for (int i = 1; i < 44 + 1; i++)
+        for (int i = 0; i < 46; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.FetterTableDates[i][0]) == id)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
+                for (int j = 0; j < 16; j++)
                 {
-                    for (int j = 1; j < 10 + 1; j++)
-                    {
-                        arr.Add(worksheet.Cells[i, j].Value.ToString());
-                    }
+                    arr.Add(LoadJsonFile.FetterTableDates[i][j]);
                 }
-
             }
         }
         return arr;
@@ -312,33 +308,29 @@ public class FetterContronl : MonoBehaviour
     void GetExcelFile2()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
             for (int i = 0; i < fetterId.Count; i++)
             {
-                fetterInformationFromId.Add(GetFetterInformationFromId(worksheet7, fetterId[i]));
+                fetterInformationFromId.Add(GetFetterInformationFromId(fetterId[i]));
             }
-        }
+        //}
     }
     //获取羁绊英雄名
-    List<string> GetFetterInformationFromId(ExcelWorksheet worksheet, int id)
+    List<string> GetFetterInformationFromId( int id)
     {
         List<string> arr = new List<string>();
-        for (int i = 1; i < 44 + 1; i++)
+        for (int i = 0; i < 46; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.FetterTableDates[i][0]) == id)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
+                for (int j = 0; j < 16; j++)
                 {
-                    for (int j = 1; j < 10 + 1; j++)
-                    {
-                        arr.Add(worksheet.Cells[i, j].Value.ToString());
-                    }
+                    arr.Add(LoadJsonFile.FetterTableDates[i][j]);
                 }
-
             }
         }
         return arr;

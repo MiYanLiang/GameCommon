@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
+//using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class ForcesChoose : MonoBehaviour
 {
@@ -19,10 +19,13 @@ public class ForcesChoose : MonoBehaviour
     public GameObject forcesText;
     void Start()
     {
-
         RandomList();
         ShowForces();
-        GetExcelFile1();
+        //GetExcelFile1();
+        for (int i = 0; i < getForces.Count; i++)
+        {
+            GetForcesName(getForces[i] + 1);
+        }
         SetNameForObj();
         SetClickObj();
         //forcesObj[0].SetActive(true);
@@ -32,24 +35,24 @@ public class ForcesChoose : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        ShowSelected();
+        //ShowSelected();
         //print(currentForcesIndex);
     }
     //读表
-    void GetExcelFile1()
-    {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["ForcesTable"];
-            for (int i = 0; i < getForces.Count; i++)
-            {
-                GetForcesName(worksheet1, getForces[i] + 1);
-            }
-        }
-    }
+    //void GetExcelFile1()
+    //{
+    //    //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
+    //    string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+    //    FileInfo fileinfo = new FileInfo(filePath);
+    //    using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+    //    {
+    //        ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["ForcesTable"];
+    //        for (int i = 0; i < getForces.Count; i++)
+    //        {
+    //            GetForcesName(worksheet1, getForces[i] + 1);
+    //        }
+    //    }
+    //}
     //随机6个势力
     void RandomList()
     {
@@ -72,17 +75,16 @@ public class ForcesChoose : MonoBehaviour
         }
     }
     //读表获取势力名称显示
-    void GetForcesName(ExcelWorksheet worksheets, int index)
+    void GetForcesName(int index)
     {
-        for (int i = 1; i < 11 + 1; i++)
+       //Debug.Log(LoadJsonFile.forcesTableDatas[2][2]);
+        for (int i = 0; i < 11; i++)
         {
-            if (i > 1)
+            //print(LoadJsonFile.forcesTableDatas[i][0]);
+            if (int.Parse(LoadJsonFile.forcesTableDatas[i][0]) == index)
             {
-                if (int.Parse(worksheets.Cells[i, 1].Value.ToString()) == index)
-                {
-                    forcesName.Add(worksheets.Cells[i, 2].Value.ToString());
-                    forcesExplain.Add(worksheets.Cells[i, 3].Value.ToString());
-                }
+                forcesName.Add(LoadJsonFile.forcesTableDatas[i][1]);
+                forcesExplain.Add(LoadJsonFile.forcesTableDatas[i][2]);
             }
         }
     }

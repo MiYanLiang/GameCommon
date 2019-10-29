@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
+//using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class ChangeAndGet : MonoBehaviour
 {
@@ -314,123 +314,68 @@ public class ChangeAndGet : MonoBehaviour
     void GetExcelFile1()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
-            GetHeroId(btnTag, worksheet2);
-            GetSpecificValue(heroId, worksheet1, "recruitingMoney");
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+        //    ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
+            GetHeroId(btnTag);
+            GetSpecificValue(heroId);
             //ChickenRibsHeroId.Add(heroId);
             //print(price);
-        }
+        //}
     }
     //读取相应英雄的所有数据
     void GetExcelFile2()
     {
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetHeroDateFromId(heroId, worksheet1);
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+            GetHeroDateFromId(heroId);
             //print(price);
-        }
+        //}
     }
 
     //获取表中英雄的所有数据
-    void GetHeroDateFromId(int id, ExcelWorksheet worksheet)
+    void GetHeroDateFromId(int id)
     {
-        int num = 0;
-        string rowTxt = "";
-        for (int i = 1; i < 89 + 1; i++)
+        heroData.Clear();   //清空上一次所购买的英雄数据
+        for (int i = 0; i < 88; i++)
         {
-            for (int j = 1; j < 21 + 1; j++)
+            for (int j = 0; j < 20; j++)
             {
-                if (j == 1 && i > 1)
+
+                if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)    //通过Id获取当前单元格在第几行
                 {
-                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == id)    //通过Id获取当前单元格在第几行
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        for (int x = 0; x < n.Length; x++)
-                        {
-                            if (x > 0)
-                            {
-                                rowTxt = rowTxt + n[x];
-                            }
-                        }
-                        num = int.Parse(rowTxt);
-                    }
+                    heroData.Add(LoadJsonFile.RoleTableDatas[i][j]);
                 }
             }
-        }
-        heroData.Clear();   //清空上一次所购买的英雄数据
-        for (int y = 1; y < 15 + 1; y++)
-        {
-            //获取存储该英雄的所有数据到heroData
-            heroData.Add(worksheet.Cells[num, y].Value.ToString());
         }
     }
 
     //获取表中英雄的价格
-    void GetSpecificValue(int id, ExcelWorksheet worksheet, string name)
+    void GetSpecificValue(int id)
     {
-        int num = 0;
-        string numy = "";
-        string rowTxt = "";
-        for (int i = 1; i < 89 + 1; i++)
+        for (int i = 0; i < 88; i++)
         {
-            for (int j = 1; j < 21 + 1; j++)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)    //通过Id获取当前单元格在第几行
             {
-                if (j == 1 && i > 1)
-                {
-                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == id)    //通过Id获取当前单元格在第几行
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        for (int x = 0; x < n.Length; x++)
-                        {
-                            if (x > 0)
-                            {
-                                rowTxt = rowTxt + n[x];
-                            }
-                        }
-                        num = int.Parse(rowTxt);
-                    }
-                }
-                if (i == 1)
-                {
-                    if (worksheet.Cells[i, j].Value.ToString() == name)   //通过列名获取当前列的首字母
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        numy = n[0].ToString();
-                    }
-                }
+                price = int.Parse(LoadJsonFile.RoleTableDatas[i][5]);
             }
-        }
-        for (int y = 1; y < 21 + 1; y++)
-        {
-            if (name == "recruitingMoney")
-            {
-                if (worksheet.Cells[num, y].GetEnumerator().ToString() == numy + num.ToString())
-                {
-                    price = int.Parse(worksheet.Cells[num, y].Value.ToString());
-                }
-            }
-        }
+        }  
     }
     
     //在表一中拿到点击英雄的id
-    void GetHeroId(int num, ExcelWorksheet worksheet)
+    void GetHeroId(int num)
     {
-        for (int i = 1; i < 793 + 1; i++)
+        for (int i = 0; i < 792; i++)
         {
-            for (int j = 1; j < 2 + 1; j++)
+            if (LoadJsonFile.RandowTableDates[i][1] == num.ToString())
             {
-                if (worksheet.Cells[i, 2].Value.ToString() == num.ToString())
-                {
-                    heroId = int.Parse(worksheet.Cells[i, 1].Value.ToString());
-                }
+                heroId = int.Parse(LoadJsonFile.RandowTableDates[i][0]);
             }
         }
     }

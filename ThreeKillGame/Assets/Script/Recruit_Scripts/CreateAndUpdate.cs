@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
+//using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class CreateAndUpdate : MonoBehaviour
 {
@@ -132,61 +132,61 @@ public class CreateAndUpdate : MonoBehaviour
     {
         excelText.Clear();
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+        //    ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
             //print(worksheet.Cells[2,1].Value.ToString());
             //GetValueFromId(18, worksheet2);
             for (int i = 0; i < myCard.Count; i++)
             {
-                GetValueFromId(int.Parse(myCard[i].ToString()) + 1, worksheet2);
+                GetValueFromId(int.Parse(myCard[i].ToString()) + 1);
                 //heroBtn[i].GetComponentInChildren<Text>().text = myCard[i].ToString();
             }
             for (int i = 0; i < excelText.Count; i++)
             {
-                GetSpecificValue(excelText[i], worksheet1, "roleName");
+                GetSpecificValue(excelText[i], "roleName");
             }
-            GetHeroRarity(worksheet1, "rarity");
-            GetHeroRarityId(worksheet2);
+            GetHeroRarity();
+            GetHeroRarityId();
             for (int i = 0; i < getCardId.Count; i++)
             {
                 //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
                 //print("CardId:"+ getCardId[i]);
             }
             //print(worksheet1.Cells.Columns);
-        }
+        //}
     }
     //读取获得各种稀有度英雄
     void GetExcelFile1()
     {
         excelText.Clear();
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
-            GetHeroRarity(worksheet1, "rarity");
-            GetHeroRarityId(worksheet2);
-        }
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+            //ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
+            GetHeroRarity();
+            GetHeroRarityId();
+        //}
     }
     //读取英雄的相关属性
     void GetExcelFile_Nature()
     {
         excelText.Clear();
         //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSpecificValue(1, worksheet1, "attack");
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
+        //{
+        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+            GetSpecificValue(1, "attack");
             //print(attack);
-        }
+        //}
     }
     //玩家卡牌随机
     void RandomList()
@@ -1613,168 +1613,96 @@ public class CreateAndUpdate : MonoBehaviour
         }
     }
     //输入id获取整行数据--招募表
-    void GetValueFromId(int num, ExcelWorksheet worksheet)
+    void GetValueFromId(int num)
     {
-        int Num = 0;
-        string rowTxt = "";
-        for (int i = 1; i < 793 + 1; i++)
+        for (int i = 0; i < 792; i++)
         {
-            for (int j = 1; j < 2 + 1; j++)
+            if (int.Parse(LoadJsonFile.RandowTableDates[i][1]) == num)
             {
-                if (j == 2 && i > 1)
-                {
-                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == num)
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        for (int x = 0; x < n.Length; x++)
-                        {
-                            if (x > 0)
-                            {
-                                rowTxt = rowTxt + n[x];
-                            }
-                        }
-                        Num = int.Parse(rowTxt);
-                    }
-                }
+                excelText.Add(int.Parse(LoadJsonFile.RandowTableDates[i][0]));
+                getCardId.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
             }
+
         }
-        excelText.Add(int.Parse(worksheet.Cells[Num, 1].Value.ToString()));
-        getCardId.Add(int.Parse(worksheet.Cells[Num, 2].Value.ToString()));
         //print(excelText.Count);
     }
     //根据id和列名拿到具体的值--英雄表
-    void GetSpecificValue(int id, ExcelWorksheet worksheet, string name)
+    void GetSpecificValue(int id, string name)
     {
-        int num = 0;
-        string numy = "";
-        string rowTxt = "";
-        for (int i = 1; i < 89 + 1; i++)
+        for (int i = 0; i < 88; i++)
         {
-            for (int j = 1; j < 15 + 1; j++)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (j == 1 && i > 1)
+                if (name == "roleName")
                 {
-                    if (int.Parse(worksheet.Cells[i, j].Value.ToString()) == id)
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        for (int x = 0; x < n.Length; x++)
-                        {
-                            if (x > 0)
-                            {
-                                rowTxt = rowTxt + n[x];
-                            }
-                        }
-                        num = int.Parse(rowTxt);
-                    }
+                    heroName.Add(LoadJsonFile.RoleTableDatas[i][1]);
                 }
-                if (i == 1)
+                if (name == "attack")
                 {
-                    if (worksheet.Cells[i, j].Value.ToString() == name)
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        numy = n[0].ToString();
-                    }
-                }
-            }
-        }
-        for (int y = 1; y < 15 + 1; y++)
-        {
-            if (name == "roleName")
-            {
-                if (worksheet.Cells[num, y].GetEnumerator().ToString() == numy + num.ToString())
-                {
-                    //print(worksheet.Cells[num, y].Value.ToString());
-                    heroName.Add(worksheet.Cells[num, y].Value.ToString());
-                }
-            }
-            if (name == "attack")
-            {
-                if (worksheet.Cells[num, y].GetEnumerator().ToString() == numy + num.ToString())
-                {
-                    //print(worksheet.Cells[num, y].Value.ToString());
-                    attack = int.Parse(worksheet.Cells[num, y].Value.ToString());
+                    attack = int.Parse(LoadJsonFile.RoleTableDatas[i][6]);
                 }
             }
         }
     }
 
     //把英雄按照稀有度分类
-    void GetHeroRarity(ExcelWorksheet worksheet, string name)
+    void GetHeroRarity()
     {
-        string numy = "";
-        for (int i = 1; i < 89 + 1; i++)
+        for (int i = 0; i < 88; i++)
         {
-            for (int j = 1; j < 15 + 1; j++)
+            if (LoadJsonFile.RoleTableDatas[i][4] == "1")             //拿到绿色
             {
-                if (i == 1)
-                {
-                    if (worksheet.Cells[i, j].Value.ToString() == name)
-                    {
-                        string n = worksheet.Cells[i, j].GetEnumerator().ToString();
-                        numy = n[0].ToString();
-                    }
-                }
-                if (i > 1)
-                {
-                    if (worksheet.Cells[i, j].GetEnumerator().ToString() == numy + i.ToString())    //拿到稀有度那一列
-                    {
-                        if (worksheet.Cells[i, j].Value.ToString() == "1")             //拿到绿色
-                        {
-                            greenHeroId.Add(i - 1);
-                        }
-                        else if (worksheet.Cells[i, j].Value.ToString() == "2")
-                        {
-                            blueHeroId.Add(i - 1);
-                        }
-                        else if (worksheet.Cells[i, j].Value.ToString() == "3")
-                        {
-                            purpleHeroId.Add(i - 1);
-                        }
-                        else if (worksheet.Cells[i, j].Value.ToString() == "4")
-                        {
-                            orangeHeroId.Add(i - 1);
-                        }
-                    }
-                }
+                greenHeroId.Add(i - 1);
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][4] == "2")
+            {
+                blueHeroId.Add(i - 1);
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][4] == "3")
+            {
+                purpleHeroId.Add(i - 1);
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][4] == "4")
+            {
+                orangeHeroId.Add(i - 1);
             }
         }
     }
     //在表2中拿到相关稀有度的英雄Id并存储
-    void GetHeroRarityId(ExcelWorksheet worksheet)
+    void GetHeroRarityId()
     {
-        for (int i = 1; i < 793 + 1; i++)
+        for (int i = 0; i < 792; i++)
         {
-            if (i > 1)
-            {
+
                 for (int y = 0; y < greenHeroId.Count; y++)
                 {
-                    if (worksheet.Cells[i, 1].Value.ToString() == greenHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == greenHeroId[y].ToString())
                     {
-                        greenCard.Add(int.Parse(worksheet.Cells[i, 2].Value.ToString()));
+                        greenCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
                 for (int y = 0; y < blueHeroId.Count; y++)
                 {
-                    if (worksheet.Cells[i, 1].Value.ToString() == blueHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == blueHeroId[y].ToString())
                     {
-                        blueCard.Add(int.Parse(worksheet.Cells[i, 2].Value.ToString()));
+                        blueCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
                 for (int y = 0; y < purpleHeroId.Count; y++)
                 {
-                    if (worksheet.Cells[i, 1].Value.ToString() == purpleHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == purpleHeroId[y].ToString())
                     {
-                        purpleCard.Add(int.Parse(worksheet.Cells[i, 2].Value.ToString()));
+                        purpleCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
                 for (int y = 0; y < orangeHeroId.Count; y++)
                 {
-                    if (worksheet.Cells[i, 1].Value.ToString() == orangeHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == orangeHeroId[y].ToString())
                     {
-                        orangeCard.Add(int.Parse(worksheet.Cells[i, 2].Value.ToString()));
+                        orangeCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
-            }
+            
         }
     }
     //民心加成
