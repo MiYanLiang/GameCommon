@@ -10,10 +10,6 @@ public class EmFightControll : MonoBehaviour
 {
     private static int hardNum;    //难度值
 
-    UseEPPlusFun useepplusfun = new UseEPPlusFun();
-    static TableDatas worksheet_Role_EmFight;  //存储武将表
-    static TableDatas worksheet_DFC;   //存储难度选择表
-
     //可随机的英雄id
     List<int> canGetHeroId = new List<int>();
     //存放最后拿到的英雄Id
@@ -22,8 +18,6 @@ public class EmFightControll : MonoBehaviour
 
     private void Awake()
     {
-        worksheet_Role_EmFight = useepplusfun.FindExcelFiles("RoleTable1");
-        worksheet_DFC = useepplusfun.FindExcelFiles("DifficultyChoose");
         hardNum = PlayerPrefs.GetInt("DifficultyType");  //难度值获取
     }
 
@@ -50,10 +44,10 @@ public class EmFightControll : MonoBehaviour
                 switch (arrHeroData[i][1])  //判断英雄的品阶       
                 {
                     case "1":
-                        switch (useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0])+1, 5))   //判断稀有度
+                        switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0])-1][4])   //判断稀有度
                         {
                             case "1":   //绿1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 8)))  //判断此卡牌参与的战斗周目
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum-1][7]))  //判断此卡牌参与的战斗周目
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -61,7 +55,7 @@ public class EmFightControll : MonoBehaviour
                                     }
                                     else                //升色
                                     {
-                                        array_str[i] = UpColor(useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]) + 1, 4), "2");  //执行升色方法传递所需兵种和升色值（稀有度1234）
+                                        array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "2");  //执行升色方法传递所需兵种和升色值（稀有度1234）
                                         if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                     }
                                 }
@@ -71,7 +65,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "2":   //蓝1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 9)))
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][8]))
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -79,7 +73,7 @@ public class EmFightControll : MonoBehaviour
                                     }
                                     else                //升色
                                     {
-                                        array_str[i] = UpColor(useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]) + 1, 4), "3");  //执行升色方法传递所需兵种和升色值（稀有度1234）
+                                        array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "3");  //执行升色方法传递所需兵种和升色值（稀有度1234）
                                         if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                     }
                                 }
@@ -89,7 +83,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "3":   //紫1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 10)))
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][9]))
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -97,7 +91,7 @@ public class EmFightControll : MonoBehaviour
                                     }
                                     else                //升色
                                     {
-                                        array_str[i] = UpColor(useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]) + 1, 4), "4");  //执行升色方法传递所需兵种和升色值（稀有度1234）
+                                        array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "4");  //执行升色方法传递所需兵种和升色值（稀有度1234）
                                         if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                     }
                                 }
@@ -107,7 +101,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "4":   //橙1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 11)))
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][10]))
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -122,10 +116,10 @@ public class EmFightControll : MonoBehaviour
                         }
                         break;
                     case "2":
-                        switch (useepplusfun.GetRowAndColumnData(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0])+1, 5))   //判断稀有度
+                        switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][4])   //判断稀有度
                         {
                             case "1":   //绿2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 12)) && GradeOrColor())  //判断此卡牌参与的战斗周目
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][11]) && GradeOrColor())  //判断此卡牌参与的战斗周目
                                 {
                                     //二阶英雄升阶，失败后不用升色
                                     {
@@ -138,7 +132,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "2":   //蓝2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 13)) && GradeOrColor())
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][12]) && GradeOrColor())
                                 {
                                     //升阶
                                     {
@@ -151,7 +145,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "3":   //紫2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 14)) && GradeOrColor())
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][13]) && GradeOrColor())
                                 {
                                     //升阶
                                     {
@@ -164,7 +158,7 @@ public class EmFightControll : MonoBehaviour
                                 }
                                 break;
                             case "4":   //橙2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(useepplusfun.GetRowAndColumnData(worksheet_DFC, hardNum + 1, 15)) && GradeOrColor())
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][14]) && GradeOrColor())
                                 {
                                     //升阶
                                     {
@@ -348,13 +342,13 @@ public class EmFightControll : MonoBehaviour
             int id_newHero=0;
             if (hero_kindNum[0]<3)
             {
-                int index = 2;
+                int index = 0;
                 while (true)
                 {
-                    if (worksheet_Role_EmFight.worksheet.Cells[index++, 4].Value.ToString() == enemyUnits[0].ToString() && worksheet_Role_EmFight.worksheet.Cells[index-1, 5].Value.ToString() == "1")
+                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[0].ToString() && LoadJsonFile.RoleTableDatas[index-1][4] == "1")
                         break;
                 }
-                int id = index - 2;
+                int id = index;
                 do
                 {
                     id_newHero = Random.Range(0, 3) + id;
@@ -365,13 +359,13 @@ public class EmFightControll : MonoBehaviour
             }
             if (hero_kindNum[1]<3)
             {
-                int index = 2;
+                int index = 0;
                 while (true)
                 {
-                    if (worksheet_Role_EmFight.worksheet.Cells[index++, 4].Value.ToString() == enemyUnits[1].ToString() && worksheet_Role_EmFight.worksheet.Cells[index - 1, 5].Value.ToString() == "1")
+                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[1].ToString() && LoadJsonFile.RoleTableDatas[index-1][4] == "1")
                         break;
                 }
-                int id = index - 2;
+                int id = index;
                 do
                 {
                     id_newHero = Random.Range(0, 3) + id;
@@ -382,13 +376,13 @@ public class EmFightControll : MonoBehaviour
             }
             if (hero_kindNum[2]<3)
             {
-                int index = 2;
+                int index = 0;
                 while (true)
                 {
-                    if (worksheet_Role_EmFight.worksheet.Cells[index++, 4].Value.ToString() == enemyUnits[2].ToString() && worksheet_Role_EmFight.worksheet.Cells[index - 1, 5].Value.ToString() == "1")
+                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[2].ToString() && LoadJsonFile.RoleTableDatas[index-1][4] == "1")
                         break;
                 }
-                int id = index - 2;
+                int id = index;
                 do
                 {
                     id_newHero = Random.Range(0, 3) + id;
@@ -410,13 +404,15 @@ public class EmFightControll : MonoBehaviour
             if (array_str[i]==null)
             {
                 //添加新英雄的数据
-                array_str[i] = useepplusfun.GetRowDatas(worksheet_Role_EmFight, newheroIds[num] + 1);
+                array_str[i] = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[newheroIds[num] - 1]);
                 array_str[i].Add("1");  //品阶
                 array_str[i].Add("1");  //战斗周目数
                 num++;
             }
         }
     }
+
+
 
     /// <summary>
     /// 判断是否已经有此英雄
@@ -451,12 +447,12 @@ public class EmFightControll : MonoBehaviour
         List<string> str_list = new List<string>();
         //随机拿到符合要求的武将数据，给品阶和战斗周目数为1
         List<int> heroids=new List<int>();
-        for (int i = 2; i < worksheet_Role_EmFight.rows + 1; i++) //遍历所有武将
+        for (int i = 0; i < LoadJsonFile.RoleTableDatas.Count; i++) //遍历所有武将
         {
             //判断兵种和稀有度（颜色）
-            if (worksheet_Role_EmFight.worksheet.Cells[i, 4].Value.ToString() == v1 && worksheet_Role_EmFight.worksheet.Cells[i, 5].Value.ToString() == v2)
+            if (LoadJsonFile.RoleTableDatas[i][3] == v1 && LoadJsonFile.RoleTableDatas[i][4] == v2)
             {
-                heroids.Add(i-1);   //存储符合的英雄id
+                heroids.Add(i+1);   //存储符合的英雄id
             }
         }
         int num = heroids.Count;    //符合的英雄总数
@@ -465,7 +461,7 @@ public class EmFightControll : MonoBehaviour
             Debug.Log("///没有符合的升色英雄///");
             return null;
         }
-        str_list = useepplusfun.GetRowDatas(worksheet_Role_EmFight, heroids[UnityEngine.Random.Range(0, num)] + 1);
+        str_list = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroids[UnityEngine.Random.Range(0, num)]-1]);
         str_list.Add("1");  //品阶
         str_list.Add("1");  //战斗周目数
         return str_list;
@@ -481,7 +477,7 @@ public class EmFightControll : MonoBehaviour
     {
         //传递武将数据链表尾部依次添加品阶和战斗周目数
         List<string> str_list = new List<string>();
-        str_list = useepplusfun.GetRowDatas(worksheet_Role_EmFight, v2 + 1);
+        str_list = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[v2 - 1]);
         str_list.Add(v1.ToString());
         str_list.Add("1");
         return str_list;
@@ -494,7 +490,9 @@ public class EmFightControll : MonoBehaviour
     /// <param name="i"></param>
     private void HoldHeroData(List<string>[] arrHeroData, int i)   
     {
-        array_str[i] = useepplusfun.GetRowDatas(worksheet_Role_EmFight, int.Parse(arrHeroData[i][0]) + 1);  //记录该英雄所有数据
+        List<string> newHeroData = new List<string>();
+        newHeroData = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1]);  //记录该英雄所有数据
+        array_str[i] = newHeroData;
         array_str[i].Add(arrHeroData[i][1]);    //记录他的品阶
         array_str[i].Add((int.Parse(arrHeroData[i][2])+1).ToString());    //记录他的参与战斗周目数+1
     }

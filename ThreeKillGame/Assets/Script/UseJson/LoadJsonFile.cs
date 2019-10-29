@@ -5,8 +5,8 @@ using UnityEngine;
 
 using System.IO;
 using LitJson;
-using System.Reflection;
-using System.Data;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 
 public class LoadJsonFile : MonoBehaviour
 {
@@ -223,6 +223,23 @@ public class LoadJsonFile : MonoBehaviour
             Debug.Log("所有Json数据加载成功。");
         else
             Debug.Log("还有Json数据未进行加载。");
+    }
+
+    /// <summary>
+    /// 深拷贝List等
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="List">The list.</param>
+    /// <returns>List{``0}.</returns>
+    public static List<T> DeepClone<T>(object List)
+    {
+        using (Stream objectStream = new MemoryStream())
+        {
+            IFormatter formatter = new BinaryFormatter();
+            formatter.Serialize(objectStream, List);
+            objectStream.Seek(0, SeekOrigin.Begin);
+            return formatter.Deserialize(objectStream) as List<T>;
+        }
     }
 
 
