@@ -114,7 +114,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         init_Go(fightIdList);
         heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
         Show_Left(fightIdList_int);
-        print("盾兵数量=" + shieldSoldierNum+ "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
+        //print("盾兵数量=" + shieldSoldierNum+ "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
     }
     private void OnServerInitialized()
     {
@@ -169,7 +169,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             GameObject obj = Instantiate(heroTypePrefab, LeftInformationBar.GetChild(i));
             obj.transform.position = LeftInformationBar.GetChild(i).position;
             obj.GetComponentsInChildren<Text>()[0].text = heroTypeName[i - 1];
-            if (heroTypeName[i - 1] == "盾兵")
+            if (heroTypeName[i - 1] == "山兽")
             {
                 if (shieldSoldierNum < 3)
                 {
@@ -188,7 +188,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "象兵")
+            else if (heroTypeName[i - 1] == "海兽")
             {
                 if (mahoutNum < 3)
                 {
@@ -207,7 +207,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "戟兵")
+            else if (heroTypeName[i - 1] == "飞兽")
             {
                 if (halberdierNum <3)
                 {
@@ -226,7 +226,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "禁卫")
+            else if (heroTypeName[i - 1] == "人杰")
             {
                 if (lifeguardNum <3)
                 {
@@ -245,7 +245,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "枪兵")
+            else if (heroTypeName[i - 1] == "祖巫")
             {
                 if (spearmanNum < 3)
                 {
@@ -264,7 +264,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "骑兵")
+            else if (heroTypeName[i - 1] == "散仙")
             {
                 if (sowarNum < 3)
                 {
@@ -283,7 +283,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "军师")
+            else if (heroTypeName[i - 1] == "辅神")
             {
                 if (counsellorNum < 3)
                 {
@@ -302,7 +302,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "工兵")
+            else if (heroTypeName[i - 1] == "魔神")
             {
                 if (sapperNum < 3)
                 {
@@ -321,7 +321,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "方士")
+            else if (heroTypeName[i - 1] == "天神")
             {
                 if (necromancerNum < 3)
                 {

@@ -77,7 +77,8 @@ public class HeroDataControll : MonoBehaviour {
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
-        
+        //print(LoadJsonFile.FetterTableDates[2][9]);
+        fetterInformation.Clear();
         GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
         int heroId = heroidtest;
         heroIdDate.Add(heroId.ToString());
@@ -95,7 +96,7 @@ public class HeroDataControll : MonoBehaviour {
             {
                 for (int i = 0; i < fetterInformation[j].Count; i++)
                 {
-                    //print(fetterInformation[j][i]);
+                    //print("ssssssssssssssssssssssssssss"+fetterInformation[j][1]);
                     GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u3000" + "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" +","+ "防御+" + fetterInformation[j][4] + "%"+"," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
                     break;
                 }
@@ -114,47 +115,47 @@ public class HeroDataControll : MonoBehaviour {
         string name = "";
         if (heroKindType == 1)
         {
-            name = "盾兵";
+            name = "山兽";
             heroKindName = name;
         }
         else if (heroKindType == 2)
         {
-            name = "象兵";
+            name = "海兽";
             heroKindName = name;
         }
         else if (heroKindType == 3)
         {
-            name = "戟兵";
+            name = "飞兽";
             heroKindName = name;
         }
         else if (heroKindType == 4)
         {
-            name = "禁卫";
+            name = "人杰";
             heroKindName = name;
         }
         else if (heroKindType == 5)
         {
-            name = "枪兵";
+            name = "祖巫";
             heroKindName = name;
         }
         else if (heroKindType == 6)
         {
-            name = "骑兵";
+            name = "散仙";
             heroKindName = name;
         }
         else if (heroKindType == 7)
         {
-            name = "军师";
+            name = "辅神";
             heroKindName = name;
         }
         else if (heroKindType == 8)
         {
-            name = "工兵";
+            name = "魔神";
             heroKindName = name;
         }
         else if (heroKindType == 9)
         {
-            name = "方士";
+            name = "天神";
             heroKindName = name;
         }
         else if (heroKindType == 10)

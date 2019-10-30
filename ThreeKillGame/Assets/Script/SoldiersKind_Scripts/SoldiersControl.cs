@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
+//using OfficeOpenXml;    //引入使用EPPlus类库
 using System.Linq;  //去除重复
 
 public class SoldiersControl : MonoBehaviour
@@ -99,35 +99,32 @@ public class SoldiersControl : MonoBehaviour
     }
     void GetExcelFile(List<int> myHeroId)
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+        ////string filePath = "F:/dev/GameCommon/111.xlsx";   
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
+        //{
+        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
             ArraySort(myHeroId);
             for (int i = 0; i < myHeroId.Count; i++)
             {
-                GetHeroType(worksheet1, myHeroId[i]);
+                GetHeroType(myHeroId[i]);
             }
             //给heroTypeAll数列去除重复数据
             int[] str = heroTypeAll.ToArray();
             int[] str2 = str.Distinct().ToArray();
             heroTypeAll = new List<int>(str2);
-        }
+        //}
     }
     //传入英雄id，拿到英雄兵种类型
-    void GetHeroType(ExcelWorksheet worksheet, int id)
+    void GetHeroType(int id)
     {
-        int num = 4;
-        for (int i = 1; i < 89 + 1; i++)
+        int num = 3;
+        for (int i = 0; i < 88; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
-                {
-                    heroTypeAll.Add(int.Parse(worksheet.Cells[i, num].Value.ToString()));
-                }
+                heroTypeAll.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][num]));
             }
         }
     }
@@ -139,39 +136,39 @@ public class SoldiersControl : MonoBehaviour
             string name = "";
             if (heroTypeAll[i] == 1)
             {
-                name = "盾兵";
+                name = "山兽";
             }
             else if (heroTypeAll[i] == 2)
             {
-                name = "象兵";
+                name = "海兽";
             }
             else if (heroTypeAll[i] == 3)
             {
-                name = "戟兵";
+                name = "飞兽";
             }
             else if (heroTypeAll[i] == 4)
             {
-                name = "禁卫";
+                name = "人杰";
             }
             else if (heroTypeAll[i] == 5)
             {
-                name = "枪兵";
+                name = "祖巫";
             }
             else if (heroTypeAll[i] == 6)
             {
-                name = "骑兵";
+                name = "散仙";
             }
             else if (heroTypeAll[i] == 7)
             {
-                name = "军师";
+                name = "辅神";
             }
             else if (heroTypeAll[i] == 8)
             {
-                name = "工兵";
+                name = "魔神";
             }
             else if (heroTypeAll[i] == 9)
             {
-                name = "方士";
+                name = "天神";
             }
             else if (heroTypeAll[i] == 10)
             {
@@ -218,7 +215,7 @@ public class SoldiersControl : MonoBehaviour
         GetSoldiersTypeNum();
         GetSkillId();
         GetExcelFile2();
-        print("sssssssssssssss"+"盾兵数量=" + shieldSoldierNum + "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
+        //print("sssssssssssssss"+"盾兵数量=" + shieldSoldierNum + "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
         //for (int i = 0; i < skillInformation.Count; i++)
         //{
         //    print(skillInformation[i]);
@@ -236,29 +233,26 @@ public class SoldiersControl : MonoBehaviour
     void GetExcelFile1(List<int> battleHeroId)
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
+        //{
+            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
             for (int i = 0; i < battleHeroId.Count; i++)
             {
-                GetHeroTypeFromId(worksheet1, battleHeroId[i]);
+                GetHeroTypeFromId(battleHeroId[i]);
             }
-        }
+        //}
     }
     //传入英雄id，拿到英雄兵种类型
-    void GetHeroTypeFromId(ExcelWorksheet worksheet, int id)
+    void GetHeroTypeFromId(int id)
     {
-        int num = 4;
-        for (int i = 1; i < 89 + 1; i++)
+        int num = 3;
+        for (int i = 0; i < 88; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
-                {
-                    battleHeroType.Add(int.Parse(worksheet.Cells[i, num].Value.ToString()));
-                }
+                battleHeroType.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][num]));
             }
         }
     }
@@ -423,29 +417,26 @@ public class SoldiersControl : MonoBehaviour
     void GetExcelFile2()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["SoldierSkillTable"];
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
+        //{
+        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["SoldierSkillTable"];
             for (int i = 0; i < skillArray.Count; i++)
             {
-                GetSkillInformationFromSkillId(worksheet1, skillArray[i]);
+                GetSkillInformationFromSkillId(skillArray[i]);
             }
-        }
+        //}
     }
     //通过兵种skill索引获取信息
-    void GetSkillInformationFromSkillId(ExcelWorksheet worksheet,int index)
+    void GetSkillInformationFromSkillId(int index)
     {
-        int num = 2;
-        for (int i = 1; i < 19 + 1; i++)
+        int num = 1;
+        for (int i = 0; i < 18; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.soldierSkillTableDatas[i][0]) == index)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == index)
-                {
-                    skillInformation.Add(worksheet.Cells[i, num].Value.ToString());
-                }
+                skillInformation.Add(LoadJsonFile.soldierSkillTableDatas[i][num]);
             }
         }
     }
@@ -461,107 +452,101 @@ public class SoldiersControl : MonoBehaviour
     void GetExcelFile3()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSoldiersAll(worksheet1);
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
+        //{
+        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+            GetSoldiersAll();
             for (int i = 0; i < shieldSoldierId.Count; i++)
             {
-                shieldSoldierName.Add(GetHeroNameFromId(worksheet1,shieldSoldierId[i]));
+                shieldSoldierName.Add(GetHeroNameFromId(shieldSoldierId[i]));
             }
             for (int i = 0; i < mahoutId.Count; i++)
             {
-                mahoutName.Add(GetHeroNameFromId(worksheet1, mahoutId[i]));
+                mahoutName.Add(GetHeroNameFromId( mahoutId[i]));
             }
             for (int i = 0; i < halberdierId.Count; i++)
             {
-                halberdierName.Add(GetHeroNameFromId(worksheet1, halberdierId[i]));
+                halberdierName.Add(GetHeroNameFromId( halberdierId[i]));
             }
             for (int i = 0; i < lifeguardId.Count; i++)
             {
-                lifeguardName.Add(GetHeroNameFromId(worksheet1, lifeguardId[i]));
+                lifeguardName.Add(GetHeroNameFromId( lifeguardId[i]));
             }
             for (int i = 0; i < spearmanId.Count; i++)
             {
-                spearmanName.Add(GetHeroNameFromId(worksheet1, spearmanId[i]));
+                spearmanName.Add(GetHeroNameFromId( spearmanId[i]));
             }
             for (int i = 0; i < sowarId.Count; i++)
             {
-                sowarName.Add(GetHeroNameFromId(worksheet1, sowarId[i]));
+                sowarName.Add(GetHeroNameFromId( sowarId[i]));
             }
             for (int i = 0; i < counsellorId.Count; i++)
             {
-                counsellorName.Add(GetHeroNameFromId(worksheet1, counsellorId[i]));
+                counsellorName.Add(GetHeroNameFromId( counsellorId[i]));
             }
             for (int i = 0; i < sapperId.Count; i++)
             {
-                sapperName.Add(GetHeroNameFromId(worksheet1, sapperId[i]));
+                sapperName.Add(GetHeroNameFromId( sapperId[i]));
             }
             for (int i = 0; i < necromancerId.Count; i++)
             {
-                necromancerName.Add(GetHeroNameFromId(worksheet1, necromancerId[i]));
+                necromancerName.Add(GetHeroNameFromId( necromancerId[i]));
             }
-        }
+        //}
     }
-    void GetSoldiersAll(ExcelWorksheet worksheet)
+    void GetSoldiersAll()
     {
-        int num = 4;     
-        for (int i = 1; i < 89 + 1; i++)
+        int num = 3;
+        for (int i = 0; i < 88; i++)
         {
-            if (i > 1)
+            if (LoadJsonFile.RoleTableDatas[i][num] == "1")
             {
-                if (worksheet.Cells[i, num].Value.ToString() == "1")
-                {
-                    shieldSoldierId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "2")
-                {
-                    mahoutId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "3")
-                {
-                    halberdierId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "4")
-                {
-                    lifeguardId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "5")
-                {
-                    spearmanId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "6")
-                {
-                    sowarId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "7")
-                {
-                    counsellorId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "8")
-                {
-                    sapperId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "9")
-                {
-                    necromancerId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
+                shieldSoldierId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "2")
+            {
+                mahoutId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "3")
+            {
+                halberdierId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "4")
+            {
+                lifeguardId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "5")
+            {
+                spearmanId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "6")
+            {
+                sowarId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "7")
+            {
+                counsellorId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "8")
+            {
+                sapperId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "9")
+            {
+                necromancerId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
             }
         }
     }
-    string GetHeroNameFromId(ExcelWorksheet worksheet, int id)
+    string GetHeroNameFromId(int id)
     {
         string name = "";
-        for (int i = 1; i < 89 + 1; i++)
+        for (int i = 0; i < 88; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
-                {
-                    name = worksheet.Cells[i, 2].Value.ToString();
-                }
+                name = LoadJsonFile.RoleTableDatas[i][1];
             }
         }
         return name;
