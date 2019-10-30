@@ -114,6 +114,7 @@ public class LoadJsonFile : MonoBehaviour
         //加载势力信息表数据:ForcesTable
         {
             jsonData = LoadJsonByName(tableNames[indexTable]);
+            //Debug.Log("///" + jsonData);
             root = JsonMapper.ToObject<Roots>(jsonData);
             forcesTableDatas = new List<List<string>>(root.ForcesTable.Count);
             for (int i = 0; i < root.ForcesTable.Count; i++)
@@ -192,6 +193,7 @@ public class LoadJsonFile : MonoBehaviour
         //加载羁绊数据:FetterTable
         {
             jsonData = LoadJsonByName(tableNames[indexTable]);
+            //Debug.Log("///"+ jsonData);
             root = JsonMapper.ToObject<Roots>(jsonData);
             FetterTableDates = new List<List<string>>(root.FetterTable.Count);
             for (int i = 0; i < root.FetterTable.Count; i++)

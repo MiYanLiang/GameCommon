@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
-//using OfficeOpenXml;    //引入使用EPPlus类库
 
 
 public class FetterContronl : MonoBehaviour
@@ -67,7 +64,7 @@ public class FetterContronl : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         //{
         //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
-            GetAllFetterArray();
+        GetAllFetterArray();
         //}
     }
     //将所有的羁绊数组储存
@@ -129,10 +126,10 @@ public class FetterContronl : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         //{
         //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
-            for (int i = 0; i < fetterIndex.Count; i++)
-            {
-                fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
-            }
+        for (int i = 0; i < fetterIndex.Count; i++)
+        {
+            fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
+        }
         //}
     }
     //获取羁绊信息
@@ -313,10 +310,10 @@ public class FetterContronl : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         //{
         //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
-            for (int i = 0; i < fetterId.Count; i++)
-            {
-                fetterInformationFromId.Add(GetFetterInformationFromId(fetterId[i]));
-            }
+        for (int i = 0; i < fetterId.Count; i++)
+        {
+            fetterInformationFromId.Add(GetFetterInformationFromId(fetterId[i]));
+        }
         //}
     }
     //获取羁绊英雄名

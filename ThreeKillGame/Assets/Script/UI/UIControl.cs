@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
-using System;
 
 public class UIControl : MonoBehaviour
 {
@@ -32,7 +29,7 @@ public class UIControl : MonoBehaviour
             //创建其他势力ID
             do
             {
-                id_others = UnityEngine.Random.Range(1, 12);
+                id_others = Random.Range(1, 12);
             } while ((id_others==playerForceId)||IsHadForceId(id_others));
             array_forces[i] = id_others;
             //设置其他势力的头像

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-//using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class CreateAndUpdate : MonoBehaviour
 {
@@ -140,22 +138,22 @@ public class CreateAndUpdate : MonoBehaviour
         //    ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
             //print(worksheet.Cells[2,1].Value.ToString());
             //GetValueFromId(18, worksheet2);
-            for (int i = 0; i < myCard.Count; i++)
-            {
-                GetValueFromId(int.Parse(myCard[i].ToString()) + 1);
-                //heroBtn[i].GetComponentInChildren<Text>().text = myCard[i].ToString();
-            }
-            for (int i = 0; i < excelText.Count; i++)
-            {
-                GetSpecificValue(excelText[i], "roleName");
-            }
-            GetHeroRarity();
-            GetHeroRarityId();
-            for (int i = 0; i < getCardId.Count; i++)
-            {
-                //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
-                //print("CardId:"+ getCardId[i]);
-            }
+        for (int i = 0; i < myCard.Count; i++)
+        {
+            GetValueFromId(int.Parse(myCard[i].ToString()) + 1);
+            //heroBtn[i].GetComponentInChildren<Text>().text = myCard[i].ToString();
+        }
+        for (int i = 0; i < excelText.Count; i++)
+        {
+            GetSpecificValue(excelText[i], "roleName");
+        }
+        GetHeroRarity();
+        GetHeroRarityId();
+        for (int i = 0; i < getCardId.Count; i++)
+        {
+            //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
+            //print("CardId:"+ getCardId[i]);
+        }
             //print(worksheet1.Cells.Columns);
         //}
     }
@@ -170,8 +168,8 @@ public class CreateAndUpdate : MonoBehaviour
         //{
             //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
             //ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
-            GetHeroRarity();
-            GetHeroRarityId();
+        GetHeroRarity();
+        GetHeroRarityId();
         //}
     }
     //读取英雄的相关属性
@@ -184,7 +182,7 @@ public class CreateAndUpdate : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         //{
         //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSpecificValue(1, "attack");
+        GetSpecificValue(1, "attack");
             //print(attack);
         //}
     }

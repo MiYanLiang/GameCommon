@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.IO;
-//using OfficeOpenXml;    //引入使用EPPlus类库
 using System.Linq;  //去除重复
 
 public class SoldiersControl : MonoBehaviour

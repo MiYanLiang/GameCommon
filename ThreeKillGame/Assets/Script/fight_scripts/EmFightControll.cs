@@ -461,7 +461,7 @@ public class EmFightControll : MonoBehaviour
             Debug.Log("///没有符合的升色英雄///");
             return null;
         }
-        str_list = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroids[UnityEngine.Random.Range(0, num)]-1]);
+        str_list = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroids[Random.Range(0, num)]-1]);
         str_list.Add("1");  //品阶
         str_list.Add("1");  //战斗周目数
         return str_list;
@@ -500,7 +500,7 @@ public class EmFightControll : MonoBehaviour
     //判断是升阶（true）还是升色（false）
     private bool GradeOrColor()
     {
-        int num = UnityEngine.Random.Range(1, 101);
+        int num = Random.Range(1, 101);
         if (num <= 30)  
             return true;
         else

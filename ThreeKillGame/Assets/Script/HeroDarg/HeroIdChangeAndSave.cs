@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-//using OfficeOpenXml;    //引入使用EPPlus类库
-using System.Linq;  //去除重复
 
 public class HeroIdChangeAndSave : MonoBehaviour
 {
@@ -362,10 +359,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
         //{
         //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            for (int i = 0; i < battleHeroId.Count; i++)
-            {
-                GetHeroTypeFromId(battleHeroId[i]);
-            }
+        for (int i = 0; i < battleHeroId.Count; i++)
+        {
+            GetHeroTypeFromId(battleHeroId[i]);
+        }
         //}
     }
     //传入英雄id，拿到英雄兵种类型
@@ -451,7 +448,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         //{
         //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
-            GetAllFetterArray();
+        GetAllFetterArray();
         //}
     }
     //将所有的羁绊数组储存
@@ -512,10 +509,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
         //{
         //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
-            for (int i = 0; i < fetterIndex.Count; i++)
-            {
-                fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
-            }
+        for (int i = 0; i < fetterIndex.Count; i++)
+        {
+            fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
+        }
         //}
     }
     //获取羁绊信息

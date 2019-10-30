@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-//using OfficeOpenXml;    //引入使用EPPlus类库
 
 public class ChangeAndGet : MonoBehaviour
 {
@@ -42,11 +40,6 @@ public class ChangeAndGet : MonoBehaviour
         //mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
         money = CreateAndUpdate.money;
         ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
-        //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
-        //for (int i = 0; i < GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId.Count; i++)
-        //{
-        //    print(GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().sendCardId[i]);
-        //}
     }
 
     public void ChangeBtnColor()
@@ -147,12 +140,10 @@ public class ChangeAndGet : MonoBehaviour
                     if (gradeone[i] < 9)  //在九宫格中
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
-                        //jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    //在备战位中
                     {
                         Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
-                        //preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 for (int i = 0; i < 2; i++)
@@ -161,12 +152,10 @@ public class ChangeAndGet : MonoBehaviour
                     if (gradetwo[i] < 9)  
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁二阶武将卡牌
-                        //jiugongge.GetChild(gradetwo[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    
                     {
                         Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
-                        //preparation.GetChild(gradetwo[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 //放置三阶卡牌
@@ -189,12 +178,10 @@ public class ChangeAndGet : MonoBehaviour
                     if (gradeone[i]<9)  //在九宫格中
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
-                        //jiugongge.GetChild(gradeone[i]).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                     else    //在备战位中
                     {
                         Destroy(preparation.GetChild(gradeone[i]-9).GetChild(0).gameObject);
-                        //preparation.GetChild(gradeone[i] - 9).GetChild(0).SetParent(GameObject.Find("backGround").transform);
                     }
                 }
                 //放置二阶卡牌
@@ -230,11 +217,6 @@ public class ChangeAndGet : MonoBehaviour
         //实例化武将卡牌到备战位,并传递数据过去
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
-        //newheroCard.AddComponent<HeroDataControll>();
-        //for (int i = 0; i < heroData.Count; i++)
-        //{
-        //    print("传递的：" + heroData[0]);
-        //}
         newheroCard.GetComponent<HeroDataControll>().HeroData = heroData;
         //设置品阶颜色表现和属性
         switch (grade)

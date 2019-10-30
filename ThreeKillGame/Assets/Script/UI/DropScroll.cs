@@ -3,7 +3,6 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
-using UnityEngine.Events;
 public class DropScroll : MonoBehaviour {
 
 	// Use this for initialization
