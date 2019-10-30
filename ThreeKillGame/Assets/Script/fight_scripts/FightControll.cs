@@ -110,6 +110,7 @@ public class FightControll : MonoBehaviour
                     newheroCard.GetComponent<Image>().raycastTarget = false;    //关闭射线控制拖拽
                     newheroCard.GetComponent<HeroDataControll>().HeroData = enemyHeroDatas[i][m];   //传递卡牌数据
                     newheroCard.GetComponent<HeroDataControll>().Grade_hero = int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count-2]); //传递阶值
+                    newheroCard.GetComponent<HeroDataControll>().BattleNums = int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count-1]); //传递战斗回合数
                     //设置品阶颜色表现和属性
                     switch (int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2]))
                     {
