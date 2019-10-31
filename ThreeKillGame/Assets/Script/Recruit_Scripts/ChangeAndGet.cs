@@ -224,6 +224,7 @@ public class ChangeAndGet : MonoBehaviour
         List<string> newData = LoadJsonFile.DeepClone<string>(heroData);    //list深拷贝
         newheroCard.GetComponent<HeroDataControll>().HeroData = newData;
         //设置品阶颜色表现和属性
+        newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = grade.ToString();
         switch (grade)
         {
             case 1:

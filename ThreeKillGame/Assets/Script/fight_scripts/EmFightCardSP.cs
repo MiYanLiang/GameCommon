@@ -118,6 +118,7 @@ public class EmFightCardSP : MonoBehaviour
     //            string[] heroIdandclass = worksheet_NPC.worksheet.Cells[battles + 1, 6 + i].Value.ToString().Split(',');
     //            int grade_Addition = (int)Mathf.Pow(2, (heroIdandclass[1] != null ? int.Parse(heroIdandclass[1]) : 1) - 1);  //获取武将品阶加成
     //            //根据品阶，设置敌方武将卡牌外观
+    //            newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2];
     //            switch (heroIdandclass[1])
     //            {
     //                case "1":
