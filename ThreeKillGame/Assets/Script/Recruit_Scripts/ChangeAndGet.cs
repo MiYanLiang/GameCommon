@@ -140,10 +140,14 @@ public class ChangeAndGet : MonoBehaviour
                     if (gradeone[i] < 9)  //在九宫格中
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
+                        if (jiugongge.GetChild(gradeone[0]).childCount>0)
+                            Destroy(jiugongge.GetChild(gradeone[0]).GetChild(0).gameObject);   //销毁新生成的二阶武将卡牌
                     }
                     else    //在备战位中
                     {
                         Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
+                        if (preparation.GetChild(gradeone[0] - 9).childCount > 0)
+                            Destroy(jiugongge.GetChild(gradeone[0]).GetChild(0).gameObject);   //销毁新生成的二阶武将卡牌
                     }
                 }
                 for (int i = 0; i < 2; i++)
@@ -217,7 +221,8 @@ public class ChangeAndGet : MonoBehaviour
         //实例化武将卡牌到备战位,并传递数据过去
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
-        newheroCard.GetComponent<HeroDataControll>().HeroData = heroData;
+        List<string> newData = LoadJsonFile.DeepClone<string>(heroData);    //list深拷贝
+        newheroCard.GetComponent<HeroDataControll>().HeroData = newData;
         //设置品阶颜色表现和属性
         switch (grade)
         {
@@ -232,6 +237,7 @@ public class ChangeAndGet : MonoBehaviour
                 break;
         }
         newheroCard.GetComponent<HeroDataControll>().Grade_hero = grade;
+        newheroCard.GetComponent<HeroDataControll>().BattleNums = 0;
         if (grade==1)
         {
             newheroCard.GetComponent<HeroDataControll>().Price_hero = price;

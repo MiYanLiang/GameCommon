@@ -57,6 +57,13 @@ public class HeroIdChangeAndSave : MonoBehaviour
         CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
+        Invoke("LoadTextOfNum",0.1f);
+    }
+    //延时刷新备战位和上阵位人数显示
+    private void LoadTextOfNum()
+    {
+        GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
+        GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
     }
 
     private void Awake()
