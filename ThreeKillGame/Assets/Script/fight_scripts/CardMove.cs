@@ -73,9 +73,11 @@ public class CardMove : MonoBehaviour
     public float ArmorPenetrationRate { get => armorPenetrationRate; set => armorPenetrationRate = value; }
 
     Vector3 vec = new Vector3();    //记录卡牌初始位置
+    //Animation anim = new Animation();
 
     private void Awake()
     {
+        
         isFightInThisBout = false;
         FightNums = 0;
     }
@@ -100,8 +102,15 @@ public class CardMove : MonoBehaviour
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position, moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == Enemyindex.transform.position)
             {
-                realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
+                //anim = Enemyindex.GetComponent<Animation>();
 
+                realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
+                if (realDamage > 0) //显示造成伤害值
+                {
+                    enemyindex.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
+                    enemyindex.transform.GetChild(5).gameObject.SetActive(true);
+                }
+                
                 //敌方血条的计算和显示
                 Enemyindex.GetComponent<CardMove>().Health = Enemyindex.GetComponent<CardMove>().Health - realDamage;
                 if (Enemyindex.GetComponent<CardMove>().Health < 0)
@@ -112,10 +121,13 @@ public class CardMove : MonoBehaviour
         if (IsAttack == StateOfAttack.FightOver)
         {
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, moveSpeed * Time.deltaTime);
-            if (gameObject.transform.position == vec)
+            if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)
             {
+                enemyindex.transform.GetChild(4).gameObject.SetActive(false);
+                enemyindex.transform.GetChild(5).gameObject.SetActive(false);
+                //anim.Stop("fightCardStatus");
                 FightCardSP.isFightNow = false;
-                ChangeToFight(0);
+                ChangeToFight(StateOfAttack.ReadyForFight);
             }
         }
     }
@@ -128,12 +140,18 @@ public class CardMove : MonoBehaviour
         if (TakeSpecialAttack(Enemyindex.GetComponent<CardMove>().DodgeRate))
         {
             Debug.Log("闪避");
+            Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "闪避";
+            enemyindex.transform.GetChild(4).gameObject.SetActive(true);
+            //anim.Play("fightCardStatus");
             return 0;
         }
         //计算是否触发重击
         if (TakeSpecialAttack(ThumpRate))
         {
             Debug.Log("重击");
+            Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "重击";
+            enemyindex.transform.GetChild(4).gameObject.SetActive(true);
+            //anim.Play("fightCardStatus");
             force = (int)(force * ThumpDamage);
         }
         else
@@ -142,6 +160,9 @@ public class CardMove : MonoBehaviour
             if (TakeSpecialAttack(CritRate))
             {
                 Debug.Log("暴击");
+                Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "暴击";
+                enemyindex.transform.GetChild(4).gameObject.SetActive(true);
+                //anim.Play("fightCardStatus");
                 force = (int)(force * CritDamage);
             }
         }
