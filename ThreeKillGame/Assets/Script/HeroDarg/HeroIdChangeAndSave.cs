@@ -45,6 +45,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     List<string> fetterArray = new List<string>();
     List<string> intersectionArray = new List<string>();  //存放交集
     List<int> fetterIndex = new List<int>();//存放激活羁绊的id   每次传需要清除，现在没清
+    int forcesIndex;
 
     string[] a;
     string[] b;
@@ -67,12 +68,21 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     private void Awake()
     {
-        forcesName.GetComponent<Text>().text = "炎";//左侧信息栏显示，暂时没有数据
+        forcesIndex = PlayerPrefs.GetInt("forcesId");
+        for (int i = 0; i < 11; i++)
+        {
+            if (int.Parse(LoadJsonFile.forcesTableDatas[i][0]) == forcesIndex)
+            {
+                forcesName.GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[i][4];//左侧信息栏显示
+            }
+        }
         SelectHerpCard = null;
         for (int i = 0; i < pos_heroId.Length; i++)
         {
             pos_heroId[i] = 0;
         }
+        //拿到当前声望
+        print("声望(prestigeNum):"+PlayerPrefs.GetInt("prestigeNum"));
     }
     /// <summary>
     /// 刷新保存当前拥有的武将id

@@ -10,6 +10,8 @@ public class BeginSend : MonoBehaviour
     public ForcesChoose FC;
     int DifficultyType;
     int forcesId;
+    public GameObject Prestige; //声望
+    int prestigeNum; //声望值
     List<int> fetterId = new List<int>();
     void Start()
     {
@@ -29,6 +31,7 @@ public class BeginSend : MonoBehaviour
         //print("势力ID："+ forcesId);
         PlayerPrefs.SetInt("DifficultyType", DifficultyType);   //难度值1-4
         PlayerPrefs.SetInt("forcesId",forcesId);                //玩家势力ID 1-11
+        PlayerPrefs.SetInt("prestigeNum",prestigeNum);
         //PlayerPrefs.SetInt("forcesId0",fetterId[0]+1);
         //PlayerPrefs.SetInt("forcesId1", fetterId[1]+1);
         //PlayerPrefs.SetInt("forcesId2", fetterId[2]+1);
@@ -60,5 +63,6 @@ public class BeginSend : MonoBehaviour
     {
         forcesId = FC.currentForcesIndex+1;
         fetterId = FC.getForces;
+        prestigeNum = int.Parse(Prestige.GetComponent<Text>().text);
     }
 }

@@ -33,7 +33,7 @@ public class ForcesChoose : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        //ShowSelected();
+        ShowSelected();
         //print(currentForcesIndex);
     }
     //读表
