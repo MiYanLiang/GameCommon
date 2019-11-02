@@ -33,7 +33,10 @@ public class Roots
     /// 羁绊表
     /// </summary>
     public List<FetterTableItem> FetterTable { get; set; }
-
+    /// <summary>
+    /// 结算声望表
+    /// </summary>
+    public List<PrestigeTableItem> PrestigeTable { get; set; }
 }
 
 

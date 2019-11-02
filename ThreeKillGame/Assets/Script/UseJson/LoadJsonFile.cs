@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;PrestigeTable";
 
 
     /// <summary>
@@ -51,6 +51,10 @@ public class LoadJsonFile : MonoBehaviour
     /// </summary>
     public static List<List<string>> FetterTableDates;
 
+    /// <summary>
+    /// 结算声望表
+    /// </summary>
+    public static List<List<string>> PrestigeTableDates;
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -218,7 +222,23 @@ public class LoadJsonFile : MonoBehaviour
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
-
+        //加载结算声望表数据:PrestigeTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            PrestigeTableDates = new List<List<string>>(root.PrestigeTable.Count);
+            for (int i = 0; i < root.PrestigeTable.Count; i++)
+            {
+                PrestigeTableDates.Add(new List<string>());
+                PrestigeTableDates[i].Add(root.PrestigeTable[i].id);
+                PrestigeTableDates[i].Add(root.PrestigeTable[i].degree);
+                PrestigeTableDates[i].Add(root.PrestigeTable[i].first);
+                PrestigeTableDates[i].Add(root.PrestigeTable[i].second);
+                PrestigeTableDates[i].Add(root.PrestigeTable[i].third);
+                PrestigeTableDates[i].Add(root.PrestigeTable[i].fail);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
 
 
         if (indexTable>= tableNames.Length)
