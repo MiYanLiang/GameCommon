@@ -66,7 +66,6 @@ public class CreateAndUpdate : MonoBehaviour
 
     [SerializeField]
     Text text_level;    //等级显示
-    UseEPPlusFun useFun = new UseEPPlusFun();
 
     /// <summary>
     /// 战斗结束后增加金币和经验

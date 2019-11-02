@@ -283,14 +283,23 @@ public class ChangeAndGet : MonoBehaviour
     /// <returns></returns>
     private int SearchEmptyEpace(int num)
     {
-        while (preparation.GetChild(num).childCount > 0)
+        int nums = 0;   //记录备战位武将数量
+        for (int i = 0; i < preparation.childCount; i++)
         {
-            num++;
-            if (num >= CreateAndUpdate.prepareNum)
+            if (preparation.GetChild(i).childCount>0)
             {
-                Debug.Log("备战位已满");
-                return -1;
+                nums++;
             }
+        }
+        if (nums>=CreateAndUpdate.prepareNum)
+        {
+            Debug.Log("备战位已满");
+            return -1;
+        }
+        else
+        {
+            while (preparation.GetChild(num).childCount > 0)
+                num++;
         }
         return num;
     }
