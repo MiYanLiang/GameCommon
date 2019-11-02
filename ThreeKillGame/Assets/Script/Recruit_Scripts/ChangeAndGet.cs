@@ -287,9 +287,7 @@ public class ChangeAndGet : MonoBehaviour
         for (int i = 0; i < preparation.childCount; i++)
         {
             if (preparation.GetChild(i).childCount>0)
-            {
                 nums++;
-            }
         }
         if (nums>=CreateAndUpdate.prepareNum)
         {

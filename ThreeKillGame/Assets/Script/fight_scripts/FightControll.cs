@@ -143,7 +143,8 @@ public class FightControll : MonoBehaviour
                             break;
                     }
                     //显示英雄名等信息
-                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][0] + ":" + enemyHeroDatas[i][m][1];
+                    //newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][0] + ":" + enemyHeroDatas[i][m][1];
+                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(1).GetComponent<Text>().text = enemyHeroDatas[i][m][6];
                     newheroCard.transform.GetChild(2).GetComponent<Text>().text = enemyHeroDatas[i][m][7];
                 }
@@ -171,8 +172,8 @@ public class FightControll : MonoBehaviour
             }
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
-        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
-        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().array_forces[rivalId], typeof(Sprite)) as Sprite; //设置对手势力的头像
+        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
+        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().array_forces[rivalId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
 
         FightCardSps[0].gameObject.SetActive(true);
     }
@@ -181,10 +182,11 @@ public class FightControll : MonoBehaviour
     //打开或者关闭战斗界面
     public void OpenOrCloseFightTV(bool boo)
     {
-        for (int i = 0; i < 6; i++)
-        {
-            FightTVs[i].gameObject.SetActive(boo);
-        }
+        FightTVs[0].gameObject.SetActive(boo);
+        //for (int i = 0; i < 6; i++)
+        //{
+        //    FightTVs[i].gameObject.SetActive(boo);
+        //}
     }
 
 

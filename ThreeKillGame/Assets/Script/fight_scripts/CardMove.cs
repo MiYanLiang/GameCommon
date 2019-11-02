@@ -18,6 +18,9 @@ public class CardMove : MonoBehaviour
 
     public bool isFightInThisBout; //当前回合是否进行过攻击
 
+    private string armsId; //武将兵种
+    public string ArmsId { get => armsId; set => armsId = value; }
+
     private int fightNums;  //参与战斗周目数
     public int FightNums { get => fightNums; set => fightNums = value; }
 
@@ -77,10 +80,22 @@ public class CardMove : MonoBehaviour
 
     private void Awake()
     {
-        
         isFightInThisBout = false;
         FightNums = 0;
     }
+
+    private void Start()
+    {
+        //设置兵种背景
+        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + ArmsId, typeof(Sprite)) as Sprite;
+        //攻击力显示
+        transform.GetChild(6).GetComponent<Text>().text = Force.ToString();
+        //防御力显示
+        transform.GetChild(7).GetComponent<Text>().text = Defence.ToString();
+        //品阶显示
+        transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
+    }
+
 
     /// <summary>
     /// 其他必要值的赋值

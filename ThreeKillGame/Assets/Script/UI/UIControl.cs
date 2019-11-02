@@ -6,14 +6,14 @@ using UnityEngine.UI;
 public class UIControl : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Text gold;       //玩家金币
+    public Text gold;          //玩家金币
     //public CreateAndUpdate cau;
 
     [SerializeField]
-    Image playerForcePic;    //玩家势力头像
+    Image playerForcePic;      //玩家势力头像
     public int playerForceId;  //玩家势力ID
     [SerializeField]
-    Image[] otherForcePic;    //其他势力头像
+    Image[] otherForcePic;     //其他势力头像
     [HideInInspector]
     public int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
     [HideInInspector]

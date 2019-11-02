@@ -82,6 +82,8 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
                 //品阶
                 enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count-2]);
+                //兵种
+                enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
                 //血量
                 enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力
@@ -102,6 +104,22 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
                 enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                //稀有度设置文字颜色表现
+                switch (int.Parse(datas[4]))
+                {
+                    case 1:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                        break;
+                    case 2:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                        break;
+                    case 3:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                        break;
+                    case 4:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                        break;
+                }
                 enemyCards[i].GetComponent<CardMove>().OtherDataSet();
                 //datas.Clear();
 
@@ -166,6 +184,8 @@ public class FightCardSP : MonoBehaviour
                 playerCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
                 //品阶
                 playerCards[i].GetComponent<CardMove>().Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
+                //兵种
+                playerCards[i].GetComponent<CardMove>().ArmsId = datas[3];
                 //血量
                 playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力
@@ -185,7 +205,23 @@ public class FightCardSP : MonoBehaviour
                 //破甲百分比
                 playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];    
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                //稀有度设置文字颜色表现
+                switch (int.Parse(datas[4]))
+                {
+                    case 1:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                        break;
+                    case 2:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                        break;
+                    case 3:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                        break;
+                    case 4:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                        break;
+                }
                 playerCards[i].GetComponent<CardMove>().OtherDataSet();
                 //datas.Clear();
             }

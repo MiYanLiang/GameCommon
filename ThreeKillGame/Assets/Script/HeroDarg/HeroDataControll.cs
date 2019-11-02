@@ -71,7 +71,8 @@ public class HeroDataControll : MonoBehaviour {
         {
             //Debug.Log("//传递成功--"+heroData[1]);
             //显示英雄名等信息
-            gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[0] + ":" + HeroData[1];
+            //gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[0] + ":" + HeroData[1];
+            gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
             gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroData[7];
             //设置兵种背景
