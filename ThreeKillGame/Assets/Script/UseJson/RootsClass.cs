@@ -37,6 +37,10 @@ public class Roots
     /// 结算声望表
     /// </summary>
     public List<PrestigeTableItem> PrestigeTable { get; set; }
+    /// <summary>
+    /// 战役表
+    /// </summary>
+    public List<BattleTableItem> BattleTable { get; set; }
 }
 
 

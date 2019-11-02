@@ -1,0 +1,21 @@
+{
+	"BattleTable": [{
+			"id": "1",
+			"battle": "逐鹿之战",
+			"battleIntro": "黄帝和蚩尤打架的故事，巴拉巴拉巴拉",
+			"forceId": "1,2"
+		},
+		{
+			"id": "2",
+			"battle": "阪泉之战",
+			"battleIntro": "黄帝和炎帝打架的故事，巴拉巴拉巴拉",
+			"forceId": "2,3"
+		},
+		{
+			"id": "3",
+			"battle": "怒触不周山",
+			"battleIntro": "共工撞击不周山，女娲补天的故事，巴拉巴拉",
+			"forceId": "1,2,5"
+		}
+	]
+}

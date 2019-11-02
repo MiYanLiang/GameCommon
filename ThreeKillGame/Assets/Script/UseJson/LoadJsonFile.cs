@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;PrestigeTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;PrestigeTable;BattleTable";
 
 
     /// <summary>
@@ -55,6 +55,11 @@ public class LoadJsonFile : MonoBehaviour
     /// 结算声望表
     /// </summary>
     public static List<List<string>> PrestigeTableDates;
+
+    /// <summary>
+    /// 战役表
+    /// </summary>
+    public static List<List<string>> BattleTableDates;
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -236,6 +241,21 @@ public class LoadJsonFile : MonoBehaviour
                 PrestigeTableDates[i].Add(root.PrestigeTable[i].second);
                 PrestigeTableDates[i].Add(root.PrestigeTable[i].third);
                 PrestigeTableDates[i].Add(root.PrestigeTable[i].fail);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载战役表数据:BattleTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            BattleTableDates = new List<List<string>>(root.BattleTable.Count);
+            for (int i = 0; i < root.BattleTable.Count; i++)
+            {
+                BattleTableDates.Add(new List<string>());
+                BattleTableDates[i].Add(root.BattleTable[i].id);
+                BattleTableDates[i].Add(root.BattleTable[i].battle);
+                BattleTableDates[i].Add(root.BattleTable[i].battleIntro);
+                BattleTableDates[i].Add(root.BattleTable[i].forceId);
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }

@@ -19,7 +19,7 @@
 			"index": "3",
 			"forcesChoose": "蚩尤",
 			"forceIntro": "南疆地势险要，数百部族各自称王。九黎部族长蚩尤率心腹81人，降服众族，于山岭之间筑起九黎城，屯兵聚强，一时名声大噪。",
-			"Prestige": "100",
+			"Prestige": "0",
 			"forcesSign": "蚩",
 			"forcesName": "魔王蚩尤"
 		},
@@ -75,7 +75,7 @@
 			"index": "10",
 			"forcesChoose": "大禹",
 			"forceIntro": "神劫之后，大禹率领人族部众抵御水患火灾，消除妖兽祸根，开拓新的疆域。",
-			"Prestige": "10000",
+			"Prestige": "0",
 			"forcesSign": "禹",
 			"forcesName": "贤圣大禹"
 		},

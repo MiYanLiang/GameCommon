@@ -12,6 +12,8 @@ public class BeginSend : MonoBehaviour
     int forcesId;
     public GameObject Prestige; //声望
     int prestigeNum; //声望值
+    //int forcePrestigeNum;//当前势力所需声望
+    public GameObject forcesText; //主界面的最上方势力解说Text
     List<int> fetterId = new List<int>();
     void Start()
     {
@@ -30,15 +32,22 @@ public class BeginSend : MonoBehaviour
         //print("难度："+DifficultyType);
         //print("势力ID："+ forcesId);
         PlayerPrefs.SetInt("DifficultyType", DifficultyType);   //难度值1-4
-        PlayerPrefs.SetInt("forcesId",forcesId);                //玩家势力ID 1-11
-        PlayerPrefs.SetInt("prestigeNum",prestigeNum);
+        PlayerPrefs.SetInt("forcesId", forcesId);                //玩家势力ID 1-11
+        PlayerPrefs.SetInt("prestigeNum", prestigeNum);
         //PlayerPrefs.SetInt("forcesId0",fetterId[0]+1);
         //PlayerPrefs.SetInt("forcesId1", fetterId[1]+1);
         //PlayerPrefs.SetInt("forcesId2", fetterId[2]+1);
         //PlayerPrefs.SetInt("forcesId3", fetterId[3]+1);
         //PlayerPrefs.SetInt("forcesId4", fetterId[4]+1);
         //PlayerPrefs.SetInt("forcesId5", fetterId[5]+1);
-        SceneManager.LoadScene(1);
+        if (int.Parse(LoadJsonFile.forcesTableDatas[FC.currentForcesIndex][3]) <= prestigeNum)
+        {
+            SceneManager.LoadScene(1);
+        }
+        else
+        {
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + "您的声望值不足，无法选中此势力。";
+        }
     }
     void GetDifficultyType()
     {
