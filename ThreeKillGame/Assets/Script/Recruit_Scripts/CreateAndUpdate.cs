@@ -24,7 +24,15 @@ public class CreateAndUpdate : MonoBehaviour
     List<int> player5Card = new List<int>();
     public List<GameObject> heroBtn = new List<GameObject>();
     List<int> excelText = new List<int>();
-    List<string> heroName = new List<string>();
+    List<string> heroName = new List<string>();  //招募英雄名字
+    List<string> soliderKind = new List<string>(); //招募英雄种类
+    List<string> soliderAttack = new List<string>();//招募英雄攻击
+    List<string> soliderDefense = new List<string>();//招募英雄防御
+    List<string> soliderForce = new List<string>();//招募英雄势力
+    List<string> soliderMoney = new List<string>();//招募英雄花费
+    List<string> soliderRarity = new List<string>();//招募英雄稀有度
+    public List<string> allIdList = new List<string>();     //全部英雄id
+    List<string> heroNum = new List<string>();//招募显示英雄数量
     //各色卡牌合集
     List<int> greenCard = new List<int>();
     List<int> blueCard = new List<int>();
@@ -158,6 +166,12 @@ public class CreateAndUpdate : MonoBehaviour
         for (int i = 0; i < excelText.Count; i++)
         {
             GetSpecificValue(excelText[i], "roleName");
+            GetSpecificValue(excelText[i], "recruitingMoney");
+            GetSpecificValue(excelText[i], "soliderDefense");
+            GetSpecificValue(excelText[i], "soliderAttack");
+            GetSpecificValue(excelText[i], "soliderKind");
+            GetSpecificValue(excelText[i], "soliderForce");
+            GetSpecificValue(excelText[i], "soliderRarity");
         }
         GetHeroRarity();
         GetHeroRarityId();
@@ -1055,6 +1069,12 @@ public class CreateAndUpdate : MonoBehaviour
             SetPeopleHarets();
             myCard.Clear();
             heroName.Clear();
+            soliderAttack.Clear();
+            soliderMoney.Clear();
+            soliderDefense.Clear();
+            soliderKind.Clear();
+            soliderForce.Clear();
+            soliderRarity.Clear();
             //heroBtn.Clear();
             switch (level)
             {
@@ -1617,8 +1637,120 @@ public class CreateAndUpdate : MonoBehaviour
         for (int i = 0; i < heroName.Count; i++)
         {
 
-            heroBtn[i].GetComponentInChildren<Text>().text = heroName[i].ToString();
-            //heroBtn[i].GetComponentInChildren<Text>().tag = getHeroId[i].ToString();
+            //heroBtn[i].GetComponentInChildren<Text>().text = heroName[i].ToString();
+            //兵种显示
+            if (soliderKind[i].ToString() == "1")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "山兽";
+            }
+            else if (soliderKind[i].ToString() == "2")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "海兽";
+            }
+            else if (soliderKind[i].ToString() == "3")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "飞兽";
+            }
+            else if (soliderKind[i].ToString() == "4")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "人杰";
+            }
+            else if (soliderKind[i].ToString() == "5")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "祖巫";
+            }
+            else if (soliderKind[i].ToString() == "6")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "散仙";
+            }
+            else if (soliderKind[i].ToString() == "7")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "辅神";
+            }
+            else if (soliderKind[i].ToString() == "8")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "魔神";
+            }
+            else if (soliderKind[i].ToString() == "9")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "天神";
+            }
+            else if (soliderKind[i].ToString() == "10")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "神兽";
+            }
+            //英雄名字显示
+            heroBtn[i].GetComponentsInChildren<Text>()[1].text = heroName[i].ToString();
+            //根据稀有度设置字体颜色
+            if (soliderRarity[i].ToString() == "1")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+            }
+            else if (soliderRarity[i].ToString() == "2")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+            }
+            else if (soliderRarity[i].ToString() == "3")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+            }
+            else if (soliderRarity[i].ToString() == "4")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+            }
+            //花费显示
+            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderMoney[i].ToString();
+            //攻击显示
+            heroBtn[i].GetComponentsInChildren<Text>()[5].text = soliderAttack[i].ToString();
+            //防御显示
+            heroBtn[i].GetComponentsInChildren<Text>()[6].text = soliderDefense[i].ToString();
+            //势力显示
+            if (soliderForce[i].ToString() == "1")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "炎";
+            }
+            else if (soliderForce[i].ToString() == "2")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "黄";
+            }
+            else if (soliderForce[i].ToString() == "3")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "蚩";
+            }
+            else if (soliderForce[i].ToString() == "4")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "御";
+            }
+            else if (soliderForce[i].ToString() == "5")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "娲";
+            }
+            else if (soliderForce[i].ToString() == "6")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "烛";
+            }
+            else if (soliderForce[i].ToString() == "7")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "乌";
+            }
+            else if (soliderForce[i].ToString() == "8")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "荒";
+            }
+            else if (soliderForce[i].ToString() == "9")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "羲";
+            }
+            else if (soliderForce[i].ToString() == "10")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "禹";
+            }
+            else if (soliderForce[i].ToString() == "11")
+            {
+                heroBtn[i].GetComponentsInChildren<Text>()[7].text = "逍";
+            }
+            //拥有数量显示
+            //heroBtn[i].GetComponentsInChildren<Text>()[3].text =heroNum[i];
             heroBtn[i].name = getCardId[i].ToString();
         }
     }
@@ -1643,13 +1775,40 @@ public class CreateAndUpdate : MonoBehaviour
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (name == "roleName")
+                if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
                 {
-                    heroName.Add(LoadJsonFile.RoleTableDatas[i][1]);
-                }
-                if (name == "attack")
-                {
-                    attack = int.Parse(LoadJsonFile.RoleTableDatas[i][6]);
+                    if (name == "roleName")
+                    {
+                        heroName.Add(LoadJsonFile.RoleTableDatas[i][1]);
+                    }
+                    if (name == "attack")
+                    {
+                        attack = int.Parse(LoadJsonFile.RoleTableDatas[i][6]);
+                    }
+                    if (name == "recruitingMoney")
+                    {
+                        soliderMoney.Add(LoadJsonFile.RoleTableDatas[i][5]);
+                    }
+                    if (name == "soliderAttack")
+                    {
+                        soliderAttack.Add(LoadJsonFile.RoleTableDatas[i][6]);
+                    }
+                    if (name == "soliderDefense")
+                    {
+                        soliderDefense.Add(LoadJsonFile.RoleTableDatas[i][7]);
+                    }
+                    if (name == "soliderKind")
+                    {
+                        soliderKind.Add(LoadJsonFile.RoleTableDatas[i][3]);
+                    }
+                    if (name == "soliderForce")
+                    {
+                        soliderForce.Add(LoadJsonFile.RoleTableDatas[i][2]);
+                    }
+                    if (name == "soliderRarity")
+                    {
+                        soliderRarity.Add(LoadJsonFile.RoleTableDatas[i][4]);
+                    }
                 }
             }
         }

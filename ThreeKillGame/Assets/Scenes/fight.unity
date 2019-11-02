@@ -405,6 +405,7 @@ MonoBehaviour:
   - {fileID: 212797750}
   - {fileID: 1894719166}
   - {fileID: 231210962}
+  allIdList: []
   playerLevel: 1
   peopleHearts: 50
   moraleNum: 90
@@ -1144,7 +1145,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 80095829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1bf72634b47b45afc8e2d0d7c0238, type: 3}
+  m_Script: {fileID: 11500000, guid: def0927a0f5853f46a7b57d769f0ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &80095832
@@ -2458,7 +2459,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 158376031}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1bf72634b47b45afc8e2d0d7c0238, type: 3}
+  m_Script: {fileID: 11500000, guid: def0927a0f5853f46a7b57d769f0ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &158376034
@@ -4722,7 +4723,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 285903779}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1bf72634b47b45afc8e2d0d7c0238, type: 3}
+  m_Script: {fileID: 11500000, guid: def0927a0f5853f46a7b57d769f0ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &285903782
@@ -19357,7 +19358,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1143962113}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1bf72634b47b45afc8e2d0d7c0238, type: 3}
+  m_Script: {fileID: 11500000, guid: def0927a0f5853f46a7b57d769f0ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1143962116
@@ -20045,7 +20046,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1215310048}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a1b1bf72634b47b45afc8e2d0d7c0238, type: 3}
+  m_Script: {fileID: 11500000, guid: def0927a0f5853f46a7b57d769f0ed3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1215310051
