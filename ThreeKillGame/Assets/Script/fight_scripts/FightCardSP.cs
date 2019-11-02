@@ -308,7 +308,8 @@ public class FightCardSP : MonoBehaviour
     {
         if (isPlayerBout)
         {
-            if (enemyCards[fightNum] != null && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
+            //前排位置可以首选同位置对手牌
+            if (fightNum>3 && enemyCards[fightNum] != null && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
             {
                 return enemyCards[fightNum];
             }
