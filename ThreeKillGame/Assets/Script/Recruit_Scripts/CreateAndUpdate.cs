@@ -71,6 +71,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             level++;
             experience = 0;
+            SetMaxBatAndPre();
         }
     }
     /// <summary>
@@ -90,6 +91,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
             level++;
+            experience = 0;
             SetMaxBatAndPre();
             ChangeLevelText();
             Debug.Log("使用金币升级");
@@ -128,7 +130,7 @@ public class CreateAndUpdate : MonoBehaviour
     /// <summary>
     /// 设置最大备战位和上阵位
     /// </summary>
-    private void SetMaxBatAndPre()
+    private static void SetMaxBatAndPre()
     {
         battleNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][4]);  //设置最大上阵位
         prepareNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][5]); //设置最大备战位
