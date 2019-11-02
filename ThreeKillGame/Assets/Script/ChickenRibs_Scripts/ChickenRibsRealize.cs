@@ -471,7 +471,7 @@ public class ChickenRibsRealize : MonoBehaviour
                 CreateAndUpdate.money = money;
                 cau.peopleHearts = peopleHeart;
                 cau.moraleNum = money;
-                cau.playerHp = hp;
+                CreateAndUpdate.playerHp = hp;
             }
             if (int.Parse(currenPointId[0].ToString()) == 7)
             {

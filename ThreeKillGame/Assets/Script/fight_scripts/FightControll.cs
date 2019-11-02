@@ -174,25 +174,17 @@ public class FightControll : MonoBehaviour
         FightCardSps[0].gameObject.SetActive(true);
     }
 
-    public static int[] winTimes;
-
-
+    public static int[] allWinTimes = new int[6] { 0, 0, 0, 0, 0, 0 };
+    public int[] npcPlayerHps = new int[6];
 
     /// <summary>
     /// 战斗npc之间的结算
     /// </summary>
     private void BattleSettlement()
     {
-        int[] npcAllHps = new int[5] { 0, 0, 0, 0, 0 };
         for (int i = 0; i < 5; i++)
         {
-            for (int m = 0; m < 9; m++)
-            {
-                if (enemyHeroDatas[i][m] != null)
-                {
-                    npcAllHps[i] += int.Parse(enemyHeroDatas[i][m][8]);
-                }
-            }
+
         }
     }
 

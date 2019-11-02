@@ -334,8 +334,8 @@ MonoBehaviour:
   playerLevel: 1
   peopleHearts: 50
   moraleNum: 90
-  playerHp: 100
   text_level: {fileID: 1966085884}
+  player_hp: {fileID: 1228916432}
 --- !u!1 &15804874
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,6 +2943,7 @@ MonoBehaviour:
   - {fileID: 1967594411}
   - {fileID: 837913003}
   - {fileID: 202457983}
+  npcPlayerHps: 000000000000000000000000000000000000000000000000
 --- !u!114 &171646703
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6943,7 +6944,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 100
+  m_Text: 50
 --- !u!222 &369467222
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24344,7 +24345,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_hp: {fileID: 1228916432}
-  updateBtn: {fileID: 11389983}
   victoryOrFailureText: {fileID: 1092569034}
   battles: 0
   jiugongge_BrforeFight: {fileID: 556946925}

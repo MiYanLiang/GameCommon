@@ -55,7 +55,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     public int peopleHearts;        //民心
     public int moraleNum;           //士气
-    public int playerHp;            //血量
+    public static int playerHp;     //血量
     public static int money;        //金币
     public static int level;        //等级
     public static int experience;   //经验
@@ -66,7 +66,8 @@ public class CreateAndUpdate : MonoBehaviour
 
     [SerializeField]
     Text text_level;    //等级显示
-
+    [SerializeField]
+    Slider player_hp;//玩家血条
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
@@ -116,6 +117,7 @@ public class CreateAndUpdate : MonoBehaviour
         text_level.text = level.ToString();
         experience = 0;
         money = 100;
+
     }
 
     void Start()
@@ -132,6 +134,10 @@ public class CreateAndUpdate : MonoBehaviour
         PlayerRandom();
         GetExcelFile();
         HeroLocation();
+        //玩家血量设置
+        playerHp = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
+        player_hp.value = playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
+        player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
     }
 
     /// <summary>
