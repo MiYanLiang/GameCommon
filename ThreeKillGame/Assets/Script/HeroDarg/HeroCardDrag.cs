@@ -15,10 +15,14 @@ public class HeroCardDrag : MonoBehaviour {
     /// GameObject.Find("Canvas").transform;)
     /// </summary>
     private Transform canvas_Transform;
+    private Transform jiuGongge_Transform;
+    private Transform preparation_Transform;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         canvas_Transform = GameObject.Find("Canvas").transform;
+        jiuGongge_Transform = GameObject.Find("JiuGongge").transform;
+        preparation_Transform = GameObject.Find("Preparation").transform;
         backGround = canvas_Transform.GetChild(0);
     }
     private void Update()
@@ -62,14 +66,44 @@ public class HeroCardDrag : MonoBehaviour {
             return;
 
         GameObject go = _eventData.pointerCurrentRaycast.gameObject;    //释放时鼠标透过拖动的Image后的物体
-        if (go.tag == "Grid")  //如果拖动卡牌下是：没有卡牌的格子时
+        if (go.tag == "GridJ" || go.tag == "GridP")  //如果拖动卡牌下是：没有卡牌的格子时
         {
-            //将原先的位置武将卡牌号存为0
-            HeroIdChangeAndSave.pos_heroId[int.Parse(beginParentTransform.name)] = 0;
-            SetPosAndParent(transform, go.transform);
-            transform.GetComponent<Image>().raycastTarget = true;
-            //将新的位置的武将卡牌号存为当前武将的id
-            HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.name)] = int.Parse(transform.GetComponent<HeroDataControll>().HeroData[0]);
+            //判断上阵位是否已满
+            int battleNums = 0;
+            if (go.tag == "GridJ")
+            {
+                for (int i = 0; i < jiuGongge_Transform.childCount; i++)
+                {
+                    if (jiuGongge_Transform.GetChild(i).childCount > 0)
+                        battleNums++;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < preparation_Transform.childCount; i++)
+                {
+                    if (preparation_Transform.GetChild(i).childCount > 0)
+                        battleNums++;
+                }
+            }
+            if ((go.tag == "GridP" && battleNums >= CreateAndUpdate.prepareNum) || (go.tag == "GridJ" && battleNums >=CreateAndUpdate.battleNum))
+            {
+                if (go.tag == "GridJ")
+                    Debug.Log("上阵位已满");
+                else
+                    Debug.Log("备战位已满");
+                SetPosAndParent(transform, beginParentTransform);
+                transform.GetComponent<Image>().raycastTarget = true;
+            }
+            else
+            {
+                //将原先的位置武将卡牌号存为0
+                HeroIdChangeAndSave.pos_heroId[int.Parse(beginParentTransform.name)] = 0;
+                SetPosAndParent(transform, go.transform);
+                transform.GetComponent<Image>().raycastTarget = true;
+                //将新的位置的武将卡牌号存为当前武将的id
+                HeroIdChangeAndSave.pos_heroId[int.Parse(go.transform.name)] = int.Parse(transform.GetComponent<HeroDataControll>().HeroData[0]);
+            }
         }
         else if (go.tag == "Card") //如果是其他卡牌
         {

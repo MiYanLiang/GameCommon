@@ -10,7 +10,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public Transform JiuGongGe; //九宫格
     public Transform BeiZhanWei;//备战位
 
-
     public List<string> fightIdList = new List<string>();   //上阵英雄id
     public List<string> allIdList = new List<string>();     //全部英雄id
 

@@ -8,6 +8,8 @@ TagManager:
   - Image
   - Card
   - Grid
+  - GridJ
+  - GridP
   layers:
   - Default
   - TransparentFX

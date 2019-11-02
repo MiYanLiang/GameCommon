@@ -51,6 +51,9 @@ public class CreateAndUpdate : MonoBehaviour
     public static int money;        //金币
     public static int level;        //等级
     public static int experience;   //经验
+    public static int battleNum;    //上阵位
+    public static int prepareNum;   //备战位
+
     int damageAll;
 
     [SerializeField]
@@ -87,6 +90,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
             level++;
+            SetMaxBatAndPre();
             ChangeLevelText();
             Debug.Log("使用金币升级");
         }
@@ -107,6 +111,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     void Start()
     {
+        SetMaxBatAndPre();  //设置最大备战位和上阵位
         //ChangeLevelText();
         SetPeopleHarets();
         getCardId.Clear();
@@ -120,11 +125,16 @@ public class CreateAndUpdate : MonoBehaviour
         HeroLocation();
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// 设置最大备战位和上阵位
+    /// </summary>
+    private void SetMaxBatAndPre()
     {
-
+        battleNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][4]);  //设置最大上阵位
+        prepareNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][5]); //设置最大备战位
     }
+
+
     //读取excel表格
     void GetExcelFile()
     {

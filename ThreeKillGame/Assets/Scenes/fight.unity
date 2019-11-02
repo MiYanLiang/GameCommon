@@ -208,7 +208,7 @@ GameObject:
   - component: {fileID: 3882749}
   m_Layer: 5
   m_Name: 11
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1983,7 +1983,7 @@ GameObject:
   - component: {fileID: 121086201}
   m_Layer: 5
   m_Name: 6
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3095,6 +3095,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTf: {fileID: 643303287}
   description_text: "\u5907\u6218\uFF1A"
+  index: 1
 --- !u!114 &179936495
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5084,7 +5085,7 @@ GameObject:
   - component: {fileID: 311282638}
   m_Layer: 5
   m_Name: 13
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5278,7 +5279,7 @@ GameObject:
   - component: {fileID: 313471383}
   m_Layer: 5
   m_Name: 10
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6023,7 +6024,7 @@ GameObject:
   - component: {fileID: 349070470}
   m_Layer: 5
   m_Name: 2
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6560,7 +6561,7 @@ GameObject:
   - component: {fileID: 364439041}
   m_Layer: 5
   m_Name: 9
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12885,7 +12886,7 @@ GameObject:
   - component: {fileID: 792660742}
   m_Layer: 5
   m_Name: 0
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13035,7 +13036,7 @@ GameObject:
   - component: {fileID: 812451343}
   m_Layer: 5
   m_Name: 1
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13345,8 +13346,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -434.2, y: 681}
-  m_SizeDelta: {x: 148, y: 98}
+  m_AnchoredPosition: {x: -434.2, y: 700}
+  m_SizeDelta: {x: 148, y: 65}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &821019193
 MonoBehaviour:
@@ -13897,7 +13898,7 @@ GameObject:
   - component: {fileID: 846337264}
   m_Layer: 5
   m_Name: 4
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17692,7 +17693,7 @@ GameObject:
   - component: {fileID: 1089343546}
   m_Layer: 5
   m_Name: 7
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19608,7 +19609,7 @@ GameObject:
   - component: {fileID: 1171003550}
   m_Layer: 5
   m_Name: 15
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20767,7 +20768,7 @@ GameObject:
   - component: {fileID: 1240356794}
   m_Layer: 5
   m_Name: 8
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21033,7 +21034,7 @@ GameObject:
   - component: {fileID: 1248352196}
   m_Layer: 5
   m_Name: 12
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22017,7 +22018,7 @@ GameObject:
   - component: {fileID: 1341790795}
   m_Layer: 5
   m_Name: 5
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28726,6 +28727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   parentTf: {fileID: 556946925}
   description_text: "\u4E0A\u9635\uFF1A"
+  index: 0
 --- !u!114 &1838931212
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32125,7 +32127,7 @@ GameObject:
   - component: {fileID: 2000639016}
   m_Layer: 5
   m_Name: 14
-  m_TagString: Grid
+  m_TagString: GridP
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34023,7 +34025,7 @@ GameObject:
   - component: {fileID: 2145390952}
   m_Layer: 5
   m_Name: 3
-  m_TagString: Grid
+  m_TagString: GridJ
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -286,7 +286,7 @@ public class ChangeAndGet : MonoBehaviour
         while (preparation.GetChild(num).childCount > 0)
         {
             num++;
-            if (num >= preparation.childCount)
+            if (num >= CreateAndUpdate.prepareNum)
             {
                 Debug.Log("备战位已满");
                 return -1;
