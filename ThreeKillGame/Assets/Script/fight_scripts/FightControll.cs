@@ -158,18 +158,14 @@ public class FightControll : MonoBehaviour
     /// </summary>
     public void StartFightSendHeroData()
     {
-        int rivalId= Random.Range(0, 5);    //随机挑选对手
+        int rivalId= Random.Range(0, 5);    //随机挑选对手0,1,2,3,4
         //玩家的敌人设置
         while (true)
         {
             if (backGround.GetComponent<UIControl>().forces_Hp[rivalId]>0)
-            {
                 break;
-            }
             else
-            {
                 rivalId = Random.Range(0, 5);
-            }
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
         playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
@@ -178,6 +174,27 @@ public class FightControll : MonoBehaviour
         FightCardSps[0].gameObject.SetActive(true);
     }
 
+    public static int[] winTimes;
+
+
+
+    /// <summary>
+    /// 战斗npc之间的结算
+    /// </summary>
+    private void BattleSettlement()
+    {
+        int[] npcAllHps = new int[5] { 0, 0, 0, 0, 0 };
+        for (int i = 0; i < 5; i++)
+        {
+            for (int m = 0; m < 9; m++)
+            {
+                if (enemyHeroDatas[i][m] != null)
+                {
+                    npcAllHps[i] += int.Parse(enemyHeroDatas[i][m][8]);
+                }
+            }
+        }
+    }
 
     //打开或者关闭战斗界面
     public void OpenOrCloseFightTV(bool boo)
@@ -188,8 +205,6 @@ public class FightControll : MonoBehaviour
         //    FightTVs[i].gameObject.SetActive(boo);
         //}
     }
-
-
 
     //初始化创建敌方势力和后期要发展的兵种类型
     private void CreateEnemyUnits()
