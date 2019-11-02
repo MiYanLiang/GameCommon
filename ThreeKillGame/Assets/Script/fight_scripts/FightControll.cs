@@ -32,6 +32,16 @@ public class FightControll : MonoBehaviour
     static List<List<string>[]> enemyHeroDatas = new List<List<string>[]>(); 
     static List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
 
+    int difnum = 0; //记录难度值
+    private int[] allWinTimes = new int[5] { 0, 0, 0, 0, 0 };  //npc胜利总数量
+    private int[] npcHeroHps = new int[5] { 0, 0, 0, 0, 0 };   //npc英雄总血量
+    private int[] npcPlayerHps = new int[5];     //npc玩家血量
+    public static int playerHeroHps = 0;  //玩家英雄总血量
+    [SerializeField]
+    Slider[] npcPlayer_hp;//npc玩家血条
+    [SerializeField]
+    Transform textList; //结算战况集合
+
     private void Awake()
     {
         //playerForceId= PlayerPrefs.GetInt("forcesId"); //玩家自身的势力id
@@ -47,6 +57,14 @@ public class FightControll : MonoBehaviour
 
     private void Start()
     {
+        difnum = PlayerPrefs.GetInt("DifficultyType");
+        //更新npc玩家血条
+        for (int i = 0; i < 5; i++)
+        {
+            npcPlayerHps[i] = int.Parse(LoadJsonFile.difficultyChooseDatas[difnum - 1][6]);
+        }
+        NpcHpListUpdate();
+
         CreateEnemyUnits(); //初始化所有NPC势力发展阵容
 
         Invoke("ChangeAllEnemyCards", 0.3f);    //延时加载npc武将
@@ -162,35 +180,113 @@ public class FightControll : MonoBehaviour
         //玩家的敌人设置
         while (true)
         {
-            if (backGround.GetComponent<UIControl>().forces_Hp[rivalId]>0)
+            if (npcPlayerHps[rivalId]>0)
                 break;
             else
                 rivalId = Random.Range(0, 5);
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
-        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
-        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + backGround.GetComponent<UIControl>().array_forces[rivalId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
+        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
+        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.array_forces[rivalId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
 
         FightCardSps[0].gameObject.SetActive(true);
     }
 
-    public static int[] allWinTimes = new int[6] { 0, 0, 0, 0, 0, 0 };
-    public int[] npcPlayerHps = new int[6];
+
 
     /// <summary>
     /// 战斗npc之间的结算
     /// </summary>
-    private void BattleSettlement()
+    public void BattleSettlement()
     {
+        int index_list = 1;
+        int[] enemyForceIndex = new int[5] { -1, -1, -1, -1, -1 };  //记录每个npc匹配到的对手势力
+        //计算各npc英雄总血量
         for (int i = 0; i < 5; i++)
         {
+            for (int m = 0; m < 9; m++)
+            {
+                if (enemyHeroDatas[i][m] != null)
+                {
+                    npcHeroHps[i] += int.Parse(enemyHeroDatas[i][m][8]);
+                }
+            }
+        }
+        //挑选对手
+        for (int i = 0; i < 5; i++)
+        {
+            if (npcPlayerHps[i] > 0)
+            {
+                int enem = Random.Range(0, 6);  //5为玩家自身
+                while (true)
+                {
+                    if (enem == 5)
+                        break;
+                    if (enem != i && npcPlayerHps[enem] > 0)
+                        break;
+                    enem = Random.Range(0, 6);
+                }
+                enemyForceIndex[i] = enem;
 
+                if (enem == 5)
+                {
+                    if (npcHeroHps[i] <= playerHeroHps)  //小于等于玩家的兵力
+                    {
+                        npcPlayerHps[i] -= ((int)(30 * (1 - (float)npcHeroHps[i] / playerHeroHps)) + Random.Range(0, 5));
+                        //显示战况信息
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=red>{1}</color>        <color=blue>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                    }
+                    else
+                    {
+                        allWinTimes[i]++;
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=green>{1}</color>        <color=blue>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                    }
+                }
+                else
+                {
+                    if (npcHeroHps[i] <= npcHeroHps[enem])
+                    {
+                        npcPlayerHps[i] -= ((int)(30 * (1 - (float)npcHeroHps[i] / npcHeroHps[enem])) + Random.Range(0, 5));
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                    }
+                    else
+                    {
+                        allWinTimes[i]++;
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                    }
+                }
+                index_list++;
+            }
+        }
+
+        
+    }
+
+    /// <summary>
+    /// 更新npc玩家血条
+    /// </summary>
+    private void NpcHpListUpdate()
+    {
+        //清空战况信息
+        for (int i = 0; i < textList.childCount; i++)
+        {
+            textList.GetChild(i).GetComponent<Text>().text = "";
+        }
+        //更新血条
+        int allHp = int.Parse(LoadJsonFile.difficultyChooseDatas[difnum - 1][6]);
+        for (int i = 0; i < 5; i++)
+        {
+            npcPlayer_hp[i].value = npcPlayerHps[i] / (float)allHp;
+            npcPlayer_hp[i].transform.GetChild(3).GetComponent<Text>().text = npcPlayerHps[i].ToString();
         }
     }
+
 
     //打开或者关闭战斗界面
     public void OpenOrCloseFightTV(bool boo)
     {
+        if (boo == false)
+            NpcHpListUpdate();
         FightTVs[0].gameObject.SetActive(boo);
         //for (int i = 0; i < 6; i++)
         //{

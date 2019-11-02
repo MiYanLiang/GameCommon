@@ -13,6 +13,8 @@ public class FightCardSP : MonoBehaviour
     //private GameObject updateBtn;   //招募刷新控件，用来获取脚本
     [SerializeField]
     private Text victoryOrFailureText;  //战斗胜负显示
+    [SerializeField]
+    private GameObject SettlementPic;   //结算页面
 
     private bool isEndOFInit = false;   //记录是否初始化结束
     [HideInInspector]
@@ -25,7 +27,7 @@ public class FightCardSP : MonoBehaviour
     
     public Transform jiugongge_BrforeFight;  //上阵布阵的九宫格
     public GameObject heroFightCard;    //英雄战斗卡片预制件
-    public Transform[] OwnJiuGonggePos=new Transform[9];  //战斗槽位置_玩家
+    public Transform[] OwnJiuGonggePos = new Transform[9];  //战斗槽位置_玩家
     public Transform[] enemyJiuGonggePos = new Transform[9];    //战斗槽位置_敌人
     [HideInInspector]
     public List<string>[] array_str = new List<string>[9]; //接收传递的敌方上阵英雄数据
@@ -33,6 +35,9 @@ public class FightCardSP : MonoBehaviour
     GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
     [SerializeField]
     GameObject[] playerCards = new GameObject[9];//存储己方卡牌
+
+    [SerializeField]
+    Transform fightControll;    //战斗控制代码
 
     UseEPPlusFun useepplusfun = new UseEPPlusFun();
     //TableDatas worksheet_NPC;   //存储npc表
@@ -130,7 +135,8 @@ public class FightCardSP : MonoBehaviour
     }
 
     private void OtherInitialization()
-    {   
+    {
+        FightControll.playerHeroHps = 0;    //玩家英雄总血量
         //BOSS_NPC
         {   
         /* 
@@ -178,6 +184,7 @@ public class FightCardSP : MonoBehaviour
             {
                 //临时存储玩家数据，传递给战斗卡牌
                 List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
+                FightControll.playerHeroHps+= int.Parse(datas[8]);
                 //设置玩家卡牌的默认先后手情况
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
                 //武将ID
@@ -364,7 +371,17 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                         }
+                        //展示战况
+                        SettlementPic.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                        fightControll.GetComponent<FightControll>().BattleSettlement();
                         victoryOrFailureText.gameObject.SetActive(true);
+                        //设置首显战况
+                        Transform tran = SettlementPic.transform.parent;
+                        SettlementPic.transform.SetParent(fightControll);
+                        SettlementPic.transform.SetParent(tran);
+
+                        //延时显示结算界面
+                        Invoke("ShowSettlementPic", 1f);
                         //RecoverCardData();  //战斗结算结束恢复卡牌数值
                         return null;
                     }
@@ -428,7 +445,14 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                         }
+                        SettlementPic.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                        fightControll.GetComponent<FightControll>().BattleSettlement();
+                        Transform tran = SettlementPic.transform.parent;
+                        SettlementPic.transform.SetParent(fightControll);
+                        SettlementPic.transform.SetParent(tran);
+
                         victoryOrFailureText.gameObject.SetActive(true);
+                        Invoke("ShowSettlementPic", 1f);
                         //RecoverCardData();  
                         return null;
                     }
@@ -436,6 +460,11 @@ public class FightCardSP : MonoBehaviour
                 return playerCards[selectEnemy];
             }
         }
+    }
+    //显示结算界面
+    private void ShowSettlementPic()
+    {
+        SettlementPic.gameObject.SetActive(true);
     }
 
     /// <summary>

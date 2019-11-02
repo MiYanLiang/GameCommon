@@ -11,13 +11,12 @@ public class UIControl : MonoBehaviour
 
     [SerializeField]
     Image playerForcePic;      //玩家势力头像
-    public int playerForceId;  //玩家势力ID
+    [HideInInspector]
+    public static int playerForceId;  //玩家势力ID
     [SerializeField]
     Image[] otherForcePic;     //其他势力头像
     [HideInInspector]
-    public int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
-    [HideInInspector]
-    public int[] forces_Hp = { 100, 100, 100, 100, 100 };   //其他势力的血量
+    public static int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
 
     private void Awake()
     {

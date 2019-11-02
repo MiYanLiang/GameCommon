@@ -66,7 +66,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
     }
 
-    private void Awake()
+    private void Start()
     {
         forcesIndex = PlayerPrefs.GetInt("forcesId");
         for (int i = 0; i < 11; i++)
