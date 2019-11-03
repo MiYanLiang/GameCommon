@@ -144,6 +144,9 @@ public class CardMove : MonoBehaviour
             if (gameObject.transform.position == vec_Enemy)
             {
                 audiosource.Play();
+
+                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji",typeof(GameObject))as GameObject ,Enemyindex.transform);
+
                 realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
                 if (realDamage > 0) //显示造成伤害值
                 {
