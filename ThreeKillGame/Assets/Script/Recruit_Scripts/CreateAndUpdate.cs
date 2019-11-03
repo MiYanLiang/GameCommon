@@ -68,6 +68,8 @@ public class CreateAndUpdate : MonoBehaviour
     Text text_level;    //等级显示
     [SerializeField]
     Slider player_hp;//玩家血条
+    [SerializeField]
+    Text textHertNum;   //招募中民心的显示
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
@@ -1645,11 +1647,15 @@ public class CreateAndUpdate : MonoBehaviour
             print("啊，呸，穷鬼");
         }
     }
+
+
+
     //招募显示
     private void HeroLocation()
     {
         //招募中民心的显示
-        GameObject.Find("HertNum").GetComponent<Text>().text= peopleHearts.ToString();
+        textHertNum.text= peopleHearts.ToString();
+
         for (int i = 0; i < heroName.Count; i++)
         {
 

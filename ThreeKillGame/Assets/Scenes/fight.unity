@@ -336,6 +336,7 @@ MonoBehaviour:
   moraleNum: 90
   text_level: {fileID: 1966085884}
   player_hp: {fileID: 1228916432}
+  textHertNum: {fileID: 256859611}
   goldOfGrade: {fileID: 1602380208}
 --- !u!1 &15804874
 GameObject:
