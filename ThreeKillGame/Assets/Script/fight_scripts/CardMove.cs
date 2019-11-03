@@ -76,6 +76,9 @@ public class CardMove : MonoBehaviour
     public float ArmorPenetrationRate { get => armorPenetrationRate; set => armorPenetrationRate = value; }
 
     Vector3 vec = new Vector3();    //记录卡牌初始位置
+
+    Animator anim_Emey; //敌方动画控制器
+
     //Animation anim = new Animation();
 
     private void Awake()
@@ -126,6 +129,7 @@ public class CardMove : MonoBehaviour
                 //计算要攻击后移动到的位置
                 vec_Enemy = Enemyindex.transform.position + (flag * (new Vector3(0, 160, 0)));
                 isCalcul = true;
+                anim_Emey = Enemyindex.GetComponent<Animator>();
             }
             
             //攻击目标，武将先移动到目标身上
@@ -149,6 +153,12 @@ public class CardMove : MonoBehaviour
         }
         if (IsAttack == StateOfAttack.FightOver)
         {
+
+            if (flag == -1)
+                anim_Emey.SetTrigger("heroFightCardShake1");
+            else
+                anim_Emey.SetTrigger("heroFightCardShake");
+
             isCalcul = false;
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)

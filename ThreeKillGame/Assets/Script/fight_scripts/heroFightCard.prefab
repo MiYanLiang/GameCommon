@@ -748,6 +748,7 @@ GameObject:
   - component: {fileID: 5793392468075205094}
   - component: {fileID: 743971470}
   - component: {fileID: 1951681262376790826}
+  - component: {fileID: 1153163130}
   m_Layer: 5
   m_Name: heroFightCard
   m_TagString: Untagged
@@ -856,6 +857,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5793392468075205088}
   m_CullTransparentMesh: 0
+--- !u!95 &1153163130
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5793392468075205088}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 590c2ac5d2ed312458d9ca76fd056953, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5793392468123860460
 GameObject:
   m_ObjectHideFlags: 0
