@@ -53,6 +53,6 @@ public class UIControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gold.text = "金：" + CreateAndUpdate.money;   //玩家金钱显示
+        gold.text = CreateAndUpdate.money + "";   //玩家金钱显示
     }
 }
