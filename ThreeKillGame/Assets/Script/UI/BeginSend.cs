@@ -40,13 +40,21 @@ public class BeginSend : MonoBehaviour
         //PlayerPrefs.SetInt("forcesId3", fetterId[3]+1);
         //PlayerPrefs.SetInt("forcesId4", fetterId[4]+1);
         //PlayerPrefs.SetInt("forcesId5", fetterId[5]+1);
-        if (int.Parse(LoadJsonFile.forcesTableDatas[FC.currentForcesIndex][3]) <= prestigeNum)
+        if (forcesId < 1)
         {
-            SceneManager.LoadScene(1);
+            forcesText.GetComponent<Text>().text = "\u3000\u3000" + "请在地图中选择一个势力。";
         }
         else
         {
-            forcesText.GetComponent<Text>().text = "\u3000\u3000" + "您的声望值不足，无法选中此势力。";
+            if (int.Parse(LoadJsonFile.forcesTableDatas[FC.currentForcesIndex][3]) <= prestigeNum)
+            {
+
+                SceneManager.LoadScene(1);
+            }
+            else
+            {
+                forcesText.GetComponent<Text>().text = "\u3000\u3000" + "您的声望值不足，无法选中此势力。";
+            }
         }
     }
     void GetDifficultyType()

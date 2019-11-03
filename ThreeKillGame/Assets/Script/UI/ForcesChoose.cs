@@ -121,6 +121,7 @@ public class ForcesChoose : MonoBehaviour
     //给随机出来的势力添加点击事件
     void SetClickObj()
     {
+        currentForcesIndex = -2;
         forcesObj[getForces[0]].GetComponent<Button>().onClick.AddListener(delegate ()
          {
              canShow = true;
@@ -161,6 +162,7 @@ public class ForcesChoose : MonoBehaviour
     //选中圈显示
     void ShowSelected()
     {
+        //forcesObj[0].transform.Find("Back").gameObject.SetActive(true);
         if (canShow)
         {
             for (int i = 0; i < forcesObj.Count; i++)
@@ -168,8 +170,8 @@ public class ForcesChoose : MonoBehaviour
                 if (i == currentForcesIndex)
                 {
                     forcesObj[i].transform.Find("Back").gameObject.SetActive(true);
-                   //forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
-            }
+                    //forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
+                }
                 else
                 {
                     forcesObj[i].transform.Find("Back").gameObject.SetActive(false);
@@ -180,6 +182,7 @@ public class ForcesChoose : MonoBehaviour
     //随机战役
     public void RandomBattle()
     {
+        //forcesObj[0].transform.Find("Back").gameObject.SetActive(true);
         currentForcesIndex = -1;//防止选中圈刷新时不清除
         //将Back关闭
         for (int i = 0; i < forcesObj.Count; i++)

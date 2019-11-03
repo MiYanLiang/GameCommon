@@ -1648,6 +1648,8 @@ public class CreateAndUpdate : MonoBehaviour
     //招募显示
     private void HeroLocation()
     {
+        //招募中民心的显示
+        GameObject.Find("HertNum").GetComponent<Text>().text= peopleHearts.ToString();
         for (int i = 0; i < heroName.Count; i++)
         {
 
@@ -1767,7 +1769,7 @@ public class CreateAndUpdate : MonoBehaviour
                 heroBtn[i].GetComponentsInChildren<Text>()[6].text = "逍";
             }
             //拥有数量显示
-            //heroBtn[i].GetComponentsInChildren<Text>()[3].text =heroNum[i];
+            //heroBtn[i].GetComponentsInChildren<Text>()[3].text =GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
             heroBtn[i].name = getCardId[i].ToString();
         }
     }
@@ -2023,6 +2025,5 @@ public class CreateAndUpdate : MonoBehaviour
         {
             damageAll = 10;
         }
-
     }
 }
