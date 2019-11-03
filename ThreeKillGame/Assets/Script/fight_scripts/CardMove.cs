@@ -160,12 +160,14 @@ public class CardMove : MonoBehaviour
         }
         if (IsAttack == StateOfAttack.FightOver)
         {
-
             if (flag == -1)
+            {
                 anim_Emey.SetTrigger("heroFightCardShake1");
+            }
             else
+            {
                 anim_Emey.SetTrigger("heroFightCardShake");
-
+            }
             isCalcul = false;
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)
