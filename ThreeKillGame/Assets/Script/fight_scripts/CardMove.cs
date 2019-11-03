@@ -110,20 +110,28 @@ public class CardMove : MonoBehaviour
     }
 
     int flag = 1;   //记录攻击的对手是玩家还是敌方
+    bool isCalcul = false;  //是否计算过攻击位置
+    Vector3 vec_Enemy;  //记录攻击位置
 
     private void Update()
     {
         if (IsAttack == StateOfAttack.FightNow && Enemyindex != null)
         {
-            if (Enemyindex.transform.position.y>1000)
-                flag = -1;
-            else
-                flag = 1;
-            //攻击目标，武将先移动到目标身上
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position+(flag*(new Vector3(0,160,0))), FightControll.moveSpeed * Time.deltaTime);
-            if (gameObject.transform.position == Enemyindex.transform.position + (flag * (new Vector3(0, 160, 0))))
+            if (!isCalcul)
             {
-                //anim = Enemyindex.GetComponent<Animation>();
+                if (Enemyindex.transform.position.y > 1000)
+                    flag = -1;
+                else
+                    flag = 1;
+                //计算要攻击后移动到的位置
+                vec_Enemy = Enemyindex.transform.position + (flag * (new Vector3(0, 160, 0)));
+                isCalcul = true;
+            }
+            
+            //攻击目标，武将先移动到目标身上
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec_Enemy, FightControll.moveSpeed * Time.deltaTime);
+            if (gameObject.transform.position == vec_Enemy)
+            {
 
                 realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
                 if (realDamage > 0) //显示造成伤害值
@@ -141,6 +149,7 @@ public class CardMove : MonoBehaviour
         }
         if (IsAttack == StateOfAttack.FightOver)
         {
+            isCalcul = false;
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)
             {
