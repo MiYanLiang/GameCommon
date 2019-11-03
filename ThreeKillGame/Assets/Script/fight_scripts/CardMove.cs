@@ -79,7 +79,9 @@ public class CardMove : MonoBehaviour
 
     Animator anim_Emey; //敌方动画控制器
 
+    AudioSource audiosource;  //玩家卡牌音效
     //Animation anim = new Animation();
+    //AudioClip clip;
 
     private void Awake()
     {
@@ -97,7 +99,12 @@ public class CardMove : MonoBehaviour
         transform.GetChild(7).GetComponent<Text>().text = Defence.ToString();
         //品阶显示
         transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
+        //攻击音效
+        audiosource = GetComponent<AudioSource>();
+        //clip = Resources.Load<AudioClip>("Effect/Sounds/攻击");
     }
+
+    //AudioSource.PlayClipAtPoint(clip, Camera.main.transform.position);
 
 
     /// <summary>
@@ -136,7 +143,7 @@ public class CardMove : MonoBehaviour
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec_Enemy, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec_Enemy)
             {
-
+                audiosource.Play();
                 realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
                 if (realDamage > 0) //显示造成伤害值
                 {
