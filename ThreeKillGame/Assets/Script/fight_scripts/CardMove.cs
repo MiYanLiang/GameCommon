@@ -109,13 +109,19 @@ public class CardMove : MonoBehaviour
         //Debug.Log("//force//" + force);
     }
 
+    int flag = 1;   //记录攻击的对手是玩家还是敌方
+
     private void Update()
     {
         if (IsAttack == StateOfAttack.FightNow && Enemyindex != null)
         {
+            if (Enemyindex.transform.position.y>1000)
+                flag = -1;
+            else
+                flag = 1;
             //攻击目标，武将先移动到目标身上
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position, FightControll.moveSpeed * Time.deltaTime);
-            if (gameObject.transform.position == Enemyindex.transform.position)
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position+(flag*(new Vector3(0,160,0))), FightControll.moveSpeed * Time.deltaTime);
+            if (gameObject.transform.position == Enemyindex.transform.position + (flag * (new Vector3(0, 160, 0))))
             {
                 //anim = Enemyindex.GetComponent<Animation>();
 

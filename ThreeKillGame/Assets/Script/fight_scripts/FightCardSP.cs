@@ -12,8 +12,6 @@ public class FightCardSP : MonoBehaviour
     //[SerializeField]
     //private GameObject updateBtn;   //招募刷新控件，用来获取脚本
     [SerializeField]
-    private Text victoryOrFailureText;  //战斗胜负显示
-    [SerializeField]
     private GameObject SettlementPic;   //结算页面
 
     private bool isEndOFInit = false;   //记录是否初始化结束
@@ -351,38 +349,33 @@ public class FightCardSP : MonoBehaviour
                         //展示战斗胜负信息
                         if (remainScale>=0.75f)
                         {
-                            victoryOrFailureText.text = "完胜";
-                            SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/完", typeof(Sprite)) as Sprite;
-                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/完", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                         }
                         else
                         {
                             if (remainScale>=0.5f)
                             {
-                                victoryOrFailureText.text = "大胜";
-                                SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/大", typeof(Sprite)) as Sprite;
-                                SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/大", typeof(Sprite)) as Sprite;
+                                SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                             }
                             else
                             {
                                 if (remainScale>=0.25f)
                                 {
-                                    victoryOrFailureText.text = "胜利";
-                                    SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
-                                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/利", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/利", typeof(Sprite)) as Sprite;
                                 }
                                 else
                                 {
-                                    victoryOrFailureText.text = "险胜";
-                                    SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/险", typeof(Sprite)) as Sprite;
-                                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/险", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                                 }
                             }
                         }
                         //展示战况
-                        SettlementPic.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                        SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                         fightControll.GetComponent<FightControll>().BattleSettlement();
-                        victoryOrFailureText.gameObject.SetActive(true);
                         //设置首显战况
                         Transform tran = SettlementPic.transform.parent;
                         SettlementPic.transform.SetParent(fightControll);
@@ -433,37 +426,36 @@ public class FightCardSP : MonoBehaviour
                         //展示战斗胜负信息
                         if (remainScale >= 0.75f)
                         {
-                            victoryOrFailureText.text = "惨败";
+                            //victoryOrFailureText.text = "惨败";
                         }
                         else
                         {
                             if (remainScale >= 0.5f)
                             {
-                                victoryOrFailureText.text = "大败";
+                                //victoryOrFailureText.text = "大败";
                             }
                             else
                             {
                                 if (remainScale >= 0.25f)
                                 {
-                                    victoryOrFailureText.text = "小败";
+                                    //victoryOrFailureText.text = "小败";
                                 }
                                 else
                                 {
-                                    victoryOrFailureText.text = "惜败";
+                                    //victoryOrFailureText.text = "惜败";
                                 }
                             }
                         }
-                        SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
-                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
+                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
+                        SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
 
-                        SettlementPic.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                        SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                         fightControll.GetComponent<FightControll>().BattleSettlement();
                         Transform tran = SettlementPic.transform.parent;
                         SettlementPic.transform.SetParent(fightControll);
                         SettlementPic.transform.SetParent(tran);
-
-                        victoryOrFailureText.gameObject.SetActive(true);
-                        Invoke("ShowSettlementPic", 1f);
+                        
+                        Invoke("ShowSettlementPic", 2f);
                         //RecoverCardData();  
                         return null;
                     }

@@ -11,7 +11,7 @@ public class FightControll : MonoBehaviour
     //private int playerForceId;    //玩家势力的ID
     //private int[] forceIds;     //记录其他势力的ID
     [SerializeField]
-    private int cardMoveSpeed = 500;
+    private int cardMoveSpeed = 1000;
     public static int moveSpeed;    //卡牌移动速度
 
     //public Text[] forceNames;   //游戏内势力单个字显示
