@@ -10,6 +10,9 @@ public class FightControll : MonoBehaviour
 {
     //private int playerForceId;    //玩家势力的ID
     //private int[] forceIds;     //记录其他势力的ID
+    [SerializeField]
+    private int cardMoveSpeed = 500;
+    public static int moveSpeed;    //卡牌移动速度
 
     //public Text[] forceNames;   //游戏内势力单个字显示
     [SerializeField]
@@ -70,6 +73,16 @@ public class FightControll : MonoBehaviour
         Invoke("ChangeAllEnemyCards", 0.3f);    //延时加载npc武将
         //ChangeAllEnemyCards();
     }
+
+    private void Update()
+    {
+        //更新卡牌移动速度
+        if (moveSpeed != cardMoveSpeed)
+        {
+            moveSpeed = cardMoveSpeed;
+        }
+    }
+
     /// <summary>
     /// 更新所有NPC阵容
     /// </summary>

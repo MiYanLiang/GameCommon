@@ -12,7 +12,7 @@ public enum StateOfAttack
 
 public class CardMove : MonoBehaviour
 {
-    private int moveSpeed = 500;    //卡牌移动速度
+    //private int moveSpeed = 500;    //卡牌移动速度
     
     private int realDamage; //造成的真实伤害
 
@@ -114,7 +114,7 @@ public class CardMove : MonoBehaviour
         if (IsAttack == StateOfAttack.FightNow && Enemyindex != null)
         {
             //攻击目标，武将先移动到目标身上
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position, moveSpeed * Time.deltaTime);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, Enemyindex.transform.position, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == Enemyindex.transform.position)
             {
                 //anim = Enemyindex.GetComponent<Animation>();
@@ -135,7 +135,7 @@ public class CardMove : MonoBehaviour
         }
         if (IsAttack == StateOfAttack.FightOver)
         {
-            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, moveSpeed * Time.deltaTime);
+            gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)
             {
                 enemyindex.transform.GetChild(4).gameObject.SetActive(false);

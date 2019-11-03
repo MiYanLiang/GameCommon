@@ -352,22 +352,30 @@ public class FightCardSP : MonoBehaviour
                         if (remainScale>=0.75f)
                         {
                             victoryOrFailureText.text = "完胜";
+                            SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/完", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                         }
                         else
                         {
                             if (remainScale>=0.5f)
                             {
                                 victoryOrFailureText.text = "大胜";
+                                SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/大", typeof(Sprite)) as Sprite;
+                                SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                             }
                             else
                             {
                                 if (remainScale>=0.25f)
                                 {
-                                    victoryOrFailureText.text = "小胜";
+                                    victoryOrFailureText.text = "胜利";
+                                    SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/利", typeof(Sprite)) as Sprite;
                                 }
                                 else
                                 {
                                     victoryOrFailureText.text = "险胜";
+                                    SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/险", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                                 }
                             }
                         }
@@ -445,6 +453,9 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                         }
+                        SettlementPic.transform.GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
+                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
+
                         SettlementPic.transform.GetChild(1).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                         fightControll.GetComponent<FightControll>().BattleSettlement();
                         Transform tran = SettlementPic.transform.parent;
