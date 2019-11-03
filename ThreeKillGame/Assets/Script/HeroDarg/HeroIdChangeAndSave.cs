@@ -10,6 +10,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public Transform JiuGongGe; //九宫格
     public Transform BeiZhanWei;//备战位
 
+
+
     public List<string> fightIdList = new List<string>();   //上阵英雄id
     public List<string> allIdList = new List<string>();     //全部英雄id
 
@@ -84,6 +86,45 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //拿到当前声望
         print("声望(prestigeNum):"+PlayerPrefs.GetInt("prestigeNum"));
     }
+
+    private void Update()
+    {
+        //string str = "///";
+        //for (int i = 0; i < 16; i++)
+        //{
+        //    str += (pos_heroId[i] + " ");
+        //}
+        //Debug.Log(str);
+    }
+
+
+    /// <summary>
+    /// 根据英雄id获取当前该英雄的拥有数量
+    /// </summary>
+    /// <param name="heroId">武将ID</param>
+    /// <returns></returns>
+    public int StatisticsHeroNums(int heroId)
+    {
+        int num = 0;
+        for (int i = 0; i < pos_heroId.Length; i++)
+        {
+            if (pos_heroId[i] == heroId)
+            {
+                if (i < 9)    //在上阵位
+                {
+                    //1阶代表1个数量，2阶3个，3阶9个
+                    num += ((int)Mathf.Pow(3, JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
+                }
+                else
+                {
+                    num += ((int)Mathf.Pow(3, BeiZhanWei.GetChild(i - 9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
+                }
+            }
+        }
+        print("拥有数为： " + num);
+        return num;
+    }
+
     /// <summary>
     /// 刷新保存当前拥有的武将id
     /// </summary>

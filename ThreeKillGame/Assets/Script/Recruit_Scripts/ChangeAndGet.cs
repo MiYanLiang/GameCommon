@@ -225,18 +225,6 @@ public class ChangeAndGet : MonoBehaviour
         newheroCard.GetComponent<HeroDataControll>().HeroData = newData;
         //设置品阶颜色表现和属性
         newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = grade.ToString();
-        switch (grade)
-        {
-            case 1:
-                newheroCard.GetComponent<Image>().color = Color.white;
-                break;
-            case 2:
-                newheroCard.GetComponent<Image>().color = Color.blue;
-                break;
-            case 3:
-                newheroCard.transform.GetComponent<Image>().color = Color.red;
-                break;
-        }
         newheroCard.GetComponent<HeroDataControll>().Grade_hero = grade;
         newheroCard.GetComponent<HeroDataControll>().BattleNums = 0;
         if (grade==1)

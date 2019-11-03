@@ -128,22 +128,15 @@ public class FightControll : MonoBehaviour
                     newheroCard.GetComponent<Image>().raycastTarget = false;    //关闭射线控制拖拽
                     newheroCard.GetComponent<HeroDataControll>().HeroData = enemyHeroDatas[i][m];   //传递卡牌数据
                     newheroCard.GetComponent<HeroDataControll>().Grade_hero = int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count-2]); //传递阶值
+                    newheroCard.GetComponent<HeroDataControll>().HeroData[6] = (int.Parse(LoadJsonFile.RoleTableDatas[int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[0]) - 1][6]) * Mathf.Pow(2, int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2])-1)).ToString();
+                    newheroCard.GetComponent<HeroDataControll>().HeroData[8] = (int.Parse(LoadJsonFile.RoleTableDatas[int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[0]) - 1][8]) * Mathf.Pow(2, int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2])-1)).ToString();
+
+
                     newheroCard.GetComponent<HeroDataControll>().BattleNums = int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count-1]); //传递战斗回合数
                     newheroCard.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + enemyHeroDatas[i][m][3], typeof(Sprite)) as Sprite;  //设置敌方武将兵种背景图片
                     //设置品阶颜色表现和属性
                     newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2];
-                    //switch (int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2]))
-                    //{
-                    //    case 1:
-                    //        newheroCard.GetComponent<Image>().color = Color.white;
-                    //        break;
-                    //    case 2:
-                    //        newheroCard.GetComponent<Image>().color = Color.blue;
-                    //        break;
-                    //    case 3:
-                    //        newheroCard.transform.GetComponent<Image>().color = Color.red;
-                    //        break;
-                    //}
+
                     //设置文字颜色，体现卡牌稀有度
                     switch (int.Parse(enemyHeroDatas[i][m][4]))
                     {
