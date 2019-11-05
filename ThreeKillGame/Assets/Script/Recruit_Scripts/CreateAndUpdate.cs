@@ -131,8 +131,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     void Start()
     {
-        //money = 100;
-        money = 5;
+        money = 500;
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
         //ChangeLevelText();
