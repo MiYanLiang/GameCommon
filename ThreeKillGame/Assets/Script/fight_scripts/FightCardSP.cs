@@ -41,12 +41,16 @@ public class FightCardSP : MonoBehaviour
     //TableDatas worksheet_NPC;   //存储npc表
     //TableDatas worksheet_Role;  //存储武将表
 
+    private int[] armsSkillStatus = new int[9]; //存储兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
+
     private void Awake()
     {
         //worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
         //worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
         battles = 1;
     }
+
+
 
     private void OnEnable()
     {
@@ -57,6 +61,7 @@ public class FightCardSP : MonoBehaviour
         roundNum = 1;
         isPlayerBout = true;
         battles += 1;
+        InitArmsSkillStatus();
         InitializeBattleCard();
         isFightNow = false;
         isEndOFInit = true;
@@ -91,6 +96,9 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count - 2]);
                 //兵种
                 enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
+                //兵种技能激活状态
+                //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3])-1];
+                enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
                 //血量
                 enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力
@@ -195,6 +203,8 @@ public class FightCardSP : MonoBehaviour
                 playerCards[i].GetComponent<CardMove>().Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
                 //兵种
                 playerCards[i].GetComponent<CardMove>().ArmsId = datas[3];
+                //兵种技能激活状态
+                playerCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3])-1];
                 //血量
                 playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力
@@ -483,6 +493,29 @@ public class FightCardSP : MonoBehaviour
     private void ShowSettlementPic()
     {
         SettlementPic.gameObject.SetActive(true);
+    }
+
+    /// <summary>
+    /// 初始化兵种技能激活状态
+    /// </summary>
+    private void InitArmsSkillStatus()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            armsSkillStatus[i] = 0;
+        }
+        int count = HeroIdChangeAndSave.activationSkillId_soldiers.Count;
+        int armsid, nums = 0;
+        for (int i = 0; i < count; i++)
+        {
+            armsid = HeroIdChangeAndSave.activationSkillId_soldiers[i] / 10 - 1;    //兵种编号
+            if (nums < HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10)
+                nums = HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10;
+            if (nums < 6)
+                armsSkillStatus[armsid] = 1;
+            else
+                armsSkillStatus[armsid] = 2;
+        }
     }
 
     /// <summary>

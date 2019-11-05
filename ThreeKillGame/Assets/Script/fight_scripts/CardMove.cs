@@ -14,7 +14,7 @@ public class CardMove : MonoBehaviour
 {
     //private int moveSpeed = 500;    //卡牌移动速度
 
-    private int armsSkillStatus;    //兵种技能激活状态，0未激活1激活3兵种激活6兵种
+    private int armsSkillStatus;    //兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
     public int ArmsSkillStatus { get => armsSkillStatus; set => armsSkillStatus = value; }
 
     private int realDamage; //造成的真实伤害
@@ -106,6 +106,9 @@ public class CardMove : MonoBehaviour
         //transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
         //攻击音效
         audiosource = GetComponent<AudioSource>();
+
+        ArmsStaticSkillGet(ArmsId, ArmsSkillStatus);   //静态兵种技能
+        print(HeroId + ":"+Defence);
     }
 
     /// <summary>
@@ -181,6 +184,7 @@ public class CardMove : MonoBehaviour
             }
         }
     }
+
     /// <summary>
     /// 静态兵种技能数据加成（开始战斗卡牌加载时调用一次）
     /// </summary>
@@ -192,7 +196,17 @@ public class CardMove : MonoBehaviour
         {
             case "1":   //山兽
                 //某数据加成
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //防御提升10%
+                        Defence = (int)(1.1 * (float)Defence);
+                        break;
+                    case 2:     //防御提升20%
+                        Defence = (int)(1.2 * (float)Defence);
+                        break;
+                }
 
                 break;
 

@@ -18,7 +18,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     List<int> fightIdList_int = new List<int>();   //上阵英雄id
 
     public List<string> heroTypeName = new List<string>();
-    List<List<string>> fetterInformation = new List<List<string>>(); /////////////////////////////////////////////////////////////////////////激活羁绊的详细信息
+    List<List<string>> fetterInformation = new List<List<string>>(); ////////////////////////////////激活羁绊的详细信息
 
     List<string> arrayGo = new List<string>() { "19", "89", "53", "54", "68" };  //上阵英雄数组,用以测试
 
@@ -42,7 +42,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
     int necromancerNum ;                //方士数量
     int god_beast;                      //神兽数量
     List<int> soldiersKindId = new List<int>();//上阵英雄的兵种类型
-    List<int> activationSkillId_soldiers = new List<int>();//////////////////////////////////////////////////////////////////激活的兵种技能
+
+    public static List<int> activationSkillId_soldiers = new List<int>();///////////////////////////////////激活的兵种技能
+
     List<string> fetterArray = new List<string>();
     List<string> intersectionArray = new List<string>();  //存放交集
     List<int> fetterIndex = new List<int>();//存放激活羁绊的id   每次传需要清除，现在没清
