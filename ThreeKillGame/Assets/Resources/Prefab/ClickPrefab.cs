@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
-using OfficeOpenXml;    //引入使用EPPlus类库
+//using OfficeOpenXml;    //引入使用EPPlus类库
 using System.Linq;  //去除重复
 
 public class ClickPrefab : MonoBehaviour
@@ -66,7 +66,7 @@ public class ClickPrefab : MonoBehaviour
         god_beastId.Clear();
         GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
         init_btn();
-        if (this.GetComponentsInChildren<Text>()[0].text == "盾兵")
+        if (this.GetComponentsInChildren<Text>()[0].text == "山兽")
         {
             for (int i = 0; i < shieldSoldierName.Count; i++)
             {
@@ -76,7 +76,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text +=  "\t" + "\u2000" + "[刃甲]" + "\u2000" + "3山兽上阵,血量提升10%，反弹20%近战伤害，减少受到10%远程伤害" + "\t" + "\u2000" + "[刺盾]" + "\u2000" + "6山兽上阵,血量提升20%，反弹40%近战伤害，减少受到20%远程伤害";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "象兵")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "海兽")
         {
             for (int i = 0; i < mahoutName.Count; i++)
             {
@@ -86,7 +86,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t"+"\u2000" + "[汲取]" + "\u2000" + "3海兽上阵,防御增加10点，将造成伤害的30%转化为自身血量" + "\t" + "\u2000" + "[嗜血]" + "\u2000" + "6海兽上阵,防御增加15点，将造成伤害的60%转化为自身血量";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "戟兵")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "飞兽")
         {
             for (int i = 0; i < halberdierName.Count; i++)
             {
@@ -96,7 +96,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[灵巧]" + "\u2000" + "3飞兽上阵,血量提升10%，战斗中每损失20%血量，获得风之助，提升10%闪避" + "\t" + "\u2000" + "[瞬闪]" + "\u2000" + "6飞兽上阵,血量提升20%，战斗中每损失20%血量，获得风之助，提升15%闪避";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "禁卫")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "人杰")
         {
             for (int i = 0; i < lifeguardName.Count; i++)
             {
@@ -106,7 +106,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[血战]" + "\u2000" + "3人杰上阵,攻击提升10%，每次攻击提升20%伤害，10%防御，可叠加3次" + "\t" + "\u2000" + "[死战]" + "\u2000" + "6人杰上阵,攻击提升20%，每次攻击提升30%伤害，10%防御，可叠加3次";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "枪兵")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "祖巫")
         {
             for (int i = 0; i < spearmanName.Count; i++)
             {
@@ -116,7 +116,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[穿刺]" + "\u2000" + "3祖巫上阵,攻击提升10%，突刺敌方后排50%伤害" + "\t" + "\u2000" + "[突刺]" + "\u2000" + "6祖巫上阵,攻击提升20%，突刺敌方后排80%伤害";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "骑兵")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "散仙")
         {
             for (int i = 0; i < sowarName.Count; i++)
             {
@@ -126,7 +126,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[横扫]" + "\u2000" + "3散仙上阵,攻击提升10%，攻击同一排敌人，每个造成75%伤害" + "\t" + "\u2000" + "[狂斩]" + "\u2000" + "6散仙上阵,攻击提升20%，攻击同一排敌人，每个造成100%伤害";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "军师")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "辅神")
         {
             for (int i = 0; i < counsellorName.Count; i++)
             {
@@ -136,7 +136,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[火计]" + "\u2000" + "3辅神上阵,攻击提升10%，随机攻击2个目标，每个造成30%伤害，20%几率击晕1回合" + "\t" + "\u2000" + "[爆炎]" + "\u2000" + "6辅神上阵,攻击提升20%，随机攻击3个目标，每个造成45%伤害，20%几率击晕1回合";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "工兵")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "魔神")
         {
             for (int i = 0; i < sapperName.Count; i++)
             {
@@ -146,7 +146,7 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[乱射]" + "\u2000" + "3魔神上阵,攻击提升10%，随机攻击3个目标，每个造成45%伤害" + "\t" + "\u2000" + "[箭雨]" + "\u2000" + "6魔神上阵,攻击提升20%，随机攻击4个目标，每个造成50%伤害";
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "方士")
+        else if (this.GetComponentsInChildren<Text>()[0].text == "天神")
         {
             for (int i = 0; i < necromancerName.Count; i++)
             {
@@ -178,115 +178,109 @@ public class ClickPrefab : MonoBehaviour
     void GetExcelFile3()
     {
         //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        FileInfo fileinfo = new FileInfo(filePath);
-        using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        {
-            ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSoldiersAll(worksheet1);
+        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
+        //FileInfo fileinfo = new FileInfo(filePath);
+        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
+        //{
+            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
+            GetSoldiersAll();
             for (int i = 0; i < shieldSoldierId.Count; i++)
             {
-                shieldSoldierName.Add(GetHeroNameFromId(worksheet1, shieldSoldierId[i]));
+                shieldSoldierName.Add(GetHeroNameFromId(shieldSoldierId[i]));
             }
             for (int i = 0; i < mahoutId.Count; i++)
             {
-                mahoutName.Add(GetHeroNameFromId(worksheet1, mahoutId[i]));
+                mahoutName.Add(GetHeroNameFromId(mahoutId[i]));
             }
             for (int i = 0; i < halberdierId.Count; i++)
             {
-                halberdierName.Add(GetHeroNameFromId(worksheet1, halberdierId[i]));
+                halberdierName.Add(GetHeroNameFromId( halberdierId[i]));
             }
             for (int i = 0; i < lifeguardId.Count; i++)
             {
-                lifeguardName.Add(GetHeroNameFromId(worksheet1, lifeguardId[i]));
+                lifeguardName.Add(GetHeroNameFromId( lifeguardId[i]));
             }
             for (int i = 0; i < spearmanId.Count; i++)
             {
-                spearmanName.Add(GetHeroNameFromId(worksheet1, spearmanId[i]));
+                spearmanName.Add(GetHeroNameFromId(spearmanId[i]));
             }
             for (int i = 0; i < sowarId.Count; i++)
             {
-                sowarName.Add(GetHeroNameFromId(worksheet1, sowarId[i]));
+                sowarName.Add(GetHeroNameFromId(sowarId[i]));
             }
             for (int i = 0; i < counsellorId.Count; i++)
             {
-                counsellorName.Add(GetHeroNameFromId(worksheet1, counsellorId[i]));
+                counsellorName.Add(GetHeroNameFromId(counsellorId[i]));
             }
             for (int i = 0; i < sapperId.Count; i++)
             {
-                sapperName.Add(GetHeroNameFromId(worksheet1, sapperId[i]));
+                sapperName.Add(GetHeroNameFromId(sapperId[i]));
             }
             for (int i = 0; i < necromancerId.Count; i++)
             {
-                necromancerName.Add(GetHeroNameFromId(worksheet1, necromancerId[i]));
+                necromancerName.Add(GetHeroNameFromId(necromancerId[i]));
             }
             for (int i = 0; i < god_beastId.Count; i++)
             {
-                god_beastName.Add(GetHeroNameFromId(worksheet1, god_beastId[i]));
+                god_beastName.Add(GetHeroNameFromId(god_beastId[i]));
             }
-        }
+        //}
     }
-    void GetSoldiersAll(ExcelWorksheet worksheet)
+    void GetSoldiersAll()
     {
-        int num = 4;
-        for (int i = 1; i < 89 + 1; i++)
+        int num = 3;
+        for (int i = 0; i < 88; i++)
         {
-            if (i > 1)
+            if (LoadJsonFile.RoleTableDatas[i][num] == "1")
             {
-                if (worksheet.Cells[i, num].Value.ToString() == "1")
-                {
-                    shieldSoldierId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "2")
-                {
-                    mahoutId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "3")
-                {
-                    halberdierId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "4")
-                {
-                    lifeguardId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "5")
-                {
-                    spearmanId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "6")
-                {
-                    sowarId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "7")
-                {
-                    counsellorId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "8")
-                {
-                    sapperId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "9")
-                {
-                    necromancerId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
-                else if (worksheet.Cells[i, num].Value.ToString() == "10")
-                {
-                    god_beastId.Add(int.Parse(worksheet.Cells[i, 1].Value.ToString()));
-                }
+                shieldSoldierId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "2")
+            {
+                mahoutId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "3")
+            {
+                halberdierId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "4")
+            {
+                lifeguardId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "5")
+            {
+                spearmanId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "6")
+            {
+                sowarId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "7")
+            {
+                counsellorId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "8")
+            {
+                sapperId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "9")
+            {
+                necromancerId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
+            }
+            else if (LoadJsonFile.RoleTableDatas[i][num] == "10")
+            {
+                god_beastId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
             }
         }
     }
-    string GetHeroNameFromId(ExcelWorksheet worksheet, int id)
+    string GetHeroNameFromId(int id)
     {
         string name = "";
-        for (int i = 1; i < 89 + 1; i++)
+        for (int i = 0; i < 88; i++)
         {
-            if (i > 1)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (int.Parse(worksheet.Cells[i, 1].Value.ToString()) == id)
-                {
-                    name = worksheet.Cells[i, 2].Value.ToString();
-                }
+                name = LoadJsonFile.RoleTableDatas[i][1];
             }
         }
         return name;
