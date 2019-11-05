@@ -50,6 +50,9 @@ public class FightCardSP : MonoBehaviour
 
     private void OnEnable()
     {
+        isStart = false;
+        isEndOFInit = false;
+
         fightNum = 0;
         roundNum = 1;
         isPlayerBout = true;
@@ -57,6 +60,7 @@ public class FightCardSP : MonoBehaviour
         InitializeBattleCard();
         isFightNow = false;
         isEndOFInit = true;
+        Invoke("LiteTimeStart", 1.5f);  //延时开始战斗
     }
 
     /// <summary>
@@ -234,12 +238,23 @@ public class FightCardSP : MonoBehaviour
 
     }
 
+    bool isStart = false;
+
+    private void LiteTimeStart()
+    {
+        isStart = true;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //若还在初始化
         if (!isEndOFInit)
             return;
+
+        if (!isStart)
+            return;
+
 
         //回合增加
         if (fightNum >= playerCards.Length)
