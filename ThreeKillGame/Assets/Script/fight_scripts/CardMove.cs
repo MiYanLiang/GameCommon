@@ -211,35 +211,149 @@ public class CardMove : MonoBehaviour
                 break;
 
             case "2":   //海兽
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //血量提升10%
+                        fullhealth = (int)(1.1 * (float)fullhealth);
+                        //每次受到伤害的时候回复百分之五的血量            //////////////////////////需要判断吧，自己加去（判断受到伤害）
+                        health = health + (int)(0.05 * (float)fullhealth);
+                        break;
+                    case 2:     //血量提升20%
+                        fullhealth = (int)(1.2 * (float)fullhealth);
+                        //每次受到伤害的时候回复百分之五的血量
+                        health = health + (int)(0.05 * (float)fullhealth);
+                        break;
+                }
                 break;
 
             case "3":   //飞兽
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //攻击提升10%
+                        force = (int)(1.1 * (float)force);
+                        //战斗中每损失20%血量，提升10%闪避
+                        int shanbi = 0;
+                        if (health > (int)((float)fullhealth * (1 - 0.4)) && health < (int)((float)fullhealth * (1 - 0.2)))
+                        {
+                            shanbi = shanbi + 10;              ////////////闪避率是百分制还是不是，自己调整
+                        }
+                        else if (health > (int)((float)fullhealth * (1 - 0.6)) && health < (int)((float)fullhealth * (1 - 0.4)))
+                        {
+                            shanbi = shanbi + 20;
+                        }
+                        else if (health > (int)((float)fullhealth * (1 - 0.8)) && health < (int)((float)fullhealth * (1 - 0.6)))
+                        {
+                            shanbi = shanbi + 30;
+                        }
+                        DodgeRate = shanbi;
+                        break;
+                    case 2:     //攻击提升20%
+                        //战斗中每损失20%血量，提升15%闪避
+                        force = (int)(1.2 * (float)force);
+                        int shanbi1 = 0;
+                        if (health > (int)((float)fullhealth * (1 - 0.4)) && health < (int)((float)fullhealth * (1 - 0.2)))
+                        {
+                            shanbi1 = shanbi1 + 15;              ////////////闪避率是百分制还是不是，自己调整
+                        }
+                        else if (health > (int)((float)fullhealth * (1 - 0.6)) && health < (int)((float)fullhealth * (1 - 0.4)))
+                        {
+                            shanbi1 = shanbi1 + 30;
+                        }
+                        else if (health > (int)((float)fullhealth * (1 - 0.8)) && health < (int)((float)fullhealth * (1 - 0.6)))
+                        {
+                            shanbi1 = shanbi1 + 45;
+                        }
+                        DodgeRate = shanbi1;
+                        break;
+                }
                 break;
 
             case "4":   //人杰
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //防御提升10%
+                        Defence = (int)(1.1 * (float)Defence);
+                        break;
+                    case 2:     //防御提升20%
+                        Defence = (int)(1.2 * (float)Defence);
+                        break;
+                }
                 break;
 
             case "5":   //祖巫
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //攻击提升10%
+                        force = (int)(1.1 * (float)force);
+                        break;
+                    case 2:     //攻击提升20%
+                        force = (int)(1.2 * (float)force);
+                        break;
+                }
                 break;
 
             case "6":   //散仙
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //攻击提升10%
+                        force = (int)(1.1 * (float)force);
+                        break;
+                    case 2:     //攻击提升20%
+                        force = (int)(1.2 * (float)force);
+                        break;
+                }
                 break;
 
             case "7":   //辅神
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //攻击提升10%
+                        force = (int)(1.1 * (float)force);
+                        break;
+                    case 2:     //攻击提升20%
+                        force = (int)(1.2 * (float)force);
+                        break;
+                }
                 break;
 
             case "8":   //魔神
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //暴击率提升10%
+                        critRate = (int)(1.1 * (float)critRate);
+                        break;
+                    case 2:     //暴击率提升20%
+                        critRate = (int)(1.2 * (float)critRate);
+                        break;
+                }
                 break;
 
             case "9":   //天神
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //攻击提升10%
+                        force = (int)(1.1 * (float)force);
+                        break;
+                    case 2:     //攻击提升20%
+                        force = (int)(1.2 * (float)force);
+                        break;
+                }
                 break;
         }
     }
@@ -254,40 +368,153 @@ public class CardMove : MonoBehaviour
         switch (armsId)
         {
             case "1":   //山兽
-                //需要执行相应的技能方法
-
+                        //需要执行相应的技能方法
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:     //将造成伤害的30%转化为自身血量
+                        if (health < fullhealth)
+                        {
+                            if ((float)realDamage * 0.3 + health < fullhealth) //当吸血量加当前血量小于总血量时
+                            {
+                                health = fullhealth;
+                            }
+                            else
+                            {
+                                health = health + (int)((float)realDamage * 0.3);
+                            }
+                        }
+                        else
+                        {
+                            health = fullhealth;
+                        }
+                        break;
+                    case 2:     //将造成伤害的60%转化为自身血量
+                        if (health < fullhealth)
+                        {
+                            if ((float)realDamage * 0.6 + health < fullhealth) //当吸血量加当前血量小于总血量时
+                            {
+                                health = fullhealth;
+                            }
+                            else
+                            {
+                                health = health + (int)((float)realDamage * 0.6);
+                            }
+                        }
+                        else
+                        {
+                            health = fullhealth;
+                        }
+                        break;
+                }
                 break;
 
-            case "2":   //海兽
-
+            case "2":   //海兽                                  ////////////////////////////////////无主动
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
 
-            case "3":   //飞兽
-
+            case "3":   //飞兽                                 //////////////////////////////////////无主动
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
 
             case "4":   //人杰
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        //每次攻击提升20 % 攻击，5 % 暴击率，可叠加3次                         ////只能叠加3次，自己在调用的时候判断，需要全局变量
+                        if (health > 0)
+                        {
+                            force = (int)(1.2 * (float)force);
+                            critRate = (int)(1.05 * (float)critRate);
+                        }
+                        break;
+                    case 2:
+                        if (health > 0)
+                        {
+                            force = (int)(1.3 * (float)force);
+                            critRate = (int)(1.05 * (float)critRate);
+                        }
+                        break;
+                }
                 break;
 
             case "5":   //祖巫
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
 
             case "6":   //散仙
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
 
             case "7":   //辅神
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
 
             case "8":   //魔神
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
 
             case "9":   //天神
-
+                switch (activeId)
+                {
+                    case 0:
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                }
                 break;
         }
     }

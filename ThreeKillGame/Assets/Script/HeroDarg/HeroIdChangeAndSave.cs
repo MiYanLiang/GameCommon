@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class HeroIdChangeAndSave : MonoBehaviour
 {
@@ -168,9 +169,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
         {
             allIdList_int.Add(int.Parse(allIdList[i]));
         }
-        init_Go(fightIdList);
+
+        List<int> fightIdList_int1 = fightIdList_int.Distinct().ToList();  //数列去重
+        List<string> fightIdList1 = fightIdList.Distinct().ToList();//数列去重
+        init_Go(fightIdList1);
         heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
-        Show_Left(fightIdList_int);
+        Show_Left(fightIdList_int1);
         //print("盾兵数量=" + shieldSoldierNum+ "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
     }
     private void OnServerInitialized()
