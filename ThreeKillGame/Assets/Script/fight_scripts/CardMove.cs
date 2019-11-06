@@ -62,6 +62,7 @@ public class CardMove : MonoBehaviour
 
     private float dodgeRate;    //闪避率
     public float DodgeRate { get => dodgeRate; set => dodgeRate = value; }
+    private float realDodgeRate;    //实际闪避率
 
     private float thumpRate;    //重击率
     public float ThumpRate { get => thumpRate; set => thumpRate = value; }
@@ -106,7 +107,7 @@ public class CardMove : MonoBehaviour
         //transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
         //攻击音效
         audiosource = GetComponent<AudioSource>();
-
+        realDodgeRate = DodgeRate;  //真实闪避率初始化
         ArmsStaticSkillGet(ArmsId, ArmsSkillStatus);   //静态兵种技能
         print(HeroId + ":"+Defence);
     }
@@ -216,14 +217,12 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //血量提升10%
-                        fullhealth = (int)(1.1 * (float)fullhealth);
-                        //每次受到伤害的时候回复百分之五的血量            //////////////////////////需要判断吧，自己加去（判断受到伤害）
-                        health = health + (int)(0.05 * (float)fullhealth);
+                        Fullhealth = (int)(1.1 * (float)Fullhealth);
+                        Health = (int)(1.1 * (float)Health);
                         break;
                     case 2:     //血量提升20%
-                        fullhealth = (int)(1.2 * (float)fullhealth);
-                        //每次受到伤害的时候回复百分之五的血量
-                        health = health + (int)(0.05 * (float)fullhealth);
+                        Fullhealth = (int)(1.2 * (float)Fullhealth);
+                        Health = (int)(1.2 * (float)Health);
                         break;
                 }
                 break;
@@ -234,40 +233,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        force = (int)(1.1 * (float)force);
-                        //战斗中每损失20%血量，提升10%闪避
-                        int shanbi = 0;
-                        if (health > (int)((float)fullhealth * (1 - 0.4)) && health < (int)((float)fullhealth * (1 - 0.2)))
-                        {
-                            shanbi = shanbi + 10;              ////////////闪避率是百分制还是不是，自己调整
-                        }
-                        else if (health > (int)((float)fullhealth * (1 - 0.6)) && health < (int)((float)fullhealth * (1 - 0.4)))
-                        {
-                            shanbi = shanbi + 20;
-                        }
-                        else if (health > (int)((float)fullhealth * (1 - 0.8)) && health < (int)((float)fullhealth * (1 - 0.6)))
-                        {
-                            shanbi = shanbi + 30;
-                        }
-                        DodgeRate = shanbi;
+                        Force = (int)(1.1 * (float)Force);
                         break;
                     case 2:     //攻击提升20%
-                        //战斗中每损失20%血量，提升15%闪避
-                        force = (int)(1.2 * (float)force);
-                        int shanbi1 = 0;
-                        if (health > (int)((float)fullhealth * (1 - 0.4)) && health < (int)((float)fullhealth * (1 - 0.2)))
-                        {
-                            shanbi1 = shanbi1 + 15;              ////////////闪避率是百分制还是不是，自己调整
-                        }
-                        else if (health > (int)((float)fullhealth * (1 - 0.6)) && health < (int)((float)fullhealth * (1 - 0.4)))
-                        {
-                            shanbi1 = shanbi1 + 30;
-                        }
-                        else if (health > (int)((float)fullhealth * (1 - 0.8)) && health < (int)((float)fullhealth * (1 - 0.6)))
-                        {
-                            shanbi1 = shanbi1 + 45;
-                        }
-                        DodgeRate = shanbi1;
+                        Force = (int)(1.2 * (float)Force);
                         break;
                 }
                 break;
@@ -277,11 +246,13 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     //防御提升10%
-                        Defence = (int)(1.1 * (float)Defence);
+                    case 1:     //血量提升10%
+                        Fullhealth = (int)(1.1 * (float)Fullhealth);
+                        Health = (int)(1.1 * (float)Health);
                         break;
-                    case 2:     //防御提升20%
-                        Defence = (int)(1.2 * (float)Defence);
+                    case 2:     //血量提升20%
+                        Fullhealth = (int)(1.2 * (float)Fullhealth);
+                        Health = (int)(1.2 * (float)Health);
                         break;
                 }
                 break;
@@ -292,10 +263,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        force = (int)(1.1 * (float)force);
+                        Force = (int)(1.1 * (float)Force);
                         break;
                     case 2:     //攻击提升20%
-                        force = (int)(1.2 * (float)force);
+                        Force = (int)(1.2 * (float)Force);
                         break;
                 }
                 break;
@@ -306,10 +277,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        force = (int)(1.1 * (float)force);
+                        Force = (int)(1.1 * (float)Force);
                         break;
                     case 2:     //攻击提升20%
-                        force = (int)(1.2 * (float)force);
+                        Force = (int)(1.2 * (float)Force);
                         break;
                 }
                 break;
@@ -320,10 +291,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        force = (int)(1.1 * (float)force);
+                        Force = (int)(1.1 * (float)Force);
                         break;
                     case 2:     //攻击提升20%
-                        force = (int)(1.2 * (float)force);
+                        Force = (int)(1.2 * (float)Force);
                         break;
                 }
                 break;
@@ -334,10 +305,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //暴击率提升10%
-                        critRate = (int)(1.1 * (float)critRate);
+                        CritRate = 1.1f * CritRate;
                         break;
                     case 2:     //暴击率提升20%
-                        critRate = (int)(1.2 * (float)critRate);
+                        CritRate = 1.1f * CritRate;
                         break;
                 }
                 break;
@@ -348,15 +319,17 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        force = (int)(1.1 * (float)force);
+                        Force = (int)(1.1 * (float)Force);
                         break;
                     case 2:     //攻击提升20%
-                        force = (int)(1.2 * (float)force);
+                        Force = (int)(1.2 * (float)Force);
                         break;
                 }
                 break;
         }
     }
+
+
 
     /// <summary>
     /// 动态兵种技能（卡牌在每次攻击时调用）
@@ -368,49 +341,20 @@ public class CardMove : MonoBehaviour
         switch (armsId)
         {
             case "1":   //山兽
-                        //需要执行相应的技能方法
                 switch (activeId)
                 {
                     case 0:
                         break;
-                    case 1:     //将造成伤害的30%转化为自身血量
-                        if (health < fullhealth)
-                        {
-                            if ((float)realDamage * 0.3 + health < fullhealth) //当吸血量加当前血量小于总血量时
-                            {
-                                health = fullhealth;
-                            }
-                            else
-                            {
-                                health = health + (int)((float)realDamage * 0.3);
-                            }
-                        }
-                        else
-                        {
-                            health = fullhealth;
-                        }
+                    case 1:     //嗜血：将造成伤害的30%转化为自身血量
+                        ShanShouSkill(0.3f);
                         break;
-                    case 2:     //将造成伤害的60%转化为自身血量
-                        if (health < fullhealth)
-                        {
-                            if ((float)realDamage * 0.6 + health < fullhealth) //当吸血量加当前血量小于总血量时
-                            {
-                                health = fullhealth;
-                            }
-                            else
-                            {
-                                health = health + (int)((float)realDamage * 0.6);
-                            }
-                        }
-                        else
-                        {
-                            health = fullhealth;
-                        }
+                    case 2:     //吞噬：将造成伤害的60%转化为自身血量
+                        ShanShouSkill(0.6f);
                         break;
                 }
                 break;
 
-            case "2":   //海兽                                  ////////////////////////////////////无主动
+            case "2":   //海兽
                 switch (activeId)
                 {
                     case 0:
@@ -422,7 +366,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "3":   //飞兽                                 //////////////////////////////////////无主动
+            case "3":   //飞兽
                 switch (activeId)
                 {
                     case 0:
@@ -518,6 +462,56 @@ public class CardMove : MonoBehaviour
                 break;
         }
     }
+    /// <summary>
+    /// 山兽动态技能
+    /// </summary>
+    /// <param name="percentage">转化血量百分比</param>
+    private void ShanShouSkill(float percentage)
+    {
+        if (realDamage * percentage + Health > Fullhealth) //当吸血量加当前血量大于总血量时
+        {
+            Health = Fullhealth;
+        }
+        else
+        {
+            Health = Health + (int)(realDamage * percentage);
+        }
+    }
+
+    /// <summary>
+    /// 海兽动态技能
+    /// </summary>
+    /// <param name="percentage">恢复血量百分比</param>
+    private void HaiShouSkill(float percentage)
+    {
+        if (Fullhealth * percentage + Health > Fullhealth) //当恢复血量加当前血量大于总血量时
+        {
+            Health = Fullhealth;
+        }
+        else
+        {
+            Health = Health + (int)(Fullhealth * percentage);
+        }
+    }
+
+    /// <summary>
+    /// 飞兽动态技能
+    /// </summary>
+    /// <param name="percentage">每次提升的闪避率</param>
+    private void FeiShouSkill(float percentage)
+    {
+        float loseHp = (Fullhealth - Health) / (float)Fullhealth;
+        int num = (int)(loseHp / 0.2);
+        if (num > 0)
+        {
+            Debug.Log("获得风遁");
+            //每损失20%血量提升闪避率
+            realDodgeRate = DodgeRate + (percentage * num);
+        }
+    }
+
+
+
 
 
     //攻击敌方武将，计算造成的战斗伤害数值
@@ -525,7 +519,7 @@ public class CardMove : MonoBehaviour
     {
         ChangeToFight(StateOfAttack.FightOver);
         //计算是否敌方闪避
-        if (TakeSpecialAttack(Enemyindex.GetComponent<CardMove>().DodgeRate))
+        if (TakeSpecialAttack(Enemyindex.GetComponent<CardMove>().realDodgeRate))
         {
             Debug.Log("闪避");
             Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "闪避";
