@@ -407,8 +407,12 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:
+                        //突刺敌方后排50%伤害。
+                        ZuWuSkill(0.5f);
                         break;
                     case 2:
+                        //突刺敌方后排80 % 伤害。
+                        ZuWuSkill(0.8f);
                         break;
                 }
                 break;
@@ -447,8 +451,12 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:
+                        //随机攻击3个目标，每个造成45%伤害，对同一目标最多攻击2次。
+                        MoShenSkill(0.45f, 3);
                         break;
                     case 2:
+                        //随机攻击4个目标，每个造成45%伤害，对同一目标最多攻击2次。
+                        MoShenSkill(0.45f, 4);
                         break;
                 }
                 break;
@@ -721,6 +729,8 @@ public class CardMove : MonoBehaviour
             }
         }
     }
+    
+    
     /// <summary>
     /// 祖巫动态技能
     /// </summary>
@@ -783,17 +793,9 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.enemyCards[8]);
                 }
             }
-            else if (EnemyIndex == 6)
+            else
             {
-                UpdateEnemyHp(FightCardSP.enemyCards[5]);
-            }
-            else if (EnemyIndex == 7)
-            {
-                UpdateEnemyHp(FightCardSP.enemyCards[5]);
-            }
-            else if (EnemyIndex == 8)
-            {
-                UpdateEnemyHp(FightCardSP.enemyCards[5]);
+                UpdateEnemyHp(FightCardSP.enemyCards[EnemyIndex]);
             }
         }
         else
@@ -852,19 +854,12 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.playerCards[8]);
                 }
             }
-            else if (EnemyIndex == 6)
+            else 
             {
-                UpdateEnemyHp(FightCardSP.playerCards[5]);
-            }
-            else if (EnemyIndex == 7)
-            {
-                UpdateEnemyHp(FightCardSP.playerCards[5]);
-            }
-            else if (EnemyIndex == 8)
-            {
-                UpdateEnemyHp(FightCardSP.playerCards[5]);
+                UpdateEnemyHp(FightCardSP.playerCards[EnemyIndex]);
             }
         }
+        Debug.Log("突刺");
     }
 
     /// <summary>
@@ -877,7 +872,7 @@ public class CardMove : MonoBehaviour
         if (IsPlayerOrEnemy == 0)
         {
             List<int> arrayGo = new List<int>(); //位置数列，为同一目标最多攻击两次做准被
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 9; i++)
             {
                 if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                 {
