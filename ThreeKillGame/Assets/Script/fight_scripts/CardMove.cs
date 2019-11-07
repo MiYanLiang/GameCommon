@@ -783,6 +783,18 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.enemyCards[8]);
                 }
             }
+            else if (EnemyIndex == 6)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[5]);
+            }
+            else if (EnemyIndex == 7)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[5]);
+            }
+            else if (EnemyIndex == 8)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[5]);
+            }
         }
         else
         {
@@ -840,6 +852,18 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.playerCards[8]);
                 }
             }
+            else if (EnemyIndex == 6)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[5]);
+            }
+            else if (EnemyIndex == 7)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[5]);
+            }
+            else if (EnemyIndex == 8)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[5]);
+            }
         }
     }
 
@@ -850,28 +874,45 @@ public class CardMove : MonoBehaviour
     ///  /// <param name="attackNum">攻击目标个数</param>  3兵种是3  6兵种是4
     private void MoShenSkill(float percent,int attackNum)
     {
-        List<int> arrayGo = new List<int>() { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8 }; //位置数列，为同一目标最多攻击两次做准被
-        List<int> array_down = new List<int>();//临时存放随机的三个数,arrayGo的下标
-        List<int> array_transform = new List<int>();//临时存放三个的位置
-        for (int i = 0; i < attackNum; i++)
+        if (IsPlayerOrEnemy == 0)
         {
-            int temp_num = Random.Range(0, arrayGo.Count);
-            if (!array_down.Contains(temp_num))
+            List<int> arrayGo = new List<int>(); //位置数列，为同一目标最多攻击两次做准被
+            for (int i = 0; i < 8; i++)
             {
-                array_down.Add(temp_num);
+                if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+                {
+                    arrayGo.Add(i);
+                    arrayGo.Add(i);
+                }
+            }
+            int rondomNum = 0;
+            if (arrayGo.Count < 3)
+            {
+                rondomNum = arrayGo.Count;
             }
             else
             {
-                i--;
+                rondomNum = attackNum;
             }
-        }
-        for (int i = 0; i < attackNum; i++)
-        {
-            array_transform.Add(arrayGo[array_down[i]]);
-        }
+            List<int> array_down = new List<int>();//临时存放随机的三个数,arrayGo的下标
+            List<int> array_transform = new List<int>();//临时存放三个的位置
+            for (int i = 0; i < rondomNum; i++)
+            {
+                int temp_num = Random.Range(0, arrayGo.Count);
+                if (!array_down.Contains(temp_num))
+                {
+                    array_down.Add(temp_num);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+            for (int i = 0; i < rondomNum; i++)
+            {
+                array_transform.Add(arrayGo[array_down[i]]);
+            }
 
-        if (IsPlayerOrEnemy == 0)
-        {
             for (int i = 0; i < array_transform.Count; i++)
             {
                 UpdateEnemyHp(FightCardSP.enemyCards[array_transform[i]]);
@@ -879,6 +920,43 @@ public class CardMove : MonoBehaviour
         }
         else
         {
+            List<int> arrayGo = new List<int>(); //位置数列，为同一目标最多攻击两次做准被
+            for (int i = 0; i < 8; i++)
+            {
+                if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+                {
+                    arrayGo.Add(i);
+                    arrayGo.Add(i);
+                }
+            }
+            int rondomNum = 0;
+            if (arrayGo.Count < 3)  //敌方上阵不够3个处理
+            {
+                rondomNum = arrayGo.Count;
+            }
+            else
+            {
+                rondomNum = attackNum;
+            }
+            List<int> array_down = new List<int>();//临时存放随机的三个数,arrayGo的下标
+            List<int> array_transform = new List<int>();//临时存放三个的位置
+            for (int i = 0; i < rondomNum; i++)
+            {
+                int temp_num = Random.Range(0, arrayGo.Count);
+                if (!array_down.Contains(temp_num))
+                {
+                    array_down.Add(temp_num);
+                }
+                else
+                {
+                    i--;
+                }
+            }
+            for (int i = 0; i < rondomNum; i++)
+            {
+                array_transform.Add(arrayGo[array_down[i]]);
+            }
+
             for (int i = 0; i < array_transform.Count; i++)
             {
                 UpdateEnemyHp(FightCardSP.playerCards[array_transform[i]]);
