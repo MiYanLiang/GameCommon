@@ -345,10 +345,10 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     //嗜血：将造成伤害的30%转化为自身血量
+                    case 1:     //将造成伤害的30%转化为自身血量
                         ShanShouSkill(0.3f);
                         break;
-                    case 2:     //吞噬：将造成伤害的60%转化为自身血量
+                    case 2:     //将造成伤害的60%转化为自身血量
                         ShanShouSkill(0.6f);
                         break;
                 }
@@ -359,9 +359,11 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:
+                    case 1:     //受伤害回复5%的血量
+                        HaiShouSkill(0.05f);
                         break;
-                    case 2:
+                    case 2:     //受伤害回复5%的血量
+                        HaiShouSkill(0.05f);
                         break;
                 }
                 break;
@@ -371,9 +373,11 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:
+                    case 1:     //每损失20%血量提升10%闪避
+                        FeiShouSkill(0.1f);
                         break;
-                    case 2:
+                    case 2:     //每损失20%血量提升15%闪避
+                        FeiShouSkill(0.15f);
                         break;
                 }
                 break;
@@ -384,19 +388,12 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:
-                        //每次攻击提升20 % 攻击，5 % 暴击率，可叠加3次                         ////只能叠加3次，自己在调用的时候判断，需要全局变量
-                        if (health > 0)
-                        {
-                            force = (int)(1.2 * (float)force);
-                            critRate = (int)(1.05 * (float)critRate);
-                        }
+                        //每次攻击提升20%攻击，10%防御，可叠加3次。
+                        RenJieSkill(0.2f, 0.1f);
                         break;
                     case 2:
-                        if (health > 0)
-                        {
-                            force = (int)(1.3 * (float)force);
-                            critRate = (int)(1.05 * (float)critRate);
-                        }
+                        //每次攻击提升30%攻击，15%防御，可叠加3次。
+                        RenJieSkill(0.3f, 0.15f);
                         break;
                 }
                 break;
@@ -476,6 +473,7 @@ public class CardMove : MonoBehaviour
         {
             Health = Health + (int)(realDamage * percentage);
         }
+        Debug.Log("获得坚盾");
     }
 
     /// <summary>
@@ -492,6 +490,7 @@ public class CardMove : MonoBehaviour
         {
             Health = Health + (int)(Fullhealth * percentage);
         }
+        Debug.Log("获得刺盾");
     }
 
     /// <summary>
@@ -511,6 +510,24 @@ public class CardMove : MonoBehaviour
     }
 
 
+    private int overlayNum_RenJie = 0; //记录 人杰 技能效果叠加次数
+    /// <summary>
+    /// 人杰动态技能
+    /// </summary>
+    /// <param name="percent_Force">攻击加成百分比</param>
+    /// <param name="percent_Defence">防御加成百分比</param>
+    private void RenJieSkill(float percent_Force, float percent_Defence)
+    {
+        if (overlayNum_RenJie >= 3)   //只能叠加3次
+            return;
+        else
+        {
+            overlayNum_RenJie++;
+            Force += (int)(percent_Force * Force);
+            Defence += (int)(percent_Defence * Defence);
+            Debug.Log("获得战意");
+        }
+    }
 
 
 
