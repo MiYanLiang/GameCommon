@@ -29,10 +29,10 @@ public class FightCardSP : MonoBehaviour
     public Transform[] enemyJiuGonggePos = new Transform[9];    //战斗槽位置_敌人
     [HideInInspector]
     public List<string>[] array_str = new List<string>[9]; //接收传递的敌方上阵英雄数据
-    [SerializeField]
-    GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
-    [SerializeField]
-    GameObject[] playerCards = new GameObject[9];//存储己方卡牌
+ 
+    public static GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
+
+    public static GameObject[] playerCards = new GameObject[9];//存储己方卡牌
 
     [SerializeField]
     Transform fightControll;    //战斗控制代码
@@ -88,6 +88,8 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[i].transform.position = enemyJiuGonggePos[i].position;
                 enemyCards[i].transform.SetParent(enemyJiuGonggePos[i].parent.parent);
                 List<string> datas = array_str[i];  //记录单个武将卡牌的数据，倒数第二个是品阶，倒数第一个是参与战斗周目数
+                //设置卡牌为敌方卡牌
+                enemyCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 1;
                 //设置敌方卡牌的默认先后手情况
                 enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
                 //武将ID
@@ -195,6 +197,8 @@ public class FightCardSP : MonoBehaviour
                 //临时存储玩家数据，传递给战斗卡牌
                 List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
                 FightControll.playerHeroHps += int.Parse(datas[8]);
+                //设置卡牌为玩家卡牌
+                playerCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 0;
                 //设置玩家卡牌的默认先后手情况
                 playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
                 //武将ID
@@ -282,8 +286,10 @@ public class FightCardSP : MonoBehaviour
             if (!playerCards[fightNum].GetComponent<CardMove>().isFightInThisBout)
             {
                 isPlayerBout = true;
-                //先找到需要攻击的敌人
-                playerCards[fightNum].GetComponent<CardMove>().Enemyindex = FindAnalogue(fightNum);
+                //先找到需要攻击的敌人并传递敌人编号
+                selectEnemy = -1;
+                playerCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
+                playerCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
                 //切换武将状态为正在攻击
                 playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                 isFightNow = true;
@@ -295,7 +301,7 @@ public class FightCardSP : MonoBehaviour
                 if (enemyCards[fightNum] != null && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
                 {
                     isPlayerBout = false;
-                    enemyCards[fightNum].GetComponent<CardMove>().Enemyindex = FindAnalogue(fightNum);
+                    enemyCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                     //切换武将状态为正在攻击
                     enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
@@ -310,7 +316,9 @@ public class FightCardSP : MonoBehaviour
             if (!enemyCards[fightNum].GetComponent<CardMove>().isFightInThisBout)
             {
                 isPlayerBout = false;
-                enemyCards[fightNum].GetComponent<CardMove>().Enemyindex = FindAnalogue(fightNum);
+                selectEnemy = -1;
+                enemyCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
+                enemyCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
                 enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                 isFightNow = true;
                 enemyCards[fightNum].GetComponent<CardMove>().isFightInThisBout = true;
@@ -320,7 +328,7 @@ public class FightCardSP : MonoBehaviour
                 if (playerCards[fightNum] != null && playerCards[fightNum].GetComponent<CardMove>().Health > 0)
                 {
                     isPlayerBout = true;
-                    playerCards[fightNum].GetComponent<CardMove>().Enemyindex = FindAnalogue(fightNum);
+                    playerCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                     playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
                 }
@@ -332,7 +340,7 @@ public class FightCardSP : MonoBehaviour
     }
 
 
-    int selectEnemy;
+    private int selectEnemy = -1;   //记录要攻击的敌人编号
     //找到要攻击的对手
     private GameObject FindAnalogue(int i)
     {

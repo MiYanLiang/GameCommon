@@ -13,6 +13,8 @@ public enum StateOfAttack   //攻击状态
 public class CardMove : MonoBehaviour
 {
     //private int moveSpeed = 500;    //卡牌移动速度
+    private int isPlayerOrEnemy;    //是己方卡牌，还是敌方卡牌 0己方(playerCards)，1敌方(enemyCards)
+    public int IsPlayerOrEnemy { get => isPlayerOrEnemy; set => isPlayerOrEnemy = value; }
 
     private int armsSkillStatus;    //兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
     public int ArmsSkillStatus { get => armsSkillStatus; set => armsSkillStatus = value; }
@@ -54,8 +56,11 @@ public class CardMove : MonoBehaviour
         IsAttack = state;
     }
 
-    private GameObject enemyindex; //要攻击的敌人
-    public GameObject Enemyindex { get => enemyindex; set => enemyindex = value; }
+    private int enemyIndex; //要攻击的敌人编号
+    public int EnemyIndex { get => enemyIndex; set => enemyIndex = value; }
+
+    private GameObject enemyObj; //要攻击的敌人
+    public GameObject EnemyObj { get => enemyObj; set => enemyObj = value; }
 
     private bool isAttack_first;    //是否为先手
     public bool IsAttack_first { get => isAttack_first; set => isAttack_first = value; }
@@ -127,40 +132,32 @@ public class CardMove : MonoBehaviour
 
     private void Update()
     {
-        if (IsAttack == StateOfAttack.FightNow && Enemyindex != null)
+        if (IsAttack == StateOfAttack.FightNow && EnemyObj != null)
         {
             if (!isCalcul)
             {
-                if (Enemyindex.transform.position.y > 1000)
+                if (EnemyObj.transform.position.y > 1000)
                     flag = -1;
                 else
                     flag = 1;
                 //计算要攻击后移动到的位置
-                vec_Enemy = Enemyindex.transform.position + (flag * (new Vector3(0, 160, 0)));
+                vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 160, 0)));
                 isCalcul = true;
-                anim_Emey = Enemyindex.GetComponent<Animator>();
+                anim_Emey = EnemyObj.GetComponent<Animator>();
             }
-            
+
             //攻击目标，武将先移动到目标身上
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec_Enemy, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec_Enemy)
             {
                 audiosource.Play();
 
-                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji",typeof(GameObject))as GameObject ,Enemyindex.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, EnemyObj.transform);
 
                 realDamage = AttackTheEnemy(Force);   //得到造成的真实伤害
-                if (realDamage > 0) //显示造成伤害值
-                {
-                    enemyindex.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
-                    enemyindex.transform.GetChild(5).gameObject.SetActive(true);
-                }
-                
-                //敌方血条的计算和显示
-                Enemyindex.GetComponent<CardMove>().Health = Enemyindex.GetComponent<CardMove>().Health - realDamage;
-                if (Enemyindex.GetComponent<CardMove>().Health < 0)
-                    Enemyindex.GetComponent<CardMove>().Health = 0;
-                Enemyindex.GetComponent<Slider>().value = ((float)Enemyindex.GetComponent<CardMove>().Health) / ((float)Enemyindex.GetComponent<CardMove>().Fullhealth);
+
+                //显示造成伤害值等敌人状态刷新
+                UpdateEnemyHp(EnemyObj);
             }
         }
         if (IsAttack == StateOfAttack.FightOver)
@@ -177,8 +174,8 @@ public class CardMove : MonoBehaviour
             gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, FightControll.moveSpeed * Time.deltaTime);
             if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)
             {
-                enemyindex.transform.GetChild(4).gameObject.SetActive(false);
-                enemyindex.transform.GetChild(5).gameObject.SetActive(false);
+                EnemyObj.transform.GetChild(4).gameObject.SetActive(false);
+                EnemyObj.transform.GetChild(5).gameObject.SetActive(false);
                 //anim.Stop("fightCardStatus");
                 FightCardSP.isFightNow = false;
                 ChangeToFight(StateOfAttack.ReadyForFight);
@@ -345,10 +342,12 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     //将造成伤害的30%转化为自身血量
+                    case 1:     
+                        //将造成伤害的30%转化为自身血量
                         ShanShouSkill(0.3f);
                         break;
-                    case 2:     //将造成伤害的60%转化为自身血量
+                    case 2:     
+                        //将造成伤害的60%转化为自身血量
                         ShanShouSkill(0.6f);
                         break;
                 }
@@ -359,10 +358,12 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     //受伤害回复5%的血量
+                    case 1:     
+                        //受伤害回复5%的血量
                         HaiShouSkill(0.05f);
                         break;
-                    case 2:     //受伤害回复5%的血量
+                    case 2:     
+                        //受伤害回复5%的血量
                         HaiShouSkill(0.05f);
                         break;
                 }
@@ -373,10 +374,12 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     //每损失20%血量提升10%闪避
+                    case 1:     
+                        //每损失20%血量提升10%闪避
                         FeiShouSkill(0.1f);
                         break;
-                    case 2:     //每损失20%血量提升15%闪避
+                    case 2:     
+                        //每损失20%血量提升15%闪避
                         FeiShouSkill(0.15f);
                         break;
                 }
@@ -416,8 +419,12 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:
+                        //攻击同一排敌人，每个造成50%伤害。
+                        SanXianSkill(0.5f);
                         break;
                     case 2:
+                        //攻击同一排敌人，每个造成75%伤害。
+                        SanXianSkill(0.75f);
                         break;
                 }
                 break;
@@ -529,6 +536,119 @@ public class CardMove : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 散仙动态技能
+    /// </summary>
+    /// <param name="percent">伤害百分比</param>
+    private void SanXianSkill(float percent)
+    {
+        realDamage = (int)(realDamage * percent);
+        //横扫
+        //对攻击目标同排敌人造成百分比伤害 
+        //通过 Enemyindex ：要攻击的敌方卡牌编号，获取到技能应打到的敌人
+        //通过 IsPlayerOrEnemy ：自身是谁的卡牌，得知敌人的卡牌链表
+
+        Debug.Log("横扫");
+        if (EnemyIndex<3)   //前排
+        {
+            if (IsPlayerOrEnemy == 0) // 该卡牌是己方(playerCards)，在敌方(enemyCards)中找目标
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+                    {
+                        UpdateEnemyHp(FightCardSP.enemyCards[i]);   //显示造成伤害值，敌人状态刷新
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 3; i++)
+                {
+                    if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+                    {
+                        UpdateEnemyHp(FightCardSP.playerCards[i]);   
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (EnemyIndex<6)   //中排
+            {
+                if (IsPlayerOrEnemy == 0) 
+                {
+                    for (int i = 3; i < 6; i++)
+                    {
+                        if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+                        {
+                            UpdateEnemyHp(FightCardSP.enemyCards[i]);  
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 3; i < 6; i++)
+                    {
+                        if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+                        {
+                            UpdateEnemyHp(FightCardSP.playerCards[i]);
+                        }
+                    }
+                }
+            }
+            else    //后排
+            {
+                if (IsPlayerOrEnemy == 0)
+                {
+                    for (int i = 6; i < 9; i++)
+                    {
+                        if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+                        {
+                            UpdateEnemyHp(FightCardSP.enemyCards[i]);  
+                        }
+                    }
+                }
+                else
+                {
+                    for (int i = 6; i < 9; i++)
+                    {
+                        if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+                        {
+                            UpdateEnemyHp(FightCardSP.playerCards[i]);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //攻击敌方武将，计算造成的战斗伤害数值
@@ -536,11 +656,11 @@ public class CardMove : MonoBehaviour
     {
         ChangeToFight(StateOfAttack.FightOver);
         //计算是否敌方闪避
-        if (TakeSpecialAttack(Enemyindex.GetComponent<CardMove>().realDodgeRate))
+        if (TakeSpecialAttack(EnemyObj.GetComponent<CardMove>().realDodgeRate))
         {
             Debug.Log("闪避");
-            Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "闪避";
-            enemyindex.transform.GetChild(4).gameObject.SetActive(true);
+            EnemyObj.transform.GetChild(4).GetComponent<Text>().text = "闪避";
+            EnemyObj.transform.GetChild(4).gameObject.SetActive(true);
             //anim.Play("fightCardStatus");
             return 0;
         }
@@ -548,8 +668,8 @@ public class CardMove : MonoBehaviour
         if (TakeSpecialAttack(ThumpRate))
         {
             Debug.Log("重击");
-            Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "重击";
-            enemyindex.transform.GetChild(4).gameObject.SetActive(true);
+            EnemyObj.transform.GetChild(4).GetComponent<Text>().text = "重击";
+            EnemyObj.transform.GetChild(4).gameObject.SetActive(true);
             //anim.Play("fightCardStatus");
             force = (int)(force * ThumpDamage);
         }
@@ -559,15 +679,15 @@ public class CardMove : MonoBehaviour
             if (TakeSpecialAttack(CritRate))
             {
                 Debug.Log("暴击");
-                Enemyindex.transform.GetChild(4).GetComponent<Text>().text = "暴击";
-                enemyindex.transform.GetChild(4).gameObject.SetActive(true);
+                EnemyObj.transform.GetChild(4).GetComponent<Text>().text = "暴击";
+                EnemyObj.transform.GetChild(4).gameObject.SetActive(true);
                 //anim.Play("fightCardStatus");
                 force = (int)(force * CritDamage);
             }
         }
 
         //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
-        return (int)(force * (140 / (70 + Enemyindex.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
+        return (int)(force * (140 / (70 + EnemyObj.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
     }
 
     /// <summary>
@@ -583,4 +703,24 @@ public class CardMove : MonoBehaviour
         else
             return false;
     }
+
+    /// <summary>
+    /// 对对手造成伤害，动态表现等
+    /// </summary>
+    private void UpdateEnemyHp(GameObject enemy_obj)
+    {
+        //显示造成伤害值
+        enemy_obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
+        enemy_obj.transform.GetChild(5).gameObject.SetActive(true);
+
+        //敌方血条的计算和显示
+        enemy_obj.GetComponent<CardMove>().Health = enemy_obj.GetComponent<CardMove>().Health - realDamage;
+        if (enemy_obj.GetComponent<CardMove>().Health < 0)
+            enemy_obj.GetComponent<CardMove>().Health = 0;
+        enemy_obj.GetComponent<Slider>().value = (enemy_obj.GetComponent<CardMove>().Health) / ((float)enemy_obj.GetComponent<CardMove>().Fullhealth);
+    }
+
+
+
+
 }
