@@ -721,8 +721,170 @@ public class CardMove : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 祖巫动态技能
+    /// </summary>
+    /// <param name="percent">伤害百分比</param>
+    private void ZuWuSkill(float percent)
+    {
+        if (IsPlayerOrEnemy == 0)
+        {
+            if (EnemyIndex == 0)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[0]);
+                if (FightCardSP.enemyCards[3] != null && FightCardSP.enemyCards[3].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.enemyCards[3]);
+                }
+            }
+            else if (EnemyIndex == 1)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[1]);
+                if (FightCardSP.enemyCards[4] != null && FightCardSP.enemyCards[4].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.enemyCards[4]);
+                }
+            }
+            else if (EnemyIndex == 2)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[2]);
+                if (FightCardSP.enemyCards[5] != null && FightCardSP.enemyCards[5].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.enemyCards[5]);
+                }
+            }
+            else if (EnemyIndex == 3)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[3]);
+                if (FightCardSP.enemyCards[6] != null && FightCardSP.enemyCards[6].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.enemyCards[6]);
+                }
+            }
+            else if (EnemyIndex == 4)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[4]);
+                if (FightCardSP.enemyCards[7] != null && FightCardSP.enemyCards[7].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.enemyCards[7]);
+                }
+            }
+            else if (EnemyIndex == 5)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[5]);
+                if (FightCardSP.enemyCards[8] != null && FightCardSP.enemyCards[8].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.enemyCards[8]);
+                }
+            }
+        }
+        else
+        {
+            if (EnemyIndex == 0)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[0]);
+                if (FightCardSP.playerCards[3] != null && FightCardSP.playerCards[3].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.playerCards[3]);
+                }
+            }
+            else if (EnemyIndex == 1)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[1]);
+                if (FightCardSP.playerCards[4] != null && FightCardSP.playerCards[4].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.playerCards[4]);
+                }
+            }
+            else if (EnemyIndex == 2)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[2]);
+                if (FightCardSP.playerCards[5] != null && FightCardSP.playerCards[5].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.playerCards[5]);
+                }
+            }
+            else if (EnemyIndex == 3)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[3]);
+                if (FightCardSP.playerCards[6] != null && FightCardSP.playerCards[6].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.playerCards[6]);
+                }
+            }
+            else if (EnemyIndex == 4)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[4]);
+                if (FightCardSP.playerCards[7] != null && FightCardSP.playerCards[7].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.playerCards[7]);
+                }
+            }
+            else if (EnemyIndex == 5)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[5]);
+                if (FightCardSP.playerCards[8] != null && FightCardSP.playerCards[8].GetComponent<CardMove>().Health > 0)
+                {
+                    realDamage = (int)(realDamage * percent);
+                    UpdateEnemyHp(FightCardSP.playerCards[8]);
+                }
+            }
+        }
+    }
 
+    /// <summary>
+    /// 魔神动态技能
+    /// </summary>
+    /// <param name="percent">伤害百分比</param>
+    ///  /// <param name="attackNum">攻击目标个数</param>  3兵种是3  6兵种是4
+    private void MoShenSkill(float percent,int attackNum)
+    {
+        List<int> arrayGo = new List<int>() { 0, 0, 1, 1, 2, 2, 3, 3, 4, 4, 5, 5, 6, 6, 7, 7, 8, 8 }; //位置数列，为同一目标最多攻击两次做准被
+        List<int> array_down = new List<int>();//临时存放随机的三个数,arrayGo的下标
+        List<int> array_transform = new List<int>();//临时存放三个的位置
+        for (int i = 0; i < attackNum; i++)
+        {
+            int temp_num = Random.Range(0, arrayGo.Count);
+            if (!array_down.Contains(temp_num))
+            {
+                array_down.Add(temp_num);
+            }
+            else
+            {
+                i--;
+            }
+        }
+        for (int i = 0; i < attackNum; i++)
+        {
+            array_transform.Add(arrayGo[array_down[i]]);
+        }
 
+        if (IsPlayerOrEnemy == 0)
+        {
+            for (int i = 0; i < array_transform.Count; i++)
+            {
+                UpdateEnemyHp(FightCardSP.enemyCards[array_transform[i]]);
+            }
+        }
+        else
+        {
+            for (int i = 0; i < array_transform.Count; i++)
+            {
+                UpdateEnemyHp(FightCardSP.playerCards[array_transform[i]]);
+            }
+        }
+    }
 
 
 
