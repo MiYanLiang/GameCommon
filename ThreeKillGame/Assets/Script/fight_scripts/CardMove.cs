@@ -459,13 +459,112 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:
+                        //治疗2个血量最低的友方目标，治疗量为伤害的80%。
+                        TianShenSkill(2, 0.8f);
                         break;
                     case 2:
+                        //治疗3个血量最低的友方目标，治疗量为伤害的100%。
+                        TianShenSkill(3, 1f);
                         break;
                 }
                 break;
         }
     }
+    /// <summary>
+    /// 天神动态技能
+    /// </summary>
+    /// <param name="nums">治疗个数</param>
+    /// <param name="percentage">治疗量是伤害的百分比</param>
+    private void TianShenSkill(int nums, float percentage)
+    {
+        int[] minHp = new int[nums];    //临时存储最少hp
+        int[] arrs = new int[nums];     //存储受治疗单位的index
+        bool isContinue = true;         //记录是否继续
+        for (int i = 0; i < arrs.Length; i++)
+        {
+            arrs[i] = -1;   //初始化
+            minHp[i] = 9999;
+        }
+        if (IsPlayerOrEnemy == 0)   //治疗己方（playerCards）
+        {
+            //选取回血目标
+            for (int i = 0; i < nums; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    for (int k = 0; k < nums; k++)
+                    {
+                        if (arrs[k]==j)
+                        {
+                            isContinue = false;
+                        }
+                    }
+                    if (isContinue && FightCardSP.playerCards[j] != null && FightCardSP.playerCards[j].GetComponent<CardMove>().Health > 0)
+                    {
+                        if (minHp[i] > FightCardSP.playerCards[j].GetComponent<CardMove>().Health)
+                        {
+                            minHp[i] = FightCardSP.playerCards[j].GetComponent<CardMove>().Health;
+                            arrs[i] = j;
+                        }
+                    }
+                    isContinue = true;
+                }
+            }
+            //为目标回血
+            int addHp = (int)(Force * percentage);
+            for (int i = 0; i < nums; i++)
+            {
+                if (arrs[i]!=-1)
+                {
+                    Debug.Log("光击");
+                    if (addHp+ FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health> FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Fullhealth)
+                        FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health = FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Fullhealth;
+                    else
+                        FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health = addHp + FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health;
+                }
+            }
+        }
+        else        //治疗敌方（enemyCards）
+        {
+            for (int i = 0; i < nums; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    for (int k = 0; k < nums; k++)
+                    {
+                        if (arrs[k] == j)
+                        {
+                            isContinue = false;
+                        }
+                    }
+                    if (isContinue && FightCardSP.enemyCards[j] != null && FightCardSP.enemyCards[j].GetComponent<CardMove>().Health > 0)
+                    {
+                        if (minHp[i] > FightCardSP.enemyCards[j].GetComponent<CardMove>().Health)
+                        {
+                            minHp[i] = FightCardSP.enemyCards[j].GetComponent<CardMove>().Health;
+                            arrs[i] = j;
+                        }
+                    }
+                    isContinue = true;
+                }
+            }
+            //为目标回血
+            int addHp = (int)(Force * percentage);
+            for (int i = 0; i < nums; i++)
+            {
+                if (arrs[i] != -1)
+                {
+                    Debug.Log("光击");
+                    if (addHp + FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health > FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Fullhealth)
+                        FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health = FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Fullhealth;
+                    else
+                        FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health = addHp + FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health;
+                }
+            }
+        }
+    }
+
+
     /// <summary>
     /// 山兽动态技能
     /// </summary>
