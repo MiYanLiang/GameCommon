@@ -84,6 +84,11 @@ public class CardMove : MonoBehaviour
     private float armorPenetrationRate; //破甲百分比
     public float ArmorPenetrationRate { get => armorPenetrationRate; set => armorPenetrationRate = value; }
 
+    private bool isDizzy;   //是否被击晕
+    public bool IsDizzy { get => isDizzy; set => isDizzy = value; }
+
+
+
     Vector3 vec = new Vector3();    //记录卡牌初始位置
 
     Animator anim_Emey; //敌方动画控制器
@@ -342,12 +347,12 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     
-                        //将造成伤害的30%转化为自身血量
+                    case 1:
+                        //将造成伤害的30%转化为自身血量--//减少受到10%远程伤害
                         ShanShouSkill(0.3f);
                         break;
-                    case 2:     
-                        //将造成伤害的60%转化为自身血量
+                    case 2:
+                        //将造成伤害的60%转化为自身血量--//减少受到20%远程伤害
                         ShanShouSkill(0.6f);
                         break;
                 }
@@ -358,12 +363,12 @@ public class CardMove : MonoBehaviour
                 {
                     case 0:
                         break;
-                    case 1:     
-                        //受伤害回复5%的血量
+                    case 1:
+                        //受伤害回复5%的血量--//反弹20%近战伤害。
                         HaiShouSkill(0.05f);
                         break;
-                    case 2:     
-                        //受伤害回复5%的血量
+                    case 2:
+                        //受伤害回复5%的血量--//反弹40%近战伤害。
                         HaiShouSkill(0.05f);
                         break;
                 }
@@ -411,7 +416,7 @@ public class CardMove : MonoBehaviour
                         ZuWuSkill(0.5f);
                         break;
                     case 2:
-                        //突刺敌方后排80 % 伤害。
+                        //突刺敌方后排80%伤害。
                         ZuWuSkill(0.8f);
                         break;
                 }
@@ -439,8 +444,12 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:
+                        //随机攻击3个不同目标，每个造成30%伤害，20%几率击晕1回合。
+                        FuShenSkill(3, 0.3f, 0.2f);
                         break;
                     case 2:
+                        //随机攻击3个不同目标，每个造成30%伤害，30%几率击晕1回合。
+                        FuShenSkill(3, 0.3f, 0.3f);
                         break;
                 }
                 break;
@@ -478,6 +487,137 @@ public class CardMove : MonoBehaviour
                 break;
         }
     }
+
+    /// <summary>
+    /// 辅神动态技能
+    /// </summary>
+    /// <param name="nums">攻击目标数</param>
+    /// <param name="percentage">伤害百分比</param>
+    /// <param name="stunProbability">击晕效果触发概率</param>
+    private void FuShenSkill(int nums, float percentage, float stunProbability)
+    {
+        List<int> arrs = new List<int>();   //记录卡牌下标
+        //随机攻击3个不同目标，每个造成30%伤害，20%几率击晕1回合。
+        if (IsPlayerOrEnemy == 0)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+                {
+                    arrs.Add(i);
+                }
+            }
+            if (arrs.Count > nums) //敌人卡牌数大于3张时
+            {
+                int[] arr_index = new int[nums];    //存放要攻击的对象卡牌下标
+                for (int i = 0; i < nums; i++)
+                {
+                    arr_index[i] = -1;
+                }
+                int index;
+                bool isContinue;
+                for (int i = 0; i < nums; i++)
+                {
+                    do
+                    {
+                        isContinue = false;
+                        index = Random.Range(0, arrs.Count);
+                        for (int j = 0; j < i; j++)
+                        {
+                            if (arr_index[j] == arrs[index])
+                            {
+                                isContinue = true;
+                            }
+                        }
+                    } while (isContinue);
+                    arr_index[i] = arrs[index];
+                }
+                for (int i = 0; i < nums; i++)
+                {
+                    realDamage = (int)(realDamage * percentage);
+                    UpdateEnemyHp(FightCardSP.enemyCards[arr_index[i]]);
+                    if (TakeSpecialAttack(stunProbability))
+                    {
+                        FightCardSP.enemyCards[arr_index[i]].GetComponent<CardMove>().IsDizzy = true;
+                    }
+                    Debug.Log("雷击");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < arrs.Count; i++)
+                {
+                    realDamage = (int)(realDamage * percentage);
+                    UpdateEnemyHp(FightCardSP.enemyCards[arrs[i]]);
+                    if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
+                    {
+                        FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().IsDizzy = true;
+                    }
+                    Debug.Log("雷击");
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+                {
+                    arrs.Add(i);
+                }
+            }
+            if (arrs.Count > nums) //敌人卡牌数大于3张时
+            {
+                int[] arr_index = new int[nums];    //存放要攻击的对象卡牌下标
+                for (int i = 0; i < nums; i++)
+                {
+                    arr_index[i] = -1;
+                }
+                int index;
+                bool isContinue;
+                for (int i = 0; i < nums; i++)
+                {
+                    do
+                    {
+                        isContinue = false;
+                        index = Random.Range(0, arrs.Count);
+                        for (int j = 0; j < i; j++)
+                        {
+                            if (arr_index[j] == arrs[index])
+                            {
+                                isContinue = true;
+                            }
+                        }
+                    } while (isContinue);
+                    arr_index[i] = arrs[index];
+                }
+                for (int i = 0; i < nums; i++)
+                {
+                    realDamage = (int)(realDamage * percentage);
+                    UpdateEnemyHp(FightCardSP.playerCards[arr_index[i]]);
+                    if (TakeSpecialAttack(stunProbability))
+                    {
+                        FightCardSP.playerCards[arr_index[i]].GetComponent<CardMove>().IsDizzy = true;
+                    }
+                    Debug.Log("雷击");
+                }
+            }
+            else
+            {
+                for (int i = 0; i < arrs.Count; i++)
+                {
+                    realDamage = (int)(realDamage * percentage);
+                    UpdateEnemyHp(FightCardSP.playerCards[arrs[i]]);
+                    if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
+                    {
+                        FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().IsDizzy = true;
+                    }
+                    Debug.Log("雷击");
+                }
+            }
+        }
+    }
+
     /// <summary>
     /// 天神动态技能
     /// </summary>
@@ -957,6 +1097,7 @@ public class CardMove : MonoBehaviour
                 UpdateEnemyHp(FightCardSP.playerCards[array_transform[i]]);
             }
         }
+        Debug.Log("火击");
     }
 
 
