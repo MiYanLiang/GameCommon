@@ -199,12 +199,14 @@ public class CardMove : MonoBehaviour
                         //将造成伤害的30%转化为自身血量--//减少受到10%远程伤害
                         ShanShouSkill(0.3f);
                         gameObject.transform.GetChild(4).GetComponent<Text>().text = "嗜血";
+                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
                         Debug.Log("嗜血");
                         break;
                     case 2:
                         //将造成伤害的60%转化为自身血量--//减少受到20%远程伤害
                         ShanShouSkill(0.6f);
                         gameObject.transform.GetChild(4).GetComponent<Text>().text = "吞噬";
+                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
                         Debug.Log("吞噬");
                         break;
                 }
@@ -221,12 +223,14 @@ public class CardMove : MonoBehaviour
                         //受伤害回复5%的血量--//反弹20%近战伤害。
                         HaiShouSkill(0.05f);
                         gameObject.transform.GetChild(4).GetComponent<Text>().text = "毒刺";
+                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
                         Debug.Log("毒刺");
                         break;
                     case 2:
                         //受伤害回复5%的血量--//反弹40%近战伤害。
                         HaiShouSkill(0.05f);
                         gameObject.transform.GetChild(4).GetComponent<Text>().text = "刃甲";
+                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
                         Debug.Log("刃甲");
                         break;
                 }
@@ -413,11 +417,13 @@ public class CardMove : MonoBehaviour
             if (ArmsSkillStatus == 1)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "疾风";
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
                 Debug.Log("疾风");
             }
             if (ArmsSkillStatus == 2)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "瞬闪";
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
                 Debug.Log("瞬闪");
             }
             //每损失20%血量提升闪避率
@@ -447,11 +453,13 @@ public class CardMove : MonoBehaviour
             if (ArmsSkillStatus == 1)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "战意";
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
                 Debug.Log("战意");
             }
             if (ArmsSkillStatus == 2)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "战魂";
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
                 Debug.Log("战魂");
             }
         }
@@ -466,11 +474,13 @@ public class CardMove : MonoBehaviour
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("穿刺");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("突刺");
         }
         NormalAttack(EnemyObj);
@@ -590,11 +600,13 @@ public class CardMove : MonoBehaviour
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "横扫";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("横扫");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "狂斩";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("狂斩");
         }
         realDamage = (int)(realDamage * percent);
@@ -689,11 +701,13 @@ public class CardMove : MonoBehaviour
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "雷震";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("雷震");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "天怒";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("天怒");
         }
         realDamage = (int)(realDamage * percentage);
@@ -740,6 +754,7 @@ public class CardMove : MonoBehaviour
                     {
                         FightCardSP.enemyCards[arr_index[i]].GetComponent<CardMove>().IsDizzy = true;
                         FightCardSP.enemyCards[arr_index[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
+                        FightCardSP.enemyCards[arr_index[i]].transform.GetChild(4).gameObject.SetActive(true);
                     }
                 }
             }
@@ -752,6 +767,7 @@ public class CardMove : MonoBehaviour
                     {
                         FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().IsDizzy = true;
                         FightCardSP.enemyCards[arrs[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
+                        FightCardSP.enemyCards[arrs[i]].transform.GetChild(4).gameObject.SetActive(true);
                     }
                 }
             }
@@ -797,6 +813,7 @@ public class CardMove : MonoBehaviour
                     {
                         FightCardSP.playerCards[arr_index[i]].GetComponent<CardMove>().IsDizzy = true;
                         FightCardSP.playerCards[arr_index[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
+                        FightCardSP.playerCards[arr_index[i]].transform.GetChild(4).gameObject.SetActive(true);
                     }
                 }
             }
@@ -809,6 +826,7 @@ public class CardMove : MonoBehaviour
                     {
                         FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().IsDizzy = true;
                         FightCardSP.playerCards[arrs[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
+                        FightCardSP.playerCards[arrs[i]].transform.GetChild(4).gameObject.SetActive(true);
                     }
                 }
             }
@@ -825,11 +843,13 @@ public class CardMove : MonoBehaviour
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "荒火";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("荒火");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "炎爆";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("炎爆");
         }
         realDamage = (int)(realDamage * percent);
@@ -932,11 +952,13 @@ public class CardMove : MonoBehaviour
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "复生";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("复生");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "回天";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("回天");
         }
         int[] minHp = new int[nums];    //临时存储最少hp

@@ -68,7 +68,7 @@
 			"level": "9",
 			"experience": "80",
 			"money": "7",
-			"battleNum": "",
+			"battleNum": "9",
 			"prepareNum": "7"
 		},
 		{
@@ -76,7 +76,7 @@
 			"level": "10",
 			"experience": "",
 			"money": "8",
-			"battleNum": "",
+			"battleNum": "9",
 			"prepareNum": "7"
 		}
 	]

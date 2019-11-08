@@ -85,11 +85,17 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 if (i < 9)    //在上阵位
                 {
                     //1阶代表1个数量，2阶3个，3阶9个
-                    num += ((int)Mathf.Pow(3, JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
+                    if (JiuGongGe.GetChild(i).childCount>0)
+                    {
+                        num += ((int)Mathf.Pow(3, JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
+                    }
                 }
                 else
                 {
-                    num += ((int)Mathf.Pow(3, BeiZhanWei.GetChild(i - 9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
+                    if (BeiZhanWei.GetChild(i - 9).childCount > 0)
+                    {
+                        num += ((int)Mathf.Pow(3, BeiZhanWei.GetChild(i - 9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
+                    }
                 }
             }
         }

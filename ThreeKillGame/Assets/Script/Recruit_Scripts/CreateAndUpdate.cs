@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class CreateAndUpdate : MonoBehaviour
 {
+    [SerializeField]
+    GameObject backGround;
     List<int> heroId = new List<int>();
     [HideInInspector]
     public List<int> myCard = new List<int>();
@@ -1702,7 +1704,7 @@ public class CreateAndUpdate : MonoBehaviour
                 heroBtn[i].GetComponentsInChildren<Text>()[0].text = "神兽";
             }
             //显示背景兵种图片
-            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite= Resources.Load("Image/ArmsPicture/" + soliderKind[i], typeof(Sprite)) as Sprite;
+            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + soliderKind[i], typeof(Sprite)) as Sprite;
 
             //英雄名字显示
             heroBtn[i].GetComponentsInChildren<Text>()[1].text = heroName[i].ToString();
@@ -1774,11 +1776,23 @@ public class CreateAndUpdate : MonoBehaviour
             {
                 heroBtn[i].GetComponentsInChildren<Text>()[6].text = "逍";
             }
-            //拥有数量显示
-            //heroBtn[i].GetComponentsInChildren<Text>()[3].text =GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
             heroBtn[i].name = getCardId[i].ToString();
         }
     }
+
+    /// <summary>
+    /// 刷新购买的武将拥有数量显示
+    /// </summary>
+    public void UpdateHadHeroNumsText()
+    {
+        for (int i = 0; i < heroBtn.Count; i++)
+        {
+            //拥有数量显示
+            //print(excelText[i]);
+            heroBtn[i].GetComponentsInChildren<Text>()[3].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
+        }
+    }
+
     //输入id获取整行数据--招募表
     void GetValueFromId(int num)
     {
@@ -1791,7 +1805,7 @@ public class CreateAndUpdate : MonoBehaviour
             }
 
         }
-        //print(excelText.Count);
+        //print("count: "+excelText.Count);
     }
     //根据id和列名拿到具体的值--英雄表
     void GetSpecificValue(int id, string name)
