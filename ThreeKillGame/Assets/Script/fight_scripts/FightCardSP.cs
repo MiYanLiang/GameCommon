@@ -407,7 +407,7 @@ public class FightCardSP : MonoBehaviour
                             }
                         }
                         //展示战况
-                        SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                        //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                         fightControll.GetComponent<FightControll>().BattleSettlement();
                         //设置首显战况
                         Transform tran = SettlementPic.transform.parent;
@@ -482,7 +482,7 @@ public class FightCardSP : MonoBehaviour
                         SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
                         SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
 
-                        SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                        //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                         fightControll.GetComponent<FightControll>().BattleSettlement();
                         Transform tran = SettlementPic.transform.parent;
                         SettlementPic.transform.SetParent(fightControll);

@@ -3384,7 +3384,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe14d5578d9a8047bdf2665441a3045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardMoveSpeed: 1000
+  speed_time: 1
   backGround: {fileID: 335961164}
   playerForceFlag: {fileID: 1774610221}
   rivalForceFlag: {fileID: 395486531}
@@ -28210,26 +28210,6 @@ MonoBehaviour:
   - {fileID: 696789310}
   - {fileID: 693880985}
   - {fileID: 1172273164}
-  enemyCards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  playerCards:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   fightControll: {fileID: 171646701}
 --- !u!224 &1533575025
 RectTransform:

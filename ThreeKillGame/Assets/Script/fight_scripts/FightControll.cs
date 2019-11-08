@@ -8,11 +8,12 @@ using UnityEngine.UI;
 /// </summary>
 public class FightControll : MonoBehaviour
 {
+
     //private int playerForceId;    //玩家势力的ID
     //private int[] forceIds;     //记录其他势力的ID
     [SerializeField]
-    private int cardMoveSpeed = 1000;
-    public static int moveSpeed;    //卡牌移动速度
+    private float speed_time = 0.3f;
+    public static float speedTime;    //卡牌移动速度
 
     //public Text[] forceNames;   //游戏内势力单个字显示
     [SerializeField]
@@ -77,9 +78,9 @@ public class FightControll : MonoBehaviour
     private void Update()
     {
         //更新卡牌移动速度
-        if (moveSpeed != cardMoveSpeed)
+        if (speedTime != speed_time)
         {
-            moveSpeed = cardMoveSpeed;
+            speedTime = speed_time;
         }
     }
 
