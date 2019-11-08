@@ -155,6 +155,8 @@ public class CardMove : MonoBehaviour
 
                 //完成攻击武将移动到原始位置
                 gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);
+
+                ChangeToFight(StateOfAttack.FightOver);
             }
         }
         if (IsAttack == StateOfAttack.FightOver)
@@ -231,6 +233,7 @@ public class CardMove : MonoBehaviour
                 break;
 
             case "3":   //飞兽
+                Debug.Log("飞兽闪避率： "+ realDodgeRate*100+"%");
                 switch (activeId)
                 {
                     case 0:
@@ -365,6 +368,7 @@ public class CardMove : MonoBehaviour
     private void ShanShouSkill(float percentage)
     {
         NormalAttack(EnemyObj);
+        UpdateEnemyHp(EnemyObj);
         int addHp = (int)(realDamage * percentage);
         if (addHp + Health > Fullhealth) //当吸血量加当前血量大于总血量时
         {
@@ -1188,7 +1192,6 @@ public class CardMove : MonoBehaviour
     //攻击敌方武将，计算造成的战斗伤害数值
     private int AttackTheEnemy(int force)
     {
-        ChangeToFight(StateOfAttack.FightOver);
         //计算是否敌方闪避
         if (TakeSpecialAttack(EnemyObj.GetComponent<CardMove>().realDodgeRate))
         {
