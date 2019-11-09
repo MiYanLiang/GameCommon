@@ -60,4 +60,20 @@
     /// 橙2周目
     /// </summary>
     public string orange2 { get; set; }
+    /// <summary>
+    /// 第一名声望奖励值
+    /// </summary>
+    public string prestigeReward1 { get; set; }
+    /// <summary>
+    /// 第二名声望奖励值
+    /// </summary>
+    public string prestigeReward2 { get; set; }
+    /// <summary>
+    /// 第三名声望奖励值
+    /// </summary>
+    public string prestigeReward3 { get; set; }
+    /// <summary>
+    /// 失败声望奖励值
+    /// </summary>
+    public string prestigeReward0 { get; set; }
 }

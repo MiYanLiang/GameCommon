@@ -29,7 +29,7 @@ public class FightCardSP : MonoBehaviour
     public Transform[] enemyJiuGonggePos = new Transform[9];    //战斗槽位置_敌人
     [HideInInspector]
     public List<string>[] array_str = new List<string>[9]; //接收传递的敌方上阵英雄数据
- 
+
     public static GameObject[] enemyCards = new GameObject[9];//存储敌人卡牌
 
     public static GameObject[] playerCards = new GameObject[9];//存储己方卡牌
@@ -208,7 +208,7 @@ public class FightCardSP : MonoBehaviour
                 //兵种
                 playerCards[i].GetComponent<CardMove>().ArmsId = datas[3];
                 //兵种技能激活状态
-                playerCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3])-1];
+                playerCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3]) - 1];
                 //血量
                 playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力
@@ -497,6 +497,19 @@ public class FightCardSP : MonoBehaviour
             }
         }
     }
+    /// <summary>
+    /// 游戏结束
+    /// </summary>
+    private void ShowGameOver()
+    {
+        if (CreateAndUpdate.playerHp<=0)
+        {
+
+        }
+    }
+
+
+
     //显示结算界面
     private void ShowSettlementPic()
     {

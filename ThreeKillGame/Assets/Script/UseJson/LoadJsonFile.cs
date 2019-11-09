@@ -117,6 +117,10 @@ public class LoadJsonFile : MonoBehaviour
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].blue2);
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].purple2);
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].orange2);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward1);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward2);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward3);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward0);
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }

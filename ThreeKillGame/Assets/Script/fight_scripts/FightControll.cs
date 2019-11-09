@@ -37,8 +37,15 @@ public class FightControll : MonoBehaviour
     static List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
 
     int difnum = 0; //记录难度值
+    [SerializeField]
+    private int npcLessHpValue = 0; //npc减血加成
     private int[] allWinTimes = new int[5] { 0, 0, 0, 0, 0 };  //npc胜利总数量
-    private int[] npcHeroHps = new int[5] { 0, 0, 0, 0, 0 };   //npc英雄总血量
+    [SerializeField]
+    private int minNum = 30; //胜率随机最小值
+    [SerializeField]
+    private int maxNum = 70; //胜率随机最大值
+    [SerializeField]
+    private int[] npcWinRate = new int[5] { 0, 0, 0, 0, 0 };   //npc的默认胜率0-100
     private int[] npcPlayerHps = new int[5];     //npc玩家血量
     public static int playerHeroHps = 0;  //玩家英雄总血量
     [SerializeField]
@@ -48,11 +55,6 @@ public class FightControll : MonoBehaviour
 
     private void Awake()
     {
-        //playerForceId= PlayerPrefs.GetInt("forcesId"); //玩家自身的势力id
-        for (int i = 0; i < 5; i++)
-        {
-            enemyHeroDatas.Add(new List<string>[9]);
-        }
         for (int i = 0; i < 9; i++)
         {
             sendData[i] = new List<string>();
@@ -208,16 +210,11 @@ public class FightControll : MonoBehaviour
     {
         int index_list = 1;
         int[] enemyForceIndex = new int[5] { -1, -1, -1, -1, -1 };  //记录每个npc匹配到的对手势力
-        //计算各npc英雄总血量
+        //重置npc胜率
         for (int i = 0; i < 5; i++)
         {
-            for (int m = 0; m < 9; m++)
-            {
-                if (enemyHeroDatas[i][m] != null)
-                {
-                    npcHeroHps[i] += int.Parse(enemyHeroDatas[i][m][8]);
-                }
-            }
+            enemyHeroDatas.Add(new List<string>[9]);
+            npcWinRate[i] = Random.Range(minNum, maxNum);   
         }
         //挑选对手
         for (int i = 0; i < 5; i++)
@@ -237,23 +234,25 @@ public class FightControll : MonoBehaviour
 
                 if (enem == 5)
                 {
-                    if (npcHeroHps[i] <= playerHeroHps)  //小于等于玩家的兵力
+                    if (npcWinRate[i] < 50)  //小于等于50则输
                     {
-                        npcPlayerHps[i] -= ((int)(30 * (1 - (float)npcHeroHps[i] / playerHeroHps)) + Random.Range(0, 5));
+                        //输了扣血
+                        npcPlayerHps[i] -= Random.Range(1+ npcLessHpValue, 11+ npcLessHpValue);
                         //显示战况信息
                         textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=red>{1}</color>        <color=blue>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
                     }
                     else
                     {
+                        //赢了加胜利场数
                         allWinTimes[i]++;
                         textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=green>{1}</color>        <color=blue>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
                     }
                 }
                 else
                 {
-                    if (npcHeroHps[i] <= npcHeroHps[enem])
+                    if (npcWinRate[i] <= 50)
                     {
-                        npcPlayerHps[i] -= ((int)(30 * (1 - (float)npcHeroHps[i] / npcHeroHps[enem])) + Random.Range(0, 5));
+                        npcPlayerHps[i] -= Random.Range(1+ npcLessHpValue, 11+ npcLessHpValue);
                         textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
                     }
                     else
