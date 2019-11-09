@@ -19,7 +19,7 @@ public class FightControll : MonoBehaviour
     [SerializeField]
     Transform backGround;   //用来获取背景上的代码UIControl
     [SerializeField]
-    Image playerForceFlag;    //其他势力头像
+    Image playerForceFlag;    //玩家势力头像
     [SerializeField]
     Image rivalForceFlag;    //其他势力头像
 
@@ -39,14 +39,14 @@ public class FightControll : MonoBehaviour
     int difnum = 0; //记录难度值
     [SerializeField]
     private int npcLessHpValue = 0; //npc减血加成
-    private int[] allWinTimes = new int[5] { 0, 0, 0, 0, 0 };  //npc胜利总数量
+    public int[] allWinTimes = new int[5] { 0, 0, 0, 0, 0 };  //npc胜利总数量
     [SerializeField]
     private int minNum = 30; //胜率随机最小值
     [SerializeField]
     private int maxNum = 70; //胜率随机最大值
     [SerializeField]
     private int[] npcWinRate = new int[5] { 0, 0, 0, 0, 0 };   //npc的默认胜率0-100
-    private int[] npcPlayerHps = new int[5];     //npc玩家血量
+    public int[] npcPlayerHps = new int[5];     //npc玩家血量
     public static int playerHeroHps = 0;  //玩家英雄总血量
     [SerializeField]
     Slider[] npcPlayer_hp;//npc玩家血条
@@ -55,6 +55,11 @@ public class FightControll : MonoBehaviour
 
     private void Awake()
     {
+        //初始化npc卡牌存储列表
+        for (int i = 0; i < 5; i++)
+        {
+            enemyHeroDatas.Add(new List<string>[9]);
+        }
         for (int i = 0; i < 9; i++)
         {
             sendData[i] = new List<string>();
@@ -213,7 +218,6 @@ public class FightControll : MonoBehaviour
         //重置npc胜率
         for (int i = 0; i < 5; i++)
         {
-            enemyHeroDatas.Add(new List<string>[9]);
             npcWinRate[i] = Random.Range(minNum, maxNum);   
         }
         //挑选对手

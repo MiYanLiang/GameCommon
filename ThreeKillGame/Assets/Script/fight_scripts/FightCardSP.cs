@@ -17,9 +17,10 @@ public class FightCardSP : MonoBehaviour
     private bool isEndOFInit = false;   //记录是否初始化结束
     [HideInInspector]
     public int battles;       //记录对战次数
-    private int roundNum;   //记录当前回合数量
-    private int fightNum;   //记录当前攻击武将的位置
-    private bool isPlayerBout;  //记录是否是玩家的武将攻击回合
+    private int winBattles;   //记录胜利场数
+    private int roundNum;     //记录当前回合数量
+    private int fightNum;     //记录当前攻击武将的位置
+    private bool isPlayerBout;//记录是否是玩家的武将攻击回合
     [HideInInspector]
     public static bool isFightNow;  //记录现在是否正在攻击
 
@@ -48,6 +49,7 @@ public class FightCardSP : MonoBehaviour
         //worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
         //worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
         battles = 1;
+        winBattles = 0;
     }
 
 
@@ -360,7 +362,7 @@ public class FightCardSP : MonoBehaviour
                     if (selectEnemy >= enemyCards.Length)
                     {
                         Debug.Log("玩家获胜");
-
+                        winBattles++;   //胜利场数加一
                         //结算战斗信息
                         //血量
                         int remainingHP = 0;    //总血量
@@ -488,7 +490,7 @@ public class FightCardSP : MonoBehaviour
                         SettlementPic.transform.SetParent(fightControll);
                         SettlementPic.transform.SetParent(tran);
 
-                        Invoke("ShowSettlementPic", 2f);
+                        Invoke("ShowSettlementPic", 1.5f);    //延时打开结算界面
                         //RecoverCardData();  
                         return null;
                     }
@@ -497,24 +499,44 @@ public class FightCardSP : MonoBehaviour
             }
         }
     }
+
+    //显示每轮战斗的结算界面
+    private void ShowSettlementPic()
+    {
+        SettlementPic.gameObject.SetActive(true);
+    }
+
+    [SerializeField]
+    FightControll fightCtl;     //玩家战斗控制代码
+    [SerializeField]
+    GameObject gameOverBg;      //游戏结束界面
+    //PlayerPrefs.SetInt("prestigeNum", prestigeNum);
     /// <summary>
     /// 游戏结束
     /// </summary>
     private void ShowGameOver()
     {
-        if (CreateAndUpdate.playerHp<=0)
+        if (CreateAndUpdate.playerHp<=0)    //失败结算
+        {
+
+            return;
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            if (fightCtl.npcPlayerHps[i]>0) //有npc还活着
+                return;
+        }
+        //结算胜利
+        for (int i = 0; i < 5; i++)
         {
 
         }
+
+
     }
 
 
 
-    //显示结算界面
-    private void ShowSettlementPic()
-    {
-        SettlementPic.gameObject.SetActive(true);
-    }
 
     /// <summary>
     /// 初始化兵种技能激活状态
