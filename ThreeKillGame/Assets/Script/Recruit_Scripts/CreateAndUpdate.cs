@@ -99,7 +99,7 @@ public class CreateAndUpdate : MonoBehaviour
     /// </summary>
     public void ChangeLevelText()
     {
-        text_level.text = level.ToString();
+        text_level.text = level + "级";
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public class CreateAndUpdate : MonoBehaviour
     private void Awake()
     {
         level = 1;
-        text_level.text = level.ToString();
+        text_level.text = level + "级";
         experience = 0;
 
     }

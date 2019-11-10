@@ -1277,7 +1277,7 @@ public class CardMove : MonoBehaviour
         obj.GetComponent<CardMove>().Health = obj.GetComponent<CardMove>().Health - realDamage;
         if (obj.GetComponent<CardMove>().Health < 0)
             obj.GetComponent<CardMove>().Health = 0;
-        obj.GetComponent<Slider>().value = (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
+        obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
     }
 
     /// <summary>
@@ -1290,7 +1290,7 @@ public class CardMove : MonoBehaviour
         obj.transform.GetChild(5).GetComponent<Text>().text = "+" + addHp;
         obj.transform.GetChild(5).gameObject.SetActive(true);
         //血条的显示
-        obj.GetComponent<Slider>().value = obj.GetComponent<CardMove>().Health / (float)obj.GetComponent<CardMove>().Fullhealth;
+        obj.GetComponent<Slider>().value = 1 - obj.GetComponent<CardMove>().Health / (float)obj.GetComponent<CardMove>().Fullhealth;
     }
 
     /// <summary>
