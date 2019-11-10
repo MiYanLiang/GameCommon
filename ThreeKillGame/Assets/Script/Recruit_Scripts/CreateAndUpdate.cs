@@ -1092,8 +1092,7 @@ public class CreateAndUpdate : MonoBehaviour
             soliderDefense.Clear();
             soliderKind.Clear();
             soliderForce.Clear();
-            //soliderRarity.Clear();
-            playerCardAll.Clear();
+            soliderRarity.Clear();
             //heroBtn.Clear();
             switch (level)
             {
