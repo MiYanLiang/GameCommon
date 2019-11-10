@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6460,7 +6460,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 4000
+  m_Text: 40
 --- !u!222 &657033484
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6951,7 +6951,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 8000
+  m_Text: 60
 --- !u!222 &747258674
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7756,7 +7756,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1000
+  m_Text: 20
 --- !u!222 &832275928
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10344,7 +10344,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 15000
+  m_Text: 80
 --- !u!222 &1154787721
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11335,7 +11335,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2000
+  m_Text: 30
 --- !u!222 &1264745274
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11573,7 +11573,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 70
 --- !u!222 &1299242029
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11966,7 +11966,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 6000
+  m_Text: 50
 --- !u!222 &1378578040
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12350,7 +12350,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 600
+  m_Text: 10
 --- !u!222 &1449376366
 CanvasRenderer:
   m_ObjectHideFlags: 0

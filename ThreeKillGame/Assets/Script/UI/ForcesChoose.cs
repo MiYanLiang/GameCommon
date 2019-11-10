@@ -61,7 +61,24 @@ public class ForcesChoose : MonoBehaviour
         {
             getForces.Add(0);
             getForces.Add(1);
-            getForces.Add(4);
+            getForces.Add(2);
+        }
+        else if (battleId == 3)
+        {
+            getForces.Add(0);
+            getForces.Add(1);
+        }
+        else if (battleId == 4)
+        {
+            getForces.Add(0);
+            getForces.Add(1);
+            getForces.Add(2);
+        }
+        else if (battleId == 5)
+        {
+            getForces.Add(0);
+            getForces.Add(1);
+            getForces.Add(2);
         }
         while (getForces.Count < count)
         {
