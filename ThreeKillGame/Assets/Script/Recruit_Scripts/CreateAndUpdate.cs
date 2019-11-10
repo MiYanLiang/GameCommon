@@ -191,8 +191,8 @@ public class CreateAndUpdate : MonoBehaviour
             GetSpecificValue(excelText[i], "soliderForce");
             GetSpecificValue(excelText[i], "soliderRarity");
         }
-        GetHeroRarity();
-        GetHeroRarityId();
+        //GetHeroRarity();
+        //GetHeroRarityId();
         for (int i = 0; i < getCardId.Count; i++)
         {
             //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
@@ -1092,7 +1092,8 @@ public class CreateAndUpdate : MonoBehaviour
             soliderDefense.Clear();
             soliderKind.Clear();
             soliderForce.Clear();
-            soliderRarity.Clear();
+            //soliderRarity.Clear();
+            playerCardAll.Clear();
             //heroBtn.Clear();
             switch (level)
             {
