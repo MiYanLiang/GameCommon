@@ -141,7 +141,7 @@ public class CardMove : MonoBehaviour
                 else
                     flag = -1;
                 //计算要攻击后移动到的位置，然后移动
-                vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 160, 0)));
+                vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));
                 //武将先移动到目标身前
                 gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false);
                 isCalcul = true;
@@ -1286,7 +1286,7 @@ public class CardMove : MonoBehaviour
     private void UpdateOwnHp(int addHp, GameObject obj)
     {
         //显示恢复值
-        obj.transform.GetChild(5).GetComponent<Text>().color = Color.green;
+        obj.transform.GetChild(5).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
         obj.transform.GetChild(5).GetComponent<Text>().text = "+" + addHp;
         obj.transform.GetChild(5).gameObject.SetActive(true);
         //血条的显示

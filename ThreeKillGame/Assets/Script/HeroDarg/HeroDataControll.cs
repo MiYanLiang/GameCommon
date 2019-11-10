@@ -82,7 +82,12 @@ public class HeroDataControll : MonoBehaviour {
             gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/"+HeroData[3],typeof(Sprite)) as Sprite;
         }
     }
-    void GetHeroKind_(GameObject gameObj)
+
+    /// <summary>
+    /// 兵种小头像
+    /// </summary>
+    /// <param name="gameObj"></param>
+    private void GetHeroKind_(GameObject gameObj)
     {
         int i = 3;
         if (HeroData[i].ToString() == "1")
