@@ -35,6 +35,7 @@ public class HeroDataControll : MonoBehaviour {
     string attack;
     string defense;
     string soldierNum;
+    string heroInformation;
 
     // Use this for initialization
     void Start () {
@@ -47,6 +48,7 @@ public class HeroDataControll : MonoBehaviour {
         attack = HeroData[6];
         defense = HeroData[7];
         soldierNum = HeroData[8];
+        heroInformation = HeroData[20];
         //HeroDataTest = HeroData;
         //for (int i = 0; i < HeroDataTest.Count; i++)
         //{
@@ -91,7 +93,7 @@ public class HeroDataControll : MonoBehaviour {
         print("点击的"+heroId);
         fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         //显示点击英雄的名字  及  阶数（阶数尚未得到）
-        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = heroName+ "\u1500"+ Grade_hero + "阶";
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = heroName+ "\u1500";
         //显示兵种及英雄相关属性  （缺少拥有个数）
         int nums = GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(heroId);
         GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = heroKindName + "\u2000" + "拥有" + nums + "\u2000" + "攻击" + attack + "\u2000" + "防御" + defense + "\u2000" + "士兵" + soldierNum;
@@ -104,7 +106,7 @@ public class HeroDataControll : MonoBehaviour {
                 for (int i = 0; i < fetterInformation[j].Count; i++)
                 {
                     //print("ssssssssssssssssssssssssssss"+fetterInformation[j][1]);
-                    GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u3000" + "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" +","+ "防御+" + fetterInformation[j][4] + "%"+"," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
+                    GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" +","+ "防御+" + fetterInformation[j][4] + "%"+"," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
                     break;
                 }
             }
@@ -113,6 +115,7 @@ public class HeroDataControll : MonoBehaviour {
         {
             GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "\u3000" + "此英雄无羁绊";
         }
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = heroInformation;
         heroIdDate.Clear();
     }
 

@@ -20,7 +20,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "龙首兽身，专好音律。"
 		},
 		{
 			"index": "2",
@@ -43,7 +43,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "形似虎，有威力。"
 		},
 		{
 			"index": "3",
@@ -66,7 +66,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "形似狮，以火为食。"
 		},
 		{
 			"index": "4",
@@ -89,7 +89,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "昆仑山神明，人面而虎爪。"
 		},
 		{
 			"index": "5",
@@ -112,7 +112,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "似天马，一跃万里。"
 		},
 		{
 			"index": "6",
@@ -135,7 +135,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "俯卧西山，遥望东海。"
 		},
 		{
 			"index": "7",
@@ -158,7 +158,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "上古四凶，贪婪好食。"
 		},
 		{
 			"index": "8",
@@ -181,7 +181,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "上古四凶，嗜杀好斗。"
 		},
 		{
 			"index": "9",
@@ -204,7 +204,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "上古四凶，善恶无常。"
 		},
 		{
 			"index": "10",
@@ -227,7 +227,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "上古四凶，吞食天地。"
 		},
 		{
 			"index": "11",
@@ -250,7 +250,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "形似蛇，有坚甲。"
 		},
 		{
 			"index": "12",
@@ -273,7 +273,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "双翼飞蛇，善驱水。"
 		},
 		{
 			"index": "13",
@@ -296,7 +296,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "无角之龙，潜于深渊。"
 		},
 		{
 			"index": "14",
@@ -319,7 +319,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "口阔噪粗，平生好吞。"
 		},
 		{
 			"index": "15",
@@ -342,7 +342,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "形如螺蚌，性好僻静。"
 		},
 		{
 			"index": "16",
@@ -365,7 +365,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "蛟龙出海，化为角龙。"
 		},
 		{
 			"index": "17",
@@ -388,7 +388,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "北冥有鱼，其名为鲲。"
 		},
 		{
 			"index": "18",
@@ -411,7 +411,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "千年蛟龙，化为应龙。"
 		},
 		{
 			"index": "19",
@@ -434,7 +434,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "钟山之神，视为昼，瞑为夜，吹为冬，呼为夏。"
 		},
 		{
 			"index": "20",
@@ -457,7 +457,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "身形似蛇，四翼飞兽。"
 		},
 		{
 			"index": "21",
@@ -480,7 +480,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "双目四睛，名为重明。"
 		},
 		{
 			"index": "22",
@@ -503,7 +503,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "鸣声如雷，嘶声如电。"
 		},
 		{
 			"index": "23",
@@ -526,7 +526,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "飞马之像，虎纹而鸟翼，徇于四海。"
 		},
 		{
 			"index": "24",
@@ -549,7 +549,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "金翅鲲头，星睛豹眼。振北图南，刚强勇敢。"
 		},
 		{
 			"index": "25",
@@ -572,7 +572,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "声如婴啼，善喷水吐火。"
 		},
 		{
 			"index": "26",
@@ -595,7 +595,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "其状如鹤，一足，赤文青质而白喙。"
 		},
 		{
 			"index": "27",
@@ -618,7 +618,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "兴云雾而游其中。"
 		},
 		{
 			"index": "28",
@@ -641,7 +641,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "有三足，太阳之身。"
 		},
 		{
 			"index": "29",
@@ -664,7 +664,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大臣，善骑射。"
 		},
 		{
 			"index": "30",
@@ -687,7 +687,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大臣，好制鼓。"
 		},
 		{
 			"index": "31",
@@ -710,7 +710,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大臣，善兵法。"
 		},
 		{
 			"index": "32",
@@ -733,7 +733,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "逍遥散人，好棋奕。"
 		},
 		{
 			"index": "33",
@@ -756,7 +756,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "逍遥散人，善音律琴瑟。"
 		},
 		{
 			"index": "34",
@@ -779,7 +779,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "逍遥散人，铸龙渊。"
 		},
 		{
 			"index": "35",
@@ -802,7 +802,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "九黎族，善奔走，好打抱不平。"
 		},
 		{
 			"index": "36",
@@ -825,7 +825,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "善于射箭，受帝尧之封。"
 		},
 		{
 			"index": "37",
@@ -848,7 +848,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "涂山之会，铸造九鼎。"
 		},
 		{
 			"index": "38",
@@ -871,7 +871,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "气之祖巫。人面兽身，双耳似犬，耳挂青蛇。"
 		},
 		{
 			"index": "39",
@@ -894,7 +894,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "雷之祖巫。虎首人身，嘴里衔蛇。"
 		},
 		{
 			"index": "40",
@@ -917,7 +917,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "电之祖巫。人面鸟身，耳挂青蛇，手拿红蛇。"
 		},
 		{
 			"index": "41",
@@ -940,7 +940,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "风之祖巫。八首人面，虎身十尾。"
 		},
 		{
 			"index": "42",
@@ -963,7 +963,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "土之祖巫。人身蛇尾，背后七手，胸前双手。"
 		},
 		{
 			"index": "43",
@@ -986,7 +986,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "时之祖巫。赤如丹火，六足四翼，首无面目。"
 		},
 		{
 			"index": "44",
@@ -1009,7 +1009,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "面容威严，身高八尺，手执金色双戟。"
 		},
 		{
 			"index": "45",
@@ -1032,7 +1032,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "面如重枣，双目似火，手执银色双剑。"
 		},
 		{
 			"index": "46",
@@ -1055,7 +1055,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "鸿蒙之初，上古正神。演绎八卦，执掌万物。"
 		},
 		{
 			"index": "47",
@@ -1078,7 +1078,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄河之神，名曰河伯。"
 		},
 		{
 			"index": "48",
@@ -1101,7 +1101,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "瑶山女鬼。"
 		},
 		{
 			"index": "49",
@@ -1124,7 +1124,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "桃木成精。"
 		},
 		{
 			"index": "50",
@@ -1147,7 +1147,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "青丘白狐，有九尾。"
 		},
 		{
 			"index": "51",
@@ -1170,7 +1170,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "骷髅山，千年白骨所化。"
 		},
 		{
 			"index": "52",
@@ -1193,7 +1193,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "蚩尤血染枫林，灵气所化。"
 		},
 		{
 			"index": "53",
@@ -1216,7 +1216,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "蚩尤之臣，名飞廉，号风伯。"
 		},
 		{
 			"index": "54",
@@ -1239,7 +1239,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "蚩尤之臣，名屏翳，号雨师。"
 		},
 		{
 			"index": "55",
@@ -1262,7 +1262,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "神无所不通，形无所不类。道敖之主，众真之长。　"
 		},
 		{
 			"index": "56",
@@ -1285,7 +1285,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "炎帝之女，化为灵芝。"
 		},
 		{
 			"index": "57",
@@ -1308,7 +1308,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "炎帝之女，化作精卫鸟。"
 		},
 		{
 			"index": "58",
@@ -1331,7 +1331,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大臣，善呼风唤雨。"
 		},
 		{
 			"index": "59",
@@ -1354,7 +1354,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "春之神。辅佐伏羲。"
 		},
 		{
 			"index": "60",
@@ -1377,7 +1377,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "秋之神。辅佐少昊。"
 		},
 		{
 			"index": "61",
@@ -1400,7 +1400,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "冬之神。辅佐颛顼。"
 		},
 		{
 			"index": "62",
@@ -1423,7 +1423,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "夏之神。辅佐神农。"
 		},
 		{
 			"index": "63",
@@ -1446,7 +1446,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "炎帝大臣，后沦为凶神。"
 		},
 		{
 			"index": "64",
@@ -1469,7 +1469,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "鸿蒙之初，万灵之主。"
 		},
 		{
 			"index": "65",
@@ -1492,7 +1492,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "顽石幻化而成。"
 		},
 		{
 			"index": "66",
@@ -1515,7 +1515,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "共工手下凶神，蛇身九头。"
 		},
 		{
 			"index": "67",
@@ -1538,7 +1538,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "响尾之蛇。"
 		},
 		{
 			"index": "68",
@@ -1561,7 +1561,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "猿猴王。气吞山河，力大无比。"
 		},
 		{
 			"index": "69",
@@ -1584,7 +1584,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "虽为魔兽，本性善良。"
 		},
 		{
 			"index": "70",
@@ -1607,7 +1607,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大将，死而复生。"
 		},
 		{
 			"index": "71",
@@ -1630,7 +1630,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "炎帝大将，号战神。"
 		},
 		{
 			"index": "72",
@@ -1653,7 +1653,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大将，又名为旱魃。"
 		},
 		{
 			"index": "73",
@@ -1676,7 +1676,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "九黎族之长，骁勇善战，号兵主。"
 		},
 		{
 			"index": "74",
@@ -1699,7 +1699,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "祝融之子，善琴瑟。"
 		},
 		{
 			"index": "75",
@@ -1722,7 +1722,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝大臣。能察针末于百步之外。"
 		},
 		{
 			"index": "76",
@@ -1745,7 +1745,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "广寒宫之妖。"
 		},
 		{
 			"index": "77",
@@ -1768,7 +1768,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "广寒宫之主。"
 		},
 		{
 			"index": "78",
@@ -1791,7 +1791,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝之孙，辅佐少昊。"
 		},
 		{
 			"index": "79",
@@ -1814,7 +1814,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "黄帝之子，名曰白帝。"
 		},
 		{
 			"index": "80",
@@ -1837,7 +1837,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "轩辕氏之长，号黄帝。"
 		},
 		{
 			"index": "81",
@@ -1860,7 +1860,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "烈山氏之长，号炎帝。"
 		},
 		{
 			"index": "82",
@@ -1883,7 +1883,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "扶桑国之主，金乌之母。"
 		},
 		{
 			"index": "83",
@@ -1906,7 +1906,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "角色介绍，15字以内"
 		},
 		{
 			"index": "84",
@@ -1929,7 +1929,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "角色介绍，15字以内"
 		},
 		{
 			"index": "85",
@@ -1952,7 +1952,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "角色介绍，15字以内"
 		},
 		{
 			"index": "86",
@@ -1975,7 +1975,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "角色介绍，15字以内"
 		},
 		{
 			"index": "87",
@@ -1998,7 +1998,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "角色介绍，15字以内"
 		},
 		{
 			"index": "88",
@@ -2021,7 +2021,7 @@
 			"equipmentSkillId": "",
 			"soldierSkillId": "",
 			"fetterSkillId": "",
-			"roleIntro": ""
+			"roleIntro": "角色介绍，15字以内"
 		}
 	]
 }

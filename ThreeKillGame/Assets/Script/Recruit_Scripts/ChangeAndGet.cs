@@ -329,7 +329,7 @@ public class ChangeAndGet : MonoBehaviour
         heroData.Clear();   //清空上一次所购买的英雄数据
         for (int i = 0; i < 88; i++)
         {
-            for (int j = 0; j < 20; j++)
+            for (int j = 0; j < 21; j++)
             {
 
                 if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)    //通过Id获取当前单元格在第几行

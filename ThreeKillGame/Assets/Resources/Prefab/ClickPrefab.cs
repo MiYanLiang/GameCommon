@@ -70,9 +70,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < shieldSoldierName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【盾兵】"+"\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "山兽" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + shieldSoldierName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text +=  "\t" + "\u2000" + "[刃甲]" + "\u2000" + "3山兽上阵,血量提升10%，反弹20%近战伤害，减少受到10%远程伤害" + "\t" + "\u2000" + "[刺盾]" + "\u2000" + "6山兽上阵,血量提升20%，反弹40%近战伤害，减少受到20%远程伤害";
         }
@@ -80,9 +81,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < mahoutName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【象兵】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "海兽" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "没有没有没有。。。";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + mahoutName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t"+"\u2000" + "[汲取]" + "\u2000" + "3海兽上阵,防御增加10点，将造成伤害的30%转化为自身血量" + "\t" + "\u2000" + "[嗜血]" + "\u2000" + "6海兽上阵,防御增加15点，将造成伤害的60%转化为自身血量";
         }
@@ -90,9 +92,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < halberdierName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【戟兵】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "飞兽" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "没有没有没有。。。";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + halberdierName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[灵巧]" + "\u2000" + "3飞兽上阵,血量提升10%，战斗中每损失20%血量，获得风之助，提升10%闪避" + "\t" + "\u2000" + "[瞬闪]" + "\u2000" + "6飞兽上阵,血量提升20%，战斗中每损失20%血量，获得风之助，提升15%闪避";
         }
@@ -100,9 +103,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < lifeguardName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【禁卫】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "人杰" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "没有没有没有。。。";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + lifeguardName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[血战]" + "\u2000" + "3人杰上阵,攻击提升10%，每次攻击提升20%伤害，10%防御，可叠加3次" + "\t" + "\u2000" + "[死战]" + "\u2000" + "6人杰上阵,攻击提升20%，每次攻击提升30%伤害，10%防御，可叠加3次";
         }
@@ -110,9 +114,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < spearmanName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【枪兵】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "祖巫" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + spearmanName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[穿刺]" + "\u2000" + "3祖巫上阵,攻击提升10%，突刺敌方后排50%伤害" + "\t" + "\u2000" + "[突刺]" + "\u2000" + "6祖巫上阵,攻击提升20%，突刺敌方后排80%伤害";
         }
@@ -120,9 +125,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < sowarName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【骑兵】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "散仙" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sowarName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[横扫]" + "\u2000" + "3散仙上阵,攻击提升10%，攻击同一排敌人，每个造成75%伤害" + "\t" + "\u2000" + "[狂斩]" + "\u2000" + "6散仙上阵,攻击提升20%，攻击同一排敌人，每个造成100%伤害";
         }
@@ -130,9 +136,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < counsellorName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【军师】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "辅神" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + counsellorName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[火计]" + "\u2000" + "3辅神上阵,攻击提升10%，随机攻击2个目标，每个造成30%伤害，20%几率击晕1回合" + "\t" + "\u2000" + "[爆炎]" + "\u2000" + "6辅神上阵,攻击提升20%，随机攻击3个目标，每个造成45%伤害，20%几率击晕1回合";
         }
@@ -140,9 +147,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < sapperName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【工兵】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "魔神" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sapperName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[乱射]" + "\u2000" + "3魔神上阵,攻击提升10%，随机攻击3个目标，每个造成45%伤害" + "\t" + "\u2000" + "[箭雨]" + "\u2000" + "6魔神上阵,攻击提升20%，随机攻击4个目标，每个造成50%伤害";
         }
@@ -150,9 +158,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < necromancerName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【方士】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "天神" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + necromancerName[i];
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[地遁]" + "\u2000" + "3天神上阵,攻击提升10%，治疗2个血量最低的友方目标，治疗量为方式伤害的80%" + "\t" + "\u2000" + "[天遁]" + "\u2000" + "6天神上阵,攻击提升20%，治疗3个血量最低的友方目标，治疗量为方式伤害的100%";
         }
@@ -160,9 +169,10 @@ public class ClickPrefab : MonoBehaviour
         {
             for (int i = 0; i < god_beastName.Count; i++)
             {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "【神兽】" + "\u2000";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "神兽" + "\u2000";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000"+ god_beastName[i] ;
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
         }
 

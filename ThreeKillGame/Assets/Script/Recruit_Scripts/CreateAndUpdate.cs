@@ -1665,117 +1665,117 @@ public class CreateAndUpdate : MonoBehaviour
             //兵种显示
             if (soliderKind[i].ToString() == "1")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "山兽";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "山";
             }
             else if (soliderKind[i].ToString() == "2")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "海兽";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "海";
             }
             else if (soliderKind[i].ToString() == "3")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "飞兽";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "飞";
             }
             else if (soliderKind[i].ToString() == "4")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "人杰";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "人";
             }
             else if (soliderKind[i].ToString() == "5")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "祖巫";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "巫";
             }
             else if (soliderKind[i].ToString() == "6")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "散仙";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "仙";
             }
             else if (soliderKind[i].ToString() == "7")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "辅神";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "辅";
             }
             else if (soliderKind[i].ToString() == "8")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "魔神";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "魔";
             }
             else if (soliderKind[i].ToString() == "9")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "天神";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "天";
             }
             else if (soliderKind[i].ToString() == "10")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].text = "神兽";
+                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "神";
             }
             //显示背景兵种图片
             heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + soliderKind[i], typeof(Sprite)) as Sprite;
 
             //英雄名字显示
-            heroBtn[i].GetComponentsInChildren<Text>()[1].text = heroName[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[0].text = heroName[i].ToString();
             //根据稀有度设置字体颜色
             if (soliderRarity[i].ToString() == "1")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
             }
             else if (soliderRarity[i].ToString() == "2")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
             }
             else if (soliderRarity[i].ToString() == "3")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
             }
             else if (soliderRarity[i].ToString() == "4")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[1].color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
             }
             //花费显示
-            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderMoney[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[3].text = soliderMoney[i].ToString();
             //攻击显示
             //heroBtn[i].GetComponentsInChildren<Text>()[5].text = soliderAttack[i].ToString();
             //防御显示
-            heroBtn[i].GetComponentsInChildren<Text>()[5].text = soliderDefense[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderDefense[i].ToString();
             //势力显示
-            if (soliderForce[i].ToString() == "1")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "炎";
-            }
-            else if (soliderForce[i].ToString() == "2")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "黄";
-            }
-            else if (soliderForce[i].ToString() == "3")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "蚩";
-            }
-            else if (soliderForce[i].ToString() == "4")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "御";
-            }
-            else if (soliderForce[i].ToString() == "5")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "娲";
-            }
-            else if (soliderForce[i].ToString() == "6")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "烛";
-            }
-            else if (soliderForce[i].ToString() == "7")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "乌";
-            }
-            else if (soliderForce[i].ToString() == "8")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "荒";
-            }
-            else if (soliderForce[i].ToString() == "9")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "羲";
-            }
-            else if (soliderForce[i].ToString() == "10")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "禹";
-            }
-            else if (soliderForce[i].ToString() == "11")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[6].text = "逍";
-            }
+        //    if (soliderForce[i].ToString() == "1")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "炎";
+        //    }
+        //    else if (soliderForce[i].ToString() == "2")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "黄";
+        //    }
+        //    else if (soliderForce[i].ToString() == "3")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "蚩";
+        //    }
+        //    else if (soliderForce[i].ToString() == "4")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "御";
+        //    }
+        //    else if (soliderForce[i].ToString() == "5")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "娲";
+        //    }
+        //    else if (soliderForce[i].ToString() == "6")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "烛";
+        //    }
+        //    else if (soliderForce[i].ToString() == "7")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "乌";
+        //    }
+        //    else if (soliderForce[i].ToString() == "8")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "荒";
+        //    }
+        //    else if (soliderForce[i].ToString() == "9")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "羲";
+        //    }
+        //    else if (soliderForce[i].ToString() == "10")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "禹";
+        //    }
+        //    else if (soliderForce[i].ToString() == "11")
+        //    {
+        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "逍";
+        //    }
             heroBtn[i].name = getCardId[i].ToString();
         }
     }
@@ -1789,7 +1789,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             //拥有数量显示
             //print(excelText[i]);
-            heroBtn[i].GetComponentsInChildren<Text>()[3].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[2].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
         }
     }
 
