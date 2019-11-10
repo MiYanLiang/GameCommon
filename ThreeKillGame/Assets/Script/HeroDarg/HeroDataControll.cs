@@ -77,11 +77,55 @@ public class HeroDataControll : MonoBehaviour {
             gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
             gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroData[7];
+            GetHeroKind_(gameObject);
             //设置兵种背景
             gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/"+HeroData[3],typeof(Sprite)) as Sprite;
         }
     }
-
+    void GetHeroKind_(GameObject gameObj)
+    {
+        int i = 3;
+        if (HeroData[i].ToString() == "1")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "山";
+        }
+        else if (HeroData[i].ToString() == "2")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "海";
+        }
+        else if (HeroData[i].ToString() == "3")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "飞";
+        }
+        else if (HeroData[i].ToString() == "4")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "人";
+        }
+        else if (HeroData[i].ToString() == "5")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "巫";
+        }
+        else if (HeroData[i].ToString() == "6")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "仙";
+        }
+        else if (HeroData[i].ToString() == "7")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "辅";
+        }
+        else if (HeroData[i].ToString() == "8")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "魔";
+        }
+        else if (HeroData[i].ToString() == "9")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "天";
+        }
+        else if (HeroData[i].ToString() == "10")
+        {
+            gameObj.GetComponentsInChildren<Text>()[3].text = "神";
+        }
+    }
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
