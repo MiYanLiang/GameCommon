@@ -38,16 +38,15 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     Transform fightControll;    //战斗控制代码
 
-    UseEPPlusFun useepplusfun = new UseEPPlusFun();
-    //TableDatas worksheet_NPC;   //存储npc表
-    //TableDatas worksheet_Role;  //存储武将表
+    [SerializeField]
+    FightControll fightCtl;     //玩家战斗控制代码
+    [SerializeField]
+    GameObject gameOverBg;      //游戏结束界面
 
     private int[] armsSkillStatus = new int[9]; //存储兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
 
     private void Awake()
     {
-        //worksheet_NPC = useepplusfun.FindExcelFiles("NPCTable");  //获取NPC数据表
-        //worksheet_Role = useepplusfun.FindExcelFiles("RoleTable1");   //武将表数据
         battles = 1;
         winBattles = 0;
     }
@@ -254,8 +253,30 @@ public class FightCardSP : MonoBehaviour
 
     }
 
-    bool isStart = false;
+    /// <summary>
+    /// 初始化兵种技能激活状态
+    /// </summary>
+    private void InitArmsSkillStatus()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            armsSkillStatus[i] = 0;
+        }
+        int count = HeroIdChangeAndSave.activationSkillId_soldiers.Count;
+        int armsid, nums = 0;
+        for (int i = 0; i < count; i++)
+        {
+            armsid = HeroIdChangeAndSave.activationSkillId_soldiers[i] / 10 - 1;    //兵种编号
+            if (nums < HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10)
+                nums = HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10;
+            if (nums < 6)
+                armsSkillStatus[armsid] = 1;
+            else
+                armsSkillStatus[armsid] = 2;
+        }
+    }
 
+    bool isStart = false;
     private void LiteTimeStart()
     {
         isStart = true;
@@ -504,61 +525,7 @@ public class FightCardSP : MonoBehaviour
     private void ShowSettlementPic()
     {
         SettlementPic.gameObject.SetActive(true);
-    }
-
-    [SerializeField]
-    FightControll fightCtl;     //玩家战斗控制代码
-    [SerializeField]
-    GameObject gameOverBg;      //游戏结束界面
-    //PlayerPrefs.SetInt("prestigeNum", prestigeNum);
-    /// <summary>
-    /// 游戏结束
-    /// </summary>
-    private void ShowGameOver()
-    {
-        if (CreateAndUpdate.playerHp<=0)    //失败结算
-        {
-
-            return;
-        }
-        for (int i = 0; i < 5; i++)
-        {
-            if (fightCtl.npcPlayerHps[i]>0) //有npc还活着
-                return;
-        }
-        //结算胜利
-        for (int i = 0; i < 5; i++)
-        {
-
-        }
-
-
-    }
-
-
-
-
-    /// <summary>
-    /// 初始化兵种技能激活状态
-    /// </summary>
-    private void InitArmsSkillStatus()
-    {
-        for (int i = 0; i < 9; i++)
-        {
-            armsSkillStatus[i] = 0;
-        }
-        int count = HeroIdChangeAndSave.activationSkillId_soldiers.Count;
-        int armsid, nums = 0;
-        for (int i = 0; i < count; i++)
-        {
-            armsid = HeroIdChangeAndSave.activationSkillId_soldiers[i] / 10 - 1;    //兵种编号
-            if (nums < HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10)
-                nums = HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10;
-            if (nums < 6)
-                armsSkillStatus[armsid] = 1;
-            else
-                armsSkillStatus[armsid] = 2;
-        }
+        ShowGameOver();
     }
 
     /// <summary>
@@ -583,4 +550,131 @@ public class FightCardSP : MonoBehaviour
         player_hp.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
         player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
     }
+
+    /// <summary>
+    /// 游戏结束
+    /// </summary>
+    private void ShowGameOver()
+    {
+        if (CreateAndUpdate.playerHp<=0)    //失败结算
+        {
+            SettlementPic.transform.GetChild(2).gameObject.SetActive(false);
+            Invoke("ClearingTheGame", 2f);    //延时打开本次游戏结束界面
+            //ClearingTheGame();
+            return;
+        }
+        for (int i = 0; i < 5; i++)
+        {
+            if (fightCtl.npcPlayerHps[i]>0) //有npc还活着
+                return;
+        }
+        //结算胜利
+        SettlementPic.transform.GetChild(2).gameObject.SetActive(false);
+        Invoke("ClearingTheGame", 2f);    //延时打开本次游戏结束界面
+        //ClearingTheGame();
+    }
+    
+    /// <summary>
+    /// 游戏结算
+    /// </summary>
+    private void ClearingTheGame()
+    {
+        SettlementPic.transform.parent.gameObject.SetActive(false);
+        int[] arrRank = new int[6] { -1, -1, -1, -1, -1, -1 };  //结束势力排名id
+        int[] arrRankWinTimes = new int[6] { -1, -1, -1, -1, -1, -1 };  //结束势力胜场排名
+        for (int i = 0; i < 5; i++)
+        {
+            arrRank[i] = UIControl.array_forces[i];
+            arrRankWinTimes[i] = fightCtl.allWinTimes[i];
+        }
+        int tempWintimes, idIndex = -1;
+        for (int i = 0; i < 5; i++)     //对npc进行排名
+        {
+            for (int j = 4; j > i; j--)
+            {
+                if (arrRankWinTimes[j] > arrRankWinTimes[j - 1])
+                {
+                    tempWintimes = arrRankWinTimes[j - 1];
+                    idIndex = arrRank[j - 1];
+                    arrRankWinTimes[j - 1] = arrRankWinTimes[j];
+                    arrRank[j - 1] = arrRank[j];
+                    arrRankWinTimes[j] = tempWintimes;
+                    arrRank[j] = idIndex;
+                }
+            }
+        }
+        for (int i = 0; i < 6; i++)     //对玩家进行排名
+        {
+            if (i == 5)   //最后一名
+            {
+                idIndex = i;    //记录玩家的名次
+                arrRank[i] = UIControl.playerForceId;
+                arrRankWinTimes[i] = winBattles;
+            }
+            else
+            {
+                if (winBattles > arrRankWinTimes[i])
+                {
+                    idIndex = i;
+                    for (int j = 4; j >= i; j--)
+                    {
+                        arrRank[j + 1] = arrRank[j];
+                        arrRankWinTimes[j + 1] = arrRankWinTimes[j];
+                    }
+                    arrRank[i] = UIControl.playerForceId;
+                    arrRankWinTimes[i] = winBattles;
+                    break;
+                }
+            }
+        }
+        //结算展示
+        int addPrestige = 0;    //增加声望值数量
+        if (idIndex < 3)  //前三名
+        {
+            addPrestige = int.Parse(LoadJsonFile.difficultyChooseDatas[fightCtl.difnum - 1][15 + idIndex]);
+            if (idIndex == 0) //第一名
+            {
+                gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_威震", typeof(Sprite)) as Sprite;
+                gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_华夏", typeof(Sprite)) as Sprite;
+            }
+            else
+            {
+                if (idIndex == 1) //第二名
+                {
+                    gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_统领", typeof(Sprite)) as Sprite;
+                    gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_九州", typeof(Sprite)) as Sprite;
+                }
+                else    //第三名
+                {
+                    gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_称霸", typeof(Sprite)) as Sprite;
+                    gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_一方", typeof(Sprite)) as Sprite;
+                }
+            }
+        }
+        else
+        {
+            addPrestige = int.Parse(LoadJsonFile.difficultyChooseDatas[fightCtl.difnum - 1][18]);
+            gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_遗恨", typeof(Sprite)) as Sprite;
+            gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_千古", typeof(Sprite)) as Sprite;
+        }
+        gameOverBg.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = "声望 +" + addPrestige;
+        PlayerPrefs.SetInt("prestigeNum", PlayerPrefs.GetInt("prestigeNum") + addPrestige);
+        for (int i = 0; i < 6; i++)
+        {
+            //势力
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[arrRank[i] - 1][1] + "";
+            //胜场
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(1).GetComponent<Text>().text = arrRankWinTimes[i] + "";
+            //平局
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(2).GetComponent<Text>().text = 0 + "";
+            //败场
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(3).GetComponent<Text>().text = (battles - 1 - arrRankWinTimes[i]) + "";
+        }
+        for (int i = 0; i < 4; i++) //玩家势力红字
+        {
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(idIndex).GetChild(i).GetComponent<Text>().color = Color.red;
+        }
+        gameOverBg.SetActive(true);
+    }
+
 }

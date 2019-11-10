@@ -35,8 +35,8 @@ public class FightControll : MonoBehaviour
     //记录NPC上阵英雄的数据
     static List<List<string>[]> enemyHeroDatas = new List<List<string>[]>(); 
     static List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
-
-    int difnum = 0; //记录难度值
+    //[HideInInspector]
+    public int difnum = 0; //记录难度值
     [SerializeField]
     private int npcLessHpValue = 0; //npc减血加成
     public int[] allWinTimes = new int[5] { 0, 0, 0, 0, 0 };  //npc胜利总数量
@@ -55,6 +55,7 @@ public class FightControll : MonoBehaviour
 
     private void Awake()
     {
+        enemyHeroDatas.Clear();
         //初始化npc卡牌存储列表
         for (int i = 0; i < 5; i++)
         {
@@ -287,7 +288,7 @@ public class FightControll : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             npcPlayer_hp[i].value = npcPlayerHps[i] / (float)allHp;
-            npcPlayer_hp[i].transform.GetChild(3).GetComponent<Text>().text = npcPlayerHps[i].ToString();
+            npcPlayer_hp[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
         }
     }
 
@@ -316,5 +317,14 @@ public class FightControll : MonoBehaviour
             //Debug.Log("///" + enemyUnits[i][0] + "///" + enemyUnits[i][1] + "////" + enemyUnits[i][2]);
             
         }
+    }
+
+    /// <summary>
+    /// 结束游戏，跳转界面
+    /// </summary>
+    public void EndOfGame()
+    {
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }
