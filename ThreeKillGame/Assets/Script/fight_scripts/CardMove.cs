@@ -132,47 +132,45 @@ public class CardMove : MonoBehaviour
 
     private void Update()
     {
-        if (IsAttack == StateOfAttack.FightNow && EnemyObj != null)
+        //攻击前摇
+        if (IsAttack == StateOfAttack.FightNow && EnemyObj != null)   //如果卡牌攻击状态为攻击 并且 目标敌人存在 
         {
+            //选定目标
             if (!isCalcul)
             {
-                if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0)
+                if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
                     flag = 1;
                 else
                     flag = -1;
-                //计算要攻击后移动到的位置，然后移动
-                vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));
-                //武将先移动到目标身前
-                gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false);
+                
+                vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));        //计算要攻击后移动到的位置
+                gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
                 isCalcul = true;
             }
 
-            //攻击目标，武将先移动到目标身上
-            //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec_Enemy, FightControll.speedTime * Time.deltaTime);
-            if (gameObject.transform.position == vec_Enemy)
+            //攻击目标
+            if (gameObject.transform.position == vec_Enemy)     //到达目标敌人面前位置
             {
-                ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //攻击+动态技能
+                ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //普通攻击+动态技能
 
-                //完成攻击武将移动到原始位置
-                gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);
+                gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
 
-                ChangeToFight(StateOfAttack.FightOver);
+                ChangeToFight(StateOfAttack.FightOver); //更改攻击状态为攻击结束，进入攻击后摇
             }
         }
-        if (IsAttack == StateOfAttack.FightOver)
+
+        //攻击后摇
+        if (IsAttack == StateOfAttack.FightOver)    //如果卡牌攻击状态为攻击结束
         {
             isCalcul = false;
-            //gameObject.transform.position = Vector3.MoveTowards(gameObject.transform.position, vec, FightControll.speedTime * Time.deltaTime);
-            if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight)
+            if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
             {
-                //隐藏对手的掉血值和状态
-                HideGameObjText(EnemyObj, false);
-                //隐藏自身的血值和状态
-                HideGameObjText(gameObject, false);
+                HideGameObjText(EnemyObj, false);   //隐藏对手的掉血值和状态 
+                HideGameObjText(gameObject, false); //隐藏自身的血值和状态
+                
+                FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
 
-                //anim.Stop("fightCardStatus");
-                FightCardSP.isFightNow = false;
-                ChangeToFight(StateOfAttack.ReadyForFight);
+                ChangeToFight(StateOfAttack.ReadyForFight);     //改变这个卡牌的攻击状态为 准备状态
             }
         }
     }
