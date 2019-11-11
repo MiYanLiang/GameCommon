@@ -370,153 +370,167 @@ public class FightCardSP : MonoBehaviour
         if (isPlayerBout)
         {
             //前排位置可以首选同位置对手牌
-            if (fightNum > 3 && enemyCards[fightNum] != null && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
+            if (fightNum < 3 && enemyCards[fightNum] != null && enemyCards[fightNum].GetComponent<CardMove>().Health > 0)
             {
                 return enemyCards[fightNum];
             }
             else
             {
-                selectEnemy = 0;
-                while (enemyCards[selectEnemy] == null || enemyCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
+                if (fightNum >= 3 && enemyCards[fightNum % 3] != null && enemyCards[fightNum % 3].GetComponent<CardMove>().Health > 0)
                 {
-                    selectEnemy++;
-                    if (selectEnemy >= enemyCards.Length)
+                    return enemyCards[fightNum % 3];
+                }
+                else
+                {
+                    selectEnemy = 0;
+                    while (enemyCards[selectEnemy] == null || enemyCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
                     {
-                        Debug.Log("玩家获胜");
-                        winBattles++;   //胜利场数加一
-                        //结算战斗信息
-                        //血量
-                        int remainingHP = 0;    //总血量
-                        int fullHP = 0;         //剩余血量
-                        for (int j = 0; j < 9; j++)
+                        selectEnemy++;
+                        if (selectEnemy >= enemyCards.Length)
                         {
-                            if (playerCards[j] != null)
+                            Debug.Log("玩家获胜");
+                            winBattles++;   //胜利场数加一
+                                            //结算战斗信息
+                                            //血量
+                            int remainingHP = 0;    //总血量
+                            int fullHP = 0;         //剩余血量
+                            for (int j = 0; j < 9; j++)
                             {
-                                fullHP += playerCards[j].GetComponent<CardMove>().Fullhealth;
-                                remainingHP += playerCards[j].GetComponent<CardMove>().Health;
+                                if (playerCards[j] != null)
+                                {
+                                    fullHP += playerCards[j].GetComponent<CardMove>().Fullhealth;
+                                    remainingHP += playerCards[j].GetComponent<CardMove>().Health;
+                                }
                             }
-                        }
-                        float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                        //敌方扣血
+                            float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
+                                                                                //敌方扣血
 
-                        //金币
-                        CreateAndUpdate.money += 1;   //玩家加金币
+                            //金币
+                            CreateAndUpdate.money += 1;   //玩家加金币
 
-                        //展示战斗胜负信息
-                        if (remainScale >= 0.75f)
-                        {
-                            SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/完", typeof(Sprite)) as Sprite;
-                            SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
-                        }
-                        else
-                        {
-                            if (remainScale >= 0.5f)
+                            //展示战斗胜负信息
+                            if (remainScale >= 0.75f)
                             {
-                                SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/大", typeof(Sprite)) as Sprite;
+                                SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/完", typeof(Sprite)) as Sprite;
                                 SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                             }
                             else
                             {
-                                if (remainScale >= 0.25f)
+                                if (remainScale >= 0.5f)
                                 {
-                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
-                                    SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/利", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/大", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
                                 }
                                 else
                                 {
-                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/险", typeof(Sprite)) as Sprite;
-                                    SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                    if (remainScale >= 0.25f)
+                                    {
+                                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                        SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/利", typeof(Sprite)) as Sprite;
+                                    }
+                                    else
+                                    {
+                                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/险", typeof(Sprite)) as Sprite;
+                                        SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                    }
                                 }
                             }
-                        }
-                        //展示战况
-                        //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
-                        fightControll.GetComponent<FightControll>().BattleSettlement();
-                        //设置首显战况
-                        Transform tran = SettlementPic.transform.parent;
-                        SettlementPic.transform.SetParent(fightControll);
-                        SettlementPic.transform.SetParent(tran);
+                            //展示战况
+                            //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                            fightControll.GetComponent<FightControll>().BattleSettlement();
+                            //设置首显战况
+                            Transform tran = SettlementPic.transform.parent;
+                            SettlementPic.transform.SetParent(fightControll);
+                            SettlementPic.transform.SetParent(tran);
 
-                        //延时显示结算界面
-                        Invoke("ShowSettlementPic", 1f);
-                        //RecoverCardData();  //战斗结算结束恢复卡牌数值
-                        return null;
+                            //延时显示结算界面
+                            Invoke("ShowSettlementPic", 1f);
+                            //RecoverCardData();  //战斗结算结束恢复卡牌数值
+                            return null;
+                        }
                     }
+                    return enemyCards[selectEnemy];
                 }
-                return enemyCards[selectEnemy];
             }
         }
         else
         {
-            if (playerCards[fightNum] != null && playerCards[fightNum].GetComponent<CardMove>().Health > 0)
+            if (fightNum < 3 && playerCards[fightNum] != null && playerCards[fightNum].GetComponent<CardMove>().Health > 0)
             {
                 return playerCards[fightNum];
             }
             else
             {
-                selectEnemy = 0;
-                while (playerCards[selectEnemy] == null || playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
+                if (fightNum >= 3 && playerCards[fightNum % 3] != null && playerCards[fightNum % 3].GetComponent<CardMove>().Health > 0)
                 {
-                    selectEnemy++;
-                    if (selectEnemy >= playerCards.Length)
+                    return playerCards[fightNum % 3];
+                }
+                else
+                {
+                    selectEnemy = 0;
+                    while (playerCards[selectEnemy] == null || playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
                     {
-                        Debug.Log("电脑获胜");
-                        //结算战斗信息
-
-                        //血量
-                        int remainingHP = 0;    //总血量
-                        int fullHP = 0;         //剩余血量
-                        for (int j = 0; j < 9; j++)
+                        selectEnemy++;
+                        if (selectEnemy >= playerCards.Length)
                         {
-                            if (enemyCards[j] != null)
+                            Debug.Log("电脑获胜");
+                            //结算战斗信息
+
+                            //血量
+                            int remainingHP = 0;    //总血量
+                            int fullHP = 0;         //剩余血量
+                            for (int j = 0; j < 9; j++)
                             {
-                                fullHP += enemyCards[j].GetComponent<CardMove>().Fullhealth;
-                                remainingHP += enemyCards[j].GetComponent<CardMove>().Health;
+                                if (enemyCards[j] != null)
+                                {
+                                    fullHP += enemyCards[j].GetComponent<CardMove>().Fullhealth;
+                                    remainingHP += enemyCards[j].GetComponent<CardMove>().Health;
+                                }
                             }
-                        }
-                        float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                        CreateAndUpdate.playerHp -= (int)(remainScale * 10);    //玩家扣血
-                        //金币
-                        CreateAndUpdate.money += 0;   //玩家不加金币
+                            float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
+                            CreateAndUpdate.playerHp -= (int)(remainScale * 10);    //玩家扣血
+                                                                                    //金币
+                            CreateAndUpdate.money += 0;   //玩家不加金币
 
-                        //展示战斗胜负信息
-                        if (remainScale >= 0.75f)
-                        {
-                            //victoryOrFailureText.text = "惨败";
-                        }
-                        else
-                        {
-                            if (remainScale >= 0.5f)
+                            //展示战斗胜负信息
+                            if (remainScale >= 0.75f)
                             {
-                                //victoryOrFailureText.text = "大败";
+                                //victoryOrFailureText.text = "惨败";
                             }
                             else
                             {
-                                if (remainScale >= 0.25f)
+                                if (remainScale >= 0.5f)
                                 {
-                                    //victoryOrFailureText.text = "小败";
+                                    //victoryOrFailureText.text = "大败";
                                 }
                                 else
                                 {
-                                    //victoryOrFailureText.text = "惜败";
+                                    if (remainScale >= 0.25f)
+                                    {
+                                        //victoryOrFailureText.text = "小败";
+                                    }
+                                    else
+                                    {
+                                        //victoryOrFailureText.text = "惜败";
+                                    }
                                 }
                             }
+                            SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
+
+                            //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
+                            fightControll.GetComponent<FightControll>().BattleSettlement();
+                            Transform tran = SettlementPic.transform.parent;
+                            SettlementPic.transform.SetParent(fightControll);
+                            SettlementPic.transform.SetParent(tran);
+
+                            Invoke("ShowSettlementPic", 1.5f);    //延时打开结算界面
+                                                                  //RecoverCardData();  
+                            return null;
                         }
-                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
-                        SettlementPic.transform.GetChild(5).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
-
-                        //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
-                        fightControll.GetComponent<FightControll>().BattleSettlement();
-                        Transform tran = SettlementPic.transform.parent;
-                        SettlementPic.transform.SetParent(fightControll);
-                        SettlementPic.transform.SetParent(tran);
-
-                        Invoke("ShowSettlementPic", 1.5f);    //延时打开结算界面
-                        //RecoverCardData();  
-                        return null;
                     }
+                    return playerCards[selectEnemy];
                 }
-                return playerCards[selectEnemy];
             }
         }
     }
