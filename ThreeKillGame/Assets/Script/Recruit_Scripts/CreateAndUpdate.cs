@@ -125,10 +125,9 @@ public class CreateAndUpdate : MonoBehaviour
 
     private void Awake()
     {
-        level = 1;
+        level = 8;
         text_level.text = level + "级";
         experience = 0;
-
     }
 
     void Start()
@@ -178,7 +177,7 @@ public class CreateAndUpdate : MonoBehaviour
             //GetValueFromId(18, worksheet2);
         for (int i = 0; i < myCard.Count; i++)
         {
-            GetValueFromId(int.Parse(myCard[i].ToString()) + 1);
+            GetValueFromId(int.Parse(myCard[i].ToString()));
             //heroBtn[i].GetComponentInChildren<Text>().text = myCard[i].ToString();
         }
         for (int i = 0; i < excelText.Count; i++)
@@ -233,11 +232,13 @@ public class CreateAndUpdate : MonoBehaviour
     //玩家卡牌随机
     void RandomList()
     {
+        //print("ssssssssssssssssssssslevel:"+level);
         while (myCard.Count < count)
         {
             switch (level)
             {
                 case 1:
+                    print("sssssssssssssssssssssssssssssssssssssssss:1");
                     temp_num = Random.Range(0, greenCard.Count);
                     if (!myCard.Contains(greenCard[temp_num]))
                     {
@@ -249,6 +250,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 2:
+                    print("sssssssssssssssssssssssssssssssssssssssss:2");
                     int pr2 = Random.Range(1, 101);
                     if (pr2 < 6 + peopleHearts_blue)
                     {
@@ -276,6 +278,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 3:
+                    //print("sssssssssssssssssssssssssssssssssssssssss:3");
                     int pr3 = Random.Range(1, 101);
                     if (pr3 < 11 + peopleHearts_blue)
                     {
@@ -303,6 +306,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 4:
+                    //print("sssssssssssssssssssssssssssssssssssssssss:4");
                     int pr4 = Random.Range(1, 101);
                     if (pr4 < 4 + peopleHearts_purple)
                     {
@@ -342,6 +346,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 5:
+                    //print("sssssssssssssssssssssssssssssssssssssssss:5");
                     int pr5 = Random.Range(1, 101);
                     if (pr5 < 7 + peopleHearts_purple)
                     {
@@ -381,6 +386,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 6:
+                   // print("sssssssssssssssssssssssssssssssssssssssss:6");
                     int pr6 = Random.Range(1, 101);
                     if (pr6 < 2 + peopleHearts_orange)
                     {
@@ -432,6 +438,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 7:
+                    //print("sssssssssssssssssssssssssssssssssssssssss:7");
                     int pr7 = Random.Range(1, 101);
                     if (pr7 < 3 + peopleHearts_orange)
                     {
@@ -483,6 +490,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 8:
+                   // print("sssssssssssssssssssssssssssssssssssssssss:8");
                     int pr8 = Random.Range(1, 101);
                     if (pr8 < 4 + peopleHearts_orange)
                     {
@@ -534,6 +542,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 9:
+                   // print("sssssssssssssssssssssssssssssssssssssssss:9");
                     int pr9 = Random.Range(1, 101);
                     if (pr9 < 4 + peopleHearts_orange)
                     {
@@ -588,6 +597,10 @@ public class CreateAndUpdate : MonoBehaviour
                     break;
             }
         }
+        //for (int i = 0; i < greenCard.Count; i++)
+        //{
+        //    print("ssssssssssssssssssssssssssCardid:" + greenCard[i]);
+        //}
     }
     //生成其他势力的随机数
     void PlayerRandom()
@@ -1097,6 +1110,7 @@ public class CreateAndUpdate : MonoBehaviour
             switch (level)
             {
                 case 1:
+                    print("ssssssssssssssssssssssssssssssssssssssssss1");
                     while (myCard.Count < count)
                     {
                         temp_num = Random.Range(0, greenCard.Count);
@@ -1117,6 +1131,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 2:
+                    print("ssssssssssssssssssssssssssssssssssssssssss2");
                     while (myCard.Count < count)
                     {
                         int pr2 = Random.Range(1, 101);
@@ -1479,6 +1494,10 @@ public class CreateAndUpdate : MonoBehaviour
                 case 8:
                     while (myCard.Count < count)
                     {
+                        if (myCard.Count == count)
+                        {
+                            break;
+                        }
                         int pr8 = Random.Range(1, 101);
                         if (pr8 < 4 + peopleHearts_orange)
                         {
@@ -1635,6 +1654,10 @@ public class CreateAndUpdate : MonoBehaviour
                 default:
                     break;
             }
+            if (myCard.Count == 6)
+            {
+                myCard.RemoveAt(5);
+            }
             GetExcelFile();
             //heroBtn.Clear();
             HeroLocation();
@@ -1648,6 +1671,10 @@ public class CreateAndUpdate : MonoBehaviour
         {
             print("啊，呸，穷鬼");
         }
+        for (int i = 0; i < myCard.Count; i++)
+        {
+            print("myCard:"+myCard[i]);
+        }
     }
 
 
@@ -1656,7 +1683,12 @@ public class CreateAndUpdate : MonoBehaviour
     private void HeroLocation()
     {
         //招募中民心的显示
+        if (heroName.Count == 6)
+        {
+            heroName.RemoveAt(5);
+        }
         textHertNum.text= peopleHearts.ToString();
+        print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+myCard.Count);
 
         for (int i = 0; i < heroName.Count; i++)
         {
@@ -1860,19 +1892,19 @@ public class CreateAndUpdate : MonoBehaviour
         {
             if (LoadJsonFile.RoleTableDatas[i][4] == "1")             //拿到绿色
             {
-                greenHeroId.Add(i - 1);
+                greenHeroId.Add(i);
             }
             else if (LoadJsonFile.RoleTableDatas[i][4] == "2")
             {
-                blueHeroId.Add(i - 1);
+                blueHeroId.Add(i);
             }
             else if (LoadJsonFile.RoleTableDatas[i][4] == "3")
             {
-                purpleHeroId.Add(i - 1);
+                purpleHeroId.Add(i);
             }
             else if (LoadJsonFile.RoleTableDatas[i][4] == "4")
             {
-                orangeHeroId.Add(i - 1);
+                orangeHeroId.Add(i);
             }
         }
     }
@@ -1884,33 +1916,37 @@ public class CreateAndUpdate : MonoBehaviour
 
                 for (int y = 0; y < greenHeroId.Count; y++)
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == greenHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == (greenHeroId[y]+1).ToString())
                     {
                         greenCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
                 for (int y = 0; y < blueHeroId.Count; y++)
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == blueHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == (blueHeroId[y]+1).ToString())
                     {
                         blueCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
                 for (int y = 0; y < purpleHeroId.Count; y++)
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == purpleHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == (purpleHeroId[y]+1).ToString())
                     {
                         purpleCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
                 for (int y = 0; y < orangeHeroId.Count; y++)
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == orangeHeroId[y].ToString())
+                    if (LoadJsonFile.RandowTableDates[i][0] == (orangeHeroId[y]+1).ToString())
                     {
                         orangeCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                     }
                 }
             
+        }
+        for (int i = 0; i < orangeHeroId.Count; i++)
+        {
+            print("orangeCard::::"+ orangeHeroId[i]);
         }
     }
     //民心加成

@@ -333,7 +333,7 @@ MonoBehaviour:
   - {fileID: 231210962}
   allIdList: []
   playerLevel: 1
-  peopleHearts: 50
+  peopleHearts: 90
   moraleNum: 90
   text_level: {fileID: 1966085884}
   player_hp: {fileID: 1228916432}
