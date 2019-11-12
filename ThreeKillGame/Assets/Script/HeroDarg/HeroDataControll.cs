@@ -40,7 +40,7 @@ public class HeroDataControll : MonoBehaviour {
     // Use this for initialization
     void Start () {
         
-        print(HeroData[0] + ":" + HeroData[1]);
+        //print(HeroData[0] + ":" + HeroData[1]);
         heroidtest = int.Parse(HeroData[0]);
         heroName = HeroData[1];
         heroKindType = int.Parse(HeroData[3]);

@@ -43,6 +43,7 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     GameObject gameOverBg;      //游戏结束界面
 
+
     private int[] armsSkillStatus = new int[9]; //存储兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
 
     private void Awake()
@@ -316,6 +317,7 @@ public class FightCardSP : MonoBehaviour
                 //切换武将状态为正在攻击
                 playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                 isFightNow = true;
+                ChangeParent(playerCards[fightNum].transform);
                 //记录当前武将在该回合已进行过攻击
                 playerCards[fightNum].GetComponent<CardMove>().isFightInThisBout = true;
             }
@@ -328,6 +330,7 @@ public class FightCardSP : MonoBehaviour
                     //切换武将状态为正在攻击
                     enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
+                    ChangeParent(enemyCards[fightNum].transform);
                 }
                 playerCards[fightNum++].GetComponent<CardMove>().isFightInThisBout = false;
             }
@@ -344,6 +347,7 @@ public class FightCardSP : MonoBehaviour
                 enemyCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
                 enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                 isFightNow = true;
+                ChangeParent(enemyCards[fightNum].transform);
                 enemyCards[fightNum].GetComponent<CardMove>().isFightInThisBout = true;
             }
             else
@@ -354,6 +358,7 @@ public class FightCardSP : MonoBehaviour
                     playerCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                     playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
+                    ChangeParent(playerCards[fightNum].transform);
                 }
                 enemyCards[fightNum++].GetComponent<CardMove>().isFightInThisBout = false;
             }
@@ -438,11 +443,7 @@ public class FightCardSP : MonoBehaviour
                             //展示战况
                             //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                             fightControll.GetComponent<FightControll>().BattleSettlement();
-                            //设置首显战况
-                            Transform tran = SettlementPic.transform.parent;
-                            SettlementPic.transform.SetParent(fightControll);
-                            SettlementPic.transform.SetParent(tran);
-
+                            
                             //延时显示结算界面
                             Invoke("ShowSettlementPic", 1f);
                             //RecoverCardData();  //战斗结算结束恢复卡牌数值
@@ -520,12 +521,10 @@ public class FightCardSP : MonoBehaviour
 
                             //SettlementPic.transform.GetChild(3).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1]);
                             fightControll.GetComponent<FightControll>().BattleSettlement();
-                            Transform tran = SettlementPic.transform.parent;
-                            SettlementPic.transform.SetParent(fightControll);
-                            SettlementPic.transform.SetParent(tran);
 
-                            Invoke("ShowSettlementPic", 1.5f);    //延时打开结算界面
-                                                                  //RecoverCardData();  
+
+                            Invoke("ShowSettlementPic", 1f);    //延时打开结算界面
+                                                                //RecoverCardData();  
                             return null;
                         }
                     }
@@ -538,6 +537,11 @@ public class FightCardSP : MonoBehaviour
     //显示每轮战斗的结算界面
     private void ShowSettlementPic()
     {
+        //设置首显战况
+        Transform tran = SettlementPic.transform.parent;
+        SettlementPic.transform.SetParent(fightControll);
+        SettlementPic.transform.SetParent(tran);
+
         SettlementPic.gameObject.SetActive(true);
         ShowGameOver();
     }
@@ -691,4 +695,14 @@ public class FightCardSP : MonoBehaviour
         gameOverBg.SetActive(true);
     }
 
+    /// <summary>
+    /// 重置攻击卡牌的parent
+    /// </summary>
+    /// <param name="tran">攻击卡牌的Transform</param>
+    private void ChangeParent(Transform tran)
+    {
+        Transform par = tran.parent;
+        tran.SetParent(fightControll);
+        tran.SetParent(par);
+    }
 }

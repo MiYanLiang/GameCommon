@@ -88,7 +88,6 @@ public class CardMove : MonoBehaviour
     public bool IsDizzy { get => isDizzy; set => isDizzy = value; }
 
 
-
     Vector3 vec = new Vector3();    //记录卡牌初始位置
 
     AudioSource audiosource;  //玩家卡牌音效
@@ -174,9 +173,7 @@ public class CardMove : MonoBehaviour
             }
         }
     }
-
-
-
+    
     /// <summary>
     /// 动态兵种技能（卡牌在每次攻击时调用）
     /// </summary>
@@ -194,14 +191,14 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //将造成伤害的30%转化为自身血量--//减少受到10%远程伤害
+                        //将造成伤害的30%转化为自身血量
                         ShanShouSkill(0.3f);
                         gameObject.transform.GetChild(4).GetComponent<Text>().text = "嗜血";
                         gameObject.transform.GetChild(4).gameObject.SetActive(true);
                         Debug.Log("嗜血");
                         break;
                     case 2:
-                        //将造成伤害的60%转化为自身血量--//减少受到20%远程伤害
+                        //将造成伤害的60%转化为自身血量
                         ShanShouSkill(0.6f);
                         gameObject.transform.GetChild(4).GetComponent<Text>().text = "吞噬";
                         gameObject.transform.GetChild(4).gameObject.SetActive(true);
@@ -213,23 +210,9 @@ public class CardMove : MonoBehaviour
             case "2":   //海兽
                 switch (activeId)
                 {
-                    case 0:
+                    default:
                         NormalAttack(EnemyObj);
                         UpdateEnemyHp(EnemyObj);
-                        break;
-                    case 1:
-                        //受伤害回复5%的血量--//反弹20%近战伤害。
-                        HaiShouSkill(0.05f);
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "毒刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("毒刺");
-                        break;
-                    case 2:
-                        //受伤害回复5%的血量--//反弹40%近战伤害。
-                        HaiShouSkill(0.05f);
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "刃甲";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("刃甲");
                         break;
                 }
                 break;
@@ -386,20 +369,30 @@ public class CardMove : MonoBehaviour
     /// <summary>
     /// 海兽动态技能
     /// </summary>
-    /// <param name="percentage">恢复血量百分比</param>
-    private void HaiShouSkill(float percentage)
+    /// <param name="obj">敌人卡牌</param>
+    /// <param name="index">兵种激活状态</param>
+    private void HaiShouSkill(GameObject obj, int index)
     {
-        NormalAttack(EnemyObj);
-        int addHp = (int)(Fullhealth * percentage);
-        if (addHp + Health > Fullhealth) //当恢复血量加当前血量大于总血量时
+        if (index <= 0)
+            return;
+        int hurt = 0;
+        if (obj.GetComponent<CardMove>().ArmsSkillStatus == 1)
         {
-            Health = Fullhealth;
+            hurt = (int)(realDamage * 0.2f);
+            Debug.Log("毒刺");
+            obj.transform.GetChild(4).GetComponent<Text>().text = "毒刺";
         }
         else
         {
-            Health = Health + addHp;
+            hurt = (int)(realDamage * 0.4f);
+            Debug.Log("刃甲");
+            obj.transform.GetChild(4).GetComponent<Text>().text = "刃甲";
         }
-        UpdateOwnHp(addHp, gameObject);
+        Health -= hurt;     //反伤
+        transform.GetChild(5).GetComponent<Text>().color = Color.red;
+        transform.GetChild(5).GetComponent<Text>().text = "-" + hurt;
+        obj.transform.GetChild(4).gameObject.SetActive(true);
+        transform.GetChild(5).gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -1276,6 +1269,11 @@ public class CardMove : MonoBehaviour
         if (obj.GetComponent<CardMove>().Health < 0)
             obj.GetComponent<CardMove>().Health = 0;
         obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
+
+        if (obj.GetComponent<CardMove>().ArmsId=="2" && obj.GetComponent<CardMove>().ArmsSkillStatus>0) //如果攻击的敌人是海兽 并且 兵种激活
+        {
+            HaiShouSkill(obj, obj.GetComponent<CardMove>().ArmsSkillStatus);    //触发海兽技能
+        }
     }
 
     /// <summary>

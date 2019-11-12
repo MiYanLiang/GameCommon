@@ -30617,6 +30617,7 @@ MonoBehaviour:
   fightControll: {fileID: 171646701}
   fightCtl: {fileID: 171646702}
   gameOverBg: {fileID: 1272533440}
+  carvas: {fileID: 1776039369}
 --- !u!224 &1533575025
 RectTransform:
   m_ObjectHideFlags: 0
