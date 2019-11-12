@@ -389,6 +389,7 @@ public class CardMove : MonoBehaviour
             obj.transform.GetChild(4).GetComponent<Text>().text = "刃甲";
         }
         Health -= hurt;     //反伤
+        transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
         transform.GetChild(5).GetComponent<Text>().color = Color.red;
         transform.GetChild(5).GetComponent<Text>().text = "-" + hurt;
         obj.transform.GetChild(4).gameObject.SetActive(true);
