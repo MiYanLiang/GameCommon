@@ -18,6 +18,8 @@ public class HeroCardDrag : MonoBehaviour {
     private Transform jiuGongge_Transform;
     private Transform preparation_Transform;
 
+    private float moveSpeed = 0.2f;
+
     // Use this for initialization
     void Start () {
         canvas_Transform = GameObject.Find("Canvas").transform;
@@ -86,7 +88,7 @@ public class HeroCardDrag : MonoBehaviour {
                         battleNums++;
                 }
             }
-            if ((go.tag == "GridP" && battleNums >= CreateAndUpdate.prepareNum) || (go.tag == "GridJ" && battleNums >=CreateAndUpdate.battleNum))
+            if ((go.tag == "GridP" && battleNums >= CreateAndUpdate.prepareNum) || (go.tag == "GridJ" && battleNums >= CreateAndUpdate.battleNum))
             {
                 if (go.tag == "GridJ")
                     Debug.Log("上阵位已满");
@@ -114,9 +116,9 @@ public class HeroCardDrag : MonoBehaviour {
             go.transform.SetParent(canvas_Transform);          //目标位置的原卡牌父级设置到Canvas
 
             //以下执行置换两个英雄卡牌的动画，完成位置互换
-            if (Math.Abs(go.transform.position.x - beginParentTransform.position.x) <= 0) 
+            if (Math.Abs(go.transform.position.x - beginParentTransform.position.x) <= 0)
             {
-                go.transform.DOMoveY(beginParentTransform.position.y, 0.3f).OnComplete(() =>
+                go.transform.DOMoveY(beginParentTransform.position.y, moveSpeed).OnComplete(() =>
                 {
                     go.transform.SetParent(beginParentTransform);
                     transform.GetComponent<Image>().raycastTarget = true;
@@ -124,9 +126,9 @@ public class HeroCardDrag : MonoBehaviour {
             }
             else
             {
-                go.transform.DOMoveX(beginParentTransform.position.x, 0.2f).OnComplete(() =>
+                go.transform.DOMoveX(beginParentTransform.position.x, moveSpeed).OnComplete(() =>
                 {
-                    go.transform.DOMoveY(beginParentTransform.position.y, 0.3f).OnComplete(() =>
+                    go.transform.DOMoveY(beginParentTransform.position.y, moveSpeed).OnComplete(() =>
                     {
                         go.transform.SetParent(beginParentTransform);
                         transform.GetComponent<Image>().raycastTarget = true;
@@ -140,17 +142,25 @@ public class HeroCardDrag : MonoBehaviour {
             transform.GetComponent<Image>().raycastTarget = true;
         }
         //transform.GetChild(0).gameObject.SetActive(true);
-        GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
-        GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
 
         string strid = "";
         for (int i = 0; i < HeroIdChangeAndSave.pos_heroId.Length; i++)
         {
             strid = strid + "  " + HeroIdChangeAndSave.pos_heroId[i];
         }
+        //延时刷新上阵位等信息
+        Invoke("UpdateOthersNumText", moveSpeed*2.5f);
 
+    }
+
+    /// <summary>
+    /// 刷新上阵位备战位等信息
+    /// </summary>
+    private void UpdateOthersNumText()
+    {
+        GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
+        GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
         backGround.GetComponent<HeroIdChangeAndSave>().SaveNowHeroId(); //刷新保存当前拥有的武将id
-
     }
 
     /// <summary>
