@@ -327,6 +327,7 @@ public class FightCardSP : MonoBehaviour
                 {
                     isPlayerBout = false;
                     enemyCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
+                    enemyCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
                     //切换武将状态为正在攻击
                     enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
@@ -356,6 +357,7 @@ public class FightCardSP : MonoBehaviour
                 {
                     isPlayerBout = true;
                     playerCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
+                    playerCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
                     playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
                     ChangeParent(playerCards[fightNum].transform);
@@ -383,6 +385,7 @@ public class FightCardSP : MonoBehaviour
             {
                 if (fightNum >= 3 && enemyCards[fightNum % 3] != null && enemyCards[fightNum % 3].GetComponent<CardMove>().Health > 0)
                 {
+                    selectEnemy = fightNum % 3;
                     return enemyCards[fightNum % 3];
                 }
                 else
