@@ -9,8 +9,7 @@ public class FightCardSP : MonoBehaviour
 {
     [SerializeField]
     private Slider player_hp;//玩家血条
-    //[SerializeField]
-    //private GameObject updateBtn;   //招募刷新控件，用来获取脚本
+
     [SerializeField]
     private GameObject SettlementPic;   //结算页面
 
@@ -43,16 +42,17 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     GameObject gameOverBg;      //游戏结束界面
 
+    private int selectEnemy = -1;   //记录要攻击的敌人编号
 
     private int[] armsSkillStatus = new int[9]; //存储兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
+
+    bool isStart = false;
 
     private void Awake()
     {
         battles = 1;
         winBattles = 0;
     }
-
-
 
     private void OnEnable()
     {
@@ -67,223 +67,17 @@ public class FightCardSP : MonoBehaviour
         InitializeBattleCard();
         isFightNow = false;
         isEndOFInit = true;
-        Invoke("LiteTimeStart", 1.5f);  //延时开始战斗
+        Invoke("LiteTimeStart", 1.5f);  
     }
+
+    
+
+
+
 
     /// <summary>
-    /// 初始化战斗卡牌
+    /// 玩家战斗总控制
     /// </summary>
-    public void InitializeBattleCard()
-    {
-        for (int i = 0; i < 9; i++) //玩家和敌方战斗卡牌，空卡牌就位
-        {
-            playerCards[i] = null;
-            if (jiugongge_BrforeFight.GetChild(i).childCount > 0)
-            {
-                playerCards[i] = Instantiate(heroFightCard, OwnJiuGonggePos[i]);
-                playerCards[i].transform.position = OwnJiuGonggePos[i].position;
-                playerCards[i].transform.SetParent(OwnJiuGonggePos[i].parent.parent);
-            }
-            if (array_str[i] != null) //敌方卡牌此位置有武将数据
-            {
-                enemyCards[i] = Instantiate(heroFightCard, enemyJiuGonggePos[i]);
-                enemyCards[i].transform.position = enemyJiuGonggePos[i].position;
-                enemyCards[i].transform.SetParent(enemyJiuGonggePos[i].parent.parent);
-                List<string> datas = array_str[i];  //记录单个武将卡牌的数据，倒数第二个是品阶，倒数第一个是参与战斗周目数
-                //设置卡牌为敌方卡牌
-                enemyCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 1;
-                //设置敌方卡牌的默认先后手情况
-                enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                //武将ID
-                enemyCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
-                //品阶
-                enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count - 2]);
-                //兵种
-                enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
-                //兵种技能激活状态
-                //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3])-1];
-                enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
-                //血量
-                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
-                //攻击力
-                enemyCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
-                //防御力
-                enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
-                //闪避率
-                enemyCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
-                //重击率
-                enemyCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
-                //重击伤害百分比
-                enemyCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
-                //暴击率
-                enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
-                //暴击伤害百分比
-                enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
-                //破甲百分比
-                enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
-                //显示武将名
-                enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
-                //稀有度设置文字颜色表现
-                switch (int.Parse(datas[4]))
-                {
-                    case 1:
-                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
-                        break;
-                    case 2:
-                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
-                        break;
-                    case 3:
-                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
-                        break;
-                    case 4:
-                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
-                        break;
-                }
-                enemyCards[i].GetComponent<CardMove>().OtherDataSet();
-                //datas.Clear();
-
-            }
-        }
-        //上阵初始化
-        OtherInitialization();
-    }
-
-    private void OtherInitialization()
-    {
-        FightControll.playerHeroHps = 0;    //玩家英雄总血量
-        //BOSS_NPC
-        {
-            /* 
-            //敌方卡牌初始化
-            for (int i = 0; i < enemyCards.Length; i++)
-            {
-                if (enemyCards[i] != null)
-                {
-                    //获得武将id和品阶
-                    string[] heroIdandclass = worksheet_NPC.worksheet.Cells[battles + 1, 6 + i].Value.ToString().Split(',');
-                    int grade_Addition = (int)Mathf.Pow(2,(heroIdandclass[1] != null ? int.Parse(heroIdandclass[1]) : 1)-1);  //获取武将品阶加成
-                    //根据品阶，设置敌方武将卡牌外观
-                    switch (heroIdandclass[1])
-                    {
-                        case "1":
-                            enemyCards[i].transform.GetComponent<Image>().color = Color.white;
-                            break;
-                        case "2":
-                            enemyCards[i].transform.GetComponent<Image>().color = Color.blue;
-                            break;
-                        case "3":
-                            enemyCards[i].transform.GetComponent<Image>().color = Color.red;
-                            break;
-                        default:
-                            enemyCards[i].transform.GetComponent<Image>().color = Color.white;
-                            break;
-                    }
-
-                    //在武将表中获取武将数据
-                    enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                    Debug.Log("///NPC第"+(i+1)+ "位武将ID：" + heroIdandclass[0]);
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 2].Value.ToString();
-                    enemyCards[i].GetComponent<CardMove>().Force = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 7].Value.ToString());
-                    enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 8].Value.ToString());
-                    enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 9].Value.ToString());
-                    enemyCards[i].GetComponent<CardMove>().OtherDataSet();
-                }
-            }
-            */
-        }
-        //玩家卡牌初始化
-        for (int i = 0; i < playerCards.Length; i++)
-        {
-            if (playerCards[i] != null)
-            {
-                //临时存储玩家数据，传递给战斗卡牌
-                List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
-                FightControll.playerHeroHps += int.Parse(datas[8]);
-                //设置卡牌为玩家卡牌
-                playerCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 0;
-                //设置玩家卡牌的默认先后手情况
-                playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
-                //武将ID
-                playerCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
-                //品阶
-                playerCards[i].GetComponent<CardMove>().Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
-                //兵种
-                playerCards[i].GetComponent<CardMove>().ArmsId = datas[3];
-                //兵种技能激活状态
-                playerCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3]) - 1];
-                //血量
-                playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
-                //攻击力
-                playerCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
-                //防御力
-                playerCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
-                //闪避率
-                playerCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
-                //重击率
-                playerCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
-                //重击伤害百分比
-                playerCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
-                //暴击率
-                playerCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
-                //暴击伤害百分比
-                playerCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
-                //破甲百分比
-                playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
-                //显示武将名
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
-                //稀有度设置文字颜色表现
-                switch (int.Parse(datas[4]))
-                {
-                    case 1:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
-                        break;
-                    case 2:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
-                        break;
-                    case 3:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
-                        break;
-                    case 4:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
-                        break;
-                }
-                playerCards[i].GetComponent<CardMove>().OtherDataSet();
-                //datas.Clear();
-            }
-        }
-
-    }
-
-    /// <summary>
-    /// 初始化兵种技能激活状态
-    /// </summary>
-    private void InitArmsSkillStatus()
-    {
-        for (int i = 0; i < 9; i++)
-        {
-            armsSkillStatus[i] = 0;
-        }
-        int count = HeroIdChangeAndSave.activationSkillId_soldiers.Count;
-        int armsid, nums = 0;
-        for (int i = 0; i < count; i++)
-        {
-            armsid = HeroIdChangeAndSave.activationSkillId_soldiers[i] / 10 - 1;    //兵种编号
-            if (nums < HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10)
-                nums = HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10;
-            if (nums < 6)
-                armsSkillStatus[armsid] = 1;
-            else
-                armsSkillStatus[armsid] = 2;
-        }
-    }
-
-    bool isStart = false;
-    private void LiteTimeStart()
-    {
-        isStart = true;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         //若还在初始化
@@ -367,11 +161,15 @@ public class FightCardSP : MonoBehaviour
             return;
         }
         fightNum++;
+
     }
 
 
-    private int selectEnemy = -1;   //记录要攻击的敌人编号
-    //找到要攻击的对手
+    /// <summary>
+    /// 找到要攻击的对手
+    /// </summary>
+    /// <param name="i"></param>
+    /// <returns></returns>
     private GameObject FindAnalogue(int i)
     {
         if (isPlayerBout)
@@ -537,7 +335,9 @@ public class FightCardSP : MonoBehaviour
         }
     }
 
-    //显示每轮战斗的结算界面
+    /// <summary>
+    /// 显示每轮战斗的结算界面
+    /// </summary>
     private void ShowSettlementPic()
     {
         //设置首显战况
@@ -708,4 +508,242 @@ public class FightCardSP : MonoBehaviour
         tran.SetParent(fightControll);
         tran.SetParent(par);
     }
+
+    /// <summary>
+    /// 用于延时开始战斗
+    /// </summary>
+    private void LiteTimeStart()
+    {
+        isStart = true;
+    }
+
+    /// <summary>
+    /// 初始化战斗卡牌
+    /// </summary>
+    public void InitializeBattleCard()
+    {
+        for (int i = 0; i < 9; i++) //玩家和敌方战斗卡牌，空卡牌就位
+        {
+            playerCards[i] = null;
+            if (jiugongge_BrforeFight.GetChild(i).childCount > 0)
+            {
+                playerCards[i] = Instantiate(heroFightCard, OwnJiuGonggePos[i]);
+                playerCards[i].transform.position = OwnJiuGonggePos[i].position;
+                playerCards[i].transform.SetParent(OwnJiuGonggePos[i].parent.parent);
+            }
+            if (array_str[i] != null) //敌方卡牌此位置有武将数据
+            {
+                enemyCards[i] = Instantiate(heroFightCard, enemyJiuGonggePos[i]);
+                enemyCards[i].transform.position = enemyJiuGonggePos[i].position;
+                enemyCards[i].transform.SetParent(enemyJiuGonggePos[i].parent.parent);
+                List<string> datas = array_str[i];  //记录单个武将卡牌的数据，倒数第二个是品阶，倒数第一个是参与战斗周目数
+                //设置卡牌为敌方卡牌
+                enemyCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 1;
+                //设置敌方卡牌的默认先后手情况
+                enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
+                //武将ID
+                enemyCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
+                //品阶
+                enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count - 2]);
+                //兵种
+                enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
+                //兵种技能激活状态
+                //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3])-1];
+                enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
+                //血量
+                enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
+                //攻击力
+                enemyCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
+                //防御力
+                enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
+                //闪避率
+                enemyCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
+                //重击率
+                enemyCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
+                //重击伤害百分比
+                enemyCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
+                //暴击率
+                enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
+                //暴击伤害百分比
+                enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
+                //破甲百分比
+                enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
+                //显示武将名
+                enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                //稀有度设置文字颜色表现
+                switch (int.Parse(datas[4]))
+                {
+                    case 1:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                        break;
+                    case 2:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                        break;
+                    case 3:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                        break;
+                    case 4:
+                        enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                        break;
+                }
+                enemyCards[i].GetComponent<CardMove>().OtherDataSet();
+                InitFightState(enemyCards[i]);
+                //datas.Clear();
+
+            }
+        }
+        //上阵初始化
+        OtherInitialization();
+    }
+
+    private void OtherInitialization()
+    {
+        FightControll.playerHeroHps = 0;    //玩家英雄总血量
+        //BOSS_NPC
+        {
+            /* 
+            //敌方卡牌初始化
+            for (int i = 0; i < enemyCards.Length; i++)
+            {
+                if (enemyCards[i] != null)
+                {
+                    //获得武将id和品阶
+                    string[] heroIdandclass = worksheet_NPC.worksheet.Cells[battles + 1, 6 + i].Value.ToString().Split(',');
+                    int grade_Addition = (int)Mathf.Pow(2,(heroIdandclass[1] != null ? int.Parse(heroIdandclass[1]) : 1)-1);  //获取武将品阶加成
+                    //根据品阶，设置敌方武将卡牌外观
+                    switch (heroIdandclass[1])
+                    {
+                        case "1":
+                            enemyCards[i].transform.GetComponent<Image>().color = Color.white;
+                            break;
+                        case "2":
+                            enemyCards[i].transform.GetComponent<Image>().color = Color.blue;
+                            break;
+                        case "3":
+                            enemyCards[i].transform.GetComponent<Image>().color = Color.red;
+                            break;
+                        default:
+                            enemyCards[i].transform.GetComponent<Image>().color = Color.white;
+                            break;
+                    }
+
+                    //在武将表中获取武将数据
+                    enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
+                    Debug.Log("///NPC第"+(i+1)+ "位武将ID：" + heroIdandclass[0]);
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 2].Value.ToString();
+                    enemyCards[i].GetComponent<CardMove>().Force = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 7].Value.ToString());
+                    enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 8].Value.ToString());
+                    enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 9].Value.ToString());
+                    enemyCards[i].GetComponent<CardMove>().OtherDataSet();
+                }
+            }
+            */
+        }
+        //玩家卡牌初始化
+        for (int i = 0; i < playerCards.Length; i++)
+        {
+            if (playerCards[i] != null)
+            {
+                //临时存储玩家数据，传递给战斗卡牌
+                List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
+                FightControll.playerHeroHps += int.Parse(datas[8]);
+                //设置卡牌为玩家卡牌
+                playerCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 0;
+                //设置玩家卡牌的默认先后手情况
+                playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
+                //武将ID
+                playerCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
+                //品阶
+                playerCards[i].GetComponent<CardMove>().Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
+                //兵种
+                playerCards[i].GetComponent<CardMove>().ArmsId = datas[3];
+                //兵种技能激活状态
+                playerCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3]) - 1];
+                //血量
+                playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
+                //攻击力
+                playerCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
+                //防御力
+                playerCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
+                //闪避率
+                playerCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
+                //重击率
+                playerCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
+                //重击伤害百分比
+                playerCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
+                //暴击率
+                playerCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
+                //暴击伤害百分比
+                playerCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
+                //破甲百分比
+                playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
+                //显示武将名
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                //稀有度设置文字颜色表现
+                switch (int.Parse(datas[4]))
+                {
+                    case 1:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                        break;
+                    case 2:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                        break;
+                    case 3:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                        break;
+                    case 4:
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                        break;
+                }
+                playerCards[i].GetComponent<CardMove>().OtherDataSet();     //其他初始化
+                InitFightState(playerCards[i]);     //战斗状态控制初始化
+
+                //datas.Clear();
+            }
+        }
+
+    }
+
+    /// <summary>
+    /// 战斗特殊状态初始化
+    /// </summary>
+    /// <param name="obj"></param>
+    private void InitFightState(GameObject obj)
+    {
+        if (obj.GetComponent<CardMove>())
+        {
+            obj.GetComponent<CardMove>().Fight_State = new FightState();
+            obj.GetComponent<CardMove>().Fight_State.isDizzy = false;
+            obj.GetComponent<CardMove>().Fight_State.isBatter = false;
+            obj.GetComponent<CardMove>().Fight_State.batterNums = 0;
+            obj.GetComponent<CardMove>().Fight_State.isWithStand = false;
+            obj.GetComponent<CardMove>().Fight_State.withStandNums = 0;
+            obj.GetComponent<CardMove>().Fight_State.isFireAttack = false;
+        }
+    }
+
+
+    /// <summary>
+    /// 初始化兵种技能激活状态
+    /// </summary>
+    private void InitArmsSkillStatus()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            armsSkillStatus[i] = 0;
+        }
+        int count = HeroIdChangeAndSave.activationSkillId_soldiers.Count;
+        int armsid, nums = 0;
+        for (int i = 0; i < count; i++)
+        {
+            armsid = HeroIdChangeAndSave.activationSkillId_soldiers[i] / 10 - 1;    //兵种编号
+            if (nums < HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10)
+                nums = HeroIdChangeAndSave.activationSkillId_soldiers[i] % 10;
+            if (nums < 6)
+                armsSkillStatus[armsid] = 1;
+            else
+                armsSkillStatus[armsid] = 2;
+        }
+    }
+
 }

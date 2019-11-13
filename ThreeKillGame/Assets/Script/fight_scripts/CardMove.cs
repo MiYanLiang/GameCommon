@@ -13,6 +13,9 @@ public enum StateOfAttack   //攻击状态
 
 public class CardMove : MonoBehaviour
 {
+    private FightState fight_State;     //特殊攻击状态
+    public FightState Fight_State { get => fight_State; set => fight_State = value; }
+
     private int isPlayerOrEnemy;    //是己方卡牌，还是敌方卡牌 0己方(playerCards)，1敌方(enemyCards)
     public int IsPlayerOrEnemy { get => isPlayerOrEnemy; set => isPlayerOrEnemy = value; }
 
@@ -87,6 +90,8 @@ public class CardMove : MonoBehaviour
     private bool isDizzy;   //是否被击晕
     public bool IsDizzy { get => isDizzy; set => isDizzy = value; }
 
+    private bool isHadSpecialState;     //是否拥有特殊状态
+    public bool IsHadSpecialState { get => isHadSpecialState; set => isHadSpecialState = value; }
 
     Vector3 vec = new Vector3();    //记录卡牌初始位置
 
@@ -128,7 +133,6 @@ public class CardMove : MonoBehaviour
         realDamage = Force;
     }
 
-
     private void Update()
     {
         //攻击前摇
@@ -137,13 +141,21 @@ public class CardMove : MonoBehaviour
             //选定目标
             if (!isCalcul)
             {
-                if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
-                    flag = 1;
+                if (IsHadSpecialState)
+                {
+                    //进入特殊攻击
+
+                }
                 else
-                    flag = -1;
-                
-                vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));        //计算要攻击后移动到的位置
-                gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
+                {
+                    if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
+                        flag = 1;
+                    else
+                        flag = -1;
+
+                    vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));        //计算要攻击后移动到的位置
+                    gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
+                }
                 isCalcul = true;
             }
 
@@ -299,7 +311,7 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //随机攻击3个不同目标，每个造成30%伤害，20%几率击晕1回合。
-                        FuShenSkill(3, 0.3f, 0.2f);
+                        FuShenSkill(3, 0.3f, 1f);
                         break;
                     case 2:
                         //随机攻击3个不同目标，每个造成30%伤害，30%几率击晕1回合。
@@ -834,9 +846,10 @@ public class CardMove : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("天怒");
         }
+        print("realDamage:" + realDamage);
         realDamage = (int)(realDamage * percentage);
         List<int> arrs = new List<int>();   //记录卡牌下标
-        //随机攻击3个不同目标，每个造成30%伤害，20%几率击晕1回合。
+        //随机攻击3个不同目标，每个造成30%伤害，20%机率击晕1回合。
         if (IsPlayerOrEnemy == 0)
         {
             for (int i = 0; i < 9; i++)
