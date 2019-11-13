@@ -13,6 +13,8 @@ public enum StateOfAttack   //攻击状态
 
 public class CardMove : MonoBehaviour
 {
+    public GameObject stateIcon;        //卡牌上状态小标预制件
+
     private FightState fight_State;     //特殊攻击状态
     public FightState Fight_State { get => fight_State; set => fight_State = value; }
 
@@ -144,7 +146,13 @@ public class CardMove : MonoBehaviour
                 if (IsHadSpecialState)
                 {
                     //进入特殊攻击
-
+                    if (Fight_State.isDizzy == true)
+                    {
+                        ReleaseDizzyState(gameObject);   //接触眩晕
+                        FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
+                        ChangeToFight(StateOfAttack.ReadyForFight);     //直接进入备战
+                        return;
+                    }
                 }
                 else
                 {
@@ -174,18 +182,18 @@ public class CardMove : MonoBehaviour
         if (IsAttack == StateOfAttack.FightOver)    //如果卡牌攻击状态为攻击结束
         {
             isCalcul = false;
-            if (gameObject.transform.position == vec && IsAttack!= StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
+            if (gameObject.transform.position == vec && IsAttack != StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
             {
                 //HideGameObjText(EnemyObj, false);   //隐藏对手的掉血值和状态 
                 //HideGameObjText(gameObject, false); //隐藏自身的血值和状态
-                
+
                 FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
 
                 ChangeToFight(StateOfAttack.ReadyForFight);     //改变这个卡牌的攻击状态为 准备状态
             }
         }
     }
-    
+
     /// <summary>
     /// 动态兵种技能（卡牌在每次攻击时调用）
     /// </summary>
@@ -230,18 +238,18 @@ public class CardMove : MonoBehaviour
                 break;
 
             case "3":   //飞兽
-                Debug.Log("飞兽闪避率： "+ realDodgeRate*100+"%");
+                Debug.Log("飞兽闪避率： " + realDodgeRate * 100 + "%");
                 switch (activeId)
                 {
                     case 0:
                         NormalAttack(EnemyObj);
                         UpdateEnemyHp(EnemyObj);
                         break;
-                    case 1:     
+                    case 1:
                         //每损失20%血量提升10%闪避
                         FeiShouSkill(0.1f);
                         break;
-                    case 2:     
+                    case 2:
                         //每损失20%血量提升15%闪避
                         FeiShouSkill(0.15f);
                         break;
@@ -746,7 +754,7 @@ public class CardMove : MonoBehaviour
             Debug.Log("狂斩");
         }
         realDamage = (int)(realDamage * percent);
-        if (EnemyIndex<3)   //前排
+        if (EnemyIndex < 3)   //前排
         {
             if (IsPlayerOrEnemy == 0) // 该卡牌是己方(playerCards)，在敌方(enemyCards)中找目标
             {
@@ -773,9 +781,9 @@ public class CardMove : MonoBehaviour
         }
         else
         {
-            if (EnemyIndex<6)   //中排
+            if (EnemyIndex < 6)   //中排
             {
-                if (IsPlayerOrEnemy == 0) 
+                if (IsPlayerOrEnemy == 0)
                 {
                     for (int i = 3; i < 6; i++)
                     {
@@ -806,7 +814,7 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                         {
-                            UpdateEnemyHp(FightCardSP.enemyCards[i]);  
+                            UpdateEnemyHp(FightCardSP.enemyCards[i]);
                             NormalAttackEffects(FightCardSP.enemyCards[i]);
                         }
                     }
@@ -825,7 +833,7 @@ public class CardMove : MonoBehaviour
             }
         }
     }
-    
+
     /// <summary>
     /// 辅神动态技能
     /// </summary>
@@ -889,9 +897,7 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.enemyCards[arr_index[i]]);
                     if (TakeSpecialAttack(stunProbability)) //判断是否可以眩晕对手
                     {
-                        FightCardSP.enemyCards[arr_index[i]].GetComponent<CardMove>().IsDizzy = true;
-                        FightCardSP.enemyCards[arr_index[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
-                        FightCardSP.enemyCards[arr_index[i]].transform.GetChild(4).gameObject.SetActive(true);
+                        DizzyEnemyCards(FightCardSP.enemyCards[arr_index[i]]);      //执行眩晕效果
                     }
                 }
             }
@@ -902,9 +908,7 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.enemyCards[arrs[i]]);
                     if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
                     {
-                        FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().IsDizzy = true;
-                        FightCardSP.enemyCards[arrs[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
-                        FightCardSP.enemyCards[arrs[i]].transform.GetChild(4).gameObject.SetActive(true);
+                        DizzyEnemyCards(FightCardSP.enemyCards[arrs[i]]);
                     }
                 }
             }
@@ -948,9 +952,7 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.playerCards[arr_index[i]]);
                     if (TakeSpecialAttack(stunProbability))
                     {
-                        FightCardSP.playerCards[arr_index[i]].GetComponent<CardMove>().IsDizzy = true;
-                        FightCardSP.playerCards[arr_index[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
-                        FightCardSP.playerCards[arr_index[i]].transform.GetChild(4).gameObject.SetActive(true);
+                        DizzyEnemyCards(FightCardSP.playerCards[arr_index[i]]);
                     }
                 }
             }
@@ -961,9 +963,7 @@ public class CardMove : MonoBehaviour
                     UpdateEnemyHp(FightCardSP.playerCards[arrs[i]]);
                     if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
                     {
-                        FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().IsDizzy = true;
-                        FightCardSP.playerCards[arrs[i]].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
-                        FightCardSP.playerCards[arrs[i]].transform.GetChild(4).gameObject.SetActive(true);
+                        DizzyEnemyCards(FightCardSP.playerCards[arrs[i]]);
                     }
                 }
             }
@@ -975,7 +975,7 @@ public class CardMove : MonoBehaviour
     /// </summary>
     /// <param name="percent">伤害百分比</param>
     ///  /// <param name="attackNum">攻击目标个数</param>  3兵种是3  6兵种是4
-    private void MoShenSkill(float percent,int attackNum)
+    private void MoShenSkill(float percent, int attackNum)
     {
         if (ArmsSkillStatus == 1)
         {
@@ -1115,7 +1115,7 @@ public class CardMove : MonoBehaviour
                 {
                     for (int k = 0; k < nums; k++)
                     {
-                        if (arrs[k]==j)
+                        if (arrs[k] == j)
                         {
                             isContinue = false;
                         }
@@ -1347,7 +1347,7 @@ public class CardMove : MonoBehaviour
         //伤害计算
         realDamage = AttackTheEnemy(Force);
     }
-    
+
     //攻击敌方武将，计算造成的战斗伤害数值
     private int AttackTheEnemy(int force)
     {
@@ -1413,10 +1413,12 @@ public class CardMove : MonoBehaviour
         //敌方血条的计算和显示
         obj.GetComponent<CardMove>().Health = obj.GetComponent<CardMove>().Health - realDamage;
         if (obj.GetComponent<CardMove>().Health < 0)
+        {
             obj.GetComponent<CardMove>().Health = 0;
+        }
         obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
 
-        if (obj.GetComponent<CardMove>().ArmsId=="2" && obj.GetComponent<CardMove>().ArmsSkillStatus>0) //如果攻击的敌人是海兽 并且 兵种激活
+        if (obj.GetComponent<CardMove>().ArmsId == "2" && obj.GetComponent<CardMove>().ArmsSkillStatus > 0) //如果攻击的敌人是海兽 并且 兵种激活
         {
             HaiShouSkill(obj, obj.GetComponent<CardMove>().ArmsSkillStatus);    //触发海兽技能
         }
@@ -1457,4 +1459,31 @@ public class CardMove : MonoBehaviour
         Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
     }
 
+    /// <summary>
+    /// 眩晕敌人
+    /// </summary>
+    /// <param name="obj"></param>
+    private void DizzyEnemyCards(GameObject obj)
+    {
+        obj.GetComponent<CardMove>().IsDizzy = true;
+        obj.transform.GetChild(4).GetComponent<Text>().text = "眩晕";
+        obj.transform.GetChild(4).gameObject.SetActive(true);
+        if (!obj.GetComponent<CardMove>().Fight_State.isDizzy)
+        {
+            obj.GetComponent<CardMove>().Fight_State.isDizzy = true;
+            GameObject icon = Instantiate(stateIcon, obj.transform.GetChild(9));
+            icon.name = "state_dizzy";
+            icon.GetComponent<Image>().sprite = Resources.Load("Image/state/眩晕", typeof(Sprite)) as Sprite;
+        }
+    }
+
+    /// <summary>
+    /// 解除眩晕状态
+    /// </summary>
+    /// <param name="obj"></param>
+    private void ReleaseDizzyState(GameObject obj)
+    {
+        Destroy(obj.transform.GetChild(9).Find("state_dizzy").gameObject);  //消除眩晕状态图标
+        obj.GetComponent<CardMove>().Fight_State.isDizzy = false;    //接触眩晕
+    }
 }

@@ -3,7 +3,7 @@
     /// <summary>
     /// 是否有特殊状态
     /// </summary>
-    public bool SetHadSpState()
+    public bool GetHadSpState()
     {
         if (isDizzy || isBatter || isWithStand || isFireAttack)
             return true;

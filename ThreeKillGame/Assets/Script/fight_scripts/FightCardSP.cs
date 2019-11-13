@@ -25,6 +25,7 @@ public class FightCardSP : MonoBehaviour
 
     public Transform jiugongge_BrforeFight;  //上阵布阵的九宫格
     public GameObject heroFightCard;    //英雄战斗卡片预制件
+    public GameObject stateIcon;        //卡牌上状态小标预制件
     public Transform[] OwnJiuGonggePos = new Transform[9];  //战斗槽位置_玩家
     public Transform[] enemyJiuGonggePos = new Transform[9];    //战斗槽位置_敌人
     [HideInInspector]
@@ -108,6 +109,8 @@ public class FightCardSP : MonoBehaviour
                 selectEnemy = -1;
                 playerCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                 playerCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
+                //获取当前是否有特殊攻击状态
+                playerCards[fightNum].GetComponent<CardMove>().IsHadSpecialState = playerCards[fightNum].GetComponent<CardMove>().Fight_State.GetHadSpState();
                 //切换武将状态为正在攻击
                 playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                 isFightNow = true;
@@ -122,6 +125,8 @@ public class FightCardSP : MonoBehaviour
                     isPlayerBout = false;
                     enemyCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                     enemyCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
+                    //获取当前是否有特殊攻击状态
+                    enemyCards[fightNum].GetComponent<CardMove>().IsHadSpecialState = enemyCards[fightNum].GetComponent<CardMove>().Fight_State.GetHadSpState();
                     //切换武将状态为正在攻击
                     enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
@@ -140,6 +145,8 @@ public class FightCardSP : MonoBehaviour
                 selectEnemy = -1;
                 enemyCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                 enemyCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
+                //获取当前是否有特殊攻击状态
+                enemyCards[fightNum].GetComponent<CardMove>().IsHadSpecialState = enemyCards[fightNum].GetComponent<CardMove>().Fight_State.GetHadSpState();
                 enemyCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                 isFightNow = true;
                 ChangeParent(enemyCards[fightNum].transform);
@@ -152,6 +159,8 @@ public class FightCardSP : MonoBehaviour
                     isPlayerBout = true;
                     playerCards[fightNum].GetComponent<CardMove>().EnemyObj = FindAnalogue(fightNum);
                     playerCards[fightNum].GetComponent<CardMove>().EnemyIndex = (selectEnemy != -1) ? selectEnemy : fightNum;
+                    //获取当前是否有特殊攻击状态
+                    playerCards[fightNum].GetComponent<CardMove>().IsHadSpecialState = playerCards[fightNum].GetComponent<CardMove>().Fight_State.GetHadSpState();
                     playerCards[fightNum].GetComponent<CardMove>().IsAttack = StateOfAttack.FightNow;
                     isFightNow = true;
                     ChangeParent(playerCards[fightNum].transform);

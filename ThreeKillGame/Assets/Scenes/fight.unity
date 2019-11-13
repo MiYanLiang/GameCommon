@@ -30981,6 +30981,8 @@ MonoBehaviour:
   jiugongge_BrforeFight: {fileID: 556946925}
   heroFightCard: {fileID: 5793392468075205088, guid: f6725a4311c21ca4b9a4c4d872114111,
     type: 3}
+  stateIcon: {fileID: 1217458279560819971, guid: 6643c404b09b53a49acd6f14fef112fc,
+    type: 3}
   OwnJiuGonggePos:
   - {fileID: 1261167295}
   - {fileID: 597788267}
