@@ -846,7 +846,7 @@ public class CardMove : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("天怒");
         }
-        print("realDamage:" + realDamage);
+        realDamage = Force;
         realDamage = (int)(realDamage * percentage);
         List<int> arrs = new List<int>();   //记录卡牌下标
         //随机攻击3个不同目标，每个造成30%伤害，20%机率击晕1回合。
