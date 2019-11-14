@@ -5,25 +5,57 @@ using UnityEngine.UI;
 
 public class DrumSkillControll : MonoBehaviour
 {
-    public GameObject stateIcon;        //卡牌上状态小标预制件
+    public GameObject stateIcon;    //卡牌上状态小标预制件
+    public Text drumText;           //战鼓数量显示
+    public static int drumNums;     //可敲击次数
 
-    public Text drumText;   //战鼓数量显示
-
-    public static int drumNums;   //可敲击次数
-
-    private void Awake()
+    private void OnEnable()
     {
         drumNums = 3;
         UpdateShowDrumText();   //刷新敲鼓次数显示
     }
+
+
     //战鼓技能--------------------------------------------
 
     /// <summary>
     /// 战鼓（风）技能
+    /// 让暴击最高的单位获得一次连击			
     /// </summary>
     public void WindDrumSkill()
     {
-
+        if (drumNums <= 0)
+        {
+            Debug.Log("战鼓敲击次数不足");
+            return;
+        }
+        int index = -1;
+        for (int i = 0; i < 9; i++)
+        {
+            if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+            {
+                if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isBatter)  //没有连击状态
+                {
+                    //判断还没有记录过目标，或者，i位置的暴击率大于记录位置的暴击率
+                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().CritRate > FightCardSP.playerCards[index].GetComponent<CardMove>().CritRate)
+                    {
+                        index = i;
+                    }
+                }
+            }
+        }
+        if (index == -1)
+            return;
+        //显示技能文字
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "连击";
+        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
+        FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isBatter = true;
+        FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.batterNums = 2; //连击两次
+        GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
+        icon.name = StateName.batterName;
+        icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.batterName, typeof(Sprite)) as Sprite;
+        drumNums--;
+        UpdateShowDrumText();
     }
 
     /// <summary>

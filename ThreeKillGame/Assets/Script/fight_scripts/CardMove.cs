@@ -143,10 +143,9 @@ public class CardMove : MonoBehaviour
             //选定目标
             if (!isCalcul)
             {
-                if (IsHadSpecialState)
+                if (IsHadSpecialState)  //进入特殊攻击
                 {
-                    //进入特殊攻击
-                    if (Fight_State.isDizzy == true)
+                    if (Fight_State.isDizzy == true)//自身处于眩晕状态
                     {
                         ReleaseDizzyState(gameObject);   //接触眩晕
                         FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
@@ -184,8 +183,11 @@ public class CardMove : MonoBehaviour
             isCalcul = false;
             if (gameObject.transform.position == vec && IsAttack != StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
             {
-                //HideGameObjText(EnemyObj, false);   //隐藏对手的掉血值和状态 
-                //HideGameObjText(gameObject, false); //隐藏自身的血值和状态
+                if (Fight_State.isBatter == true)//处于连击状态
+                {
+                    BatterFightSkill(); //连击技能
+                    return;
+                }
 
                 FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
 
@@ -1496,5 +1498,19 @@ public class CardMove : MonoBehaviour
     {
         Destroy(obj.transform.GetChild(9).Find(StateName.dizzyName).gameObject);  //消除眩晕状态图标
         obj.GetComponent<CardMove>().Fight_State.isDizzy = false;    //接触眩晕
+    }
+
+    /// <summary>
+    /// 连击技能
+    /// </summary>
+    private void BatterFightSkill()
+    {
+        Fight_State.batterNums--;
+        if (Fight_State.batterNums <= 1)
+        {
+            Destroy(transform.GetChild(9).Find(StateName.batterName).gameObject);  //消除眩晕状态图标
+            Fight_State.isBatter = false;
+        }
+        ChangeToFight(StateOfAttack.FightNow);  //切换此卡牌攻击状态再次为战斗
     }
 }
