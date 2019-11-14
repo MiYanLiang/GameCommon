@@ -1405,6 +1405,17 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void UpdateEnemyHp(GameObject obj)
     {
+        //判断目标是否有坚盾状态
+        if (obj.GetComponent<CardMove>().Fight_State.isWithStand)
+        {
+            obj.GetComponent<CardMove>().Fight_State.withStandNums--;
+            if (obj.GetComponent<CardMove>().Fight_State.withStandNums <= 0)
+            { 
+                obj.GetComponent<CardMove>().Fight_State.isWithStand = false;           //取消坚盾状态
+                Destroy(obj.transform.GetChild(9).Find(StateName.standName).gameObject);//消除坚盾状态图标
+            }
+            realDamage = 0;
+        }
         //显示造成伤害值
         obj.transform.GetChild(5).GetComponent<Text>().color = Color.red;
         obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
@@ -1472,8 +1483,8 @@ public class CardMove : MonoBehaviour
         {
             obj.GetComponent<CardMove>().Fight_State.isDizzy = true;
             GameObject icon = Instantiate(stateIcon, obj.transform.GetChild(9));
-            icon.name = "state_dizzy";
-            icon.GetComponent<Image>().sprite = Resources.Load("Image/state/眩晕", typeof(Sprite)) as Sprite;
+            icon.name = StateName.dizzyName;    //设置名字为眩晕状态名(用于销毁)
+            icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.dizzyName, typeof(Sprite)) as Sprite;
         }
     }
 
@@ -1483,7 +1494,7 @@ public class CardMove : MonoBehaviour
     /// <param name="obj"></param>
     private void ReleaseDizzyState(GameObject obj)
     {
-        Destroy(obj.transform.GetChild(9).Find("state_dizzy").gameObject);  //消除眩晕状态图标
+        Destroy(obj.transform.GetChild(9).Find(StateName.dizzyName).gameObject);  //消除眩晕状态图标
         obj.GetComponent<CardMove>().Fight_State.isDizzy = false;    //接触眩晕
     }
 }

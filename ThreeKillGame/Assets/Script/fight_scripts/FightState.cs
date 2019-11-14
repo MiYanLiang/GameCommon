@@ -1,11 +1,14 @@
-﻿public class FightState
+﻿/// <summary>
+/// 状态
+/// </summary>
+public class FightState
 {
     /// <summary>
     /// 是否有特殊状态
     /// </summary>
     public bool GetHadSpState()
     {
-        if (isDizzy || isBatter || isWithStand || isFireAttack)
+        if (isDizzy || isBatter || isFireAttack)
             return true;
         else
             return false;
@@ -39,4 +42,40 @@
     /// </summary>
     public bool isFireAttack { get; set; }
 
+}
+
+/// <summary>
+/// 状态名
+/// </summary>
+public static class StateName
+{
+    /// <summary>
+    /// 眩晕
+    /// </summary>
+    public static readonly string dizzyName = "state_dizzy";
+
+    /// <summary>
+    /// 连击
+    /// </summary>
+    public static readonly string batterName = "state_batter";
+
+    /// <summary>
+    /// 坚盾
+    /// </summary>
+    public static readonly string standName = "state_stand";
+
+    /// <summary>
+    /// 火攻
+    /// </summary>
+    public static readonly string fireAttackName = "state_fireAttack";
+
+    /// <summary>
+    /// 战意（人杰兵种技能）
+    /// </summary>
+    public static readonly string fightMeanName = "state_fightMean";
+
+    /// <summary>
+    /// 风遁（飞兽兵种技能）
+    /// </summary>
+    public static readonly string popularName = "state_popular";
 }

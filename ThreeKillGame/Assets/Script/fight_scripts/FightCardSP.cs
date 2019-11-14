@@ -71,11 +71,6 @@ public class FightCardSP : MonoBehaviour
         Invoke("LiteTimeStart", 1.5f);  
     }
 
-    
-
-
-
-
     /// <summary>
     /// 玩家战斗总控制
     /// </summary>
