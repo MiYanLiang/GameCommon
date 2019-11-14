@@ -521,11 +521,25 @@ public class FightCardSP : MonoBehaviour
         isStart = true;
     }
 
+    int[] enemyArmsActive = new int[3] { 0, 0, 0 };
+    int enemyNums = 0;
     /// <summary>
     /// 初始化战斗卡牌
     /// </summary>
     public void InitializeBattleCard()
     {
+        //设置敌方上阵激活兵种
+        for (int i = 0; i < 9; i++)
+        {
+            if (array_str[i] != null)
+            {
+                enemyNums++;
+            }
+        }
+        enemyArmsActive[0] = enemyNums / 3;
+        enemyArmsActive[1] = enemyNums / 6;
+        enemyArmsActive[2] = enemyNums / 9;
+
         for (int i = 0; i < 9; i++) //玩家和敌方战斗卡牌，空卡牌就位
         {
             playerCards[i] = null;
@@ -552,8 +566,8 @@ public class FightCardSP : MonoBehaviour
                 //兵种
                 enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
                 //兵种技能激活状态
-                //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3])-1];
-                enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
+                enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = enemyArmsActive[i / 3];
+                //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
                 //血量
                 enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
                 //攻击力

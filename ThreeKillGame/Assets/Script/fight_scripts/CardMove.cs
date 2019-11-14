@@ -176,11 +176,10 @@ public class CardMove : MonoBehaviour
                 else
                 {
                     ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //普通攻击+动态技能
-
-                    gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
-
-                    ChangeToFight(StateOfAttack.FightOver); //更改攻击状态为攻击结束，进入攻击后摇
                 }
+
+                gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
+                ChangeToFight(StateOfAttack.FightOver); //更改攻击状态为攻击结束，进入攻击后摇
             }
         }
 
@@ -449,6 +448,14 @@ public class CardMove : MonoBehaviour
             }
             //每损失20%血量提升闪避率
             realDodgeRate = DodgeRate + (percentage * num);
+            if (!Fight_State.isPopular) //判断是否有风遁状态
+            {
+                //添加风遁状态
+                Fight_State.isPopular = true;
+                GameObject icon = Instantiate(stateIcon, transform.GetChild(9));
+                icon.name = StateName.popularName;
+                icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.popularName, typeof(Sprite)) as Sprite;
+            }
         }
         NormalAttack(EnemyObj);
         UpdateEnemyHp(EnemyObj);
@@ -482,6 +489,14 @@ public class CardMove : MonoBehaviour
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "战魂";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
                 Debug.Log("战魂");
+            }
+            if (!Fight_State.isFightMean) //判断是否有战意状态
+            {
+                //添加战意状态
+                Fight_State.isFightMean = true;
+                GameObject icon = Instantiate(stateIcon, transform.GetChild(9));
+                icon.name = StateName.fightMeanName;
+                icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.fightMeanName, typeof(Sprite)) as Sprite;
             }
         }
     }
@@ -1421,6 +1436,7 @@ public class CardMove : MonoBehaviour
             if (obj.GetComponent<CardMove>().Fight_State.withStandNums <= 0)
             { 
                 obj.GetComponent<CardMove>().Fight_State.isWithStand = false;           //取消坚盾状态
+                obj.GetComponent<CardMove>().Fight_State.withStandNums = 0;
                 Destroy(obj.transform.GetChild(9).Find(StateName.standName).gameObject);//消除坚盾状态图标
             }
             realDamage = 0;
@@ -1432,9 +1448,14 @@ public class CardMove : MonoBehaviour
 
         //敌方血条的计算和显示
         obj.GetComponent<CardMove>().Health = obj.GetComponent<CardMove>().Health - realDamage;
-        if (obj.GetComponent<CardMove>().Health < 0)
+        if (obj.GetComponent<CardMove>().Health < 0)    //死亡
         {
             obj.GetComponent<CardMove>().Health = 0;
+            if (IsPlayerOrEnemy == 0)
+            {
+                DrumSkillControll.drumNums++;   //战鼓敲击次数加1
+                DrumSkillControll.isChange = true;
+            }
         }
         obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
 
@@ -1520,6 +1541,7 @@ public class CardMove : MonoBehaviour
         }
         ChangeToFight(StateOfAttack.FightNow);  //切换此卡牌攻击状态再次为战斗
     }
+
     /// <summary>
     /// 火攻技能
     /// </summary>
@@ -1532,18 +1554,6 @@ public class CardMove : MonoBehaviour
             {
                 if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                 {
-                    //显示造成伤害值
-                    //FightCardSP.enemyCards[i].transform.GetChild(5).GetComponent<Text>().color = Color.red;
-                    //FightCardSP.enemyCards[i].transform.GetChild(5).GetComponent<Text>().text = "火"+"-" + realDamage_;
-                    //FightCardSP.enemyCards[i].transform.GetChild(5).gameObject.SetActive(true);
-
-                    ////敌方血条的计算和显示
-                    //FightCardSP.enemyCards[i].GetComponent<CardMove>().Health = FightCardSP.enemyCards[i].GetComponent<CardMove>().Health - realDamage_;
-                    //if (FightCardSP.enemyCards[i].GetComponent<CardMove>().Health < 0)
-                    //{
-                    //    FightCardSP.enemyCards[i].GetComponent<CardMove>().Health = 0;
-                    //}
-                    //FightCardSP.enemyCards[i].GetComponent<Slider>().value = 1 - (FightCardSP.enemyCards[i].GetComponent<CardMove>().Health) / ((float)FightCardSP.enemyCards[i].GetComponent<CardMove>().Fullhealth);
                     UpdateEnemyHp(FightCardSP.enemyCards[i]);
                 }
             }

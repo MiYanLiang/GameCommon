@@ -7,14 +7,24 @@ public class DrumSkillControll : MonoBehaviour
 {
     public GameObject stateIcon;    //卡牌上状态小标预制件
     public Text drumText;           //战鼓数量显示
+    public static bool isChange;    //限制刷新
     public static int drumNums;     //可敲击次数
 
     private void OnEnable()
     {
+        isChange = false;
         drumNums = 3;
         UpdateShowDrumText();   //刷新敲鼓次数显示
     }
-
+    private void Update()
+    {
+        if (isChange)
+        {
+            UpdateShowDrumText();  //刷新战鼓敲击次数
+            isChange = false;
+        }
+        
+    }
 
     //战鼓技能--------------------------------------------
 

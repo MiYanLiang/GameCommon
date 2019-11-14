@@ -199,7 +199,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         }
         SelectHerpCard = tran;
         //显示出售按钮
-        SellCardBtn.transform.GetChild(1).GetComponent<Text>().text = tran.GetComponent<HeroDataControll>().Price_hero.ToString();
+        SellCardBtn.transform.GetChild(2).GetComponent<Text>().text = tran.GetComponent<HeroDataControll>().Price_hero.ToString();
         SellCardBtn.SetActive(true);
 
     }
