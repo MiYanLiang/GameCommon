@@ -42,6 +42,15 @@ public class FightState
     /// </summary>
     public bool isFireAttack { get; set; }
 
+    /// <summary>
+    /// 是否处于战意状态 -- 状态栏显示战意（人杰兵种技能）
+    /// </summary>
+    public bool isFightMean { get; set; }
+
+    /// <summary>
+    /// 是否处于风遁状态 -- 状态栏显示飞兽（飞兽兵种技能）
+    /// </summary>
+    public bool isPopular { get; set; }
 }
 
 /// <summary>

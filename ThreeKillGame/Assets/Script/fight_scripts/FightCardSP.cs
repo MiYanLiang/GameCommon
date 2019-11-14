@@ -723,6 +723,9 @@ public class FightCardSP : MonoBehaviour
             obj.GetComponent<CardMove>().Fight_State.isWithStand = false;
             obj.GetComponent<CardMove>().Fight_State.withStandNums = 0;
             obj.GetComponent<CardMove>().Fight_State.isFireAttack = false;
+            obj.GetComponent<CardMove>().Fight_State.isFightMean = false;
+            obj.GetComponent<CardMove>().Fight_State.isPopular = false;
+
         }
     }
 

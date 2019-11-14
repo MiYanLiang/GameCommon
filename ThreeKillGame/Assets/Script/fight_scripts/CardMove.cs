@@ -1513,4 +1513,5 @@ public class CardMove : MonoBehaviour
         }
         ChangeToFight(StateOfAttack.FightNow);  //切换此卡牌攻击状态再次为战斗
     }
+
 }
