@@ -8,7 +8,7 @@ public class FightState
     /// </summary>
     public bool GetHadSpState()
     {
-        if (isDizzy || isFireAttack)
+        if (isDizzy)
             return true;
         else
             return false;

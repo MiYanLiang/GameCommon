@@ -169,11 +169,18 @@ public class CardMove : MonoBehaviour
             //攻击目标
             if (gameObject.transform.position == vec_Enemy)     //到达目标敌人面前位置
             {
-                ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //普通攻击+动态技能
+                if (Fight_State.isFireAttack == true)
+                {
+                    FireFightSkill();//火攻
+                }
+                else
+                {
+                    ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //普通攻击+动态技能
 
-                gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
+                    gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
 
-                ChangeToFight(StateOfAttack.FightOver); //更改攻击状态为攻击结束，进入攻击后摇
+                    ChangeToFight(StateOfAttack.FightOver); //更改攻击状态为攻击结束，进入攻击后摇
+                }
             }
         }
 
@@ -1513,5 +1520,35 @@ public class CardMove : MonoBehaviour
         }
         ChangeToFight(StateOfAttack.FightNow);  //切换此卡牌攻击状态再次为战斗
     }
+    /// <summary>
+    /// 火攻技能
+    /// </summary>
+    private void FireFightSkill()
+    {
+        realDamage = (int)((float)Force * 0.2);
+        if (Fight_State.isFireAttack == true)
+        {
+            for (int i = 0; i < 9; i++)
+            {
+                if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+                {
+                    //显示造成伤害值
+                    //FightCardSP.enemyCards[i].transform.GetChild(5).GetComponent<Text>().color = Color.red;
+                    //FightCardSP.enemyCards[i].transform.GetChild(5).GetComponent<Text>().text = "火"+"-" + realDamage_;
+                    //FightCardSP.enemyCards[i].transform.GetChild(5).gameObject.SetActive(true);
 
+                    ////敌方血条的计算和显示
+                    //FightCardSP.enemyCards[i].GetComponent<CardMove>().Health = FightCardSP.enemyCards[i].GetComponent<CardMove>().Health - realDamage_;
+                    //if (FightCardSP.enemyCards[i].GetComponent<CardMove>().Health < 0)
+                    //{
+                    //    FightCardSP.enemyCards[i].GetComponent<CardMove>().Health = 0;
+                    //}
+                    //FightCardSP.enemyCards[i].GetComponent<Slider>().value = 1 - (FightCardSP.enemyCards[i].GetComponent<CardMove>().Health) / ((float)FightCardSP.enemyCards[i].GetComponent<CardMove>().Fullhealth);
+                    UpdateEnemyHp(FightCardSP.enemyCards[i]);
+                }
+            }
+            Destroy(transform.GetChild(9).Find(StateName.fireAttackName).gameObject);  //消除火攻状态图标
+            Fight_State.isFireAttack = false;
+        }
+    }
 }
