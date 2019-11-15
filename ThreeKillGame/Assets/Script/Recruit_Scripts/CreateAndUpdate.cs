@@ -1095,6 +1095,12 @@ public class CreateAndUpdate : MonoBehaviour
     {
         if (money > 2)
         {
+            //点击刷新，清空上显示栏
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text = "";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
+
             money -= 2;
             getCardId.Clear();
             SetPeopleHarets();
@@ -1842,7 +1848,7 @@ public class CreateAndUpdate : MonoBehaviour
     //根据id和列名拿到具体的值--英雄表
     void GetSpecificValue(int id, string name)
     {
-        for (int i = 0; i < 88; i++)
+        for (int i = 0; i < 82; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
@@ -1888,7 +1894,7 @@ public class CreateAndUpdate : MonoBehaviour
     //把英雄按照稀有度分类
     void GetHeroRarity()
     {
-        for (int i = 0; i < 88; i++)
+        for (int i = 0; i < 82; i++)
         {
             if (LoadJsonFile.RoleTableDatas[i][4] == "1")             //拿到绿色
             {
@@ -1911,7 +1917,7 @@ public class CreateAndUpdate : MonoBehaviour
     //在表2中拿到相关稀有度的英雄Id并存储
     void GetHeroRarityId()
     {
-        for (int i = 0; i < 792; i++)
+        for (int i = 0; i < 738; i++)
         {
 
                 for (int y = 0; y < greenHeroId.Count; y++)

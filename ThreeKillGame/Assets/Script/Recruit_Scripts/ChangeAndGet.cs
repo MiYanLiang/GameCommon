@@ -19,6 +19,7 @@ public class ChangeAndGet : MonoBehaviour
     public Transform jiugongge;     //上阵位
     List<string> heroData = new List<string>();
     List<int> ChickenRibsHeroId = new List<int>();  //存放所有的拥有的英雄Id
+
     // Use this for initialization
     void Start()
     {
@@ -80,12 +81,120 @@ public class ChangeAndGet : MonoBehaviour
             if (num == -1) { return; }
             
             GetExcelFile2();
-            print("heroId:" + heroId);
+            print("kkkkkkkkkkkkkkkkkkkheroId:" + heroId);
             Debug.Log("heroData,name//" + heroData[1]);
             ShowAndGradeHero(num);  //升阶或直接展示
         }
     }
-
+    public void ShowHeroInformation()
+    {
+        btnNum = btn.GetComponentInChildren<Text>().text;
+        btnTag = int.Parse(btn.name);
+        GetExcelFile1();
+        List<string> HeroDate = new List<string>();
+        for (int i = 0; i < 88; i++)
+        {
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == heroId)
+            {
+                //print("kkkkkkkkkkkkkkkkkkkheroId:" + heroId);
+                for (int j = 0; j < 21; j++)
+                {
+                    HeroDate.Add(LoadJsonFile.RoleTableDatas[i][j]);
+                }
+            }
+        }
+        print("kkkkkkkkkkkkkkkkkkkheroId:" + HeroDate[0]);
+        List<List<string>> fetterInformation = new List<List<string>>();
+        List<string> heroIdDate = new List<string>();
+        int heroKindType = int.Parse(HeroDate[3]);
+        string heroKindName = "";
+        GetHeroTypeName(heroKindType, heroKindName);
+        GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
+        int heroId_ = heroId;
+        heroIdDate.Add(heroId_.ToString());
+        fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
+        //显示点击英雄的名字  及  阶数（阶数尚未得到）
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = HeroDate[1] + "\u1500";
+        //显示兵种及英雄相关属性  （缺少拥有个数）
+        int nums = GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(heroId_);
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = heroKindName + "拥有" + nums + "\u2000" + "攻击" + HeroDate[6] + "\u2000" + "防御" + HeroDate[7] + "\u2000" + "士兵" + HeroDate[8];
+        //显示羁绊内容
+        if (fetterInformation.Count > 0)
+        {
+            ////传递给显示详细信息
+            for (int j = 0; j < fetterInformation.Count; j++)
+            {
+                for (int i = 0; i < fetterInformation[j].Count; i++)
+                {
+                    //print("ssssssssssssssssssssssssssss"+fetterInformation[j][1]);
+                    GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" + "," + "防御+" + fetterInformation[j][4] + "%" + "," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
+                    break;
+                }
+            }
+        }
+        else
+        {
+            GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "\u3000" + "此英雄无羁绊";
+        }
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = HeroDate[20];
+        heroIdDate.Clear();
+        fetterInformation.Clear();
+        HeroDate.Clear();
+    }
+    void GetHeroTypeName(int heroKindType,string heroKindName)
+    {
+        string name = "";
+        if (heroKindType == 1)
+        {
+            name = "山兽";
+            heroKindName = name;
+        }
+        else if (heroKindType == 2)
+        {
+            name = "海兽";
+            heroKindName = name;
+        }
+        else if (heroKindType == 3)
+        {
+            name = "飞兽";
+            heroKindName = name;
+        }
+        else if (heroKindType == 4)
+        {
+            name = "人杰";
+            heroKindName = name;
+        }
+        else if (heroKindType == 5)
+        {
+            name = "祖巫";
+            heroKindName = name;
+        }
+        else if (heroKindType == 6)
+        {
+            name = "散仙";
+            heroKindName = name;
+        }
+        else if (heroKindType == 7)
+        {
+            name = "辅神";
+            heroKindName = name;
+        }
+        else if (heroKindType == 8)
+        {
+            name = "魔神";
+            heroKindName = name;
+        }
+        else if (heroKindType == 9)
+        {
+            name = "天神";
+            heroKindName = name;
+        }
+        else if (heroKindType == 10)
+        {
+            name = "神兽";
+            heroKindName = name;
+        }
+    }
     /// <summary>
     /// 购买英雄后，判断是否需要升阶和展示
     /// </summary>
