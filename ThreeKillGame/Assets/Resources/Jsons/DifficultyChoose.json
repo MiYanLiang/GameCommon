@@ -1,5 +1,6 @@
 {
-	"DifficultyChoose": [{
+	"DifficultyChoose": [
+		{
 			"id": "1",
 			"difficulty": "萌新",
 			"playerHp": "100",

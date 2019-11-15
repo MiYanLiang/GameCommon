@@ -1,5 +1,6 @@
 {
-	"LevelTable": [{
+	"LevelTable": [
+		{
 			"index": "1",
 			"level": "1",
 			"experience": "1",
@@ -68,15 +69,15 @@
 			"level": "9",
 			"experience": "80",
 			"money": "7",
-			"battleNum": "9",
+			"battleNum": "0",
 			"prepareNum": "7"
 		},
 		{
 			"index": "10",
 			"level": "10",
-			"experience": "",
+			"experience": "0",
 			"money": "8",
-			"battleNum": "9",
+			"battleNum": "0",
 			"prepareNum": "7"
 		}
 	]

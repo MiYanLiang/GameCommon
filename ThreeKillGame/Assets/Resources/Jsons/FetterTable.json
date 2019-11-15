@@ -1,5 +1,6 @@
 {
-	"FetterTable": [{
+	"FetterTable": [
+		{
 			"id": "1",
 			"fetterName": "离火阵",
 			"rolesId": "[28,62,81,82,85]",
