@@ -528,6 +528,7 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     public void InitializeBattleCard()
     {
+        enemyNums = 0;
         //设置敌方上阵激活兵种
         for (int i = 0; i < 9; i++)
         {

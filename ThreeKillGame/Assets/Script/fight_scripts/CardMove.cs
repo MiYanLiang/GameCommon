@@ -764,7 +764,7 @@ public class CardMove : MonoBehaviour
     /// <param name="percent">伤害百分比</param>
     private void SanXianSkill(float percent)
     {
-        audiosource.Play();
+        realDamage = Force;
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "横扫";
@@ -1013,6 +1013,7 @@ public class CardMove : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("炎爆");
         }
+        realDamage = Force;
         realDamage = (int)(realDamage * percent);
         if (IsPlayerOrEnemy == 0)
         {
