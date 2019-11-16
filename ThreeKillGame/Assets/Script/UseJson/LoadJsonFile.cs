@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable";
 
 
     /// <summary>
@@ -55,6 +55,11 @@ public class LoadJsonFile : MonoBehaviour
     /// 战役表
     /// </summary>
     public static List<List<string>> BattleTableDates;
+
+    /// <summary>
+    /// npc上阵位开启表
+    /// </summary>
+    public static List<List<string>> DifficultyTableDates;
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -229,6 +234,7 @@ public class LoadJsonFile : MonoBehaviour
         //加载战役表数据:BattleTable
         {
             jsonData = LoadJsonByName(tableNames[indexTable]);
+            print(jsonData);
             root = JsonMapper.ToObject<Roots>(jsonData);
             BattleTableDates = new List<List<string>>(root.BattleTable.Count);
             for (int i = 0; i < root.BattleTable.Count; i++)
@@ -241,7 +247,24 @@ public class LoadJsonFile : MonoBehaviour
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
-
+        //加载npc上阵位开启表数据:DifficultyTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            print(jsonData);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            DifficultyTableDates = new List<List<string>>(root.DifficultyTable.Count);
+            for (int i = 0; i < root.DifficultyTable.Count; i++)
+            {
+                DifficultyTableDates.Add(new List<string>());
+                DifficultyTableDates[i].Add(root.DifficultyTable[i].id);
+                DifficultyTableDates[i].Add(root.DifficultyTable[i].enemyTotal);
+                DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek1);
+                DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek2);
+                DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek3);
+                DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek4);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
 
         if (indexTable>= tableNames.Length)
             Debug.Log("所有Json数据加载成功。");

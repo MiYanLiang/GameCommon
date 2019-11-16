@@ -21,6 +21,7 @@ import e_create_LevelTable
 import e_create_RandowTable
 import e_create_RoleTable
 import e_create_SoldierSkillTable
+import e_create_Difficulty
 
 taskList = (
 
@@ -32,7 +33,7 @@ taskList = (
 	('/111.xlsx', e_create_RandowTable, '/RandowTable.json'),
 	('/111.xlsx', e_create_RoleTable, '/RoleTable.json'),
 	('/111.xlsx', e_create_SoldierSkillTable, '/SoldierSkillTable.json'),
-
+	('/111.xlsx', e_create_Difficulty, '/DifficultyTable.json'),
 )
 
 

@@ -15,16 +15,28 @@ public class EmFightControll : MonoBehaviour
     //存放最后拿到的英雄Id
     List<int> getHeroId = new List<int>();
 
+    //上阵位置和开启周目                   [0,0]                                 [1,1]     
+    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+
+    List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
 
     private void Awake()
     {
         hardNum = PlayerPrefs.GetInt("DifficultyType");  //难度值获取
     }
 
-    //上阵位置和开启周目                   [0,0]                                 [1,1]     
-    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 3, 4, 5, 6, 7, 11, 16, 21, 25 } };
+    private void Start()
+    {
+        for (int i = 0; i < 10; i++)
+        {
+            arrayBattles[1, i] = int.Parse(LoadJsonFile.DifficultyTableDates[i][hardNum+1]);
+        }
 
-    List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
+        for (int i = 0; i < 10; i++)
+        {
+            print(arrayBattles[1,i]);
+        }
+    }
 
     /// <summary>
     /// 接收敌方武将现有的上阵卡牌，进行卡牌变化和传递

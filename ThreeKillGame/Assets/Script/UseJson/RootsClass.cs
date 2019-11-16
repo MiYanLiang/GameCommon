@@ -37,6 +37,11 @@ public class Roots
     /// 战役表
     /// </summary>
     public List<BattleTableItem> BattleTable { get; set; }
+
+    /// <summary>
+    /// npc上阵位表
+    /// </summary>
+    public List<DifficultyItem> DifficultyTable { get; set; }
 }
 
 
