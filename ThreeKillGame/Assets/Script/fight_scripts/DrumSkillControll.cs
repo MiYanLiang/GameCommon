@@ -15,7 +15,7 @@ public class DrumSkillControll : MonoBehaviour
     private void OnEnable()
     {
         isChange = false;
-        drumNums = 3;
+        drumNums = 1;
         UpdateShowDrumText();   //刷新敲鼓次数显示
     }
     private void Update()
@@ -60,9 +60,8 @@ public class DrumSkillControll : MonoBehaviour
         if (index == -1)
             return;
         //显示技能文字
-        //FightCardSP.playerCards[index].transform.GetChild(10).GetComponent<Text>().text = "连击";
-        //FightCardSP.playerCards[index].transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
-        //FightCardSP.playerCards[index].transform.GetChild(10).gameObject.SetActive(true);
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "急急如风";
+        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isBatter = true;
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.batterNums = 2; //连击两次
         GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
@@ -106,7 +105,7 @@ public class DrumSkillControll : MonoBehaviour
                 if (!FightCardSP.enemyCards[i].GetComponent<CardMove>().Fight_State.isDizzy)
                 {
                     //判断还没有记录过目标，或者，i位置的暴击率少于记录位置的暴击率
-                    if (index == -1 || FightCardSP.enemyCards[i].GetComponent<CardMove>().CritRate < FightCardSP.enemyCards[index].GetComponent<CardMove>().CritRate)
+                    if (index == -1 || FightCardSP.enemyCards[i].GetComponent<CardMove>().CritRate > FightCardSP.enemyCards[index].GetComponent<CardMove>().CritRate)
                     {
                         index = i;
                     }
@@ -127,6 +126,9 @@ public class DrumSkillControll : MonoBehaviour
         icon.name = StateName.dizzyName;
         //加载状态图片资源
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.dizzyName, typeof(Sprite)) as Sprite;
+        GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/xuanyun", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
+        xuanyunEffect.name = StateName.xuanyunEffect;
+        Instantiate(Resources.Load("Prefab/fightEffect/zhangu_lei_01", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
         //战鼓可敲击次数减一
         drumNums--;
         //次数显示刷新
@@ -162,8 +164,9 @@ public class DrumSkillControll : MonoBehaviour
         FightCardSP.playerCards[index].GetComponent<CardMove>().Health = (int)((float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth * 0.3);
         FightCardSP.playerCards[index].GetComponent<Slider>().value = 1 - FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth;
         //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "复活";
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "起死回生";
         FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
+        Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, FightCardSP.playerCards[index].transform);
         //战鼓可敲击次数减一
         drumNums--;
         //次数显示刷新
@@ -198,7 +201,7 @@ public class DrumSkillControll : MonoBehaviour
         if (index == -1)
             return;
         //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "火攻";
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "荒火焚天";
         FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isFireAttack = true;
         GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
@@ -238,7 +241,7 @@ public class DrumSkillControll : MonoBehaviour
         if (index == -1)
             return;
         //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "坚盾";
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "固若金汤";
         FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
         //改变 目标的攻击状态 坚盾激活状态
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isWithStand = true;

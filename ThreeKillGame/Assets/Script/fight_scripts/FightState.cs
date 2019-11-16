@@ -64,6 +64,11 @@ public static class StateName
     /// 眩晕
     /// </summary>
     public static readonly string dizzyName = "state_dizzy";
+    
+    /// <summary>
+    /// 眩晕特效
+    /// </summary>
+    public static readonly string xuanyunEffect = "xy_Effect";
 
     /// <summary>
     /// 连击

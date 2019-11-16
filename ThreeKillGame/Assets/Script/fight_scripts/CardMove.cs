@@ -141,7 +141,9 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void ChangeToFightOver()
     {
+        //FightCardSP.isFightNow = false;
         ChangeToFight(StateOfAttack.FightOver);
+        gameObject.transform.position = vec;
     }
     /// <summary>
     /// 复原
@@ -174,9 +176,9 @@ public class CardMove : MonoBehaviour
                     if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0)  //远程兵种技能
                     {
                         ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);
-                        gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f),  FightControll.speedTime*0.5f).SetAutoKill(false);
-                        Invoke("ComeBackTranForm",FightControll.speedTime * 0.5f);
-                        Invoke("ChangeToFightOver", FightControll.speedTime * 1);
+                        gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f),  FightControll.speedTime*0.7f).SetAutoKill(false);
+                        Invoke("ComeBackTranForm",FightControll.speedTime * 0.7f);
+                        Invoke("ChangeToFightOver", FightControll.speedTime * 1.5f);
                     }
                     else
                     {
@@ -205,7 +207,7 @@ public class CardMove : MonoBehaviour
                 }
 
                 gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
-                ChangeToFightOver(); //更改攻击状态为攻击结束，进入攻击后摇
+                ChangeToFight(StateOfAttack.FightOver);                //更改攻击状态为攻击结束，进入攻击后摇
             }
         }
 
@@ -397,7 +399,7 @@ public class CardMove : MonoBehaviour
     /// <param name="percentage">转化血量百分比</param>
     private void ShanShouSkill(float percentage)
     {
-        NormalAttack(EnemyObj);
+        NormalAttackEffects(EnemyObj, 9);
         UpdateEnemyHp(EnemyObj);
         int addHp = (int)(realDamage * percentage);
         if (addHp + Health > Fullhealth) //当吸血量加当前血量大于总血量时
@@ -524,8 +526,9 @@ public class CardMove : MonoBehaviour
     /// <param name="percent">伤害百分比</param>
     private void ZuWuSkill(float percent)
     {
-        NormalAttack(EnemyObj);
+        realDamage = SkillRealDamage(realDamage, EnemyObj, false);  //计算技能伤害
         UpdateEnemyHp(EnemyObj);
+        NormalAttackEffects(EnemyObj, 3);
         realDamage = (int)(realDamage * percent);
         if (IsPlayerOrEnemy == 0)
         {
@@ -546,7 +549,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.enemyCards[3]);
-                    NormalAttackEffects(FightCardSP.enemyCards[3]);
+                    NormalAttackEffects(FightCardSP.enemyCards[3], 3);
                 }
             }
             else if (EnemyIndex == 1)
@@ -566,7 +569,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.enemyCards[4]);
-                    NormalAttackEffects(FightCardSP.enemyCards[4]);
+                    NormalAttackEffects(FightCardSP.enemyCards[4], 3);
                 }
             }
             else if (EnemyIndex == 2)
@@ -586,7 +589,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.enemyCards[5]);
-                    NormalAttackEffects(FightCardSP.enemyCards[5]);
+                    NormalAttackEffects(FightCardSP.enemyCards[5], 3);
                 }
             }
             else if (EnemyIndex == 3)
@@ -606,7 +609,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.enemyCards[6]);
-                    NormalAttackEffects(FightCardSP.enemyCards[6]);
+                    NormalAttackEffects(FightCardSP.enemyCards[6], 3);
                 }
             }
             else if (EnemyIndex == 4)
@@ -626,7 +629,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.enemyCards[7]);
-                    NormalAttackEffects(FightCardSP.enemyCards[7]);
+                    NormalAttackEffects(FightCardSP.enemyCards[7], 3);
                 }
             }
             else if (EnemyIndex == 5)
@@ -646,7 +649,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.enemyCards[8]);
-                    NormalAttackEffects(FightCardSP.enemyCards[8]);
+                    NormalAttackEffects(FightCardSP.enemyCards[8], 3);
                 }
             }
         }
@@ -669,7 +672,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.playerCards[3]);
-                    NormalAttackEffects(FightCardSP.playerCards[3]);
+                    NormalAttackEffects(FightCardSP.playerCards[3], 3);
                 }
             }
             else if (EnemyIndex == 1)
@@ -689,7 +692,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.playerCards[4]);
-                    NormalAttackEffects(FightCardSP.playerCards[4]);
+                    NormalAttackEffects(FightCardSP.playerCards[4], 3);
                 }
             }
             else if (EnemyIndex == 2)
@@ -709,7 +712,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.playerCards[5]);
-                    NormalAttackEffects(FightCardSP.playerCards[5]);
+                    NormalAttackEffects(FightCardSP.playerCards[5], 3);
                 }
             }
             else if (EnemyIndex == 3)
@@ -729,7 +732,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.playerCards[6]);
-                    NormalAttackEffects(FightCardSP.playerCards[6]);
+                    NormalAttackEffects(FightCardSP.playerCards[6], 3);
                 }
             }
             else if (EnemyIndex == 4)
@@ -749,7 +752,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.playerCards[7]);
-                    NormalAttackEffects(FightCardSP.playerCards[7]);
+                    NormalAttackEffects(FightCardSP.playerCards[7], 3);
                 }
             }
             else if (EnemyIndex == 5)
@@ -769,7 +772,7 @@ public class CardMove : MonoBehaviour
                         Debug.Log("突刺");
                     }
                     UpdateEnemyHp(FightCardSP.playerCards[8]);
-                    NormalAttackEffects(FightCardSP.playerCards[8]);
+                    NormalAttackEffects(FightCardSP.playerCards[8], 3);
                 }
             }
         }
@@ -803,8 +806,9 @@ public class CardMove : MonoBehaviour
                 {
                     if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                     {
+                        realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[i], false);
                         UpdateEnemyHp(FightCardSP.enemyCards[i]);
-                        NormalAttackEffects(FightCardSP.enemyCards[i]);
+                        NormalAttackEffects(FightCardSP.enemyCards[i], 4);
                     }
                 }
             }
@@ -814,8 +818,9 @@ public class CardMove : MonoBehaviour
                 {
                     if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                     {
+                        realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[i], false);
                         UpdateEnemyHp(FightCardSP.playerCards[i]);
-                        NormalAttackEffects(FightCardSP.playerCards[i]);
+                        NormalAttackEffects(FightCardSP.playerCards[i], 4);
                     }
                 }
             }
@@ -830,8 +835,9 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                         {
+                            realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[i], false);
                             UpdateEnemyHp(FightCardSP.enemyCards[i]);
-                            NormalAttackEffects(FightCardSP.enemyCards[i]);
+                            NormalAttackEffects(FightCardSP.enemyCards[i], 4);
                         }
                     }
                 }
@@ -841,8 +847,9 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                         {
+                            realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[i], false);
                             UpdateEnemyHp(FightCardSP.playerCards[i]);
-                            NormalAttackEffects(FightCardSP.playerCards[i]);
+                            NormalAttackEffects(FightCardSP.playerCards[i], 4);
                         }
                     }
                 }
@@ -855,8 +862,9 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                         {
+                            realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[i], false);
                             UpdateEnemyHp(FightCardSP.enemyCards[i]);
-                            NormalAttackEffects(FightCardSP.enemyCards[i]);
+                            NormalAttackEffects(FightCardSP.enemyCards[i], 4);
                         }
                     }
                 }
@@ -866,8 +874,9 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                         {
+                            realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[i], false);
                             UpdateEnemyHp(FightCardSP.playerCards[i]);
-                            NormalAttackEffects(FightCardSP.playerCards[i]);
+                            NormalAttackEffects(FightCardSP.playerCards[i], 4);
                         }
                     }
                 }
@@ -935,7 +944,9 @@ public class CardMove : MonoBehaviour
                 }
                 for (int i = 0; i < nums; i++)
                 {
+                    realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[arr_index[i]], false);
                     UpdateEnemyHp(FightCardSP.enemyCards[arr_index[i]]);
+                    NormalAttackEffects(FightCardSP.enemyCards[arr_index[i]], 6);
                     if (TakeSpecialAttack(stunProbability)) //判断是否可以眩晕对手
                     {
                         DizzyEnemyCards(FightCardSP.enemyCards[arr_index[i]]);      //执行眩晕效果
@@ -946,7 +957,9 @@ public class CardMove : MonoBehaviour
             {
                 for (int i = 0; i < arrs.Count; i++)
                 {
+                    realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[arrs[i]], false);
                     UpdateEnemyHp(FightCardSP.enemyCards[arrs[i]]);
+                    NormalAttackEffects(FightCardSP.enemyCards[arrs[i]], 6);
                     if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
                     {
                         DizzyEnemyCards(FightCardSP.enemyCards[arrs[i]]);
@@ -990,7 +1003,9 @@ public class CardMove : MonoBehaviour
                 }
                 for (int i = 0; i < nums; i++)
                 {
+                    realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[arr_index[i]], false);
                     UpdateEnemyHp(FightCardSP.playerCards[arr_index[i]]);
+                    NormalAttackEffects(FightCardSP.playerCards[arr_index[i]], 6);
                     if (TakeSpecialAttack(stunProbability))
                     {
                         DizzyEnemyCards(FightCardSP.playerCards[arr_index[i]]);
@@ -1001,7 +1016,9 @@ public class CardMove : MonoBehaviour
             {
                 for (int i = 0; i < arrs.Count; i++)
                 {
+                    realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[arrs[i]], false);
                     UpdateEnemyHp(FightCardSP.playerCards[arrs[i]]);
+                    NormalAttackEffects(FightCardSP.playerCards[arrs[i]], 6);
                     if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
                     {
                         DizzyEnemyCards(FightCardSP.playerCards[arrs[i]]);
@@ -1073,7 +1090,9 @@ public class CardMove : MonoBehaviour
             //依次攻击目标
             for (int i = 0; i < array_transform.Count; i++)
             {
+                realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[array_transform[i]], false);
                 UpdateEnemyHp(FightCardSP.enemyCards[array_transform[i]]);
+                NormalAttackEffects(FightCardSP.enemyCards[array_transform[i]], 5);
             }
         }
         else
@@ -1116,7 +1135,9 @@ public class CardMove : MonoBehaviour
             }
             for (int i = 0; i < array_transform.Count; i++)
             {
+                realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[array_transform[i]], false);
                 UpdateEnemyHp(FightCardSP.playerCards[array_transform[i]]);
+                NormalAttackEffects(FightCardSP.playerCards[array_transform[i]], 5);
             }
         }
     }
@@ -1183,7 +1204,9 @@ public class CardMove : MonoBehaviour
                         FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health = FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Fullhealth;
                     else
                         FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health = addHp + FightCardSP.playerCards[arrs[i]].GetComponent<CardMove>().Health;
+                    addHp = SkillRealDamage(addHp, gameObject, true);
                     UpdateOwnHp(addHp, FightCardSP.playerCards[arrs[i]]);
+                    NormalAttackEffects(FightCardSP.playerCards[arrs[i]], 8);
                 }
             }
         }
@@ -1221,19 +1244,14 @@ public class CardMove : MonoBehaviour
                         FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health = FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Fullhealth;
                     else
                         FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health = addHp + FightCardSP.enemyCards[arrs[i]].GetComponent<CardMove>().Health;
+                    addHp = SkillRealDamage(addHp, gameObject, true);
                     UpdateOwnHp(addHp, FightCardSP.enemyCards[arrs[i]]);
+                    NormalAttackEffects(FightCardSP.enemyCards[arrs[i]], 8);
                 }
             }
         }
     }
-
-
-
-
-
-
-
-
+    
     /// <summary>
     /// 静态兵种技能数据加成（开始战斗卡牌加载时调用一次）
     /// </summary>
@@ -1382,33 +1400,31 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void NormalAttack(GameObject enemyobject)
     {
-        //攻击音效播放
-        audiosource.Play();
+        
+
         //伤害计算
         realDamage = AttackTheEnemy(Force);
     }
 
-    //攻击敌方武将，计算造成的战斗伤害数值
-    private int AttackTheEnemy(int force)
+    /// <summary>
+    /// 计算技能攻击基础伤害
+    /// </summary>
+    /// <param name="force">原始攻击力</param>
+    /// <param name="obj">对象</param>
+    /// <param name="isZhiliao">是否是治疗</param>
+    /// <returns></returns>
+    private int SkillRealDamage(int force, GameObject obj, bool isZhiliao)
     {
-        //计算是否敌方闪避
-        if (TakeSpecialAttack(EnemyObj.GetComponent<CardMove>().realDodgeRate))
+        //计算是否敌方闪避（不是治疗情况）
+        if (!isZhiliao && TakeSpecialAttack(obj.GetComponent<CardMove>().realDodgeRate))
         {
             Debug.Log("闪避");
-            EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "闪避";
-            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.blue_Color;
-            EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
-            //anim.Play("fightCardStatus");
             return 0;
         }
         //计算是否触发重击
         if (TakeSpecialAttack(ThumpRate))
         {
             Debug.Log("重击");
-            EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "重击";
-            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
-            EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
-            //anim.Play("fightCardStatus");
             force = (int)(force * ThumpDamage);
         }
         else
@@ -1417,6 +1433,53 @@ public class CardMove : MonoBehaviour
             if (TakeSpecialAttack(CritRate))
             {
                 Debug.Log("暴击");
+                force = (int)(force * CritDamage);
+            }
+        }
+        if (isZhiliao)
+        {
+            return force;
+        }
+        else
+        {
+            //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
+            return (int)(force * (140 / (70 + obj.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
+        }
+    }
+
+
+    //攻击敌方武将，计算造成的战斗伤害数值
+    private int AttackTheEnemy(int force)
+    {
+        int index_attack = 0;
+        //计算是否敌方闪避
+        if (TakeSpecialAttack(EnemyObj.GetComponent<CardMove>().realDodgeRate))
+        {
+            Debug.Log("闪避");
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "闪避";
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.blue_Color;
+            EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
+            EnemyObj.transform.GetComponent<AudioSource>().clip = Resources.Load("Effect/FightSounds/闪避", typeof(AudioClip)) as AudioClip;
+            EnemyObj.transform.GetComponent<AudioSource>().Play();
+            return 0;
+        }
+        //计算是否触发重击
+        if (TakeSpecialAttack(ThumpRate))
+        {
+            index_attack = 1;
+            Debug.Log("重击");
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "重击";
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+            EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
+            force = (int)(force * ThumpDamage);
+        }
+        else
+        {
+            //计算是否触发暴击
+            if (TakeSpecialAttack(CritRate))
+            {
+                index_attack = 2;
+                Debug.Log("暴击");
                 EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "暴击";
                 EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
                 EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
@@ -1424,18 +1487,13 @@ public class CardMove : MonoBehaviour
                 force = (int)(force * CritDamage);
             }
         }
-        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand) //如果攻击的敌人是海兽 并且 兵种激活
-        {
-            Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, EnemyObj.transform);
-        }
-        else
-        {
-            //普通攻击特效展示
-            NormalAttackEffects(EnemyObj);
-        }
+        //攻击特效
+        NormalAttackEffects(EnemyObj, index_attack);
+
         //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
         return (int)(force * (140 / (70 + EnemyObj.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
     }
+
 
     /// <summary>
     /// 计算是否触发特殊攻击状态
@@ -1459,6 +1517,11 @@ public class CardMove : MonoBehaviour
         //判断目标是否有坚盾状态
         if (obj.GetComponent<CardMove>().Fight_State.isWithStand)
         {
+            obj.transform.GetChild(10).GetComponent<Text>().text = "抵挡";
+            obj.transform.GetChild(10).GetComponent<Text>().color = ColorData.blue_Color;
+            obj.transform.GetChild(10).gameObject.SetActive(true);
+            obj.transform.GetComponent<AudioSource>().clip = Resources.Load("Effect/FightSounds/抵挡", typeof(AudioClip)) as AudioClip;
+            obj.transform.GetComponent<AudioSource>().Play();
             obj.GetComponent<CardMove>().Fight_State.withStandNums--;
             if (obj.GetComponent<CardMove>().Fight_State.withStandNums <= 0)
             {
@@ -1468,10 +1531,13 @@ public class CardMove : MonoBehaviour
             }
             realDamage = 0;
         }
-        //显示造成伤害值
-        obj.transform.GetChild(5).GetComponent<Text>().color = Color.red;
-        obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
-        obj.transform.GetChild(5).gameObject.SetActive(true);
+        else
+        {
+            //显示造成伤害值
+            obj.transform.GetChild(5).GetComponent<Text>().color = Color.red;
+            obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
+            obj.transform.GetChild(5).gameObject.SetActive(true);
+        }
 
         //敌方血条的计算和显示
         obj.GetComponent<CardMove>().Health = obj.GetComponent<CardMove>().Health - realDamage;
@@ -1532,12 +1598,73 @@ public class CardMove : MonoBehaviour
     /// 普通攻击特效
     /// </summary>
     /// <param name="obj"></param>
-    private void NormalAttackEffects(GameObject obj)
+    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽</param>
+    private void NormalAttackEffects(GameObject obj, int index)
     {
-        //受攻击后的抖动（持续时间，力量，震动，随机性，淡出）
-        obj.transform.DOShakePosition(0.2f, 15, 3, 50, true);
+        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand) //如果攻击的敌人是海兽 并且 兵种激活
+        {
+
+        }
+        else
+        {
+            //受攻击后的抖动（持续时间，力量，震动，随机性，淡出）
+            obj.transform.DOShakePosition(0.2f, 15, 3, 50, true);
+        }
         //特效播放
-        Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
+        switch (index)
+        {
+            case 0:
+                //攻击音效播放
+                audiosource.clip = Resources.Load("Effect/FightSounds/近战普通受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 1:
+                audiosource.clip = Resources.Load("Effect/FightSounds/近战暴击受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/baojishouji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 2:
+                audiosource.clip = Resources.Load("Effect/FightSounds/近战暴击受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/baojishouji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 3:
+                audiosource.clip = Resources.Load("Effect/FightSounds/近战普通受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/chuancishouji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 4:
+                audiosource.clip = Resources.Load("Effect/FightSounds/近战普通受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/hengsaoshouji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 5:
+                audiosource.clip = Resources.Load("Effect/FightSounds/火焰受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/huoyanshouji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 6:
+                audiosource.clip = Resources.Load("Effect/FightSounds/雷电受击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/leidianshouji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 7:
+                GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/xuanyun", typeof(GameObject)) as GameObject, obj.transform);
+                xuanyunEffect.name = StateName.xuanyunEffect;
+                break;
+            case 8:
+                audiosource.clip = Resources.Load("Effect/FightSounds/受治疗", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 9:
+                audiosource.clip = Resources.Load("Effect/FightSounds/虎啸", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+        }
+
     }
 
     /// <summary>
@@ -1548,6 +1675,7 @@ public class CardMove : MonoBehaviour
     {
         obj.GetComponent<CardMove>().IsDizzy = true;
         obj.transform.GetChild(10).GetComponent<Text>().text = "眩晕";
+        obj.transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
         obj.transform.GetChild(10).gameObject.SetActive(true);
         if (!obj.GetComponent<CardMove>().Fight_State.isDizzy)
         {
@@ -1555,6 +1683,7 @@ public class CardMove : MonoBehaviour
             GameObject icon = Instantiate(stateIcon, obj.transform.GetChild(9));
             icon.name = StateName.dizzyName;    //设置名字为眩晕状态名(用于销毁)
             icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.dizzyName, typeof(Sprite)) as Sprite;
+            NormalAttackEffects(obj, 7);    //播放眩晕特效
         }
     }
 
@@ -1565,6 +1694,7 @@ public class CardMove : MonoBehaviour
     private void ReleaseDizzyState(GameObject obj)
     {
         Destroy(obj.transform.GetChild(9).Find(StateName.dizzyName).gameObject);  //消除眩晕状态图标
+        Destroy(obj.transform.Find(StateName.xuanyunEffect).gameObject);    //消除眩晕特效
         obj.GetComponent<CardMove>().Fight_State.isDizzy = false;    //接触眩晕
     }
 
@@ -1601,6 +1731,7 @@ public class CardMove : MonoBehaviour
                 if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                 {
                     UpdateEnemyHp(FightCardSP.enemyCards[i]);
+                    NormalAttackEffects(FightCardSP.enemyCards[i], 5);
                 }
             }
             Destroy(transform.GetChild(9).Find(StateName.fireAttackName).gameObject);  //消除火攻状态图标

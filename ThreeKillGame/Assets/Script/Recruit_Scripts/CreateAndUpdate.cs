@@ -238,7 +238,7 @@ public class CreateAndUpdate : MonoBehaviour
             switch (level)
             {
                 case 1:
-                    print("sssssssssssssssssssssssssssssssssssssssss:1");
+                    //print("sssssssssssssssssssssssssssssssssssssssss:1");
                     temp_num = Random.Range(0, greenCard.Count);
                     if (!myCard.Contains(greenCard[temp_num]))
                     {
@@ -250,7 +250,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 2:
-                    print("sssssssssssssssssssssssssssssssssssssssss:2");
+                    //print("sssssssssssssssssssssssssssssssssssssssss:2");
                     int pr2 = Random.Range(1, 101);
                     if (pr2 < 6 + peopleHearts_blue)
                     {
@@ -1116,7 +1116,7 @@ public class CreateAndUpdate : MonoBehaviour
             switch (level)
             {
                 case 1:
-                    print("ssssssssssssssssssssssssssssssssssssssssss1");
+                    //print("ssssssssssssssssssssssssssssssssssssssssss1");
                     while (myCard.Count < count)
                     {
                         temp_num = Random.Range(0, greenCard.Count);
@@ -1137,7 +1137,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 2:
-                    print("ssssssssssssssssssssssssssssssssssssssssss2");
+                    //print("ssssssssssssssssssssssssssssssssssssssssss2");
                     while (myCard.Count < count)
                     {
                         int pr2 = Random.Range(1, 101);
@@ -1952,7 +1952,7 @@ public class CreateAndUpdate : MonoBehaviour
         }
         for (int i = 0; i < orangeHeroId.Count; i++)
         {
-            print("orangeCard::::"+ orangeHeroId[i]);
+            //print("orangeCard::::"+ orangeHeroId[i]);
         }
     }
     //民心加成
