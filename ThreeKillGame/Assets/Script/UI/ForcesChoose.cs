@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class ForcesChoose : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class ForcesChoose : MonoBehaviour
     public GameObject forcesText;
     int currentPrestige_;
 
+    [SerializeField]
+    private float playTextSpeed = 3f;
 
     //战役
     public GameObject battleName;
@@ -25,15 +28,6 @@ public class ForcesChoose : MonoBehaviour
     void Start()
     {
         RandomBattle();
-        //RandomList();
-        //ShowForces();
-        //GetExcelFile1();
-        //for (int i = 0; i < getForces.Count; i++)
-        //{
-        //    GetForcesName(getForces[i] + 1);
-        //}
-        //SetNameForObj();
-        //SetClickObj();       
     }
 
     // Update is called once per frame
@@ -143,37 +137,37 @@ public class ForcesChoose : MonoBehaviour
          {
              canShow = true;
              currentForcesIndex = getForces[0];
-             forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
+             ShowTextOfForcesData(forcesExplain[0]);
          });
         forcesObj[getForces[1]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[1];
-            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[1];
+            ShowTextOfForcesData(forcesExplain[1]);
         });
         forcesObj[getForces[2]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[2];
-            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[2];
+            ShowTextOfForcesData(forcesExplain[2]);
         });
         forcesObj[getForces[3]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[3];
-            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[3];
+            ShowTextOfForcesData(forcesExplain[3]);
         });
         forcesObj[getForces[4]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[4];
-            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[4];
+            ShowTextOfForcesData(forcesExplain[4]);
         });
         forcesObj[getForces[5]].GetComponent<Button>().onClick.AddListener(delegate ()
         {
             canShow = true;
             currentForcesIndex = getForces[5];
-            forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[5];
+            ShowTextOfForcesData(forcesExplain[5]);
         });
     }
     //选中圈显示
@@ -187,7 +181,6 @@ public class ForcesChoose : MonoBehaviour
                 if (i == currentForcesIndex)
                 {
                     forcesObj[i].transform.Find("Back").gameObject.SetActive(true);
-                    //forcesText.GetComponent<Text>().text = "\u3000\u3000" + forcesExplain[0];
                 }
                 else
                 {
@@ -220,7 +213,7 @@ public class ForcesChoose : MonoBehaviour
         temp_num = Random.Range(0, battleCount);
         battleId = temp_num;  //为0、1、2
         battleName.GetComponent<Text>().text = LoadJsonFile.BattleTableDates[battleId][1];  //战役名称
-        forcesText.GetComponent<Text>().text = LoadJsonFile.BattleTableDates[battleId][2];  //战役解释
+        ShowTextOfForcesData(LoadJsonFile.BattleTableDates[battleId][2]); //战役解释
         //调整字体大小
         string battleName_ = battleName.GetComponent<Text>().text;
         print(battleName_.Length);
@@ -242,6 +235,15 @@ public class ForcesChoose : MonoBehaviour
         }
         SetNameForObj();
         SetClickObj();
+    }
+
+    /// <summary>
+    /// 文字播放
+    /// </summary>
+    /// <param name="data"></param>
+    private void ShowTextOfForcesData(string data)
+    {
+        forcesText.GetComponent<Text>().DOText("\u3000\u3000" + data, playTextSpeed).SetEase(Ease.Linear).SetAutoKill(false);
     }
 }
 
