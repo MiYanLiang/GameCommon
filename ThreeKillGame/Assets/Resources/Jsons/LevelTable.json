@@ -3,7 +3,7 @@
 		{
 			"index": "1",
 			"level": "1",
-			"experience": "1",
+			"experience": "2",
 			"money": "4",
 			"battleNum": "2",
 			"prepareNum": "5"
@@ -11,7 +11,7 @@
 		{
 			"index": "2",
 			"level": "2",
-			"experience": "2",
+			"experience": "3",
 			"money": "5",
 			"battleNum": "3",
 			"prepareNum": "5"

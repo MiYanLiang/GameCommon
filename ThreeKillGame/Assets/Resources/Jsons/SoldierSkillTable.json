@@ -32,14 +32,14 @@
 			"index": "33",
 			"skillName": "疾风",
 			"skillStaticIntro": "攻击提升10%。",
-			"skillDynamicIntro": "战斗中每损失20%血量，获得风遁，提升10%闪避。",
+			"skillDynamicIntro": "战斗中每损失10%血量，获得风遁，提升5%闪避。",
 			"corresArms": "飞兽3"
 		},
 		{
 			"index": "36",
 			"skillName": "瞬闪",
 			"skillStaticIntro": "攻击提升20%。",
-			"skillDynamicIntro": "战斗中每损失20%血量。获得风遁，提升15%闪避。",
+			"skillDynamicIntro": "战斗中每损失10%血量。获得风遁，提升8%闪避。",
 			"corresArms": "飞兽6"
 		},
 		{
