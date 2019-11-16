@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class DrumSkillControll : MonoBehaviour
 {
@@ -9,6 +10,7 @@ public class DrumSkillControll : MonoBehaviour
     public Text drumText;           //战鼓数量显示
     public static bool isChange;    //限制刷新
     public static int drumNums;     //可敲击次数
+    int currentClickNum;                    //当前点击次数
 
     private void OnEnable()
     {
@@ -34,6 +36,7 @@ public class DrumSkillControll : MonoBehaviour
     /// </summary>
     public void WindDrumSkill()
     {
+        currentClickNum++;
         if (drumNums <= 0)
         {
             Debug.Log("战鼓敲击次数不足");
@@ -67,6 +70,21 @@ public class DrumSkillControll : MonoBehaviour
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.batterName, typeof(Sprite)) as Sprite;
         drumNums--;
         UpdateShowDrumText();
+
+        //下面是第一次第二次点击风鼓的时间差，暂时无用
+        if (currentClickNum == 1)
+        {
+            PlayerPrefs.SetString("SetTime", DateTime.Now.ToShortTimeString());
+        }
+        else if (currentClickNum == 2)
+        {
+            currentClickNum--;
+            DateTime nowTime = DateTime.Now;
+            DateTime oldTime = DateTime.Parse(PlayerPrefs.GetString("SetTime"));
+
+            TimeSpan timeSpan = nowTime - oldTime;
+            double a = timeSpan.TotalSeconds;
+        }
     }
 
     /// <summary>
