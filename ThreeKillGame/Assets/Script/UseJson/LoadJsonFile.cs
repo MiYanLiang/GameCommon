@@ -234,7 +234,6 @@ public class LoadJsonFile : MonoBehaviour
         //加载战役表数据:BattleTable
         {
             jsonData = LoadJsonByName(tableNames[indexTable]);
-            print(jsonData);
             root = JsonMapper.ToObject<Roots>(jsonData);
             BattleTableDates = new List<List<string>>(root.BattleTable.Count);
             for (int i = 0; i < root.BattleTable.Count; i++)
@@ -250,7 +249,6 @@ public class LoadJsonFile : MonoBehaviour
         //加载npc上阵位开启表数据:DifficultyTable
         {
             jsonData = LoadJsonByName(tableNames[indexTable]);
-            print(jsonData);
             root = JsonMapper.ToObject<Roots>(jsonData);
             DifficultyTableDates = new List<List<string>>(root.DifficultyTable.Count);
             for (int i = 0; i < root.DifficultyTable.Count; i++)

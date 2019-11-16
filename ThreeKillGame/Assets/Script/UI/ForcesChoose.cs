@@ -243,6 +243,8 @@ public class ForcesChoose : MonoBehaviour
     /// <param name="data"></param>
     private void ShowTextOfForcesData(string data)
     {
+        forcesText.GetComponent<Text>().DOPause();
+        forcesText.GetComponent<Text>().text = "";
         forcesText.GetComponent<Text>().DOText("\u3000\u3000" + data, playTextSpeed).SetEase(Ease.Linear).SetAutoKill(false);
     }
 }

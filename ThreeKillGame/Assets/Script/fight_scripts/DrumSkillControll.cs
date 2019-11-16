@@ -57,8 +57,9 @@ public class DrumSkillControll : MonoBehaviour
         if (index == -1)
             return;
         //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "连击";
-        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
+        //FightCardSP.playerCards[index].transform.GetChild(10).GetComponent<Text>().text = "连击";
+        //FightCardSP.playerCards[index].transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+        //FightCardSP.playerCards[index].transform.GetChild(10).gameObject.SetActive(true);
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isBatter = true;
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.batterNums = 2; //连击两次
         GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
@@ -97,8 +98,9 @@ public class DrumSkillControll : MonoBehaviour
         if (index == -1)
             return;
         //显示技能文字
-        FightCardSP.enemyCards[index].transform.GetChild(4).GetComponent<Text>().text = "眩晕";
-        FightCardSP.enemyCards[index].transform.GetChild(4).gameObject.SetActive(true);
+        FightCardSP.enemyCards[index].transform.GetChild(10).GetComponent<Text>().text = "眩晕";
+        FightCardSP.enemyCards[index].transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+        FightCardSP.enemyCards[index].transform.GetChild(10).gameObject.SetActive(true);
         //改变 目标的攻击状态 眩晕激活状态
         FightCardSP.enemyCards[index].GetComponent<CardMove>().Fight_State.isDizzy = true;
         //实例化状态图标预制件(设置显示到目标身上)

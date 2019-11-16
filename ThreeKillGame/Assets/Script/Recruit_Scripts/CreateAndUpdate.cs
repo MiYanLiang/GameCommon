@@ -125,7 +125,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     private void Awake()
     {
-        level = 8;
+        level = 1;
         text_level.text = level + "级";
         experience = 0;
     }
@@ -1679,7 +1679,7 @@ public class CreateAndUpdate : MonoBehaviour
         }
         for (int i = 0; i < myCard.Count; i++)
         {
-            print("myCard:"+myCard[i]);
+            //print("myCard:"+myCard[i]);
         }
     }
 
@@ -1694,7 +1694,7 @@ public class CreateAndUpdate : MonoBehaviour
             heroName.RemoveAt(5);
         }
         textHertNum.text= peopleHearts.ToString();
-        print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+myCard.Count);
+        //print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+myCard.Count);
 
         for (int i = 0; i < heroName.Count; i++)
         {

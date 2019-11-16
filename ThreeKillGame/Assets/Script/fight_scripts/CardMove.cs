@@ -130,9 +130,25 @@ public class CardMove : MonoBehaviour
     /// </summary>
     public void OtherDataSet()
     {
+        transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
         ChangeToFight(StateOfAttack.ReadyForFight);
         vec = gameObject.transform.position;
         realDamage = Force;
+    }
+
+    /// <summary>
+    /// 结束战斗状态
+    /// </summary>
+    private void ChangeToFightOver()
+    {
+        ChangeToFight(StateOfAttack.FightOver);
+    }
+    /// <summary>
+    /// 复原
+    /// </summary>
+    private void ComeBackTranForm()
+    {
+        gameObject.transform.DOScale(new Vector3(1f, 1f, 1f), FightControll.speedTime * 0.5f).SetAutoKill(false);
     }
 
     private void Update()
@@ -155,13 +171,23 @@ public class CardMove : MonoBehaviour
                 }
                 else
                 {
-                    if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
-                        flag = 1;
+                    if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0)  //远程兵种技能
+                    {
+                        ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);
+                        gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f),  FightControll.speedTime*0.5f).SetAutoKill(false);
+                        Invoke("ComeBackTranForm",FightControll.speedTime * 0.5f);
+                        Invoke("ChangeToFightOver", FightControll.speedTime * 1);
+                    }
                     else
-                        flag = -1;
+                    {
+                        if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
+                            flag = 1;
+                        else
+                            flag = -1;
 
-                    vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));        //计算要攻击后移动到的位置
-                    gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
+                        vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));        //计算要攻击后移动到的位置
+                        gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
+                    }
                 }
                 isCalcul = true;
             }
@@ -179,7 +205,7 @@ public class CardMove : MonoBehaviour
                 }
 
                 gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
-                ChangeToFight(StateOfAttack.FightOver); //更改攻击状态为攻击结束，进入攻击后摇
+                ChangeToFightOver(); //更改攻击状态为攻击结束，进入攻击后摇
             }
         }
 
@@ -246,20 +272,11 @@ public class CardMove : MonoBehaviour
                 break;
 
             case "3":   //飞兽
-                Debug.Log("飞兽闪避率： " + realDodgeRate * 100 + "%");
                 switch (activeId)
                 {
-                    case 0:
+                    default:
                         NormalAttack(EnemyObj);
                         UpdateEnemyHp(EnemyObj);
-                        break;
-                    case 1:
-                        //每损失20%血量提升10%闪避
-                        FeiShouSkill(0.1f);
-                        break;
-                    case 2:
-                        //每损失20%血量提升15%闪避
-                        FeiShouSkill(0.15f);
                         break;
                 }
                 break;
@@ -327,7 +344,7 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //随机攻击3个不同目标，每个造成30%伤害，20%几率击晕1回合。
-                        FuShenSkill(3, 0.3f, 1f);
+                        FuShenSkill(3, 0.3f, 0.2f);
                         break;
                     case 2:
                         //随机攻击3个不同目标，每个造成30%伤害，30%几率击晕1回合。
@@ -366,8 +383,8 @@ public class CardMove : MonoBehaviour
                         TianShenSkill(2, 0.8f);
                         break;
                     case 2:
-                        //治疗3个血量最低的友方目标，治疗量为伤害的100%。
-                        TianShenSkill(3, 1f);
+                        //治疗3个血量最低的友方目标，治疗量为伤害的80%。
+                        TianShenSkill(3, 0.8f);
                         break;
                 }
                 break;
@@ -427,24 +444,25 @@ public class CardMove : MonoBehaviour
     /// <summary>
     /// 飞兽动态技能
     /// </summary>
+    /// <param name="percenHp">每次损失的血量</param>
     /// <param name="percentage">每次提升的闪避率</param>
-    private void FeiShouSkill(float percentage)
+    public void FeiShouSkill(float percenHp,float percentage)
     {
         float loseHp = (Fullhealth - Health) / (float)Fullhealth;
-        int num = (int)(loseHp / 0.2);
+        int num = (int)(loseHp / percenHp);
         if (num > 0)
         {
             if (ArmsSkillStatus == 1)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "疾风";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("疾风");
+                //Debug.Log("疾风");
             }
             if (ArmsSkillStatus == 2)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "瞬闪";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("瞬闪");
+                //Debug.Log("瞬闪");
             }
             //每损失20%血量提升闪避率
             realDodgeRate = DodgeRate + (percentage * num);
@@ -457,8 +475,7 @@ public class CardMove : MonoBehaviour
                 icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.popularName, typeof(Sprite)) as Sprite;
             }
         }
-        NormalAttack(EnemyObj);
-        UpdateEnemyHp(EnemyObj);
+        Debug.Log("飞兽闪避率："+ realDodgeRate*100+"%");
     }
 
     private int overlayNum_RenJie = 0; //记录 人杰 技能效果叠加次数
@@ -1123,13 +1140,13 @@ public class CardMove : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("回天");
         }
-        int[] minHp = new int[nums];    //临时存储最少hp
+        float[] minHp = new float[nums];    //临时存储最少百分比hp
         int[] arrs = new int[nums];     //存储受治疗单位的index
         bool isContinue = true;         //记录是否继续
         for (int i = 0; i < arrs.Length; i++)
         {
             arrs[i] = -1;   //初始化
-            minHp[i] = 9999;
+            minHp[i] = 2f;
         }
         if (IsPlayerOrEnemy == 0)   //治疗己方（playerCards）
         {
@@ -1147,9 +1164,9 @@ public class CardMove : MonoBehaviour
                     }
                     if (isContinue && FightCardSP.playerCards[j] != null && FightCardSP.playerCards[j].GetComponent<CardMove>().Health > 0)
                     {
-                        if (minHp[i] > FightCardSP.playerCards[j].GetComponent<CardMove>().Health)
+                        if (minHp[i] > FightCardSP.playerCards[j].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[j].GetComponent<CardMove>().Fullhealth)
                         {
-                            minHp[i] = FightCardSP.playerCards[j].GetComponent<CardMove>().Health;
+                            minHp[i] = FightCardSP.playerCards[j].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[j].GetComponent<CardMove>().Fullhealth;
                             arrs[i] = j;
                         }
                     }
@@ -1185,9 +1202,9 @@ public class CardMove : MonoBehaviour
                     }
                     if (isContinue && FightCardSP.enemyCards[j] != null && FightCardSP.enemyCards[j].GetComponent<CardMove>().Health > 0)
                     {
-                        if (minHp[i] > FightCardSP.enemyCards[j].GetComponent<CardMove>().Health)
+                        if (minHp[i] > FightCardSP.enemyCards[j].GetComponent<CardMove>().Health / (float)FightCardSP.enemyCards[j].GetComponent<CardMove>().Fullhealth)
                         {
-                            minHp[i] = FightCardSP.enemyCards[j].GetComponent<CardMove>().Health;
+                            minHp[i] = FightCardSP.enemyCards[j].GetComponent<CardMove>().Health / (float)FightCardSP.enemyCards[j].GetComponent<CardMove>().Fullhealth;
                             arrs[i] = j;
                         }
                     }
@@ -1367,8 +1384,6 @@ public class CardMove : MonoBehaviour
     {
         //攻击音效播放
         audiosource.Play();
-        //普通攻击特效展示
-        NormalAttackEffects(enemyobject);
         //伤害计算
         realDamage = AttackTheEnemy(Force);
     }
@@ -1380,8 +1395,9 @@ public class CardMove : MonoBehaviour
         if (TakeSpecialAttack(EnemyObj.GetComponent<CardMove>().realDodgeRate))
         {
             Debug.Log("闪避");
-            EnemyObj.transform.GetChild(4).GetComponent<Text>().text = "闪避";
-            EnemyObj.transform.GetChild(4).gameObject.SetActive(true);
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "闪避";
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.blue_Color;
+            EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
             //anim.Play("fightCardStatus");
             return 0;
         }
@@ -1389,8 +1405,9 @@ public class CardMove : MonoBehaviour
         if (TakeSpecialAttack(ThumpRate))
         {
             Debug.Log("重击");
-            EnemyObj.transform.GetChild(4).GetComponent<Text>().text = "重击";
-            EnemyObj.transform.GetChild(4).gameObject.SetActive(true);
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "重击";
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+            EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
             //anim.Play("fightCardStatus");
             force = (int)(force * ThumpDamage);
         }
@@ -1400,13 +1417,22 @@ public class CardMove : MonoBehaviour
             if (TakeSpecialAttack(CritRate))
             {
                 Debug.Log("暴击");
-                EnemyObj.transform.GetChild(4).GetComponent<Text>().text = "暴击";
-                EnemyObj.transform.GetChild(4).gameObject.SetActive(true);
+                EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "暴击";
+                EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+                EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
                 //anim.Play("fightCardStatus");
                 force = (int)(force * CritDamage);
             }
         }
-
+        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand) //如果攻击的敌人是海兽 并且 兵种激活
+        {
+            Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, EnemyObj.transform);
+        }
+        else
+        {
+            //普通攻击特效展示
+            NormalAttackEffects(EnemyObj);
+        }
         //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
         return (int)(force * (140 / (70 + EnemyObj.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
     }
@@ -1435,7 +1461,7 @@ public class CardMove : MonoBehaviour
         {
             obj.GetComponent<CardMove>().Fight_State.withStandNums--;
             if (obj.GetComponent<CardMove>().Fight_State.withStandNums <= 0)
-            { 
+            {
                 obj.GetComponent<CardMove>().Fight_State.isWithStand = false;           //取消坚盾状态
                 obj.GetComponent<CardMove>().Fight_State.withStandNums = 0;
                 Destroy(obj.transform.GetChild(9).Find(StateName.standName).gameObject);//消除坚盾状态图标
@@ -1463,6 +1489,19 @@ public class CardMove : MonoBehaviour
         if (obj.GetComponent<CardMove>().ArmsId == "2" && obj.GetComponent<CardMove>().ArmsSkillStatus > 0) //如果攻击的敌人是海兽 并且 兵种激活
         {
             HaiShouSkill(obj, obj.GetComponent<CardMove>().ArmsSkillStatus);    //触发海兽技能
+        }
+        if (obj.GetComponent<CardMove>().ArmsId == "3" && obj.GetComponent<CardMove>().ArmsSkillStatus > 0) //如果攻击的敌人是飞兽 并且 兵种激活
+        {
+            if (obj.GetComponent<CardMove>().ArmsSkillStatus == 1)
+            {
+                //每损失10%血量提升5%闪避
+                obj.GetComponent<CardMove>().FeiShouSkill(0.1f, 0.05f);
+            }
+            else
+            {
+                //每损失10%血量提升8%闪避
+                obj.GetComponent<CardMove>().FeiShouSkill(0.1f, 0.08f);
+            }
         }
     }
 
@@ -1508,8 +1547,8 @@ public class CardMove : MonoBehaviour
     private void DizzyEnemyCards(GameObject obj)
     {
         obj.GetComponent<CardMove>().IsDizzy = true;
-        obj.transform.GetChild(4).GetComponent<Text>().text = "眩晕";
-        obj.transform.GetChild(4).gameObject.SetActive(true);
+        obj.transform.GetChild(10).GetComponent<Text>().text = "眩晕";
+        obj.transform.GetChild(10).gameObject.SetActive(true);
         if (!obj.GetComponent<CardMove>().Fight_State.isDizzy)
         {
             obj.GetComponent<CardMove>().Fight_State.isDizzy = true;
@@ -1534,6 +1573,9 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void BatterFightSkill()
     {
+        transform.GetChild(10).GetComponent<Text>().text = "连击";
+        transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
+        transform.GetChild(10).gameObject.SetActive(true);
         Fight_State.batterNums--;
         if (Fight_State.batterNums <= 1)
         {
@@ -1544,11 +1586,14 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 火攻技能
+    /// 火攻技能--全体造成30%伤害
     /// </summary>
     private void FireFightSkill()
     {
-        realDamage = (int)((float)Force * 0.2);
+        transform.GetChild(10).GetComponent<Text>().text = "群攻";
+        transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
+        transform.GetChild(10).gameObject.SetActive(true);
+        realDamage = (int)((float)Force * 0.3);
         if (Fight_State.isFireAttack == true)
         {
             for (int i = 0; i < 9; i++)

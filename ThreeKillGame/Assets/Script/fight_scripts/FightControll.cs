@@ -79,7 +79,7 @@ public class FightControll : MonoBehaviour
 
         CreateEnemyUnits(); //初始化所有NPC势力发展阵容
 
-        Invoke("ChangeAllEnemyCards", 0.1f);    //延时加载npc武将
+        Invoke("ChangeAllEnemyCards", 0.3f);    //延时加载npc武将
         //ChangeAllEnemyCards();
     }
 

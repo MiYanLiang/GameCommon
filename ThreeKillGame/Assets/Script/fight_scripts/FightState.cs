@@ -1,4 +1,6 @@
-﻿/// <summary>
+﻿using UnityEngine;
+
+/// <summary>
 /// 状态
 /// </summary>
 public class FightState
@@ -87,4 +89,20 @@ public static class StateName
     /// 风遁（飞兽兵种技能）
     /// </summary>
     public static readonly string popularName = "state_popular";
+}
+
+/// <summary>
+/// 颜色数据类
+/// </summary>
+public static class ColorData
+{
+    /// <summary>
+    /// 亮红色
+    /// </summary>
+    public static readonly Color red_Color = new Color(255f / 255f, 0f / 255f, 0f / 255f, 1);
+    /// <summary>
+    /// 蓝色
+    /// </summary>
+    public static readonly Color blue_Color = new Color(0f / 255f, 125f / 255f, 255f / 255f, 1);
+
 }

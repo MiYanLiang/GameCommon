@@ -16,7 +16,7 @@ public class EmFightControll : MonoBehaviour
     List<int> getHeroId = new List<int>();
 
     //上阵位置和开启周目                   [0,0]                                 [1,1]     
-    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 } };
+    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 2, 3, 4, 5, 6, 8, 12, 18, 25 } };
 
     List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
 
@@ -27,14 +27,16 @@ public class EmFightControll : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < 10; i++)
-        {
-            arrayBattles[1, i] = int.Parse(LoadJsonFile.DifficultyTableDates[i][hardNum+1]);
-        }
+        Invoke("InitNpcOpenSets", 0.1f);
+    }
 
+    private void InitNpcOpenSets()
+    {
+        //初始化npc上阵位开启数组
         for (int i = 0; i < 10; i++)
         {
-            print(arrayBattles[1,i]);
+            arrayBattles[1, i] = int.Parse(LoadJsonFile.DifficultyTableDates[i][hardNum + 1]);
+            //print(arrayBattles[1, i]);
         }
     }
 
