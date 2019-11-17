@@ -1451,6 +1451,7 @@ public class CardMove : MonoBehaviour
         if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 
             || index == 5
             || index == 6
+            || index == 9
             || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand){
         }
         else

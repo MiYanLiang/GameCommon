@@ -16,7 +16,7 @@ public class EmFightControll : MonoBehaviour
     List<int> getHeroId = new List<int>();
 
     //上阵位置和开启周目                   [0,0]                                 [1,1]     
-    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 1, 1, 1, 2, 2, 3, 3, 18, 25 } };
+    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 2, 3, 4, 5, 6, 8, 12, 18, 25 } };
 
     List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
 

@@ -50,7 +50,7 @@ public class FightCardSP : MonoBehaviour
     bool isStart = false;    //记录回合开始结束
 
     [SerializeField]
-    private float roundWaitTime = 5f;   //回合停顿时间
+    private float roundWaitTime = 3f;   //回合停顿时间
     public Text roundTextObj;   //展示回合text
 
     private void Awake()
@@ -89,6 +89,7 @@ public class FightCardSP : MonoBehaviour
         //回合增加
         if (fightNum >= playerCards.Length)
         {
+            DrumSkillControll.drumNums += 1;    //每回合增加击鼓次数
             Debug.Log("///回合" + roundNum + "结束///");
             roundNum++;
             roundTextObj.text = "回合 " + roundNum;
