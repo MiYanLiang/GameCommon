@@ -11,11 +11,13 @@ public class DrumSkillControll : MonoBehaviour
     public static bool isChange;    //限制刷新
     public static int drumNums;     //可敲击次数
     int currentClickNum;                    //当前点击次数
+    [SerializeField]
+    Transform carvans;
 
     private void OnEnable()
     {
         isChange = false;
-        drumNums = 1;
+        drumNums = 9;
         UpdateShowDrumText();   //刷新敲鼓次数显示
     }
     private void Update()
@@ -128,7 +130,8 @@ public class DrumSkillControll : MonoBehaviour
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.dizzyName, typeof(Sprite)) as Sprite;
         GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/xuanyun", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
         xuanyunEffect.name = StateName.xuanyunEffect;
-        Instantiate(Resources.Load("Prefab/fightEffect/zhangu_lei_01", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
+        GameObject zhangu_lei = Instantiate(Resources.Load("Prefab/fightEffect/zhangu_lei_01", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
+        zhangu_lei.transform.SetParent(carvans);
         //战鼓可敲击次数减一
         drumNums--;
         //次数显示刷新

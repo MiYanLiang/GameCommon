@@ -173,7 +173,7 @@ public class CardMove : MonoBehaviour
                 }
                 else
                 {
-                    if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0)  //远程兵种技能
+                    if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0 && Fight_State.isFireAttack == false)  //远程兵种技能
                     {
                         ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);
                         gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), FightControll.speedTime * 0.9f).SetAutoKill(false);
@@ -345,12 +345,12 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //随机攻击3个不同目标，每个造成30%伤害，20%几率击晕1回合。
-                        FuShenSkill(3, 0.3f, 0.2f);
+                        //随机攻击3个不同目标，每个造成20%伤害，20%几率击晕1回合。
+                        FuShenSkill(3, 0.2f, 0.2f);
                         break;
                     case 2:
-                        //随机攻击3个不同目标，每个造成30%伤害，30%几率击晕1回合。
-                        FuShenSkill(3, 0.3f, 0.3f);
+                        //随机攻击3个不同目标，每个造成20%伤害，30%几率击晕1回合。
+                        FuShenSkill(3, 0.2f, 0.3f);
                         break;
                 }
                 break;
@@ -367,8 +367,8 @@ public class CardMove : MonoBehaviour
                         MoShenSkill(0.45f, 3);
                         break;
                     case 2:
-                        //随机攻击4个目标，每个造成45%伤害，对同一目标最多攻击2次。
-                        MoShenSkill(0.45f, 4);
+                        //随机攻击4个目标，每个造成40%伤害，对同一目标最多攻击2次。
+                        MoShenSkill(0.40f, 4);
                         break;
                 }
                 break;
@@ -381,12 +381,12 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //治疗2个血量最低的友方目标，治疗量为伤害的80%。
-                        TianShenSkill(2, 0.8f);
+                        //治疗2个血量最低的友方目标，治疗量为伤害的70%。
+                        TianShenSkill(2, 0.7f);
                         break;
                     case 2:
-                        //治疗3个血量最低的友方目标，治疗量为伤害的80%。
-                        TianShenSkill(3, 0.8f);
+                        //治疗3个血量最低的友方目标，治疗量为伤害的60%。
+                        TianShenSkill(3, 0.6f);
                         break;
                 }
                 break;

@@ -32785,6 +32785,7 @@ MonoBehaviour:
   stateIcon: {fileID: 1217458279560819971, guid: 6643c404b09b53a49acd6f14fef112fc,
     type: 3}
   drumText: {fileID: 1307778241}
+  carvans: {fileID: 1776039369}
 --- !u!1 &1535884083
 GameObject:
   m_ObjectHideFlags: 0
