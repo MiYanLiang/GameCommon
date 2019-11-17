@@ -216,7 +216,7 @@ public class DrumSkillControll : MonoBehaviour
 
     /// <summary>
     /// 战鼓（土）技能     
-    /// 血量最低的单位加一个盾，免疫2次攻击
+    /// 血量百分比最低的单位加一个盾，免疫2次攻击
     /// </summary>
     public void DustDrumSkill()
     {
@@ -234,7 +234,7 @@ public class DrumSkillControll : MonoBehaviour
                 if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isWithStand)
                 {
                     //判断还没有记录过目标，或者，i位置的血量少于记录位置的血量
-                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Health < FightCardSP.playerCards[index].GetComponent<CardMove>().Health)
+                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth < FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth)
                     {
                         index = i;
                     }
