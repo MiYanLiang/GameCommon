@@ -47,7 +47,11 @@ public class FightCardSP : MonoBehaviour
 
     private int[] armsSkillStatus = new int[9]; //存储兵种技能激活状态 0-未激活; 1-激活3兵种; 2-激活6兵种
 
-    bool isStart = false;
+    bool isStart = false;    //记录回合开始结束
+
+    [SerializeField]
+    private float roundWaitTime = 5f;   //回合停顿时间
+    public Text roundTextObj;   //展示回合text
 
     private void Awake()
     {
@@ -68,7 +72,9 @@ public class FightCardSP : MonoBehaviour
         InitializeBattleCard();
         isFightNow = false;
         isEndOFInit = true;
-        Invoke("LiteTimeStart", 1.5f);  
+        roundTextObj.text = "回合 " + roundNum;
+        roundTextObj.gameObject.SetActive(true);
+        Invoke("LiteTimeStart", roundWaitTime);  
     }
 
     /// <summary>
@@ -80,17 +86,24 @@ public class FightCardSP : MonoBehaviour
         if (!isEndOFInit)
             return;
 
-        if (!isStart)
-            return;
-
-
         //回合增加
         if (fightNum >= playerCards.Length)
         {
             Debug.Log("///回合" + roundNum + "结束///");
             roundNum++;
+            roundTextObj.text = "回合 " + roundNum;
+            roundTextObj.gameObject.SetActive(true);
+
             fightNum = 0;
+
+            isStart = false;
+            Invoke("LiteTimeStart", roundWaitTime);
+
         }
+        //回合开始
+        if (!isStart)
+            return;
+
         //若有武将正在攻击
         if (isFightNow)
             return;

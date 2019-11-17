@@ -945,7 +945,7 @@ public class CardMove : MonoBehaviour
                     arrayGo.Add(i);
                 }
             }
-            int rondomNum = 0;
+            int rondomNum = 0;      //要攻击的敌人数量
             if (arrayGo.Count < 3)  //敌方上阵不够3个处理
             {
                 rondomNum = arrayGo.Count;

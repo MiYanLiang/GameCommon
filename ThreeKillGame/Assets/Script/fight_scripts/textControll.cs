@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class textControll : MonoBehaviour
 {
+    [SerializeField]
+    private float multiple = 1.5f;
+
     private void OnEnable()
     {
-        Invoke("HideWidget", FightControll.speedTime * 1.5f);
+        Invoke("HideWidget", FightControll.speedTime * multiple);
     }
 
     /// <summary>
