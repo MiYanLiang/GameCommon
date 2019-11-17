@@ -132,7 +132,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     void Start()
     {
-        money = 500;
+        money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
         //ChangeLevelText();

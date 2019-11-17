@@ -90,6 +90,7 @@ public class FightCardSP : MonoBehaviour
         if (fightNum >= playerCards.Length)
         {
             DrumSkillControll.drumNums += 1;    //每回合增加击鼓次数
+            DrumSkillControll.isChange = true;
             Debug.Log("///回合" + roundNum + "结束///");
             roundNum++;
             roundTextObj.text = "回合 " + roundNum;

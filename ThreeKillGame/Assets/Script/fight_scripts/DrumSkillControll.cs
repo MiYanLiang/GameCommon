@@ -17,7 +17,7 @@ public class DrumSkillControll : MonoBehaviour
     private void OnEnable()
     {
         isChange = false;
-        drumNums = 9;
+        drumNums = 1;
         UpdateShowDrumText();   //刷新敲鼓次数显示
     }
     private void Update()
