@@ -537,9 +537,10 @@ public class FightCardSP : MonoBehaviour
                 enemyNums++;
             }
         }
-        enemyArmsActive[0] = enemyNums / 3;
-        enemyArmsActive[1] = enemyNums / 6;
-        enemyArmsActive[2] = enemyNums / 9;
+        //默认最高开启一兵种技能
+        enemyArmsActive[0] = (enemyNums < 3 ? 0 : 1);
+        enemyArmsActive[1] = (enemyNums < 6 ? 0 : 1);
+        enemyArmsActive[2] = (enemyNums < 9 ? 0 : 1);
 
         for (int i = 0; i < 9; i++) //玩家和敌方战斗卡牌，空卡牌就位
         {

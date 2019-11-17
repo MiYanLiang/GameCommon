@@ -176,9 +176,9 @@ public class CardMove : MonoBehaviour
                     if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0)  //远程兵种技能
                     {
                         ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);
-                        gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f),  FightControll.speedTime*0.7f).SetAutoKill(false);
-                        Invoke("ComeBackTranForm",FightControll.speedTime * 0.7f);
-                        Invoke("ChangeToFightOver", FightControll.speedTime * 1.5f);
+                        gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), FightControll.speedTime * 0.9f).SetAutoKill(false);
+                        Invoke("ComeBackTranForm", FightControll.speedTime * 0.9f);
+                        Invoke("ChangeToFightOver", FightControll.speedTime * 2f);
                     }
                     else
                     {
@@ -529,252 +529,87 @@ public class CardMove : MonoBehaviour
         realDamage = SkillRealDamage(realDamage, EnemyObj, false);  //计算技能伤害
         UpdateEnemyHp(EnemyObj);
         NormalAttackEffects(EnemyObj, 3);
+        realDamage = Force;
         realDamage = (int)(realDamage * percent);
         if (IsPlayerOrEnemy == 0)
         {
             if (EnemyIndex == 0)
             {
-                if (FightCardSP.enemyCards[3] != null && FightCardSP.enemyCards[3].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.enemyCards[3]);
-                    NormalAttackEffects(FightCardSP.enemyCards[3], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.enemyCards[3]);
             }
             else if (EnemyIndex == 1)
             {
-                if (FightCardSP.enemyCards[4] != null && FightCardSP.enemyCards[4].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.enemyCards[4]);
-                    NormalAttackEffects(FightCardSP.enemyCards[4], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.enemyCards[4]);
             }
             else if (EnemyIndex == 2)
             {
-                if (FightCardSP.enemyCards[5] != null && FightCardSP.enemyCards[5].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.enemyCards[5]);
-                    NormalAttackEffects(FightCardSP.enemyCards[5], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.enemyCards[5]);
             }
             else if (EnemyIndex == 3)
             {
-                if (FightCardSP.enemyCards[6] != null && FightCardSP.enemyCards[6].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.enemyCards[6]);
-                    NormalAttackEffects(FightCardSP.enemyCards[6], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.enemyCards[6]);
             }
             else if (EnemyIndex == 4)
             {
-                if (FightCardSP.enemyCards[7] != null && FightCardSP.enemyCards[7].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.enemyCards[7]);
-                    NormalAttackEffects(FightCardSP.enemyCards[7], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.enemyCards[7]);
             }
             else if (EnemyIndex == 5)
             {
-                if (FightCardSP.enemyCards[8] != null && FightCardSP.enemyCards[8].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.enemyCards[8]);
-                    NormalAttackEffects(FightCardSP.enemyCards[8], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.enemyCards[8]);
             }
         }
         else
         {
             if (EnemyIndex == 0)
             {
-                if (FightCardSP.playerCards[3] != null && FightCardSP.playerCards[3].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.playerCards[3]);
-                    NormalAttackEffects(FightCardSP.playerCards[3], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.playerCards[3]);
             }
             else if (EnemyIndex == 1)
             {
-                if (FightCardSP.playerCards[4] != null && FightCardSP.playerCards[4].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.playerCards[4]);
-                    NormalAttackEffects(FightCardSP.playerCards[4], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.playerCards[4]);
             }
             else if (EnemyIndex == 2)
             {
-                if (FightCardSP.playerCards[5] != null && FightCardSP.playerCards[5].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.playerCards[5]);
-                    NormalAttackEffects(FightCardSP.playerCards[5], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.playerCards[5]);
             }
             else if (EnemyIndex == 3)
             {
-                if (FightCardSP.playerCards[6] != null && FightCardSP.playerCards[6].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.playerCards[6]);
-                    NormalAttackEffects(FightCardSP.playerCards[6], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.playerCards[6]);
             }
             else if (EnemyIndex == 4)
             {
-                if (FightCardSP.playerCards[7] != null && FightCardSP.playerCards[7].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.playerCards[7]);
-                    NormalAttackEffects(FightCardSP.playerCards[7], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.playerCards[7]);
             }
             else if (EnemyIndex == 5)
             {
-                if (FightCardSP.playerCards[8] != null && FightCardSP.playerCards[8].GetComponent<CardMove>().Health > 0)
-                {
-                    if (ArmsSkillStatus == 1)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("穿刺");
-                    }
-                    if (ArmsSkillStatus == 2)
-                    {
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("突刺");
-                    }
-                    UpdateEnemyHp(FightCardSP.playerCards[8]);
-                    NormalAttackEffects(FightCardSP.playerCards[8], 3);
-                }
+                ZuWuSkillSkillSecond(FightCardSP.playerCards[8]);
             }
+        }
+    }
+
+    /// <summary>
+    /// 祖巫穿刺第二段伤害
+    /// </summary>
+    /// <param name="obj"></param>
+    private void ZuWuSkillSkillSecond(GameObject obj)
+    {
+        if (obj != null && obj.GetComponent<CardMove>().Health > 0)
+        {
+            if (ArmsSkillStatus == 1)
+            {
+                gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                Debug.Log("穿刺");
+            }
+            if (ArmsSkillStatus == 2)
+            {
+                gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
+                gameObject.transform.GetChild(4).gameObject.SetActive(true);
+                Debug.Log("突刺");
+            }
+            realDamage = SkillRealDamage(realDamage, obj, false);
+            UpdateEnemyHp(obj);
+            NormalAttackEffects(obj, 3);
         }
     }
 
@@ -785,6 +620,7 @@ public class CardMove : MonoBehaviour
     private void SanXianSkill(float percent)
     {
         realDamage = Force;
+        int damageNote = (int)(realDamage * percent);
         if (ArmsSkillStatus == 1)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "横扫";
@@ -797,7 +633,6 @@ public class CardMove : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("狂斩");
         }
-        realDamage = (int)(realDamage * percent);
         if (EnemyIndex < 3)   //前排
         {
             if (IsPlayerOrEnemy == 0) // 该卡牌是己方(playerCards)，在敌方(enemyCards)中找目标
@@ -806,7 +641,7 @@ public class CardMove : MonoBehaviour
                 {
                     if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                     {
-                        realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[i], false);
+                        realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[i], false);
                         UpdateEnemyHp(FightCardSP.enemyCards[i]);
                         NormalAttackEffects(FightCardSP.enemyCards[i], 4);
                     }
@@ -818,7 +653,7 @@ public class CardMove : MonoBehaviour
                 {
                     if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                     {
-                        realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[i], false);
+                        realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[i], false);
                         UpdateEnemyHp(FightCardSP.playerCards[i]);
                         NormalAttackEffects(FightCardSP.playerCards[i], 4);
                     }
@@ -835,7 +670,7 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                         {
-                            realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[i], false);
+                            realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[i], false);
                             UpdateEnemyHp(FightCardSP.enemyCards[i]);
                             NormalAttackEffects(FightCardSP.enemyCards[i], 4);
                         }
@@ -847,7 +682,7 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                         {
-                            realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[i], false);
+                            realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[i], false);
                             UpdateEnemyHp(FightCardSP.playerCards[i]);
                             NormalAttackEffects(FightCardSP.playerCards[i], 4);
                         }
@@ -862,7 +697,7 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
                         {
-                            realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[i], false);
+                            realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[i], false);
                             UpdateEnemyHp(FightCardSP.enemyCards[i]);
                             NormalAttackEffects(FightCardSP.enemyCards[i], 4);
                         }
@@ -874,7 +709,7 @@ public class CardMove : MonoBehaviour
                     {
                         if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                         {
-                            realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[i], false);
+                            realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[i], false);
                             UpdateEnemyHp(FightCardSP.playerCards[i]);
                             NormalAttackEffects(FightCardSP.playerCards[i], 4);
                         }
@@ -905,7 +740,7 @@ public class CardMove : MonoBehaviour
             Debug.Log("天怒");
         }
         realDamage = Force;
-        realDamage = (int)(realDamage * percentage);
+        int damageNote = (int)(realDamage * percentage);
         List<int> arrs = new List<int>();   //记录卡牌下标
         //随机攻击3个不同目标，每个造成30%伤害，20%机率击晕1回合。
         if (IsPlayerOrEnemy == 0)
@@ -944,7 +779,7 @@ public class CardMove : MonoBehaviour
                 }
                 for (int i = 0; i < nums; i++)
                 {
-                    realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[arr_index[i]], false);
+                    realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[arr_index[i]], false);
                     UpdateEnemyHp(FightCardSP.enemyCards[arr_index[i]]);
                     NormalAttackEffects(FightCardSP.enemyCards[arr_index[i]], 6);
                     if (TakeSpecialAttack(stunProbability)) //判断是否可以眩晕对手
@@ -957,7 +792,7 @@ public class CardMove : MonoBehaviour
             {
                 for (int i = 0; i < arrs.Count; i++)
                 {
-                    realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[arrs[i]], false);
+                    realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[arrs[i]], false);
                     UpdateEnemyHp(FightCardSP.enemyCards[arrs[i]]);
                     NormalAttackEffects(FightCardSP.enemyCards[arrs[i]], 6);
                     if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
@@ -1003,7 +838,7 @@ public class CardMove : MonoBehaviour
                 }
                 for (int i = 0; i < nums; i++)
                 {
-                    realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[arr_index[i]], false);
+                    realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[arr_index[i]], false);
                     UpdateEnemyHp(FightCardSP.playerCards[arr_index[i]]);
                     NormalAttackEffects(FightCardSP.playerCards[arr_index[i]], 6);
                     if (TakeSpecialAttack(stunProbability))
@@ -1016,7 +851,7 @@ public class CardMove : MonoBehaviour
             {
                 for (int i = 0; i < arrs.Count; i++)
                 {
-                    realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[arrs[i]], false);
+                    realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[arrs[i]], false);
                     UpdateEnemyHp(FightCardSP.playerCards[arrs[i]]);
                     NormalAttackEffects(FightCardSP.playerCards[arrs[i]], 6);
                     if (TakeSpecialAttack(stunProbability)) //判断是否触发眩晕
@@ -1048,7 +883,7 @@ public class CardMove : MonoBehaviour
             Debug.Log("炎爆");
         }
         realDamage = Force;
-        realDamage = (int)(realDamage * percent);
+        int damageNote = (int)(realDamage * percent);
         if (IsPlayerOrEnemy == 0)
         {
             List<int> arrayGo = new List<int>(); //位置数列，为同一目标最多攻击两次做准备
@@ -1090,7 +925,7 @@ public class CardMove : MonoBehaviour
             //依次攻击目标
             for (int i = 0; i < array_transform.Count; i++)
             {
-                realDamage = SkillRealDamage(realDamage, FightCardSP.enemyCards[array_transform[i]], false);
+                realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[array_transform[i]], false);
                 UpdateEnemyHp(FightCardSP.enemyCards[array_transform[i]]);
                 NormalAttackEffects(FightCardSP.enemyCards[array_transform[i]], 5);
             }
@@ -1135,7 +970,7 @@ public class CardMove : MonoBehaviour
             }
             for (int i = 0; i < array_transform.Count; i++)
             {
-                realDamage = SkillRealDamage(realDamage, FightCardSP.playerCards[array_transform[i]], false);
+                realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[array_transform[i]], false);
                 UpdateEnemyHp(FightCardSP.playerCards[array_transform[i]]);
                 NormalAttackEffects(FightCardSP.playerCards[array_transform[i]], 5);
             }
@@ -1601,9 +1436,11 @@ public class CardMove : MonoBehaviour
     /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽</param>
     private void NormalAttackEffects(GameObject obj, int index)
     {
-        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand) //如果攻击的敌人是海兽 并且 兵种激活
-        {
-
+        //如果攻击的敌人是海兽 并且 兵种激活
+        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 
+            || index == 5
+            || index == 6
+            || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand){
         }
         else
         {
