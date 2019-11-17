@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable";
 
 
     /// <summary>
@@ -60,6 +60,11 @@ public class LoadJsonFile : MonoBehaviour
     /// npc上阵位开启表
     /// </summary>
     public static List<List<string>> DifficultyTableDates;
+
+    /// <summary>
+    /// 战鼓开启等级表
+    /// </summary>
+    public static List<List<string>> WarDrumTableDates;
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -260,6 +265,20 @@ public class LoadJsonFile : MonoBehaviour
                 DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek2);
                 DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek3);
                 DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek4);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //战鼓开启等级表数据:WarDrumTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            WarDrumTableDates = new List<List<string>>(root.WarDrumTable.Count);
+            for (int i = 0; i < root.WarDrumTable.Count; i++)
+            {
+                WarDrumTableDates.Add(new List<string>());
+                WarDrumTableDates[i].Add(root.WarDrumTable[i].id);
+                WarDrumTableDates[i].Add(root.WarDrumTable[i].warDrumName);
+                WarDrumTableDates[i].Add(root.WarDrumTable[i].unlockLevel);
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }

@@ -42,6 +42,11 @@ public class Roots
     /// npc上阵位表
     /// </summary>
     public List<DifficultyItem> DifficultyTable { get; set; }
+
+    /// <summary>
+    /// 战鼓开启表
+    /// </summary>
+    public List<WarDrumTableItem> WarDrumTable { get; set; }
 }
 
 

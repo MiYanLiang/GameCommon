@@ -91,7 +91,10 @@ public class CreateAndUpdate : MonoBehaviour
     Text goldOfGrade;   //升级所需金币显示
     public void UpdateGoldOfGrade()
     {
-        goldOfGrade.text = (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience).ToString();
+        if (level<10)
+        {
+            goldOfGrade.text = (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience).ToString();
+        }
     }
 
     /// <summary>
@@ -100,6 +103,12 @@ public class CreateAndUpdate : MonoBehaviour
     public void ChangeLevelText()
     {
         text_level.text = level + "级";
+        if (level == 10)
+        {
+            goldOfGrade.transform.parent.GetChild(0).GetComponent<Text>().text = "满级";
+            goldOfGrade.transform.parent.GetChild(1).gameObject.SetActive(false);
+            goldOfGrade.transform.parent.GetChild(2).gameObject.SetActive(false);
+        }
     }
 
     /// <summary>
@@ -107,6 +116,8 @@ public class CreateAndUpdate : MonoBehaviour
     /// </summary>
     public void BuyExpToLevel()
     {
+        if (level >= 10)
+            return;
         if (money >= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience))
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
@@ -132,7 +143,8 @@ public class CreateAndUpdate : MonoBehaviour
 
     void Start()
     {
-        money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
+        money = 500;
+        //money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
         //ChangeLevelText();
