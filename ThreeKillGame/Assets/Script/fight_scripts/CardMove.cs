@@ -14,6 +14,7 @@ public enum StateOfAttack   //攻击状态
 public class CardMove : MonoBehaviour
 {
     public GameObject stateIcon;        //卡牌上状态小标预制件
+    public GameObject cutHp_text;       //掉血文字
 
     private FightState fight_State;     //特殊攻击状态
     public FightState Fight_State { get => fight_State; set => fight_State = value; }
@@ -437,10 +438,13 @@ public class CardMove : MonoBehaviour
         }
         Health -= hurt;     //反伤
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
-        transform.GetChild(5).GetComponent<Text>().color = Color.red;
-        transform.GetChild(5).GetComponent<Text>().text = "-" + hurt;
+        GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+        cutHpObj.GetComponent<Text>().color = Color.red;
+        cutHpObj.GetComponent<Text>().text = "-" + hurt;
+        //transform.GetChild(5).GetComponent<Text>().color = Color.red;
+        //transform.GetChild(5).GetComponent<Text>().text = "-" + hurt;
         obj.transform.GetChild(4).gameObject.SetActive(true);
-        transform.GetChild(5).gameObject.SetActive(true);
+        //transform.GetChild(5).gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -1368,10 +1372,14 @@ public class CardMove : MonoBehaviour
         }
         else
         {
+
             //显示造成伤害值
-            obj.transform.GetChild(5).GetComponent<Text>().color = Color.red;
-            obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
-            obj.transform.GetChild(5).gameObject.SetActive(true);
+            //obj.transform.GetChild(5).GetComponent<Text>().color = Color.red;
+            //obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
+            //obj.transform.GetChild(5).gameObject.SetActive(true);
+            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+            cutHpObj.GetComponent<Text>().color = Color.red;
+            cutHpObj.GetComponent<Text>().text = "-" + realDamage;
         }
 
         //敌方血条的计算和显示
@@ -1412,9 +1420,12 @@ public class CardMove : MonoBehaviour
     private void UpdateOwnHp(int addHp, GameObject obj)
     {
         //显示恢复值
-        obj.transform.GetChild(5).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
-        obj.transform.GetChild(5).GetComponent<Text>().text = "+" + addHp;
-        obj.transform.GetChild(5).gameObject.SetActive(true);
+        //obj.transform.GetChild(5).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
+        //obj.transform.GetChild(5).GetComponent<Text>().text = "+" + addHp;
+        //obj.transform.GetChild(5).gameObject.SetActive(true);
+        GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+        cutHpObj.GetComponent<Text>().color = ColorData.green_Color;
+        cutHpObj.GetComponent<Text>().text = "+" + addHp;
         //血条的显示
         obj.GetComponent<Slider>().value = 1 - obj.GetComponent<CardMove>().Health / (float)obj.GetComponent<CardMove>().Fullhealth;
     }
@@ -1426,7 +1437,7 @@ public class CardMove : MonoBehaviour
     private void HideGameObjText(GameObject obj, bool boo)
     {
         obj.transform.GetChild(4).gameObject.SetActive(boo);
-        obj.transform.GetChild(5).gameObject.SetActive(boo);
+        //obj.transform.GetChild(5).gameObject.SetActive(boo);
     }
 
     /// <summary>

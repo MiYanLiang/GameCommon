@@ -273,15 +273,13 @@ GameObject:
   m_Component:
   - component: {fileID: 1485975957}
   - component: {fileID: 1485975959}
-  - component: {fileID: 1485975958}
-  - component: {fileID: 5079860435968060208}
   m_Layer: 5
   m_Name: cutHp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1485975957
 RectTransform:
   m_ObjectHideFlags: 0
@@ -309,52 +307,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1485975956}
   m_CullTransparentMesh: 0
---- !u!114 &1485975958
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485975956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
-      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_FontData:
-    m_Font: {fileID: 12800000, guid: 65585f9679c2fd944a2bde26e0fc65e2, type: 3}
-    m_FontSize: 60
-    m_FontStyle: 0
-    m_BestFit: 0
-    m_MinSize: 0
-    m_MaxSize: 60
-    m_Alignment: 4
-    m_AlignByGeometry: 0
-    m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
-    m_LineSpacing: 1
-  m_Text: -999
---- !u!114 &5079860435968060208
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1485975956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 749c116011fcc4f4a811ab01698af2ae, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1634932580
 GameObject:
   m_ObjectHideFlags: 0
@@ -1044,6 +996,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stateIcon: {fileID: 1217458279560819971, guid: 6643c404b09b53a49acd6f14fef112fc,
     type: 3}
+  cutHp_text: {fileID: 4897758058725108660, guid: 2c309ce7c37d87a40968420e27ba82b9,
+    type: 3}
   isFightInThisBout: 0
 --- !u!222 &1951681262376790826
 CanvasRenderer:
@@ -1063,7 +1017,7 @@ Animator:
   m_GameObject: {fileID: 5793392468075205088}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 590c2ac5d2ed312458d9ca76fd056953, type: 2}
+  m_Controller: {fileID: 0}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

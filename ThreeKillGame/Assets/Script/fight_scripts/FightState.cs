@@ -110,4 +110,9 @@ public static class ColorData
     /// </summary>
     public static readonly Color blue_Color = new Color(0f / 255f, 125f / 255f, 255f / 255f, 1);
 
+    /// <summary>
+    /// 绿色-恢复血量
+    /// </summary>
+    public static readonly Color green_Color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
+
 }
