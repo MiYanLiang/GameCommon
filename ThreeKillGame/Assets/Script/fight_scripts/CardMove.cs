@@ -114,13 +114,6 @@ public class CardMove : MonoBehaviour
     {
         //设置兵种背景
         transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + ArmsId, typeof(Sprite)) as Sprite;
-        //攻击力显示
-        //transform.GetChild(6).GetComponent<Text>().text = Force.ToString();
-        //防御力显示
-        //transform.GetChild(7).GetComponent<Text>().text = Defence.ToString();
-        //品阶显示
-        //transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
-        //攻击音效
         audiosource = GetComponent<AudioSource>();
         realDodgeRate = DodgeRate;  //真实闪避率初始化
         ArmsStaticSkillGet(ArmsId, ArmsSkillStatus);   //静态兵种技能
@@ -188,7 +181,7 @@ public class CardMove : MonoBehaviour
                         else
                             flag = -1;
 
-                        vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, 175, 0)));        //计算要攻击后移动到的位置
+                        vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, FightControll.fightPosCha, 0)));       //计算要攻击后移动到的位置
                         gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
                     }
                 }
@@ -196,7 +189,7 @@ public class CardMove : MonoBehaviour
             }
 
             //攻击目标
-            if (gameObject.transform.position == vec_Enemy)     //到达目标敌人面前位置
+            if (1f > (gameObject.transform.position - vec_Enemy).magnitude)     //到达目标敌人面前位置
             {
                 if (Fight_State.isFireAttack == true)
                 {
@@ -216,7 +209,7 @@ public class CardMove : MonoBehaviour
         if (IsAttack == StateOfAttack.FightOver)    //如果卡牌攻击状态为攻击结束
         {
             isCalcul = false;
-            if (gameObject.transform.position == vec && IsAttack != StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
+            if (1f > (gameObject.transform.position - vec).magnitude && IsAttack != StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
             {
                 if (Fight_State.isBatter == true)//处于连击状态
                 {

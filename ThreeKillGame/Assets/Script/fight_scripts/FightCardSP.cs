@@ -77,6 +77,8 @@ public class FightCardSP : MonoBehaviour
         Invoke("LiteTimeStart", roundWaitTime);  
     }
 
+    private bool isOver = false;    //记录是否结束这轮战斗
+
     /// <summary>
     /// 玩家战斗总控制
     /// </summary>
@@ -86,15 +88,47 @@ public class FightCardSP : MonoBehaviour
         if (!isEndOFInit)
             return;
 
-        //回合增加
+        //回合增加（判断游戏是否结束）
         if (fightNum >= playerCards.Length)
         {
+            for (int i = 0; i < 9; i++)
+            {
+                if (enemyCards[i] != null && enemyCards[i].GetComponent<CardMove>().Health > 0)
+                {
+                    isOver = false;
+                    break;
+                }
+                else
+                {
+                    isOver = true;
+                }
+            }
+            if (isOver == false)
+            {
+                for (int i = 0; i < 9; i++)
+                {
+                    if (playerCards[i] != null && playerCards[i].GetComponent<CardMove>().Health > 0)
+                    {
+                        isOver = false;
+                        break;
+                    }
+                    else
+                    {
+                        isOver = true;
+                    }
+                }
+            }
+
             DrumSkillControll.drumNums += 1;    //每回合增加击鼓次数
             DrumSkillControll.isChange = true;
             Debug.Log("///回合" + roundNum + "结束///");
-            roundNum++;
-            roundTextObj.text = "回合 " + roundNum;
-            roundTextObj.gameObject.SetActive(true);
+            if (!isOver)
+            {
+                roundNum++;
+                roundTextObj.text = "回合 " + roundNum;
+                roundTextObj.gameObject.SetActive(true);
+            }
+            
 
             fightNum = 0;
 

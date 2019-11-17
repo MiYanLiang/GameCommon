@@ -14,6 +14,7 @@ public class FightControll : MonoBehaviour
     [SerializeField]
     private float speed_time = 0.3f;
     public static float speedTime;    //卡牌移动速度
+    public static int fightPosCha;    //卡牌攻击位置差
 
     //public Text[] forceNames;   //游戏内势力单个字显示
     [SerializeField]
@@ -35,7 +36,7 @@ public class FightControll : MonoBehaviour
     //记录NPC上阵英雄的数据
     static List<List<string>[]> enemyHeroDatas = new List<List<string>[]>(); 
     static List<string>[] sendData = new List<string>[9];     //存储需要传递的数据
-    //[HideInInspector]
+    [HideInInspector]
     public int difnum = 0; //记录难度值
     [SerializeField]
     private int npcLessHpValue = 0; //npc减血加成
@@ -55,6 +56,8 @@ public class FightControll : MonoBehaviour
 
     private void Awake()
     {
+        fightPosCha = (int)(175f / 1920 * Screen.height);
+
         enemyHeroDatas.Clear();
         //初始化npc卡牌存储列表
         for (int i = 0; i < 5; i++)
