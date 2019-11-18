@@ -1105,7 +1105,7 @@ public class CreateAndUpdate : MonoBehaviour
     //玩家点击刷新
     public void UpdateCard()
     {
-        if (money > 2)
+        if (money >= 2)
         {
             //点击刷新，清空上显示栏
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text = "";
