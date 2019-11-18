@@ -204,6 +204,7 @@ public class FightControll : MonoBehaviour
                 rivalId = Random.Range(0, 5);
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
+        FightCardSps[0].GetComponent<FightCardSP>().enemyForceId = rivalId;
         playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
         rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.array_forces[rivalId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
 
