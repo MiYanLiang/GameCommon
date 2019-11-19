@@ -375,12 +375,12 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //治疗2个血量最低的友方目标，治疗量为伤害的70%。
-                        TianShenSkill(2, 0.7f);
+                        //治疗2个血量最低的友方目标，治疗量为伤害的50%。
+                        TianShenSkill(2, 0.5f);
                         break;
                     case 2:
-                        //治疗3个血量最低的友方目标，治疗量为伤害的60%。
-                        TianShenSkill(3, 0.6f);
+                        //治疗3个血量最低的友方目标，治疗量为伤害的40%。
+                        TianShenSkill(3, 0.4f);
                         break;
                 }
                 break;
