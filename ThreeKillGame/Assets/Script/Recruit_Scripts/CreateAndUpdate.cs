@@ -72,12 +72,13 @@ public class CreateAndUpdate : MonoBehaviour
     Slider player_hp;//玩家血条
     [SerializeField]
     Text textHertNum;   //招募中民心的显示
+
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
     public static void AddMoneyAndExp()
     {
-        money += int.Parse(LoadJsonFile.levelTableDatas[level][3]);
+        //money += int.Parse(LoadJsonFile.levelTableDatas[level][3]);
         experience++;
         if (experience >= int.Parse(LoadJsonFile.levelTableDatas[level][2]))
         {
