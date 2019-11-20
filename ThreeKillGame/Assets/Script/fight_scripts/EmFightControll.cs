@@ -293,9 +293,6 @@ public class EmFightControll : MonoBehaviour
         return array_str;
     }
     
-    //enemyUnits[0] = Random.Range(1, 7);     //前排
-    //enemyUnits[1] = Random.Range(1, 10);    //中排
-    //enemyUnits[2] = Random.Range(4, 10);    //后排
     //array_str   [0]heroid [3]kind兵种 [4]稀有度
     /// <summary>
     /// 添加敌方英雄卡牌
