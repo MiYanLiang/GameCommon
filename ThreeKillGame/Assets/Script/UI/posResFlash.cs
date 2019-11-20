@@ -24,6 +24,7 @@ public class posResFlash : MonoBehaviour
     {
         isLockUpdateCard = boo;
     }
+
     //对是否上锁执行是否刷新招募
     public void UpdateLockOfRecruit()
     {

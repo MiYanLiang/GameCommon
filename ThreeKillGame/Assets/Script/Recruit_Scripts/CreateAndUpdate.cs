@@ -81,7 +81,7 @@ public class CreateAndUpdate : MonoBehaviour
     {
         //money += int.Parse(LoadJsonFile.levelTableDatas[level][3]);
         experience++;
-        if (experience >= int.Parse(LoadJsonFile.levelTableDatas[level][2]))
+        if (level < LoadJsonFile.levelTableDatas.Count && experience >= int.Parse(LoadJsonFile.levelTableDatas[level][2]))
         {
             level++;
             experience = 0;
@@ -145,9 +145,8 @@ public class CreateAndUpdate : MonoBehaviour
 
     void Start()
     {
-        //money = 500;
-        Debug.Log("//////"+LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
-        money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
+        money = 500;
+        //money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
         //ChangeLevelText();
@@ -1594,7 +1593,7 @@ public class CreateAndUpdate : MonoBehaviour
                         }
                     }
                     break;
-                case 9:
+                default :
                     while (myCard.Count < count)
                     {
                         int pr9 = Random.Range(1, 101);
@@ -1671,8 +1670,6 @@ public class CreateAndUpdate : MonoBehaviour
                             }
                         }
                     }
-                    break;
-                default:
                     break;
             }
             if (myCard.Count == 6)
@@ -1842,7 +1839,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             //拥有数量显示
             //print(excelText[i]);
-            heroBtn[i].GetComponentsInChildren<Text>()[2].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
+           // heroBtn[i].GetComponentsInChildren<Text>()[2].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
         }
     }
 

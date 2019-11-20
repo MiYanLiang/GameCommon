@@ -1365,28 +1365,26 @@ public class CardMove : MonoBehaviour
         }
         else
         {
-
-            //显示造成伤害值
-            //obj.transform.GetChild(5).GetComponent<Text>().color = Color.red;
-            //obj.transform.GetChild(5).GetComponent<Text>().text = "-" + realDamage;
-            //obj.transform.GetChild(5).gameObject.SetActive(true);
             GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
             cutHpObj.GetComponent<Text>().color = Color.red;
             cutHpObj.GetComponent<Text>().text = "-" + realDamage;
         }
 
         //敌方血条的计算和显示
-        obj.GetComponent<CardMove>().Health = obj.GetComponent<CardMove>().Health - realDamage;
-        if (obj.GetComponent<CardMove>().Health < 0)    //死亡
+        if (obj.GetComponent<CardMove>().Health > 0)
         {
-            obj.GetComponent<CardMove>().Health = 0;
-            if (IsPlayerOrEnemy == 0)
+            obj.GetComponent<CardMove>().Health = obj.GetComponent<CardMove>().Health - realDamage;
+            if (obj.GetComponent<CardMove>().Health < 0)    //死亡
             {
-                DrumSkillControll.drumNums++;   //战鼓敲击次数加1
-                DrumSkillControll.isChange = true;
+                obj.GetComponent<CardMove>().Health = 0;
+                if (IsPlayerOrEnemy == 0)
+                {
+                    DrumSkillControll.drumNums++;   //战鼓敲击次数加1
+                    DrumSkillControll.isChange = true;
+                }
             }
+            obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
         }
-        obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
 
         if (obj.GetComponent<CardMove>().ArmsId == "2" && obj.GetComponent<CardMove>().ArmsSkillStatus > 0) //如果攻击的敌人是海兽 并且 兵种激活
         {
