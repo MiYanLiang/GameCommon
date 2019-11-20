@@ -32874,6 +32874,7 @@ MonoBehaviour:
   - {fileID: 696789310}
   - {fileID: 693880985}
   - {fileID: 1172273164}
+  enemyForceId: 0
   fightControll: {fileID: 171646701}
   fightCtl: {fileID: 171646702}
   gameOverBg: {fileID: 1272533440}

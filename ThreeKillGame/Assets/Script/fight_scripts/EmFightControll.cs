@@ -15,8 +15,8 @@ public class EmFightControll : MonoBehaviour
     //存放最后拿到的英雄Id
     List<int> getHeroId = new List<int>();
 
-    //上阵位置和开启周目                   [0,0]                                 [1,1]     
-    int[,] arrayBattles = new int[2, 10] { { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 }, { 1, 2, 3, 4, 5, 6, 8, 12, 18, 25 } };    //{ 1, 2, 3, 4, 5, 6, 8, 12, 18, 25 }
+    //上阵位置                 
+    int[] arrayBattles = new int[10]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };    
 
     List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
 
@@ -27,18 +27,9 @@ public class EmFightControll : MonoBehaviour
 
     private void Start()
     {
-        Invoke("InitNpcOpenSets", 0.1f);
+
     }
 
-    private void InitNpcOpenSets()
-    {
-        //初始化npc上阵位开启数组
-        for (int i = 0; i < 10; i++)
-        {
-            arrayBattles[1, i] = int.Parse(LoadJsonFile.DifficultyTableDates[i][hardNum + 1]);
-            //print(arrayBattles[1, i]);
-        }
-    }
 
     /// <summary>
     /// 接收敌方武将现有的上阵卡牌，进行卡牌变化和传递
@@ -58,10 +49,10 @@ public class EmFightControll : MonoBehaviour
                 switch (arrHeroData[i][1])  //判断英雄的品阶       
                 {
                     case "1":
-                        switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0])-1][4])   //判断稀有度
+                        switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][4])   //判断稀有度
                         {
                             case "1":   //绿1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum-1][7]))  //判断此卡牌参与的战斗周目
+                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][7]))  //判断此卡牌参与的战斗周目
                                 {
                                     if (GradeOrColor()) //升阶
                                     {
@@ -194,101 +185,101 @@ public class EmFightControll : MonoBehaviour
         }
 
         //更新英雄上阵位置和个数
-        if (battles < arrayBattles[1, 1])
+        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[1][hardNum + 1]) - 1)
         {
-            if (heroCount < arrayBattles[0, 0])
+            if (heroCount < arrayBattles[0])
             {
                 //添加英雄 
                 //ClearDate();
-                AddHeros(enemyUnits, arrayBattles[0, 0] - heroCount);
+                AddHeros(enemyUnits, arrayBattles[0] - heroCount);
             }
         }
         else
         {
-            if (battles < arrayBattles[1, 2])
+            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[2][hardNum + 1]) - 1)
             {
-                if (heroCount < arrayBattles[0, 1])
+                if (heroCount < arrayBattles[1])
                 {
                     //ClearDate(); 
-                    AddHeros(enemyUnits, arrayBattles[0, 1] - heroCount);
+                    AddHeros(enemyUnits, arrayBattles[1] - heroCount);
                 }
             }
             else
             {
-                if (battles < arrayBattles[1, 3])
+                if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[3][hardNum + 1]) - 1)
                 {
-                    if (heroCount < arrayBattles[0, 2])
+                    if (heroCount < arrayBattles[2])
                     {
                         //ClearDate();
-                        AddHeros(enemyUnits, arrayBattles[0, 2] - heroCount);
+                        AddHeros(enemyUnits, arrayBattles[2] - heroCount);
                     }
                 }
                 else
                 {
-                    if (battles < arrayBattles[1, 4])
+                    if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[4][hardNum + 1]) - 1)
                     {
-                        if (heroCount < arrayBattles[0, 3])
+                        if (heroCount < arrayBattles[3])
                         {
                             //ClearDate();
-                            AddHeros(enemyUnits, arrayBattles[0, 3] - heroCount);
+                            AddHeros(enemyUnits, arrayBattles[3] - heroCount);
                         }
                     }
                     else
                     {
-                        if (battles < arrayBattles[1, 5])
+                        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[5][hardNum + 1]) - 1)
                         {
-                            if (heroCount < arrayBattles[0, 4])
+                            if (heroCount < arrayBattles[4])
                             {
                                 //ClearDate();
-                                AddHeros(enemyUnits, arrayBattles[0, 4] - heroCount);
+                                AddHeros(enemyUnits, arrayBattles[4] - heroCount);
                             }
                         }
                         else
                         {
-                            if (battles < arrayBattles[1, 6])
+                            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[6][hardNum + 1]) - 1)
                             {
-                                if (heroCount < arrayBattles[0, 5])
+                                if (heroCount < arrayBattles[5])
                                 {
                                     //ClearDate();
-                                    AddHeros(enemyUnits, arrayBattles[0, 5] - heroCount);
+                                    AddHeros(enemyUnits, arrayBattles[5] - heroCount);
                                 }
                             }
                             else
                             {
-                                if (battles < arrayBattles[1, 7])
+                                if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[7][hardNum + 1]) - 1)
                                 {
-                                    if (heroCount < arrayBattles[0, 6])
+                                    if (heroCount < arrayBattles[6])
                                     {
                                         //ClearDate();
-                                        AddHeros(enemyUnits, arrayBattles[0, 6] - heroCount);
+                                        AddHeros(enemyUnits, arrayBattles[6] - heroCount);
                                     }
                                 }
                                 else
                                 {
-                                    if (battles < arrayBattles[1, 8])
+                                    if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[8][hardNum + 1]) - 1)
                                     {
-                                        if (heroCount < arrayBattles[0, 7])
+                                        if (heroCount < arrayBattles[7])
                                         {
                                             //ClearDate();
-                                            AddHeros(enemyUnits, arrayBattles[0, 7] - heroCount);
+                                            AddHeros(enemyUnits, arrayBattles[7] - heroCount);
                                         }
                                     }
                                     else
                                     {
-                                        if (battles < arrayBattles[1, 9])
+                                        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[9][hardNum + 1]) - 1)
                                         {
-                                            if (heroCount < arrayBattles[0, 8])
+                                            if (heroCount < arrayBattles[8])
                                             {
                                                 //ClearDate();
-                                                AddHeros(enemyUnits, arrayBattles[0, 8] - heroCount);
+                                                AddHeros(enemyUnits, arrayBattles[8] - heroCount);
                                             }
                                         }
                                         else
                                         {
-                                            if (heroCount < arrayBattles[0, 9])
+                                            if (heroCount < arrayBattles[9])
                                             {
                                                 //ClearDate();
-                                                AddHeros(enemyUnits, arrayBattles[0, 9] - heroCount);
+                                                AddHeros(enemyUnits, arrayBattles[9] - heroCount);
                                             }
                                         }
                                     }
@@ -299,7 +290,6 @@ public class EmFightControll : MonoBehaviour
                 }
             }
         }
-
         return array_str;
     }
     

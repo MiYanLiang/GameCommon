@@ -315,9 +315,9 @@ public class FightControll : MonoBehaviour
         for (int i = 0; i < 5; i++)
         {
             enemyUnits[i] = new int[3];
-            enemyUnits[i][0] = Random.Range(1, 7);     //前排
-            enemyUnits[i][1] = Random.Range(1, 10);    //中排
-            enemyUnits[i][2] = Random.Range(4, 10);    //后排
+            enemyUnits[i][0] = Random.Range(1, 4);     //前排
+            enemyUnits[i][1] = Random.Range(4, 7);    //中排
+            enemyUnits[i][2] = Random.Range(7, 10);    //后排
             //Debug.Log("///" + enemyUnits[i][0] + "///" + enemyUnits[i][1] + "////" + enemyUnits[i][2]);
             
         }
