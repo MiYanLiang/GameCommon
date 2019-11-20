@@ -34,6 +34,7 @@ public class ForcesChoose : MonoBehaviour
     private void Update()
     {
         ShowSelected();
+        currentPrestige.GetComponent<Text>().text=PlayerPrefs.GetInt("prestigeNum").ToString();//随时刷新声望值
         //print(currentForcesIndex);
     }
     //随机6个势力

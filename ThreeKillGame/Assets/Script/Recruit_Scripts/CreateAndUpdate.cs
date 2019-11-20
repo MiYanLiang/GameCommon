@@ -63,6 +63,7 @@ public class CreateAndUpdate : MonoBehaviour
     public static int experience;   //经验
     public static int battleNum;    //上阵位
     public static int prepareNum;   //备战位
+    public GameObject GoldBox_;
 
     int damageAll;
 
@@ -2101,5 +2102,31 @@ public class CreateAndUpdate : MonoBehaviour
         {
             damageAll = 10;
         }
+    }
+
+    //宝箱功能
+    public void GoldBox()
+    {
+        string money_str = LoadJsonFile.levelTableDatas[level - 1][3];
+        string[] moneyStr = money_str.Split(',');
+        int taxMin = int.Parse(moneyStr[0]);
+        int taxMax = int.Parse(moneyStr[1]) + 1;
+        int getMoney = Random.Range(taxMin,taxMax);
+        money += getMoney;
+        GameObject.Find("GoldBox").GetComponent<Image>().overrideSprite= Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
+        GameObject.Find("GoldBox").GetComponent<Button>().enabled = false;
+        Invoke("NotShowBox",1f);
+    }
+    //延时后隐藏宝箱
+    void NotShowBox()
+    {
+        GameObject.Find("GoldBox").SetActive(false);
+    }
+    //产生宝箱
+    public void ShowGlodBox()
+    {
+        GoldBox_.SetActive(true);
+        GameObject.Find("GoldBox").GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
+        GameObject.Find("GoldBox").GetComponent<Button>().enabled = true;
     }
 }
