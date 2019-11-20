@@ -47,7 +47,11 @@ public class Roots
     /// 战鼓开启表
     /// </summary>
     public List<WarDrumTableItem> WarDrumTable { get; set; }
+
+    /// <summary>
+    /// 文本信息配置表
+    /// </summary>
+    public List<TipsTableItem> TipsTable { get; set; }
+
+
 }
-
-
-

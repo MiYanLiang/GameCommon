@@ -23,6 +23,7 @@ import e_create_RoleTable
 import e_create_SoldierSkillTable
 import e_create_Difficulty
 import e_create_WarDrumTable
+import e_create_TipsTable
 
 taskList = (
 
@@ -36,6 +37,7 @@ taskList = (
 	('/111.xlsx', e_create_SoldierSkillTable, '/SoldierSkillTable.json'),
 	('/111.xlsx', e_create_Difficulty, '/DifficultyTable.json'),
 	('/111.xlsx', e_create_WarDrumTable, '/WarDrumTable.json'),
+	('/111.xlsx', e_create_TipsTable, '/TipsTable.json')
 )
 
 

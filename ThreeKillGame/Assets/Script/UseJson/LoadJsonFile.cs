@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable";
 
 
     /// <summary>
@@ -65,6 +65,14 @@ public class LoadJsonFile : MonoBehaviour
     /// 战鼓开启等级表
     /// </summary>
     public static List<List<string>> WarDrumTableDates;
+
+    /// <summary>
+    /// 文本信息配置表
+    /// </summary>
+    public static List<List<string>> TipsTableDates;
+
+
+
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -282,6 +290,23 @@ public class LoadJsonFile : MonoBehaviour
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
+        //加载文本信息表数据:TipsTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            TipsTableDates = new List<List<string>>(root.TipsTable.Count);
+            for (int i = 0; i < root.TipsTable.Count; i++)
+            {
+                TipsTableDates.Add(new List<string>());
+                TipsTableDates[i].Add(root.TipsTable[i].id);
+                TipsTableDates[i].Add(root.TipsTable[i].type);
+                TipsTableDates[i].Add(root.TipsTable[i].text);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+
+
+
 
         if (indexTable>= tableNames.Length)
             Debug.Log("所有Json数据加载成功。");
