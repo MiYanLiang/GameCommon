@@ -71,7 +71,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < shieldSoldierName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "山兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[0][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + shieldSoldierName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -82,7 +82,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < mahoutName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "海兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "没有没有没有。。。";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[1][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + mahoutName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -93,7 +93,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < halberdierName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "飞兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "没有没有没有。。。";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[2][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + halberdierName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -104,7 +104,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < lifeguardName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "人杰" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "没有没有没有。。。";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[3][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + lifeguardName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -115,7 +115,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < spearmanName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "祖巫" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[4][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + spearmanName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -126,7 +126,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < sowarName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "散仙" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[5][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sowarName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -137,7 +137,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < counsellorName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "辅神" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[6][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + counsellorName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -148,7 +148,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < sapperName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "魔神" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[7][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sapperName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
@@ -159,7 +159,7 @@ public class ClickPrefab : MonoBehaviour
             for (int i = 0; i < necromancerName.Count; i++)
             {
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "天神" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
+                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[8][3];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + necromancerName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
