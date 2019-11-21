@@ -6,7 +6,7 @@ def export_json(xls, fn):
     f = create_file(fn)
     if f != None:
         reader = xls_reader.XLSReader()
-        cfgs = reader.GetSheetByIndex(xls, 15, 2)
+        cfgs = reader.GetSheetByIndex(xls, 16, 1)
         if cfgs != None:
             f.write("{\n")
             s = "\t\"SoldierType\": [\n"
