@@ -41,9 +41,9 @@ public class cutHpTextControll : MonoBehaviour
 
         //设置Text移动和透明度的变化值
 
-        Tweener textMove01 = rect.DOMoveY(rect.position.y + 10, FightControll.speedTime * 0.3f);
+        Tweener textMove01 = rect.DOMoveY(rect.position.y + 15, FightControll.speedTime * 0.2f);
 
-        Tweener textMove02 = rect.DOMoveY(rect.position.y + 20, FightControll.speedTime * 0.1f);
+        Tweener textMove02 = rect.DOMoveY(rect.position.y, FightControll.speedTime * 0.1f);
 
         Tweener textColor01 = graphic.DOColor(new Color(color.r, color.g, color.b, 1), FightControll.speedTime * 0.3f);
 

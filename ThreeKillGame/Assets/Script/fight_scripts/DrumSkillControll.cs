@@ -34,7 +34,7 @@ public class DrumSkillControll : MonoBehaviour
 
     /// <summary>
     /// 战鼓（风）技能
-    /// 让暴击最高的单位获得一次连击			
+    /// 让攻击力最高的单位获得一次连击			
     /// </summary>
     public void WindDrumSkill()
     {
@@ -51,8 +51,7 @@ public class DrumSkillControll : MonoBehaviour
             {
                 if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isBatter)  //没有连击状态
                 {
-                    //判断还没有记录过目标，或者，i位置的暴击率大于记录位置的暴击率
-                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().CritRate > FightCardSP.playerCards[index].GetComponent<CardMove>().CritRate)
+                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Force > FightCardSP.playerCards[index].GetComponent<CardMove>().Force)
                     {
                         index = i;
                     }
@@ -90,6 +89,7 @@ public class DrumSkillControll : MonoBehaviour
 
     /// <summary>
     /// 战鼓（雷）技能
+    /// 给敌方攻击最高的单位眩晕
     /// </summary>
     public void ThunderDrumSkill()
     {
@@ -106,8 +106,7 @@ public class DrumSkillControll : MonoBehaviour
                 //没有眩晕状态
                 if (!FightCardSP.enemyCards[i].GetComponent<CardMove>().Fight_State.isDizzy)
                 {
-                    //判断还没有记录过目标，或者，i位置的暴击率少于记录位置的暴击率
-                    if (index == -1 || FightCardSP.enemyCards[i].GetComponent<CardMove>().CritRate > FightCardSP.enemyCards[index].GetComponent<CardMove>().CritRate)
+                    if (index == -1 || FightCardSP.enemyCards[i].GetComponent<CardMove>().Force > FightCardSP.enemyCards[index].GetComponent<CardMove>().Force)
                     {
                         index = i;
                     }

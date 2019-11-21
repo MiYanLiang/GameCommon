@@ -431,13 +431,21 @@ public class CardMove : MonoBehaviour
         }
         Health -= hurt;     //反伤
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
-        GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
-        cutHpObj.GetComponent<Text>().color = Color.red;
-        cutHpObj.GetComponent<Text>().text = "-" + hurt;
-        //transform.GetChild(5).GetComponent<Text>().color = Color.red;
-        //transform.GetChild(5).GetComponent<Text>().text = "-" + hurt;
-        obj.transform.GetChild(4).gameObject.SetActive(true);
-        //transform.GetChild(5).gameObject.SetActive(true);
+        if (transform.GetChild(5).childCount < 1)
+        {
+            GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+            cutHpObj.GetComponent<Text>().color = Color.red;
+            cutHpObj.GetComponent<Text>().text = "-" + hurt;
+            obj.transform.GetChild(4).gameObject.SetActive(true);
+        }
+        else
+        {
+            GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+            cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
+            cutHpObj.GetComponent<Text>().color = Color.red;
+            cutHpObj.GetComponent<Text>().text = "-" + hurt;
+            obj.transform.GetChild(4).gameObject.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -1365,9 +1373,19 @@ public class CardMove : MonoBehaviour
         }
         else
         {
-            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-            cutHpObj.GetComponent<Text>().color = Color.red;
-            cutHpObj.GetComponent<Text>().text = "-" + realDamage;
+            if (obj.transform.GetChild(5).childCount < 1)
+            {
+                GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+                cutHpObj.GetComponent<Text>().color = Color.red;
+                cutHpObj.GetComponent<Text>().text = "-" + realDamage;
+            }
+            else
+            {
+                GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+                cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
+                cutHpObj.GetComponent<Text>().color = Color.red;
+                cutHpObj.GetComponent<Text>().text = "-" + realDamage;
+            }
         }
 
         //敌方血条的计算和显示
@@ -1410,13 +1428,19 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void UpdateOwnHp(int addHp, GameObject obj)
     {
-        //显示恢复值
-        //obj.transform.GetChild(5).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
-        //obj.transform.GetChild(5).GetComponent<Text>().text = "+" + addHp;
-        //obj.transform.GetChild(5).gameObject.SetActive(true);
-        GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-        cutHpObj.GetComponent<Text>().color = ColorData.green_Color;
-        cutHpObj.GetComponent<Text>().text = "+" + addHp;
+        if (obj.transform.GetChild(5).childCount < 1)
+        {
+            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+            cutHpObj.GetComponent<Text>().color = ColorData.green_Color;
+            cutHpObj.GetComponent<Text>().text = "+" + addHp;
+        }
+        else
+        {
+            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+            cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
+            cutHpObj.GetComponent<Text>().color = ColorData.green_Color;
+            cutHpObj.GetComponent<Text>().text = "+" + addHp;
+        }
         //血条的显示
         obj.GetComponent<Slider>().value = 1 - obj.GetComponent<CardMove>().Health / (float)obj.GetComponent<CardMove>().Fullhealth;
     }
