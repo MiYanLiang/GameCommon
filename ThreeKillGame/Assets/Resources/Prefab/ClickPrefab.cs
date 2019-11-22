@@ -75,7 +75,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + shieldSoldierName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text +=  "\t" + "\u2000" + "[刃甲]" + "\u2000" + "3山兽上阵,血量提升10%，反弹20%近战伤害，减少受到10%远程伤害" + "\t" + "\u2000" + "[刺盾]" + "\u2000" + "6山兽上阵,血量提升20%，反弹40%近战伤害，减少受到20%远程伤害";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text +=  "\t" + "\u2000" + "["+LoadJsonFile.soldierSkillTableDatas[0][1]+"]" + "\u2000" + "3山兽上阵,"+LoadJsonFile.soldierSkillTableDatas[0][2]+LoadJsonFile.soldierSkillTableDatas[0][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[1][1] + "]" + "\u2000" + "6山兽上阵," + LoadJsonFile.soldierSkillTableDatas[1][2] + LoadJsonFile.soldierSkillTableDatas[1][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "海兽")
         {
@@ -86,7 +86,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + mahoutName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t"+"\u2000" + "[汲取]" + "\u2000" + "3海兽上阵,防御增加10点，将造成伤害的30%转化为自身血量" + "\t" + "\u2000" + "[嗜血]" + "\u2000" + "6海兽上阵,防御增加15点，将造成伤害的60%转化为自身血量";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t"+"\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[2][1] + "]" + "\u2000" + "3海兽上阵," + LoadJsonFile.soldierSkillTableDatas[2][2] + LoadJsonFile.soldierSkillTableDatas[2][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[3][1] + "]" + "\u2000" + "6海兽上阵," + LoadJsonFile.soldierSkillTableDatas[3][2] + LoadJsonFile.soldierSkillTableDatas[3][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "飞兽")
         {
@@ -97,7 +97,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + halberdierName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[灵巧]" + "\u2000" + "3飞兽上阵,血量提升10%，战斗中每损失20%血量，获得风之助，提升10%闪避" + "\t" + "\u2000" + "[瞬闪]" + "\u2000" + "6飞兽上阵,血量提升20%，战斗中每损失20%血量，获得风之助，提升15%闪避";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[4][1] + "]" + "\u2000" + "3飞兽上阵," + LoadJsonFile.soldierSkillTableDatas[4][2] + LoadJsonFile.soldierSkillTableDatas[4][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[5][1] + "]" + "\u2000" + "6飞兽上阵," + LoadJsonFile.soldierSkillTableDatas[5][2] + LoadJsonFile.soldierSkillTableDatas[5][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "人杰")
         {
@@ -108,7 +108,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + lifeguardName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[血战]" + "\u2000" + "3人杰上阵,攻击提升10%，每次攻击提升20%伤害，10%防御，可叠加3次" + "\t" + "\u2000" + "[死战]" + "\u2000" + "6人杰上阵,攻击提升20%，每次攻击提升30%伤害，10%防御，可叠加3次";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[6][1] + "]" + "\u2000" + "3人杰上阵," + LoadJsonFile.soldierSkillTableDatas[6][2] + LoadJsonFile.soldierSkillTableDatas[6][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[7][1] + "]" + "\u2000" + "6人杰上阵," + LoadJsonFile.soldierSkillTableDatas[7][2] + LoadJsonFile.soldierSkillTableDatas[7][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "祖巫")
         {
@@ -119,7 +119,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + spearmanName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[穿刺]" + "\u2000" + "3祖巫上阵,攻击提升10%，突刺敌方后排50%伤害" + "\t" + "\u2000" + "[突刺]" + "\u2000" + "6祖巫上阵,攻击提升20%，突刺敌方后排80%伤害";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[8][1] + "]" + "\u2000" + "3祖巫上阵," + LoadJsonFile.soldierSkillTableDatas[8][2] + LoadJsonFile.soldierSkillTableDatas[8][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[9][1] + "]" + "\u2000" + "6祖巫上阵," + LoadJsonFile.soldierSkillTableDatas[9][2] + LoadJsonFile.soldierSkillTableDatas[9][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "散仙")
         {
@@ -130,7 +130,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sowarName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[横扫]" + "\u2000" + "3散仙上阵,攻击提升10%，攻击同一排敌人，每个造成75%伤害" + "\t" + "\u2000" + "[狂斩]" + "\u2000" + "6散仙上阵,攻击提升20%，攻击同一排敌人，每个造成100%伤害";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[10][1] + "]" + "\u2000" + "3散仙上阵," + LoadJsonFile.soldierSkillTableDatas[10][2] + LoadJsonFile.soldierSkillTableDatas[10][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[11][1] + "]" + "\u2000" + "6散仙上阵," + LoadJsonFile.soldierSkillTableDatas[11][2] + LoadJsonFile.soldierSkillTableDatas[11][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "辅神")
         {
@@ -141,7 +141,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + counsellorName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[火计]" + "\u2000" + "3辅神上阵,攻击提升10%，随机攻击2个目标，每个造成30%伤害，20%几率击晕1回合" + "\t" + "\u2000" + "[爆炎]" + "\u2000" + "6辅神上阵,攻击提升20%，随机攻击3个目标，每个造成45%伤害，20%几率击晕1回合";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[12][1] + "]" + "\u2000" + "3辅神上阵," + LoadJsonFile.soldierSkillTableDatas[12][2] + LoadJsonFile.soldierSkillTableDatas[12][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[13][1] + "]" + "\u2000" + "6辅神上阵," + LoadJsonFile.soldierSkillTableDatas[13][2] + LoadJsonFile.soldierSkillTableDatas[13][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "魔神")
         {
@@ -152,7 +152,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sapperName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[乱射]" + "\u2000" + "3魔神上阵,攻击提升10%，随机攻击3个目标，每个造成45%伤害" + "\t" + "\u2000" + "[箭雨]" + "\u2000" + "6魔神上阵,攻击提升20%，随机攻击4个目标，每个造成50%伤害";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[14][1] + "]" + "\u2000" + "3魔神上阵," + LoadJsonFile.soldierSkillTableDatas[14][2] + LoadJsonFile.soldierSkillTableDatas[14][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[15][1] + "]" + "\u2000" + "6魔神上阵," + LoadJsonFile.soldierSkillTableDatas[15][2] + LoadJsonFile.soldierSkillTableDatas[15][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "天神")
         {
@@ -163,7 +163,7 @@ public class ClickPrefab : MonoBehaviour
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + necromancerName[i];
                 GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
             }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[地遁]" + "\u2000" + "3天神上阵,攻击提升10%，治疗2个血量最低的友方目标，治疗量为方式伤害的80%" + "\t" + "\u2000" + "[天遁]" + "\u2000" + "6天神上阵,攻击提升20%，治疗3个血量最低的友方目标，治疗量为方式伤害的100%";
+            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[16][1] + "]" + "\u2000" + "3天神上阵," + LoadJsonFile.soldierSkillTableDatas[16][2] + LoadJsonFile.soldierSkillTableDatas[16][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[17][1] + "]" + "\u2000" + "6天神上阵," + LoadJsonFile.soldierSkillTableDatas[17][2] + LoadJsonFile.soldierSkillTableDatas[17][3];
         }
         else if (this.GetComponentsInChildren<Text>()[0].text == "神兽")
         {
