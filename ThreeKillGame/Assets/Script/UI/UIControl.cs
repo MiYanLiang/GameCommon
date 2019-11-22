@@ -17,6 +17,8 @@ public class UIControl : MonoBehaviour
     Image[] otherForcePic;     //其他势力头像
     [HideInInspector]
     public static int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
+    [SerializeField]
+    Button fightBtn;
 
     private void Awake()
     {
@@ -34,7 +36,13 @@ public class UIControl : MonoBehaviour
             //设置其他势力的头像
             otherForcePic[i].sprite = Resources.Load("Image/calligraphy/" + array_forces[i], typeof(Sprite)) as Sprite; 
         }
+        Invoke("OpenPlayFightBtn", 0.5f);
+    }
 
+    //延时打开战斗按钮
+    private void OpenPlayFightBtn()
+    {
+        fightBtn.enabled = true;
     }
 
     //判断是否已有这个势力

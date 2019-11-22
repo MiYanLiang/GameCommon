@@ -7,6 +7,8 @@ public class CreateAndUpdate : MonoBehaviour
 {
     [SerializeField]
     GameObject backGround;
+    [SerializeField]
+    GameObject GoldBoxObj;
     List<int> heroId = new List<int>();
     [HideInInspector]
     public List<int> myCard = new List<int>();
@@ -70,6 +72,8 @@ public class CreateAndUpdate : MonoBehaviour
     [SerializeField]
     Text text_level;    //等级显示
     [SerializeField]
+    Text text_level_fight;  //战斗中等级显示
+    [SerializeField]
     Slider player_hp;//玩家血条
     [SerializeField]
     Text textHertNum;   //招募中民心的显示
@@ -105,6 +109,7 @@ public class CreateAndUpdate : MonoBehaviour
     public void ChangeLevelText()
     {
         text_level.text = level + "级";
+        text_level_fight.text = level + "级";
         if (level == 10)
         {
             goldOfGrade.transform.parent.GetChild(0).GetComponent<Text>().text = "满级";
@@ -140,6 +145,7 @@ public class CreateAndUpdate : MonoBehaviour
     {
         level = 1;
         text_level.text = level + "级";
+        text_level_fight.text = level + "级";
         experience = 0;
     }
 
@@ -2110,20 +2116,20 @@ public class CreateAndUpdate : MonoBehaviour
         int taxMax = int.Parse(moneyStr[1]) + 1;
         int getMoney = Random.Range(taxMin,taxMax);
         money += getMoney;
-        GameObject.Find("GoldBox").GetComponent<Image>().overrideSprite= Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
-        GameObject.Find("GoldBox").GetComponent<Button>().enabled = false;
+        GoldBoxObj.GetComponent<Image>().overrideSprite= Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
+        GoldBoxObj.GetComponent<Button>().enabled = false;
         Invoke("NotShowBox",1f);
     }
     //延时后隐藏宝箱
     void NotShowBox()
     {
-        GameObject.Find("GoldBox").SetActive(false);
+        GoldBoxObj.SetActive(false);
     }
     //产生宝箱
     public void ShowGlodBox()
     {
         GoldBox_.SetActive(true);
-        GameObject.Find("GoldBox").GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
-        GameObject.Find("GoldBox").GetComponent<Button>().enabled = true;
+        GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
+        GoldBoxObj.GetComponent<Button>().enabled = true;
     }
 }

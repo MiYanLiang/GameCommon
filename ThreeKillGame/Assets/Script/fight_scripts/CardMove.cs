@@ -1431,14 +1431,14 @@ public class CardMove : MonoBehaviour
         if (obj.transform.GetChild(5).childCount < 1)
         {
             GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-            cutHpObj.GetComponent<Text>().color = ColorData.green_Color;
+            cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
             cutHpObj.GetComponent<Text>().text = "+" + addHp;
         }
         else
         {
             GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
             cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
-            cutHpObj.GetComponent<Text>().color = ColorData.green_Color;
+            cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
             cutHpObj.GetComponent<Text>().text = "+" + addHp;
         }
         //血条的显示

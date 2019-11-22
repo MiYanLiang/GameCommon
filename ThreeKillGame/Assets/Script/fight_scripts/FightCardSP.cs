@@ -294,7 +294,7 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             //展示战况
-                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
+                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=white>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
                             fightControll.GetComponent<FightControll>().BattleSettlement();
                             
                             //延时显示结算界面
@@ -372,7 +372,7 @@ public class FightCardSP : MonoBehaviour
                             SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
                             SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
 
-                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=blue>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
+                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=white>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
                             fightControll.GetComponent<FightControll>().BattleSettlement();
 
 
@@ -545,7 +545,7 @@ public class FightCardSP : MonoBehaviour
         }
         for (int i = 0; i < 4; i++) //玩家势力红字
         {
-            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(idIndex).GetChild(i).GetComponent<Text>().color = Color.red;
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(idIndex).GetChild(i).GetComponent<Text>().color = Color.white;
         }
         gameOverBg.SetActive(true);
     }
