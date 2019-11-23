@@ -27,6 +27,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     GameObject SellCardBtn;             //出售卡牌按钮
     [HideInInspector]
     public Transform SelectHerpCard;    //选中的英雄卡牌
+    private int index_SelectCard;       //记录选中卡牌在pos_heroId中的索引位置
 
     public Transform LeftInformationBar;//左侧信息栏
     public GameObject heroTypePrefab;   //信息预制件
@@ -61,26 +62,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
-        for (int i = 0; i < pos_heroId.Length; i++)
-        {
-            if (pos_heroId[i] > 0)
-            {
-                if (i < 9)
-                {
-                    if (JiuGongGe.GetChild(i).childCount < 0)
-                    {
-                        pos_heroId[i] = 0;
-                    }
-                }
-                else
-                {
-                    if (BeiZhanWei.GetChild(i - 9).childCount < 0)
-                    {
-                        pos_heroId[i] = 0;
-                    }
-                }
-            }
-        }
+        pos_heroId[index_SelectCard] = 0;
         Invoke("LoadTextOfNum",0.1f);
     }
     //延时刷新备战位和上阵位人数显示
@@ -210,13 +192,14 @@ public class HeroIdChangeAndSave : MonoBehaviour
     /// <summary>
     /// 恢复所有武将卡牌未选中状态（选中框显示等）
     /// </summary>
-    public void RestoreCardUnSelect(Transform tran)
+    public void RestoreCardUnSelect(Transform tran, int index)
     {
         if (SelectHerpCard != null)
         {
             SelectHerpCard.GetChild(3).gameObject.SetActive(false);
         }
         SelectHerpCard = tran;
+        index_SelectCard = index;
         //显示出售按钮
         SellCardBtn.transform.GetChild(2).GetComponent<Text>().text = tran.GetComponent<HeroDataControll>().Price_hero.ToString();
         SellCardBtn.SetActive(true);

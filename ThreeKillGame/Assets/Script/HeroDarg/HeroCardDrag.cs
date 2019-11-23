@@ -178,7 +178,7 @@ public class HeroCardDrag : MonoBehaviour {
     public void RestoreUnSelect()
     {
         GameObject backGround = GameObject.Find("backGround");
-        backGround.GetComponent<HeroIdChangeAndSave>().RestoreCardUnSelect(transform);
+        backGround.GetComponent<HeroIdChangeAndSave>().RestoreCardUnSelect(transform, int.Parse(transform.parent.name));
     }
 
 }
