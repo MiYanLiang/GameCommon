@@ -19,6 +19,7 @@ public class UIControl : MonoBehaviour
     public static int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
     [SerializeField]
     Button fightBtn;
+    public GameObject cameraAudio;//摄像机
 
     private void Awake()
     {
@@ -37,6 +38,24 @@ public class UIControl : MonoBehaviour
             otherForcePic[i].sprite = Resources.Load("Image/calligraphy/" + array_forces[i], typeof(Sprite)) as Sprite; 
         }
         Invoke("OpenPlayFightBtn", 0.5f);
+
+        //加载声音
+        int soundStades = PlayerPrefs.GetInt("soundStates");
+        soundContrll_(soundStades);
+        //print("pppppppppppppppppppppppppppppppppppppppp"+soundStades);
+    }
+
+    //声音控制，继承main场景选择
+    void soundContrll_(int soundStates)
+    {
+        if (soundStates == 1)
+        {
+            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
+        }
+        else if (soundStates == 0)
+        {
+            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
+        }
     }
 
     //延时打开战斗按钮

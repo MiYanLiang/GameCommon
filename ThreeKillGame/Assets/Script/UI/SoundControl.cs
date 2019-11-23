@@ -1,16 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SoundControl : MonoBehaviour {
 
-	// Use this for initialization
-    public GameObject touchSound;
-    public GameObject touchSoundClick;
-    public GameObject music;
-    public GameObject musicClick;
-    public GameObject sound;
-    public GameObject soundClick;
+    // Use this for initialization
+    public GameObject showSoundTxt;
+    public GameObject cameraAudio;
+    int soundStates;
 	void Start () {
 		
 	}
@@ -20,38 +18,21 @@ public class SoundControl : MonoBehaviour {
 		
 	}
 
-    //打开及关闭触音
-    public void OpenTouchSound()
+    public void ClickSoundSet()
     {
-        touchSoundClick.SetActive(false);
-        touchSound.SetActive(true);
+        if (showSoundTxt.GetComponent<Text>().text == "声音    开")
+        {
+            soundStates = 0;
+            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
+            showSoundTxt.GetComponent<Text>().text = "声音    关";
+        }
+        else if (showSoundTxt.GetComponent<Text>().text == "声音    关")
+        {
+            soundStates = 1;
+            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
+            showSoundTxt.GetComponent<Text>().text = "声音    开";
+        }
+        PlayerPrefs.SetInt("soundStates",soundStates);
+        print("..................soundStates:"+soundStates);
     }
-    public void CloseTouchSound()
-    {
-        touchSound.SetActive(false);
-        touchSoundClick.SetActive(true);
-    }
-    //打开及关闭音乐
-    public void OpenMusic()
-    {
-        musicClick.SetActive(false);
-        music.SetActive(true);
-    }
-    public void CloseMusic()
-    {
-        music.SetActive(false);
-        musicClick.SetActive(true);
-    }
-    //打开及关闭音效
-    public void OpenSound()
-    {
-        soundClick.SetActive(false);
-        sound.SetActive(true);
-    }
-    public void CloseSound()
-    {
-        sound.SetActive(false);
-        soundClick.SetActive(true);
-    }
-
 }

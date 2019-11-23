@@ -18,6 +18,7 @@ public class ForcesChoose : MonoBehaviour
     bool canShow = false;
     public GameObject forcesText;
     int currentPrestige_;
+    public GameObject cameraAudio;
 
     [SerializeField]
     private float playTextSpeed = 3f;
@@ -28,6 +29,8 @@ public class ForcesChoose : MonoBehaviour
     void Start()
     {
         RandomBattle();
+        int soundStates = PlayerPrefs.GetInt("soundStates");
+        soundContrll_(soundStates);
     }
 
     // Update is called once per frame
@@ -36,6 +39,18 @@ public class ForcesChoose : MonoBehaviour
         ShowSelected();
         currentPrestige.GetComponent<Text>().text=PlayerPrefs.GetInt("prestigeNum").ToString();//随时刷新声望值
         //print(currentForcesIndex);
+    }
+    //声音控制
+    void soundContrll_(int soundStates)
+    {
+        if (soundStates == 1)
+        {
+            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
+        }
+        else if (soundStates == 0)
+        {
+            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
+        }
     }
     //随机6个势力
     void RandomList()
