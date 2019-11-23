@@ -141,9 +141,9 @@ public class HeroDataControll : MonoBehaviour {
         fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         //显示点击英雄的名字  及  阶数（阶数尚未得到）
         GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = heroName+ "\u1500";
-        //显示兵种及英雄相关属性  （缺少拥有个数）
-        int nums = GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(heroId);
-        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = heroKindName + "\u2000" + "拥有" + nums + "\u2000" + "攻击" + attack + "\u2000" + "防御" + defense + "\u2000" + "士兵" + soldierNum;
+        //显示兵种及英雄相关属性
+        //int nums = GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(heroId);
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = heroKindName + "\u2000" /*+ "拥有" + nums*/ + "\u2000" + "攻击" + attack + "\u2000" + "防御" + defense + "\u2000" + "士兵" + soldierNum;
         //显示羁绊内容
         if (fetterInformation.Count > 0)
         {

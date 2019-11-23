@@ -116,8 +116,8 @@ public class ChangeAndGet : MonoBehaviour
         //显示点击英雄的名字  及  阶数（阶数尚未得到）
         GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = HeroDate[1] + "\u1500";
         //显示兵种及英雄相关属性  （缺少拥有个数）
-        int nums = GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(heroId_);
-        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = heroKindName + "拥有" + nums + "\u2000" + "攻击" + HeroDate[6] + "\u2000" + "防御" + HeroDate[7] + "\u2000" + "士兵" + HeroDate[8];
+        //int nums = GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(heroId_);
+        GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = heroKindName + /*"拥有" + nums +*/ "\u2000" + "攻击" + HeroDate[6] + "\u2000" + "防御" + HeroDate[7] + "\u2000" + "士兵" + HeroDate[8];
         //显示羁绊内容
         if (fetterInformation.Count > 0)
         {

@@ -1699,6 +1699,7 @@ public class CreateAndUpdate : MonoBehaviour
         {
             //print("myCard:"+myCard[i]);
         }
+        LateInitHeroNums(0.1f);    //刷新购买的武将拥有数量显示
     }
 
 
@@ -1837,15 +1838,23 @@ public class CreateAndUpdate : MonoBehaviour
     }
 
     /// <summary>
+    /// 延时加载武将拥有数量
+    /// </summary>
+    /// <param name="times"></param>
+    public void LateInitHeroNums(float times)
+    {
+        Invoke("UpdateHadHeroNumsText", times);
+    }
+
+    /// <summary>
     /// 刷新购买的武将拥有数量显示
     /// </summary>
-    public void UpdateHadHeroNumsText()
+    private void UpdateHadHeroNumsText()
     {
+        Debug.Log(string.Format("{0},{1},{2},{3},{4}", excelText[0], excelText[1], excelText[2], excelText[3], excelText[4]));
         for (int i = 0; i < heroBtn.Count; i++)
         {
-            //拥有数量显示
-            //print(excelText[i]);
-           // heroBtn[i].GetComponentsInChildren<Text>()[2].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[2].text = backGround.GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(excelText[i]).ToString();
         }
     }
 

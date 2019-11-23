@@ -6,7 +6,7 @@ using System.Linq;
 
 public class HeroIdChangeAndSave : MonoBehaviour
 {
-    public static int[] pos_heroId = new int[16];     //记录九宫格和备战区的英雄id
+    public static int[] pos_heroId = new int[16];           //记录九宫格和备战区的英雄id
 
     public Transform JiuGongGe; //九宫格
     public Transform BeiZhanWei;//备战位
@@ -15,8 +15,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public List<string> fightIdList = new List<string>();   //上阵英雄id
     public List<string> allIdList = new List<string>();     //全部英雄id
 
-    List<int> allIdList_int = new List<int>();     //全部英雄id
-    List<int> fightIdList_int = new List<int>();   //上阵英雄id
+    List<int> allIdList_int = new List<int>();              //全部英雄id
+    List<int> fightIdList_int = new List<int>();            //上阵英雄id
 
     public List<string> heroTypeName = new List<string>();
     List<List<string>> fetterInformation = new List<List<string>>(); ////////////////////////////////激活羁绊的详细信息
@@ -24,24 +24,24 @@ public class HeroIdChangeAndSave : MonoBehaviour
     List<string> arrayGo = new List<string>() { "19", "89", "53", "54", "68" };  //上阵英雄数组,用以测试
 
     [SerializeField]
-    GameObject SellCardBtn; //出售卡牌按钮
+    GameObject SellCardBtn;             //出售卡牌按钮
     [HideInInspector]
-    public Transform SelectHerpCard;   //选中的英雄卡牌
+    public Transform SelectHerpCard;    //选中的英雄卡牌
 
     public Transform LeftInformationBar;//左侧信息栏
-    public GameObject heroTypePrefab;    //信息预制件
+    public GameObject heroTypePrefab;   //信息预制件
     public GameObject forcesName;
 
-    int shieldSoldierNum;              //盾兵数量
-    int mahoutNum;                     //象兵数量
-    int halberdierNum ;                //戟兵数量
-    int lifeguardNum ;                 //禁卫数量
-    int spearmanNum ;                   //枪兵数量
-    int sowarNum ;                      //骑兵数量
-    int counsellorNum ;                 //军师数量
-    int sapperNum;                      //工兵数量
-    int necromancerNum ;                //方士数量
-    int god_beast;                      //神兽数量
+    int shieldSoldierNum;   //盾兵数量
+    int mahoutNum;          //象兵数量
+    int halberdierNum;      //戟兵数量
+    int lifeguardNum;       //禁卫数量
+    int spearmanNum;        //枪兵数量
+    int sowarNum;           //骑兵数量
+    int counsellorNum;      //军师数量
+    int sapperNum;          //工兵数量
+    int necromancerNum;     //方士数量
+    int god_beast;          //神兽数量
     List<int> soldiersKindId = new List<int>();//上阵英雄的兵种类型
 
     public static List<int> activationSkillId_soldiers = new List<int>();///////////////////////////////////激活的兵种技能
@@ -61,6 +61,26 @@ public class HeroIdChangeAndSave : MonoBehaviour
         CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
+        for (int i = 0; i < pos_heroId.Length; i++)
+        {
+            if (pos_heroId[i] > 0)
+            {
+                if (i < 9)
+                {
+                    if (JiuGongGe.GetChild(i).childCount < 0)
+                    {
+                        pos_heroId[i] = 0;
+                    }
+                }
+                else
+                {
+                    if (BeiZhanWei.GetChild(i - 9).childCount < 0)
+                    {
+                        pos_heroId[i] = 0;
+                    }
+                }
+            }
+        }
         Invoke("LoadTextOfNum",0.1f);
     }
     //延时刷新备战位和上阵位人数显示
@@ -126,12 +146,11 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     private void Update()
     {
-        //string str = "///";
         //for (int i = 0; i < 16; i++)
         //{
-        //    str += (pos_heroId[i] + " ");
+        //    Debug.Log(string.Format("{0}，{1}，{2}，{3}，{4}，{5}，{6}，{7}，{8}，{9}，{10}，{11}，{12}，{13}，{14}，{15}", pos_heroId[0], pos_heroId[1], pos_heroId[2], pos_heroId[3], pos_heroId[4], pos_heroId[5], pos_heroId[6], pos_heroId[7],
+        //        pos_heroId[8], pos_heroId[9], pos_heroId[10], pos_heroId[11], pos_heroId[12], pos_heroId[13], pos_heroId[14], pos_heroId[15]));
         //}
-        //Debug.Log(str);
     }
 
 
