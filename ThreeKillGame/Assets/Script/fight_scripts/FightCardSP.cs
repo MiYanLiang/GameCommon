@@ -585,6 +585,7 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     private void LiteTimeStart()
     {
+        roundTextObj.gameObject.SetActive(false);
         isStart = true;
     }
 
