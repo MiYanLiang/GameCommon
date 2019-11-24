@@ -11,6 +11,8 @@ public class FightCardSP : MonoBehaviour
     private GameObject SettlementPic;   //结算页面
 
     private bool isEndOFInit = false;   //记录是否初始化结束
+    [SerializeField]
+    public Text battle_Text;
     [HideInInspector]
     public int battles;       //记录对战次数
     private int winBattles;   //记录胜利场数
@@ -55,6 +57,7 @@ public class FightCardSP : MonoBehaviour
     private void Awake()
     {
         battles = 1;
+        battle_Text.text = "战斗次数：" + (battles - 1);
         winBattles = 0;
     }
 
@@ -67,6 +70,8 @@ public class FightCardSP : MonoBehaviour
         roundNum = 1;
         isPlayerBout = true;
         battles += 1;
+        battle_Text.text = "战斗次数：" + (battles-1);
+
         InitArmsSkillStatus();
         InitializeBattleCard();
         isFightNow = false;
