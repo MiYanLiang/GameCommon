@@ -54,6 +54,8 @@ public class DrumSkillControll : MonoBehaviour
     /// </summary>
     public void WindDrumSkill()
     {
+        audioSource.clip = audioDrums[1];
+        audioSource.Play();
         if (!canTakeDrum)
         {
             return;
@@ -69,8 +71,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        audioSource.clip = audioDrums[1];
-        audioSource.Play();
         int index = -1;
         for (int i = 0; i < 9; i++)
         {
@@ -120,6 +120,8 @@ public class DrumSkillControll : MonoBehaviour
     /// </summary>
     public void ThunderDrumSkill()
     {
+        audioSource.clip = audioDrums[2];
+        audioSource.Play();
         if (!canTakeDrum)
         {
             return;
@@ -134,8 +136,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        audioSource.clip = audioDrums[2];
-        audioSource.Play();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {
@@ -180,6 +180,8 @@ public class DrumSkillControll : MonoBehaviour
     /// </summary>
     public void WaterDrumSkill()
     {
+        audioSource.clip = audioDrums[0];
+        audioSource.Play();
         if (!canTakeDrum)
         {
             return;
@@ -194,8 +196,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        audioSource.clip = audioDrums[0];
-        audioSource.Play();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {
@@ -229,6 +229,8 @@ public class DrumSkillControll : MonoBehaviour
     /// </summary>
     public void FireDrumSkill()
     {
+        audioSource.clip = audioDrums[3];
+        audioSource.Play();
         if (!canTakeDrum)
         {
             return;
@@ -243,8 +245,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        audioSource.clip = audioDrums[3];
-        audioSource.Play();
         int index = -1;
         for (int i = 0; i < 9; i++)
         {
@@ -279,6 +279,8 @@ public class DrumSkillControll : MonoBehaviour
     /// </summary>
     public void DustDrumSkill()
     {
+        audioSource.clip = audioDrums[4];
+        audioSource.Play();
         if (!canTakeDrum)
         {
             return;
@@ -293,8 +295,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        audioSource.clip = audioDrums[4];
-        audioSource.Play();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {     

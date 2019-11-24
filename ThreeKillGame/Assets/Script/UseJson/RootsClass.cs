@@ -52,9 +52,16 @@ public class Roots
     /// 文本信息配置表
     /// </summary>
     public List<TipsTableItem> TipsTable { get; set; }
+
     /// <summary>
     /// 兵种种类表
     /// </summary>
     public List<SoldierTypeItem> SoldierType { get; set; }
+
+    /// <summary>
+    /// NPC和boss数据表
+    /// </summary>
+    public List<NPCTableItem> NPCTable { get; set; }
+    
 
 }

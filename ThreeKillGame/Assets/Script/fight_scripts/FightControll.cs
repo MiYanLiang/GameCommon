@@ -19,10 +19,7 @@ public class FightControll : MonoBehaviour
     //public Text[] forceNames;   //游戏内势力单个字显示
     [SerializeField]
     Transform backGround;   //用来获取背景上的代码UIControl
-    [SerializeField]
-    Image playerForceFlag;    //玩家势力头像
-    [SerializeField]
-    Image rivalForceFlag;    //其他势力头像
+
 
     public GameObject hero_Card;    //英雄卡片预制件
     //各个npc上阵九宫格
@@ -206,8 +203,6 @@ public class FightControll : MonoBehaviour
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
         FightCardSps[0].GetComponent<FightCardSP>().enemyForceId = rivalId;
-        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
-        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.array_forces[rivalId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
 
         FightCardSps[0].gameObject.SetActive(true);
     }
@@ -247,35 +242,61 @@ public class FightControll : MonoBehaviour
                     if (npcWinRate[i] < 50)  //小于等于50则输
                     {
                         //输了扣血
-                        npcPlayerHps[i] -= Random.Range(1+ npcLessHpValue, 11+ npcLessHpValue);
+                        npcPlayerHps[i] -= Random.Range(1 + npcLessHpValue, 11 + npcLessHpValue);
                         //显示战况信息
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
+                        }
+                        else
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                        }
                     }
                     else
                     {
                         //赢了加胜利场数
                         allWinTimes[i]++;
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
+                        }
+                        else
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                        }
                     }
                 }
                 else
                 {
                     if (npcWinRate[i] <= 50)
                     {
-                        npcPlayerHps[i] -= Random.Range(1+ npcLessHpValue, 11+ npcLessHpValue);
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                        npcPlayerHps[i] -= Random.Range(1 + npcLessHpValue, 11 + npcLessHpValue);
+                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
+                        }
+                        else
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                        }
                     }
                     else
                     {
                         allWinTimes[i]++;
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
+                        }
+                        else
+                        {
+                            textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                        }
                     }
                 }
                 index_list++;
             }
         }
-
-        
     }
 
     /// <summary>

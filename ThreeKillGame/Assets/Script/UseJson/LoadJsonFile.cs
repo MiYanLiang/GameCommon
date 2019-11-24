@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable";
 
 
     /// <summary>
@@ -70,10 +70,16 @@ public class LoadJsonFile : MonoBehaviour
     /// 文本信息配置表
     /// </summary>
     public static List<List<string>> TipsTableDates;
+
     /// <summary>
     /// 兵种信息表
     /// </summary>
     public static List<List<string>> SoldierTypeDates;
+
+    /// <summary>
+    /// NPC和boss数据表
+    /// </summary>
+    public static List<List<string>> NPCTableDates;
 
 
 
@@ -323,7 +329,34 @@ public class LoadJsonFile : MonoBehaviour
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
-
+        //加载NPC和boss数据表数据:NPCTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            NPCTableDates = new List<List<string>>(root.NPCTable.Count);
+            for (int i = 0; i < root.NPCTable.Count; i++)
+            {
+                NPCTableDates.Add(new List<string>());
+                NPCTableDates[i].Add(root.NPCTable[i].enemyId);
+                NPCTableDates[i].Add(root.NPCTable[i].type);
+                NPCTableDates[i].Add(root.NPCTable[i].enemyName);
+                NPCTableDates[i].Add(root.NPCTable[i].beginning);
+                NPCTableDates[i].Add(root.NPCTable[i].ending);
+                NPCTableDates[i].Add(root.NPCTable[i].weeks);
+                NPCTableDates[i].Add(root.NPCTable[i].seat1);
+                NPCTableDates[i].Add(root.NPCTable[i].seat2);
+                NPCTableDates[i].Add(root.NPCTable[i].seat3);
+                NPCTableDates[i].Add(root.NPCTable[i].seat4);
+                NPCTableDates[i].Add(root.NPCTable[i].seat5);
+                NPCTableDates[i].Add(root.NPCTable[i].seat6);
+                NPCTableDates[i].Add(root.NPCTable[i].seat7);
+                NPCTableDates[i].Add(root.NPCTable[i].seat8);
+                NPCTableDates[i].Add(root.NPCTable[i].seat9);
+                NPCTableDates[i].Add(root.NPCTable[i].intro);
+                NPCTableDates[i].Add(root.NPCTable[i].forceId);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
 
 
 
