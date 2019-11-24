@@ -74,8 +74,10 @@ public class HeroDataControll : MonoBehaviour {
             //gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[0] + ":" + HeroData[1];
             gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
-            gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroData[7];
-            GetHeroKind_(gameObject);
+            //gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroData[7];
+            //设置左上角兵种文字
+            gameObject.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(HeroData[3])-1][2];
+            //GetHeroKind_(gameObject);
             //设置兵种背景
             gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/"+HeroData[3],typeof(Sprite)) as Sprite;
         }

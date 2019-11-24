@@ -161,6 +161,8 @@ public class FightControll : MonoBehaviour
                     newheroCard.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + enemyHeroDatas[i][m][3], typeof(Sprite)) as Sprite;  //设置敌方武将兵种背景图片
                     //设置品阶颜色表现和属性
                     newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2];
+                    //设置左上角兵种文字
+                    newheroCard.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(enemyHeroDatas[i][m][3]) - 1][2];
 
                     //设置文字颜色，体现卡牌稀有度
                     switch (int.Parse(enemyHeroDatas[i][m][4]))
@@ -182,10 +184,9 @@ public class FightControll : MonoBehaviour
                     //newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][0] + ":" + enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(1).GetComponent<Text>().text = enemyHeroDatas[i][m][6];
-                    newheroCard.transform.GetChild(2).GetComponent<Text>().text = enemyHeroDatas[i][m][7];
+                    //newheroCard.transform.GetChild(2).GetComponent<Text>().text = enemyHeroDatas[i][m][7];
                 }
             }
-
         }
     }
 
@@ -248,13 +249,13 @@ public class FightControll : MonoBehaviour
                         //输了扣血
                         npcPlayerHps[i] -= Random.Range(1+ npcLessHpValue, 11+ npcLessHpValue);
                         //显示战况信息
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=red>{1}</color>        <color=blue>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
                     }
                     else
                     {
                         //赢了加胜利场数
                         allWinTimes[i]++;
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=green>{1}</color>        <color=blue>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i]-1][1],"胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
                     }
                 }
                 else
@@ -262,12 +263,12 @@ public class FightControll : MonoBehaviour
                     if (npcWinRate[i] <= 50)
                     {
                         npcPlayerHps[i] -= Random.Range(1+ npcLessHpValue, 11+ npcLessHpValue);
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
                     }
                     else
                     {
                         allWinTimes[i]++;
-                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=black>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
+                        textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.array_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enem] - 1][1]);
                     }
                 }
                 index_list++;

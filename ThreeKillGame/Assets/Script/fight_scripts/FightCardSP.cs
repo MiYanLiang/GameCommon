@@ -299,7 +299,7 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             //展示战况
-                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=white>{0}</color>        <color=green>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
+                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
                             fightControll.GetComponent<FightControll>().BattleSettlement();
                             
                             //延时显示结算界面
@@ -322,6 +322,7 @@ public class FightCardSP : MonoBehaviour
             {
                 if (fightNum >= 3 && playerCards[fightNum % 3] != null && playerCards[fightNum % 3].GetComponent<CardMove>().Health > 0)
                 {
+                    selectEnemy = fightNum % 3;
                     return playerCards[fightNum % 3];
                 }
                 else
@@ -350,34 +351,11 @@ public class FightCardSP : MonoBehaviour
                             CreateAndUpdate.playerHp -= (int)(remainScale * 10);    //玩家扣血
                                                                                     //金币
                             CreateAndUpdate.money += 0;   //玩家不加金币
-
-                            //展示战斗胜负信息
-                            if (remainScale >= 0.75f)
-                            {
-                                //victoryOrFailureText.text = "惨败";
-                            }
-                            else
-                            {
-                                if (remainScale >= 0.5f)
-                                {
-                                    //victoryOrFailureText.text = "大败";
-                                }
-                                else
-                                {
-                                    if (remainScale >= 0.25f)
-                                    {
-                                        //victoryOrFailureText.text = "小败";
-                                    }
-                                    else
-                                    {
-                                        //victoryOrFailureText.text = "惜败";
-                                    }
-                                }
-                            }
+                            
                             SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
                             SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
 
-                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=white>{0}</color>        <color=red>{1}</color>        <color=black>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
+                            SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
                             fightControll.GetComponent<FightControll>().BattleSettlement();
 
 
