@@ -72,7 +72,7 @@ public class FightCardSP : MonoBehaviour
     private void Awake()
     {
         battles = 1;
-        battle_Text.text = "战斗次数：" + (battles - 1);
+        battle_Text.text = "上古" + battles + "日";
         winBattles = 0;
     }
 
@@ -87,7 +87,7 @@ public class FightCardSP : MonoBehaviour
         roundNum = 1;
         isPlayerBout = true;
         battles += 1;
-        battle_Text.text = "战斗次数：" + (battles-1);
+        battle_Text.text = "上古" + battles + "日";
 
         InitArmsSkillStatus();
         //敌人初始化
