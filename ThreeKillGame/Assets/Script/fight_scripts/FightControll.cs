@@ -8,9 +8,7 @@ using UnityEngine.UI;
 /// </summary>
 public class FightControll : MonoBehaviour
 {
-
-    //private int playerForceId;    //玩家势力的ID
-    //private int[] forceIds;     //记录其他势力的ID
+    public static float textDelayTime = 0.1f;   //延迟加载文字
     [SerializeField]
     private float speed_time = 0.3f;
     public static float speedTime;    //卡牌移动速度

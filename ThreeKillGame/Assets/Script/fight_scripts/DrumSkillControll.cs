@@ -332,8 +332,6 @@ public class DrumSkillControll : MonoBehaviour
         UpdateShowDrumText();
     }
 
-
-
     //战鼓技能end-----------------------------------------
 
     /// <summary>

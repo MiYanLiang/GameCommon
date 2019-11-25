@@ -431,21 +431,29 @@ public class CardMove : MonoBehaviour
         }
         Health -= hurt;     //反伤
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
-        if (transform.GetChild(5).childCount < 1)
-        {
-            GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+        haiShouHurt = hurt;
+        //if (transform.GetChild(5).childCount < 1)
+        //{
+            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
             cutHpObj.GetComponent<Text>().color = Color.red;
-            cutHpObj.GetComponent<Text>().text = "-" + hurt;
+            cutHpObj.GetComponent<Text>().text = "-" + haiShouHurt;
             obj.transform.GetChild(4).gameObject.SetActive(true);
-        }
-        else
-        {
-            GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
-            cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
-            cutHpObj.GetComponent<Text>().color = Color.red;
-            cutHpObj.GetComponent<Text>().text = "-" + hurt;
-            obj.transform.GetChild(4).gameObject.SetActive(true);
-        }
+            haiShouHurt = 0;
+        //}
+        //else
+        //{
+        //    Invoke("DelayLoadHaiShouSkill", FightControll.textDelayTime);
+        //}
+    }
+    //延迟加载反伤
+    private int haiShouHurt = 0;
+    private void DelayLoadHaiShouSkill()
+    {
+        GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+        cutHpObj.GetComponent<Text>().color = Color.red;
+        cutHpObj.GetComponent<Text>().text = "-" + haiShouHurt;
+        transform.GetChild(4).gameObject.SetActive(true);
+        haiShouHurt = 0;
     }
 
     /// <summary>
@@ -1373,19 +1381,12 @@ public class CardMove : MonoBehaviour
         }
         else
         {
-            if (obj.transform.GetChild(5).childCount < 1)
-            {
+            //if (obj.transform.GetChild(5).childCount < 1)
+            //{
                 GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
                 cutHpObj.GetComponent<Text>().color = Color.red;
                 cutHpObj.GetComponent<Text>().text = "-" + realDamage;
-            }
-            else
-            {
-                GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-                cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
-                cutHpObj.GetComponent<Text>().color = Color.red;
-                cutHpObj.GetComponent<Text>().text = "-" + realDamage;
-            }
+            //}
         }
 
         //敌方血条的计算和显示
@@ -1428,19 +1429,10 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void UpdateOwnHp(int addHp, GameObject obj)
     {
-        if (obj.transform.GetChild(5).childCount < 1)
-        {
-            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-            cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
-            cutHpObj.GetComponent<Text>().text = "+" + addHp;
-        }
-        else
-        {
-            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-            cutHpObj.transform.position = new Vector3(cutHpObj.transform.position.x, cutHpObj.transform.position.y - 20, cutHpObj.transform.position.z);
-            cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
-            cutHpObj.GetComponent<Text>().text = "+" + addHp;
-        }
+        GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+        cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
+        cutHpObj.GetComponent<Text>().text = "+" + addHp;
+        
         //血条的显示
         obj.GetComponent<Slider>().value = 1 - obj.GetComponent<CardMove>().Health / (float)obj.GetComponent<CardMove>().Fullhealth;
     }

@@ -8,26 +8,48 @@ public class cutHpTextControll : MonoBehaviour
 {
     Text cutHpText;
 
+    private float addPosY = 15;
+
+    private Sequence textMoveSequence;
+
     private void Start()
     {
         cutHpText = GetComponent<Text>();
         TextMoved(cutHpText);
-        //Invoke("HideWidget", FightControll.speedTime * 1.5f);
+
+        int count = transform.parent.childCount;
+        Debug.Log("count: " + count);
+        if (count>0)
+        {
+            textMoveSequence.Play();
+            Invoke("DestortThisText", FightControll.speedTime * 1.6f);  //销毁
+        }
+        else
+        {
+            Invoke("DelayShowText", FightControll.speedTime * 1f);
+            Invoke("DestortThisText", FightControll.speedTime * 2.6f);  //销毁
+        }
+
     }
-    
 
     /// <summary>
-    /// 隐藏自身
+    /// 延迟销毁
     /// </summary>
-    private void HideWidget()
+    private void DestortThisText()
     {
-        gameObject.SetActive(false);
+        Destroy(transform.gameObject);
+    }
+
+    /// <summary>
+    /// 延迟显示
+    /// </summary>
+    private void DelayShowText()
+    {
+        textMoveSequence.Play();
     }
 
     private void TextMoved(Graphic graphic)
     {
-
-        //获得Text的rectTransform，和颜色，并设置颜色微透明
 
         RectTransform rect = graphic.rectTransform;
 
@@ -37,21 +59,21 @@ public class cutHpTextControll : MonoBehaviour
 
         //设置一个DOTween队列
 
-        Sequence textMoveSequence = DOTween.Sequence();
+        textMoveSequence = DOTween.Sequence();
 
         //设置Text移动和透明度的变化值
 
-        Tweener textMove01 = rect.DOMoveY(rect.position.y + 15, FightControll.speedTime * 0.2f);
+        Tweener textMove01 = rect.DOMoveY(rect.position.y + addPosY, FightControll.speedTime * 0.3f);
 
-        Tweener textMove02 = rect.DOMoveY(rect.position.y, FightControll.speedTime * 0.1f);
+        Tweener textMove02 = rect.DOMoveY(rect.position.y + addPosY, FightControll.speedTime * 0.3f);
 
         Tweener textColor01 = graphic.DOColor(new Color(color.r, color.g, color.b, 1), FightControll.speedTime * 0.3f);
 
-        Tweener textColor02 = graphic.DOColor(new Color(color.r, color.g, color.b, 0), FightControll.speedTime * 0.1f);
+        Tweener textColor02 = graphic.DOColor(new Color(color.r, color.g, color.b, 0), FightControll.speedTime * 0.3f);
 
         //Append 追加一个队列，Join 添加一个队列
 
-        //中间间隔一秒
+        //中间间隔
 
         //Append 再追加一个队列，再Join 添加一个队列
 
@@ -59,10 +81,12 @@ public class cutHpTextControll : MonoBehaviour
 
         textMoveSequence.Join(textColor01);
 
-        textMoveSequence.AppendInterval(1);
+        textMoveSequence.AppendInterval(FightControll.speedTime * 1f);
 
         textMoveSequence.Append(textMove02);
 
         textMoveSequence.Join(textColor02);
+
+        textMoveSequence.Pause();
     }
 }
