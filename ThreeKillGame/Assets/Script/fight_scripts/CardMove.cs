@@ -430,7 +430,7 @@ public class CardMove : MonoBehaviour
         }
         Health -= hurt;     //反伤
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
-        GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+        GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
         cutHpObj.GetComponent<Text>().color = Color.red;
         cutHpObj.GetComponent<Text>().text = "-" + hurt;
         obj.transform.GetChild(4).gameObject.SetActive(true);

@@ -19,7 +19,7 @@ public class cutHpTextControll : MonoBehaviour
 
         int count = transform.parent.childCount;
         Debug.Log("count: " + count);
-        if (count>0)
+        if (count < 2)
         {
             textMoveSequence.Play();
             Invoke("DestortThisText", FightControll.speedTime * 1.6f);  //销毁
