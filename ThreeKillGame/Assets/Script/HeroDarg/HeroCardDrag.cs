@@ -6,8 +6,9 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class HeroCardDrag : MonoBehaviour {
-    
+public class HeroCardDrag : MonoBehaviour
+{
+
     private Transform backGround;    //背景存放id数据
     private Transform beginParentTransform; //记录拖拽卡片的父级对象
     /// <summary>
@@ -21,15 +22,12 @@ public class HeroCardDrag : MonoBehaviour {
     private float moveSpeed = 0.2f;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         canvas_Transform = GameObject.Find("Canvas").transform;
         jiuGongge_Transform = GameObject.Find("JiuGongge").transform;
         preparation_Transform = GameObject.Find("Preparation").transform;
         backGround = canvas_Transform.GetChild(0);
-    }
-    private void Update()
-    {
-        //print("pppppppppppppppppppp" + transform.GetComponent<HeroDataControll>().HeroData[0]);
     }
 
     /// <summary>
@@ -141,7 +139,6 @@ public class HeroCardDrag : MonoBehaviour {
             SetPosAndParent(transform, beginParentTransform);
             transform.GetComponent<Image>().raycastTarget = true;
         }
-        //transform.GetChild(0).gameObject.SetActive(true);
 
         string strid = "";
         for (int i = 0; i < HeroIdChangeAndSave.pos_heroId.Length; i++)
@@ -149,8 +146,7 @@ public class HeroCardDrag : MonoBehaviour {
             strid = strid + "  " + HeroIdChangeAndSave.pos_heroId[i];
         }
         //延时刷新上阵位等信息
-        Invoke("UpdateOthersNumText", moveSpeed*2.5f);
-
+        Invoke("UpdateOthersNumText", moveSpeed * 2.5f);
     }
 
     /// <summary>
@@ -180,5 +176,4 @@ public class HeroCardDrag : MonoBehaviour {
         GameObject backGround = GameObject.Find("backGround");
         backGround.GetComponent<HeroIdChangeAndSave>().RestoreCardUnSelect(transform, int.Parse(transform.parent.name));
     }
-
 }

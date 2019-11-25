@@ -25,12 +25,6 @@ public class EmFightControll : MonoBehaviour
         hardNum = PlayerPrefs.GetInt("DifficultyType");  //难度值获取
     }
 
-    private void Start()
-    {
-
-    }
-
-
     /// <summary>
     /// 接收敌方武将现有的上阵卡牌，进行卡牌变化和传递
     /// </summary>
@@ -190,7 +184,6 @@ public class EmFightControll : MonoBehaviour
             if (heroCount < arrayBattles[0])
             {
                 //添加英雄 
-                //ClearDate();
                 AddHeros(enemyUnits, arrayBattles[0] - heroCount);
             }
         }
@@ -200,7 +193,6 @@ public class EmFightControll : MonoBehaviour
             {
                 if (heroCount < arrayBattles[1])
                 {
-                    //ClearDate(); 
                     AddHeros(enemyUnits, arrayBattles[1] - heroCount);
                 }
             }
@@ -210,7 +202,6 @@ public class EmFightControll : MonoBehaviour
                 {
                     if (heroCount < arrayBattles[2])
                     {
-                        //ClearDate();
                         AddHeros(enemyUnits, arrayBattles[2] - heroCount);
                     }
                 }
@@ -220,7 +211,6 @@ public class EmFightControll : MonoBehaviour
                     {
                         if (heroCount < arrayBattles[3])
                         {
-                            //ClearDate();
                             AddHeros(enemyUnits, arrayBattles[3] - heroCount);
                         }
                     }
@@ -230,7 +220,6 @@ public class EmFightControll : MonoBehaviour
                         {
                             if (heroCount < arrayBattles[4])
                             {
-                                //ClearDate();
                                 AddHeros(enemyUnits, arrayBattles[4] - heroCount);
                             }
                         }
@@ -240,7 +229,6 @@ public class EmFightControll : MonoBehaviour
                             {
                                 if (heroCount < arrayBattles[5])
                                 {
-                                    //ClearDate();
                                     AddHeros(enemyUnits, arrayBattles[5] - heroCount);
                                 }
                             }
@@ -250,7 +238,6 @@ public class EmFightControll : MonoBehaviour
                                 {
                                     if (heroCount < arrayBattles[6])
                                     {
-                                        //ClearDate();
                                         AddHeros(enemyUnits, arrayBattles[6] - heroCount);
                                     }
                                 }
@@ -260,7 +247,6 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (heroCount < arrayBattles[7])
                                         {
-                                            //ClearDate();
                                             AddHeros(enemyUnits, arrayBattles[7] - heroCount);
                                         }
                                     }
@@ -270,7 +256,6 @@ public class EmFightControll : MonoBehaviour
                                         {
                                             if (heroCount < arrayBattles[8])
                                             {
-                                                //ClearDate();
                                                 AddHeros(enemyUnits, arrayBattles[8] - heroCount);
                                             }
                                         }
@@ -278,7 +263,6 @@ public class EmFightControll : MonoBehaviour
                                         {
                                             if (heroCount < arrayBattles[9])
                                             {
-                                                //ClearDate();
                                                 AddHeros(enemyUnits, arrayBattles[9] - heroCount);
                                             }
                                         }
@@ -393,7 +377,6 @@ public class EmFightControll : MonoBehaviour
                 continue;
             }
         }
-
         int num = 0;
         //添加新英雄到总英雄数据中
         for (int i = 0; i < 9; i++)
@@ -412,8 +395,6 @@ public class EmFightControll : MonoBehaviour
             }
         }
     }
-
-
 
     /// <summary>
     /// 判断是否已经有此英雄
@@ -435,7 +416,6 @@ public class EmFightControll : MonoBehaviour
         }
         return false;
     }
-
 
     /// <summary>
     /// 升色方法
@@ -507,5 +487,4 @@ public class EmFightControll : MonoBehaviour
         else
             return false;
     }
-
 }

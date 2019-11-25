@@ -6,14 +6,7 @@ public class FateControl : MonoBehaviour {
 
 	// Use this for initialization
     public GameObject fatePanel;//拿到缘集的面板
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
     //打开身份面板
     public void OpenFatePanel()
     {

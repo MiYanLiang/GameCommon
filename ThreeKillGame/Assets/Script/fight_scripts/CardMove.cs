@@ -135,7 +135,6 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void ChangeToFightOver()
     {
-        //FightCardSP.isFightNow = false;
         ChangeToFight(StateOfAttack.FightOver);
         gameObject.transform.position = vec;
     }
@@ -431,29 +430,10 @@ public class CardMove : MonoBehaviour
         }
         Health -= hurt;     //反伤
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
-        haiShouHurt = hurt;
-        //if (transform.GetChild(5).childCount < 1)
-        //{
-            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-            cutHpObj.GetComponent<Text>().color = Color.red;
-            cutHpObj.GetComponent<Text>().text = "-" + haiShouHurt;
-            obj.transform.GetChild(4).gameObject.SetActive(true);
-            haiShouHurt = 0;
-        //}
-        //else
-        //{
-        //    Invoke("DelayLoadHaiShouSkill", FightControll.textDelayTime);
-        //}
-    }
-    //延迟加载反伤
-    private int haiShouHurt = 0;
-    private void DelayLoadHaiShouSkill()
-    {
-        GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+        GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
         cutHpObj.GetComponent<Text>().color = Color.red;
-        cutHpObj.GetComponent<Text>().text = "-" + haiShouHurt;
-        transform.GetChild(4).gameObject.SetActive(true);
-        haiShouHurt = 0;
+        cutHpObj.GetComponent<Text>().text = "-" + hurt;
+        obj.transform.GetChild(4).gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -626,6 +606,16 @@ public class CardMove : MonoBehaviour
         }
     }
 
+    private void SanXianSkillAdd(GameObject obj, int damageNote)
+    {
+        if (obj != null && obj.GetComponent<CardMove>().Health > 0)
+        {
+            realDamage = SkillRealDamage(damageNote, obj, false);
+            UpdateEnemyHp(obj);
+            NormalAttackEffects(obj, 4);
+        }
+    }
+
     /// <summary>
     /// 散仙动态技能
     /// </summary>
@@ -652,24 +642,14 @@ public class CardMove : MonoBehaviour
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
-                    {
-                        realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[i], false);
-                        UpdateEnemyHp(FightCardSP.enemyCards[i]);
-                        NormalAttackEffects(FightCardSP.enemyCards[i], 4);
-                    }
+                    SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
                 }
             }
             else
             {
                 for (int i = 0; i < 3; i++)
                 {
-                    if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
-                    {
-                        realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[i], false);
-                        UpdateEnemyHp(FightCardSP.playerCards[i]);
-                        NormalAttackEffects(FightCardSP.playerCards[i], 4);
-                    }
+                    SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
                 }
             }
         }
@@ -681,24 +661,14 @@ public class CardMove : MonoBehaviour
                 {
                     for (int i = 3; i < 6; i++)
                     {
-                        if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
-                        {
-                            realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[i], false);
-                            UpdateEnemyHp(FightCardSP.enemyCards[i]);
-                            NormalAttackEffects(FightCardSP.enemyCards[i], 4);
-                        }
+                        SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
                     }
                 }
                 else
                 {
                     for (int i = 3; i < 6; i++)
                     {
-                        if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
-                        {
-                            realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[i], false);
-                            UpdateEnemyHp(FightCardSP.playerCards[i]);
-                            NormalAttackEffects(FightCardSP.playerCards[i], 4);
-                        }
+                        SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
                     }
                 }
             }
@@ -708,24 +678,14 @@ public class CardMove : MonoBehaviour
                 {
                     for (int i = 6; i < 9; i++)
                     {
-                        if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
-                        {
-                            realDamage = SkillRealDamage(damageNote, FightCardSP.enemyCards[i], false);
-                            UpdateEnemyHp(FightCardSP.enemyCards[i]);
-                            NormalAttackEffects(FightCardSP.enemyCards[i], 4);
-                        }
+                        SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
                     }
                 }
                 else
                 {
                     for (int i = 6; i < 9; i++)
                     {
-                        if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
-                        {
-                            realDamage = SkillRealDamage(damageNote, FightCardSP.playerCards[i], false);
-                            UpdateEnemyHp(FightCardSP.playerCards[i]);
-                            NormalAttackEffects(FightCardSP.playerCards[i], 4);
-                        }
+                        SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
                     }
                 }
             }
@@ -1110,7 +1070,6 @@ public class CardMove : MonoBehaviour
         switch (armsId)
         {
             case "1":   //山兽
-                //某数据加成
                 switch (activeId)
                 {
                     case 0:
@@ -1122,9 +1081,7 @@ public class CardMove : MonoBehaviour
                         Defence = (int)(1.2 * (float)Defence);
                         break;
                 }
-
                 break;
-
             case "2":   //海兽
                 switch (activeId)
                 {
@@ -1140,7 +1097,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "3":   //飞兽
                 switch (activeId)
                 {
@@ -1154,7 +1110,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "4":   //人杰
                 switch (activeId)
                 {
@@ -1170,7 +1125,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "5":   //祖巫
                 switch (activeId)
                 {
@@ -1184,7 +1138,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "6":   //散仙
                 switch (activeId)
                 {
@@ -1198,7 +1151,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "7":   //辅神
                 switch (activeId)
                 {
@@ -1212,7 +1164,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "8":   //魔神
                 switch (activeId)
                 {
@@ -1226,7 +1177,6 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-
             case "9":   //天神
                 switch (activeId)
                 {
@@ -1248,8 +1198,6 @@ public class CardMove : MonoBehaviour
     /// </summary>
     private void NormalAttack(GameObject enemyobject)
     {
-        
-
         //伤害计算
         realDamage = AttackTheEnemy(Force);
     }
@@ -1337,7 +1285,6 @@ public class CardMove : MonoBehaviour
         }
         //攻击特效
         NormalAttackEffects(EnemyObj, index_attack);
-
         //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
         return (int)(force * (140 / (70 + EnemyObj.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
     }
@@ -1381,12 +1328,9 @@ public class CardMove : MonoBehaviour
         }
         else
         {
-            //if (obj.transform.GetChild(5).childCount < 1)
-            //{
-                GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
-                cutHpObj.GetComponent<Text>().color = Color.red;
-                cutHpObj.GetComponent<Text>().text = "-" + realDamage;
-            //}
+            GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
+            cutHpObj.GetComponent<Text>().color = Color.red;
+            cutHpObj.GetComponent<Text>().text = "-" + realDamage;
         }
 
         //敌方血条的计算和显示
@@ -1444,7 +1388,6 @@ public class CardMove : MonoBehaviour
     private void HideGameObjText(GameObject obj, bool boo)
     {
         obj.transform.GetChild(4).gameObject.SetActive(boo);
-        //obj.transform.GetChild(5).gameObject.SetActive(boo);
     }
 
     /// <summary>

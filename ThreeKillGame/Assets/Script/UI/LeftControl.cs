@@ -11,14 +11,7 @@ public class LeftControl : MonoBehaviour {
     string updateTittle;
     public IdentityControl iden;
     int clickNum;
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
     public void ChangeLeft()
     {
         clickNum = iden.GetClickNum();
@@ -34,7 +27,6 @@ public class LeftControl : MonoBehaviour {
             updateTittle = productOrder[clickNum];
             tittleName.text = updateTittle;
         }
-        //Debug.Log(clickNum.ToString());
         iden.SetClickNum(clickNum);
     }
 }

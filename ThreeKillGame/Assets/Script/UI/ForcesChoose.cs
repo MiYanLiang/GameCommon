@@ -126,10 +126,8 @@ public class ForcesChoose : MonoBehaviour
     //读表获取势力名称显示
     void GetForcesName(int index)
     {
-       //Debug.Log(LoadJsonFile.forcesTableDatas[2][2]);
         for (int i = 0; i < 11; i++)
         {
-            //print(LoadJsonFile.forcesTableDatas[i][0]);
             if (int.Parse(LoadJsonFile.forcesTableDatas[i][0]) == index)
             {
                 forcesName.Add(LoadJsonFile.forcesTableDatas[i][1]);
@@ -137,6 +135,7 @@ public class ForcesChoose : MonoBehaviour
             }
         }
     }
+
     //将势力名字赋值给前端
     void SetNameForObj()
     {
@@ -145,6 +144,7 @@ public class ForcesChoose : MonoBehaviour
             forcesObj[getForces[i]].GetComponentInChildren<Text>().text = forcesName[i];
         }
     }
+
     //给随机出来的势力添加点击事件
     void SetClickObj()
     {
@@ -186,10 +186,10 @@ public class ForcesChoose : MonoBehaviour
             ShowTextOfForcesData(forcesExplain[5]);
         });
     }
+
     //选中圈显示
     void ShowSelected()
     {
-        //forcesObj[0].transform.Find("Back").gameObject.SetActive(true);
         if (canShow)
         {
             for (int i = 0; i < forcesObj.Count; i++)
@@ -205,10 +205,10 @@ public class ForcesChoose : MonoBehaviour
             }
         }
     }
+
     //随机战役
     public void RandomBattle()
     {
-        //forcesObj[0].transform.Find("Back").gameObject.SetActive(true);
         currentForcesIndex = -1;//防止选中圈刷新时不清除
         //将Back关闭
         for (int i = 0; i < forcesObj.Count; i++)
@@ -241,8 +241,6 @@ public class ForcesChoose : MonoBehaviour
         {
             battleName.GetComponent<Text>().fontSize = 80;
         }
-
-
         RandomList();
         ShowForces();
         for (int i = 0; i < getForces.Count; i++)
@@ -264,4 +262,3 @@ public class ForcesChoose : MonoBehaviour
         forcesText.GetComponent<Text>().DOText("\u3000\u3000" + data, playTextSpeed).SetEase(Ease.Linear).SetAutoKill(false);
     }
 }
-

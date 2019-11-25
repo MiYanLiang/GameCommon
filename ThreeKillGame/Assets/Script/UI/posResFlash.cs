@@ -39,7 +39,6 @@ public class posResFlash : MonoBehaviour
         }
     }
 
-
     //顶部势力按钮执行，优先显示界面
     public void ChangePosShow(int n)
     {

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 //在编辑器状态下执行该脚本
 [ExecuteInEditMode]
@@ -7,7 +6,6 @@ using System.Collections;
 [RequireComponent(typeof(Camera))]
 public class PostEffectsBase : MonoBehaviour
 {
-
     // 在Start()中调用
     protected void CheckResources()
     {
@@ -27,7 +25,6 @@ public class PostEffectsBase : MonoBehaviour
             Debug.LogWarning("This platform does not support image effects or render textures.");
             return false;
         }
-
         return true;
     }
 

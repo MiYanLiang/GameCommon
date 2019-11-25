@@ -83,7 +83,6 @@ public class CreateAndUpdate : MonoBehaviour
     /// </summary>
     public static void AddMoneyAndExp()
     {
-        //money += int.Parse(LoadJsonFile.levelTableDatas[level][3]);
         experience++;
         if (level < LoadJsonFile.levelTableDatas.Count && experience >= int.Parse(LoadJsonFile.levelTableDatas[level][2]))
         {
@@ -140,7 +139,6 @@ public class CreateAndUpdate : MonoBehaviour
         }
     }
 
-
     private void Awake()
     {
         level = 1;
@@ -156,7 +154,6 @@ public class CreateAndUpdate : MonoBehaviour
         money += 500;
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
-        //ChangeLevelText();
         SetPeopleHarets();
         getCardId.Clear();
         count = 5;
@@ -181,25 +178,13 @@ public class CreateAndUpdate : MonoBehaviour
         battleNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][4]);  //设置最大上阵位
         prepareNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][5]); //设置最大备战位
     }
-
-
-    //读取excel表格
+    
     void GetExcelFile()
     {
         excelText.Clear();
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-        //    ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
-            //print(worksheet.Cells[2,1].Value.ToString());
-            //GetValueFromId(18, worksheet2);
         for (int i = 0; i < myCard.Count; i++)
         {
             GetValueFromId(int.Parse(myCard[i].ToString()));
-            //heroBtn[i].GetComponentInChildren<Text>().text = myCard[i].ToString();
         }
         for (int i = 0; i < excelText.Count; i++)
         {
@@ -211,44 +196,21 @@ public class CreateAndUpdate : MonoBehaviour
             GetSpecificValue(excelText[i], "soliderForce");
             GetSpecificValue(excelText[i], "soliderRarity");
         }
-        //GetHeroRarity();
-        //GetHeroRarityId();
-        for (int i = 0; i < getCardId.Count; i++)
-        {
-            //print(myCard[i].ToString() + ".." + excelText[i].ToString()+".."+excelText.Count);
-            //print("CardId:"+ getCardId[i]);
-        }
-            //print(worksheet1.Cells.Columns);
-        //}
     }
+
     //读取获得各种稀有度英雄
     void GetExcelFile1()
     {
         excelText.Clear();
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            //ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
         GetHeroRarity();
         GetHeroRarityId();
-        //}
     }
+
     //读取英雄的相关属性
     void GetExcelFile_Nature()
     {
         excelText.Clear();
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
         GetSpecificValue(1, "attack");
-            //print(attack);
-        //}
     }
     //玩家卡牌随机
     void RandomList()
@@ -1696,10 +1658,6 @@ public class CreateAndUpdate : MonoBehaviour
         {
             print("啊，呸，穷鬼");
         }
-        for (int i = 0; i < myCard.Count; i++)
-        {
-            //print("myCard:"+myCard[i]);
-        }
         LateInitHeroNums(0.1f);    //刷新购买的武将拥有数量显示
     }
 
@@ -1714,12 +1672,9 @@ public class CreateAndUpdate : MonoBehaviour
             heroName.RemoveAt(5);
         }
         textHertNum.text= peopleHearts.ToString();
-        //print("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu"+myCard.Count);
 
         for (int i = 0; i < heroName.Count; i++)
         {
-
-            //heroBtn[i].GetComponentInChildren<Text>().text = heroName[i].ToString();
             //兵种显示
             if (soliderKind[i].ToString() == "1")
             {
@@ -1790,50 +1745,6 @@ public class CreateAndUpdate : MonoBehaviour
             //防御显示
             heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderDefense[i].ToString();
             //势力显示
-        //    if (soliderForce[i].ToString() == "1")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "炎";
-        //    }
-        //    else if (soliderForce[i].ToString() == "2")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "黄";
-        //    }
-        //    else if (soliderForce[i].ToString() == "3")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "蚩";
-        //    }
-        //    else if (soliderForce[i].ToString() == "4")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "御";
-        //    }
-        //    else if (soliderForce[i].ToString() == "5")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "娲";
-        //    }
-        //    else if (soliderForce[i].ToString() == "6")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "烛";
-        //    }
-        //    else if (soliderForce[i].ToString() == "7")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "乌";
-        //    }
-        //    else if (soliderForce[i].ToString() == "8")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "荒";
-        //    }
-        //    else if (soliderForce[i].ToString() == "9")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "羲";
-        //    }
-        //    else if (soliderForce[i].ToString() == "10")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "禹";
-        //    }
-        //    else if (soliderForce[i].ToString() == "11")
-        //    {
-        //        heroBtn[i].GetComponentsInChildren<Text>()[5].text = "逍";
-        //    }
             heroBtn[i].name = getCardId[i].ToString();
         }
     }
@@ -1977,10 +1888,6 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                 }
             
-        }
-        for (int i = 0; i < orangeHeroId.Count; i++)
-        {
-            //print("orangeCard::::"+ orangeHeroId[i]);
         }
     }
     //民心加成

@@ -42,7 +42,5 @@ public class UIDynamicDisplay : MonoBehaviour
                 own_car++;
         }
         transform.GetComponent<Text>().text = description_text + own_car + "/" + sum;
-
     }
-
 }

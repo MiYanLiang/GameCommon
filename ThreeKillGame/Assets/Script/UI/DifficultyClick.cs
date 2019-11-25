@@ -9,16 +9,6 @@ public class DifficultyClick : MonoBehaviour
     public GameObject difficultyBtn;
     int difficultyType;
     public GameObject showText;
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     //判断点击的是哪个按钮
     public void GetDifficultyType()

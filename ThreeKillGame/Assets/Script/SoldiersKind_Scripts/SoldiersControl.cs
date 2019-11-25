@@ -65,54 +65,28 @@ public class SoldiersControl : MonoBehaviour
     List<string> counsellorName = new List<string>();  //军师
     List<string> sapperName = new List<string>();  //工兵
     List<string> necromancerName = new List<string>();  //方士
-    void Start()
-    {
-        //init(myHeroId);
 
-        //init_up(battleHeroId_);
-        //for (int i = 0; i < heroTypeName.Count; i++)
-        //{
-        //    print(heroTypeName[i]);
-        //}
-        //init_btn();
-        //init_up(battleHeroId_);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public List<string> init(List<int> myHeroId)
     {
         heroTypeName.Clear();
         GetExcelFile(myHeroId);
         GetHeroTypeName();
-        //for (int i = 0; i < heroTypeName.Count; i++)
-        //{
-        //    print("init:"+heroTypeName[i]);
-        //}
         return heroTypeName;
     }
+
     void GetExcelFile(List<int> myHeroId)
     {
-        ////string filePath = "F:/dev/GameCommon/111.xlsx";   
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            ArraySort(myHeroId);
-            for (int i = 0; i < myHeroId.Count; i++)
-            {
-                GetHeroType(myHeroId[i]);
-            }
-            //给heroTypeAll数列去除重复数据
-            int[] str = heroTypeAll.ToArray();
-            int[] str2 = str.Distinct().ToArray();
-            heroTypeAll = new List<int>(str2);
-        //}
+        ArraySort(myHeroId);
+        for (int i = 0; i < myHeroId.Count; i++)
+        {
+            GetHeroType(myHeroId[i]);
+        }
+        //给heroTypeAll数列去除重复数据
+        int[] str = heroTypeAll.ToArray();
+        int[] str2 = str.Distinct().ToArray();
+        heroTypeAll = new List<int>(str2);
     }
+
     //传入英雄id，拿到英雄兵种类型
     void GetHeroType(int id)
     {
@@ -125,6 +99,7 @@ public class SoldiersControl : MonoBehaviour
             }
         }
     }
+
     //拿到对应兵种的名字
     void GetHeroTypeName()
     {
@@ -212,13 +187,9 @@ public class SoldiersControl : MonoBehaviour
         GetSoldiersTypeNum();
         GetSkillId();
         GetExcelFile2();
-        //print("sssssssssssssss"+"盾兵数量=" + shieldSoldierNum + "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
-        //for (int i = 0; i < skillInformation.Count; i++)
-        //{
-        //    print(skillInformation[i]);
-        //}
         return skillInformation;
     }
+
     //给传过来的上阵英雄数列去重
     void De_weightForBattleHeroId(List<int> battleHeroId)
     {
@@ -226,21 +197,16 @@ public class SoldiersControl : MonoBehaviour
         int[] str2 = str.Distinct().ToArray();
         battleHeroId = new List<int>(str2);
     }
+
     //读表
     void GetExcelFile1(List<int> battleHeroId)
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        //{
-            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            for (int i = 0; i < battleHeroId.Count; i++)
-            {
-                GetHeroTypeFromId(battleHeroId[i]);
-            }
-        //}
+        for (int i = 0; i < battleHeroId.Count; i++)
+        {
+            GetHeroTypeFromId(battleHeroId[i]);
+        }
     }
+
     //传入英雄id，拿到英雄兵种类型
     void GetHeroTypeFromId(int id)
     {
@@ -253,6 +219,7 @@ public class SoldiersControl : MonoBehaviour
             }
         }
     }
+
     //给上阵的兵种类型计数
     void GetSoldiersTypeNum()
     {
@@ -300,6 +267,7 @@ public class SoldiersControl : MonoBehaviour
             }
         }
     }
+
     //通过条件获得激活
     void GetSkillId()
     {
@@ -411,20 +379,15 @@ public class SoldiersControl : MonoBehaviour
             skillArray.Add(skillIndex);
         }
     }
+
     void GetExcelFile2()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets["SoldierSkillTable"];
-            for (int i = 0; i < skillArray.Count; i++)
-            {
-                GetSkillInformationFromSkillId(skillArray[i]);
-            }
-        //}
+        for (int i = 0; i < skillArray.Count; i++)
+        {
+            GetSkillInformationFromSkillId(skillArray[i]);
+        }
     }
+
     //通过兵种skill索引获取信息
     void GetSkillInformationFromSkillId(int index)
     {
@@ -437,61 +400,52 @@ public class SoldiersControl : MonoBehaviour
             }
         }
     }
+
     ////////////////////////////////////////////////////////下面的方法可以是点击左边兵种，获取相同兵种的其他英雄名字
     void init_btn()
     {
         GetExcelFile3();
-        for (int i = 0; i < shieldSoldierName.Count; i++)
-        {
-            //print(shieldSoldierName[i]);
-        }
     }
+
     void GetExcelFile3()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSoldiersAll();
-            for (int i = 0; i < shieldSoldierId.Count; i++)
-            {
-                shieldSoldierName.Add(GetHeroNameFromId(shieldSoldierId[i]));
-            }
-            for (int i = 0; i < mahoutId.Count; i++)
-            {
-                mahoutName.Add(GetHeroNameFromId( mahoutId[i]));
-            }
-            for (int i = 0; i < halberdierId.Count; i++)
-            {
-                halberdierName.Add(GetHeroNameFromId( halberdierId[i]));
-            }
-            for (int i = 0; i < lifeguardId.Count; i++)
-            {
-                lifeguardName.Add(GetHeroNameFromId( lifeguardId[i]));
-            }
-            for (int i = 0; i < spearmanId.Count; i++)
-            {
-                spearmanName.Add(GetHeroNameFromId( spearmanId[i]));
-            }
-            for (int i = 0; i < sowarId.Count; i++)
-            {
-                sowarName.Add(GetHeroNameFromId( sowarId[i]));
-            }
-            for (int i = 0; i < counsellorId.Count; i++)
-            {
-                counsellorName.Add(GetHeroNameFromId( counsellorId[i]));
-            }
-            for (int i = 0; i < sapperId.Count; i++)
-            {
-                sapperName.Add(GetHeroNameFromId( sapperId[i]));
-            }
-            for (int i = 0; i < necromancerId.Count; i++)
-            {
-                necromancerName.Add(GetHeroNameFromId( necromancerId[i]));
-            }
-        //}
+        GetSoldiersAll();
+        for (int i = 0; i < shieldSoldierId.Count; i++)
+        {
+            shieldSoldierName.Add(GetHeroNameFromId(shieldSoldierId[i]));
+        }
+        for (int i = 0; i < mahoutId.Count; i++)
+        {
+            mahoutName.Add(GetHeroNameFromId(mahoutId[i]));
+        }
+        for (int i = 0; i < halberdierId.Count; i++)
+        {
+            halberdierName.Add(GetHeroNameFromId(halberdierId[i]));
+        }
+        for (int i = 0; i < lifeguardId.Count; i++)
+        {
+            lifeguardName.Add(GetHeroNameFromId(lifeguardId[i]));
+        }
+        for (int i = 0; i < spearmanId.Count; i++)
+        {
+            spearmanName.Add(GetHeroNameFromId(spearmanId[i]));
+        }
+        for (int i = 0; i < sowarId.Count; i++)
+        {
+            sowarName.Add(GetHeroNameFromId(sowarId[i]));
+        }
+        for (int i = 0; i < counsellorId.Count; i++)
+        {
+            counsellorName.Add(GetHeroNameFromId(counsellorId[i]));
+        }
+        for (int i = 0; i < sapperId.Count; i++)
+        {
+            sapperName.Add(GetHeroNameFromId(sapperId[i]));
+        }
+        for (int i = 0; i < necromancerId.Count; i++)
+        {
+            necromancerName.Add(GetHeroNameFromId(necromancerId[i]));
+        }
     }
     void GetSoldiersAll()
     {

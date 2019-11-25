@@ -19,18 +19,6 @@ public class ChangeAndGet : MonoBehaviour
     public Transform jiugongge;     //上阵位
     List<string> heroData = new List<string>();
     List<int> ChickenRibsHeroId = new List<int>();  //存放所有的拥有的英雄Id
-
-    // Use this for initialization
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     
     public void GetResidueCard()
     {
@@ -38,7 +26,6 @@ public class ChangeAndGet : MonoBehaviour
         btnNum = btn.GetComponentInChildren<Text>().text;
         btnTag = int.Parse(btn.name);
         print("btnName:"+btnTag);
-        //mycard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().myCard;//拿到脚本CreateAndUpdate中的myCard
         money = CreateAndUpdate.money;
         ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
     }
@@ -53,7 +40,6 @@ public class ChangeAndGet : MonoBehaviour
             boolIndex = true;
             transform.Find("Image").gameObject.SetActive(true);
             transform.GetComponent<Button>().enabled = false;   //关闭点击事件
-            //print(btnTag);
             money = money - price;
             CreateAndUpdate.money = money;
         }
@@ -64,28 +50,23 @@ public class ChangeAndGet : MonoBehaviour
         }
         if (boolIndex == true)
         {
-            //GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard.Add(btnNum);
             getCard.Add(btnNum);
         }
     }
-    
 
     //购买英雄
     public void UpdateGetCard()
     {
-        //getCard = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().getCard;
         if (boolIndex == true)
         {
             int num = 0;
             num = SearchEmptyEpace(num);
             if (num == -1) { return; }
-            
             GetExcelFile2();
-            print("kkkkkkkkkkkkkkkkkkkheroId:" + heroId);
-            Debug.Log("heroData,name//" + heroData[1]);
             ShowAndGradeHero(num);  //升阶或直接展示
         }
     }
+
     public void ShowHeroInformation()
     {
         btnNum = btn.GetComponentInChildren<Text>().text;
@@ -96,14 +77,13 @@ public class ChangeAndGet : MonoBehaviour
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == heroId)
             {
-                //print("kkkkkkkkkkkkkkkkkkkheroId:" + heroId);
                 for (int j = 0; j < 21; j++)
                 {
                     HeroDate.Add(LoadJsonFile.RoleTableDatas[i][j]);
                 }
             }
         }
-        print("kkkkkkkkkkkkkkkkkkkheroId:" + HeroDate[0]);
+        //print("kkkkkkkkkkkkkkkkkkkheroId:" + HeroDate[0]);
         List<List<string>> fetterInformation = new List<List<string>>();
         List<string> heroIdDate = new List<string>();
         int heroKindType = int.Parse(HeroDate[3]);
@@ -126,7 +106,6 @@ public class ChangeAndGet : MonoBehaviour
             {
                 for (int i = 0; i < fetterInformation[j].Count; i++)
                 {
-                    //print("ssssssssssssssssssssssssssss"+fetterInformation[j][1]);
                     GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" + "," + "防御+" + fetterInformation[j][4] + "%" + "," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
                     break;
                 }
@@ -141,6 +120,7 @@ public class ChangeAndGet : MonoBehaviour
         fetterInformation.Clear();
         HeroDate.Clear();
     }
+
     void GetHeroTypeName(int heroKindType,string heroKindName)
     {
         string name = "";
@@ -195,6 +175,7 @@ public class ChangeAndGet : MonoBehaviour
             heroKindName = name;
         }
     }
+
     /// <summary>
     /// 购买英雄后，判断是否需要升阶和展示
     /// </summary>
@@ -313,7 +294,6 @@ public class ChangeAndGet : MonoBehaviour
         {
             //购买展示一阶
             PutCardToPos(preparation.GetChild(num),1);
-            //Debug.Log("");
             HeroIdChangeAndSave.pos_heroId[num + 9] = heroId;   //记录购买武将的id信息
         }
         index_pos = 0;
@@ -399,37 +379,16 @@ public class ChangeAndGet : MonoBehaviour
         return num;
     }
 
-
-
-
-
     //读表
     void GetExcelFile1()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-        //    ExcelWorksheet worksheet2 = excelpackge.Workbook.Worksheets[2];
-            GetHeroId(btnTag);
-            GetSpecificValue(heroId);
-            //ChickenRibsHeroId.Add(heroId);
-            //print(price);
-        //}
+        GetHeroId(btnTag);
+        GetSpecificValue(heroId);
     }
     //读取相应英雄的所有数据
     void GetExcelFile2()
     {
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetHeroDateFromId(heroId);
-            //print(price);
-        //}
+        GetHeroDateFromId(heroId);
     }
 
     //获取表中英雄的所有数据

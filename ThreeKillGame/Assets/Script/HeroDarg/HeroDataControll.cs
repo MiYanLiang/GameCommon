@@ -3,8 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class HeroDataControll : MonoBehaviour {
-
-    //[HideInInspector]
+    
     public List<string> HeroData = new List<string>(); //存储当前武将的数据
     List<string> heroIdDate = new List<string>();
     List<string> HeroDataTest = new List<string>();
@@ -13,7 +12,6 @@ public class HeroDataControll : MonoBehaviour {
     //0         1           2           3             4       5                6         7          8               9       
     //暴击率	暴击伤害	重击率	    重击伤害	  破甲    装备id           典故id	 武器技id	强化兵种技id	羁绊技id
     //10        11          12          13            14      15               16        17         18              19
-
 
     private int grade_hero;  //记录卡牌品阶
     public int Grade_hero { get => grade_hero; set => grade_hero = value; }
@@ -37,8 +35,6 @@ public class HeroDataControll : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
-        //print(HeroData[0] + ":" + HeroData[1]);
         heroidtest = int.Parse(HeroData[0]);
         heroName = HeroData[1];
         heroKindType = int.Parse(HeroData[3]);
@@ -47,11 +43,6 @@ public class HeroDataControll : MonoBehaviour {
         defense = HeroData[7];
         soldierNum = HeroData[8];
         heroInformation = HeroData[20];
-        //HeroDataTest = HeroData;
-        //for (int i = 0; i < HeroDataTest.Count; i++)
-        //{
-        //    print(HeroDataTest[i]);
-        //}
     }
 
     /// <summary>
@@ -59,82 +50,20 @@ public class HeroDataControll : MonoBehaviour {
     /// </summary>
     public void ShowThisHeroData()
     {
-        //if (HeroDataTest != null)
-        //{
-        //    //Debug.Log("//传递成功--"+heroData[1]);
-        //    //显示英雄名等信息
-        //    gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroDataTest[0] + ":" + HeroDataTest[1];
-        //    gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroDataTest[6];
-        //    gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroDataTest[7];
-        //}
         if (HeroData != null)
         {
-            //Debug.Log("//传递成功--"+heroData[1]);
-            //显示英雄名等信息
-            //gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[0] + ":" + HeroData[1];
             gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
-            //gameObject.transform.GetChild(2).GetComponent<Text>().text = HeroData[7];
             //设置左上角兵种文字
             gameObject.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(HeroData[3])-1][2];
-            //GetHeroKind_(gameObject);
             //设置兵种背景
             gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/"+HeroData[3],typeof(Sprite)) as Sprite;
         }
     }
-
-    /// <summary>
-    /// 兵种小头像
-    /// </summary>
-    /// <param name="gameObj"></param>
-    private void GetHeroKind_(GameObject gameObj)
-    {
-        int i = 3;
-        if (HeroData[i].ToString() == "1")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "山";
-        }
-        else if (HeroData[i].ToString() == "2")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "海";
-        }
-        else if (HeroData[i].ToString() == "3")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "飞";
-        }
-        else if (HeroData[i].ToString() == "4")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "人";
-        }
-        else if (HeroData[i].ToString() == "5")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "巫";
-        }
-        else if (HeroData[i].ToString() == "6")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "仙";
-        }
-        else if (HeroData[i].ToString() == "7")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "辅";
-        }
-        else if (HeroData[i].ToString() == "8")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "魔";
-        }
-        else if (HeroData[i].ToString() == "9")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "天";
-        }
-        else if (HeroData[i].ToString() == "10")
-        {
-            gameObj.GetComponentsInChildren<Text>()[3].text = "神";
-        }
-    }
+    
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
-        //print(LoadJsonFile.FetterTableDates[2][9]);
         fetterInformation.Clear();
         GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
         int heroId = heroidtest;
@@ -154,7 +83,6 @@ public class HeroDataControll : MonoBehaviour {
             {
                 for (int i = 0; i < fetterInformation[j].Count; i++)
                 {
-                    //print("ssssssssssssssssssssssssssss"+fetterInformation[j][1]);
                     GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" +","+ "防御+" + fetterInformation[j][4] + "%"+"," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
                     break;
                 }

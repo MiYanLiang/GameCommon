@@ -18,7 +18,6 @@ public class FightControll : MonoBehaviour
     [SerializeField]
     Transform backGround;   //用来获取背景上的代码UIControl
 
-
     public GameObject hero_Card;    //英雄卡片预制件
     //各个npc上阵九宫格
     public Transform[] JiuGongGes = new Transform[5];
@@ -151,7 +150,6 @@ public class FightControll : MonoBehaviour
                     newheroCard.GetComponent<HeroDataControll>().HeroData[6] = (int.Parse(LoadJsonFile.RoleTableDatas[int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[0]) - 1][6]) * Mathf.Pow(2, int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2])-1)).ToString();
                     newheroCard.GetComponent<HeroDataControll>().HeroData[8] = (int.Parse(LoadJsonFile.RoleTableDatas[int.Parse(newheroCard.GetComponent<HeroDataControll>().HeroData[0]) - 1][8]) * Mathf.Pow(2, int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count - 2])-1)).ToString();
 
-
                     newheroCard.GetComponent<HeroDataControll>().BattleNums = int.Parse(enemyHeroDatas[i][m][enemyHeroDatas[i][m].Count-1]); //传递战斗回合数
                     newheroCard.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + enemyHeroDatas[i][m][3], typeof(Sprite)) as Sprite;  //设置敌方武将兵种背景图片
                     //设置品阶颜色表现和属性
@@ -176,10 +174,8 @@ public class FightControll : MonoBehaviour
                             break;
                     }
                     //显示英雄名等信息
-                    //newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][0] + ":" + enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(1).GetComponent<Text>().text = enemyHeroDatas[i][m][6];
-                    //newheroCard.transform.GetChild(2).GetComponent<Text>().text = enemyHeroDatas[i][m][7];
                 }
             }
         }
@@ -201,11 +197,8 @@ public class FightControll : MonoBehaviour
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
         FightCardSps[0].GetComponent<FightCardSP>().enemyForceId = rivalId;
-
         FightCardSps[0].gameObject.SetActive(true);
     }
-
-
 
     /// <summary>
     /// 战斗npc之间的结算
@@ -234,7 +227,6 @@ public class FightControll : MonoBehaviour
                     enem = Random.Range(0, 6);
                 }
                 enemyForceIndex[i] = enem;
-
                 if (enem == 5)
                 {
                     if (npcWinRate[i] < 50)  //小于等于50则输
@@ -316,17 +308,12 @@ public class FightControll : MonoBehaviour
         }
     }
 
-
     //打开或者关闭战斗界面
     public void OpenOrCloseFightTV(bool boo)
     {
         if (boo == false)
             NpcHpListUpdate();
         FightTVs[0].gameObject.SetActive(boo);
-        //for (int i = 0; i < 6; i++)
-        //{
-        //    FightTVs[i].gameObject.SetActive(boo);
-        //}
     }
 
     //初始化创建敌方势力和后期要发展的兵种类型
@@ -338,8 +325,6 @@ public class FightControll : MonoBehaviour
             enemyUnits[i][0] = Random.Range(1, 4);     //前排
             enemyUnits[i][1] = Random.Range(4, 7);    //中排
             enemyUnits[i][2] = Random.Range(7, 10);    //后排
-            //Debug.Log("///" + enemyUnits[i][0] + "///" + enemyUnits[i][1] + "////" + enemyUnits[i][2]);
-            
         }
     }
 
@@ -348,7 +333,6 @@ public class FightControll : MonoBehaviour
     /// </summary>
     public void EndOfGame()
     {
-
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

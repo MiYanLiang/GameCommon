@@ -22,23 +22,7 @@ public class FetterContronl : MonoBehaviour
 
     string[] a;
     string[] b;
-    
-
-    private void Awake()
-    {
-        //init_Go(arrayGo);
-        //init_One(arrayTest);
-    }
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+   
     public List<List<string>> init_Go(List<string> array0)                        /////////////////////此方法暂时无用
     {
         fetterInformation.Clear();
@@ -50,7 +34,7 @@ public class FetterContronl : MonoBehaviour
         {
             for (int i = 0; i < fetterInformation1[j].Count; i++)
             {
-                print("ssssssssssssssssssssss"+fetterInformation1[j][i]);
+                //print("ssssssssssssssssssssss"+fetterInformation1[j][i]);
             }
         }
         return fetterInformation1;
@@ -58,14 +42,7 @@ public class FetterContronl : MonoBehaviour
     //读表
     void GetExcelFile()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
         GetAllFetterArray();
-        //}
     }
     //将所有的羁绊数组储存
     void GetAllFetterArray()
@@ -108,11 +85,8 @@ public class FetterContronl : MonoBehaviour
             //将两个比较的数组排序比较
             ArraySort(intersectionArray);
             ArraySort(heroId);
-            //print("i:" + i + ".." + "arr0"+".." + ArrayChangeString(intersectionArray));
-            //print("i:" + i + ".." + "arr1"+".." + ArrayChangeString(heroId));
             if (ArrayChangeString(intersectionArray) == ArrayChangeString(heroId))
             {
-                //print("i:" + i);
                 fetterIndex.Add(i+1);
             }
         }
@@ -120,17 +94,10 @@ public class FetterContronl : MonoBehaviour
     //读表  拿到羁绊的相关数据
     void GetExcelFile1()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
         for (int i = 0; i < fetterIndex.Count; i++)
         {
             fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
         }
-        //}
     }
     //获取羁绊信息
     List<string> GetFetterInformation(int id)
@@ -153,44 +120,28 @@ public class FetterContronl : MonoBehaviour
     {
         //数组1
         int size1 = array1.Length;
-
         //数组2
         int size2 = array2.Length;
-
         int end = size1;
-
         bool swap = false;
-
         for (int i = 0; i < end;)
         {
-
             swap = false;//开始假设是第一种情况
-
             for (int j = i; j < size2; j++)//找到与该元素存在相同的元素，将这个相同的元素交换到与该元素相同下标的位置上
             {
-
                 if (array1[i] == array2[j])//第二种情况，找到了相等的元素
                 {
-
                     string tmp = array2[i];//对数组2进行交换
-
                     array2[i] = array2[j];
-
                     array2[j] = tmp;
-
                     swap = true;//设置标志
-
                     break;
-
                 }
             }
-
             if (swap != true)//第一种情况，没有相同元素存在时，将这个元素交换到尚未进行比较的尾部
             {
                 string tmp = array1[i];
-
                 array1[i] = array1[--end];
-
                 array1[end] = tmp;
             }
             else
@@ -201,7 +152,6 @@ public class FetterContronl : MonoBehaviour
         //输出交集
         for (int i = 0; i < end; i++)
         {
-            //print(array1[i].ToString());
             intersectionArray.Add(array1[i].ToString());
         }
     }
@@ -236,32 +186,12 @@ public class FetterContronl : MonoBehaviour
     ////////////////////////////////////////下面实现了点击英雄，通过英雄id获取与谁形成羁绊，且羁绊属性
     public List<List<string>> init_One(List<string> array1)
     {
-        //print("进来");
         fetterInformationFromId.Clear();
-        //fetterInformationFromId1.Clear();
         fetterId.Clear();
         GetExcelFile();
         MakeArray1(array1);
         GetExcelFile2();
-        //for (int i = 0; i < fetterInformationFromId.Count; i++)
-        //{
-        //    fetterInformationFromId[i].Clear();
-        //}
-        //fetterInformationFromId1 = fetterInformationFromId;
-        //GetExcelFile3();
-        //for (int i = 0; i < fetterId.Count; i++)
-        //{
-        //    print(fetterId[i]);
-        //}
-        //for (int j = 0; j < fetterInformationFromId.Count; j++)
-        //{
-        //    for (int i = 0; i < fetterInformationFromId[j].Count; i++)
-        //    {
-        //        print(fetterInformationFromId[j][i]);
-        //    }
-        //}
         return fetterInformationFromId;
-
     }
     //传进来点击的英雄id
     void MakeArray1(List<string> ClickHeroId)
@@ -296,7 +226,6 @@ public class FetterContronl : MonoBehaviour
             ArraySort(ClickHeroId);
             if (ArrayChangeString(intersectionArray) == ArrayChangeString(ClickHeroId))
             {
-                //print("i:" + i);
                 fetterId.Add(i + 1);
             }
         }
@@ -304,17 +233,10 @@ public class FetterContronl : MonoBehaviour
     //读表  拿到羁绊的相关数据
     void GetExcelFile2()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
         for (int i = 0; i < fetterId.Count; i++)
         {
             fetterInformationFromId.Add(GetFetterInformationFromId(fetterId[i]));
         }
-        //}
     }
     //获取羁绊英雄名
     List<string> GetFetterInformationFromId( int id)

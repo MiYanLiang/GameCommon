@@ -10,7 +10,7 @@ public class cutHpTextControll : MonoBehaviour
 
     private float addPosY = 15;
 
-    private Sequence textMoveSequence;
+    private Sequence textMoveSequence;  //DOTween队列
 
     private void Start()
     {
@@ -57,7 +57,7 @@ public class cutHpTextControll : MonoBehaviour
 
         graphic.color = new Color(color.r, color.g, color.b, 0);
 
-        //设置一个DOTween队列
+        //设置DOTween队列
 
         textMoveSequence = DOTween.Sequence();
 
@@ -78,13 +78,11 @@ public class cutHpTextControll : MonoBehaviour
         //Append 再追加一个队列，再Join 添加一个队列
 
         textMoveSequence.Append(textMove01);
-
         textMoveSequence.Join(textColor01);
 
         textMoveSequence.AppendInterval(FightControll.speedTime * 1f);
 
         textMoveSequence.Append(textMove02);
-
         textMoveSequence.Join(textColor02);
 
         textMoveSequence.Pause();

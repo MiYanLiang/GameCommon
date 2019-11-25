@@ -10,10 +10,6 @@ public class NamePanel : MonoBehaviour {
     public GameObject text;   //被修改的文本框
     public GameObject inputText;   //输入的文本框
     string inputName = "";
-	// Use this for initialization
-	void Start () {
-		
-	}
 	
 	// Update is called once per frame
     void Update()
@@ -43,5 +39,4 @@ public class NamePanel : MonoBehaviour {
         text.GetComponent<Text>().text = inputName;
         headText.GetComponent<Text>().text = inputName[0].ToString();
     }
-
 }

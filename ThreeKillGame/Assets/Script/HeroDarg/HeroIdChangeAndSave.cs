@@ -10,7 +10,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     public Transform JiuGongGe; //九宫格
     public Transform BeiZhanWei;//备战位
-    
 
     public List<string> fightIdList = new List<string>();   //上阵英雄id
     public List<string> allIdList = new List<string>();     //全部英雄id
@@ -54,6 +53,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     string[] a;
     string[] b;
+
     /// <summary>
     /// 出售选中的卡牌武将
     /// </summary>
@@ -101,10 +101,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 }
             }
         }
-        //print("拥有数为： " + num);
         return num;
     }
-    //GameObject.Find("backGround").GetComponent<HeroIdChangeAndSave>().StatisticsHeroNums(int.Parse(newData[0]));
 
 
     private void Start()
@@ -125,16 +123,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //拿到当前声望
         print("声望(prestigeNum):"+PlayerPrefs.GetInt("prestigeNum"));
     }
-
-    private void Update()
-    {
-        //for (int i = 0; i < 16; i++)
-        //{
-        //    Debug.Log(string.Format("{0}，{1}，{2}，{3}，{4}，{5}，{6}，{7}，{8}，{9}，{10}，{11}，{12}，{13}，{14}，{15}", pos_heroId[0], pos_heroId[1], pos_heroId[2], pos_heroId[3], pos_heroId[4], pos_heroId[5], pos_heroId[6], pos_heroId[7],
-        //        pos_heroId[8], pos_heroId[9], pos_heroId[10], pos_heroId[11], pos_heroId[12], pos_heroId[13], pos_heroId[14], pos_heroId[15]));
-        //}
-    }
-
 
     /// <summary>
     /// 刷新保存当前拥有的武将id
@@ -166,11 +154,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
         {
             fightIdList_int.Add(int.Parse(fightIdList[i]));
         }
-        //测试
-        //for (int i = 0; i < arrayGo.Count; i++)
-        //{
-        //    fightIdList_int.Add(int.Parse(arrayGo[i]));
-        //}
 
         for (int i = 0; i < allIdList.Count; i++)
         {
@@ -182,11 +165,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
         init_Go(fightIdList1);
         heroTypeName = GameObject.Find("SoldiersControl").GetComponent<SoldiersControl>().init(allIdList_int);//初始兵种信息
         Show_Left(fightIdList_int1);
-        //print("盾兵数量=" + shieldSoldierNum+ "象兵数量=" + mahoutNum + "戟兵数量=" + halberdierNum + "禁卫数量=" + lifeguardNum + "枪兵数量=" + spearmanNum + "骑兵数量=" + sowarNum + "军师数量=" + counsellorNum + "工兵数量=" + sapperNum + "方士数量=" + necromancerNum+"神兽数量"+ god_beast);
-    }
-    private void OnServerInitialized()
-    {
-
     }
 
     /// <summary>
@@ -203,9 +181,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //显示出售按钮
         SellCardBtn.transform.GetChild(2).GetComponent<Text>().text = tran.GetComponent<HeroDataControll>().Price_hero.ToString();
         SellCardBtn.SetActive(true);
-
     }
-
 
     void Show_Left(List<int> battleHeroId)
     {
@@ -226,7 +202,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         MakeLeftInformation();
         for (int i = 0; i < activationSkillId_soldiers.Count; i++)
         {
-            print("activationSkillId_soldiers:"+ activationSkillId_soldiers[i]);
+            //print("activationSkillId_soldiers:"+ activationSkillId_soldiers[i]);
         }
     }
 
@@ -425,17 +401,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
     }
     void GetExcelFile1(List<int> battleHeroId)
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        //{
-        //    ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
         for (int i = 0; i < battleHeroId.Count; i++)
         {
             GetHeroTypeFromId(battleHeroId[i]);
         }
-        //}
     }
     //传入英雄id，拿到英雄兵种类型
     void GetHeroTypeFromId(int id)
@@ -503,25 +472,11 @@ public class HeroIdChangeAndSave : MonoBehaviour
         GetExcelFile();
         MakeArray(array0);
         GetExcelFile1();
-        //for (int j = 0; j < fetterInformation.Count; j++)
-        //{
-        //    for (int i = 0; i < fetterInformation[j].Count; i++)
-        //    {
-        //        print("ssssssssssssssssssssss" + fetterInformation[j][i]);
-        //    }
-        //}
     }
     //读表
     void GetExcelFile()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
         GetAllFetterArray();
-        //}
     }
     //将所有的羁绊数组储存
     void GetAllFetterArray()
@@ -563,11 +518,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
             //将两个比较的数组排序比较
             ArraySort(intersectionArray);
             ArraySort(heroId);
-            //print("i:" + i + ".." + "arr0"+".." + ArrayChangeString(intersectionArray));
-            //print("i:" + i + ".." + "arr1"+".." + ArrayChangeString(heroId));
             if (ArrayChangeString(intersectionArray) == ArrayChangeString(heroId))
             {
-                //print("i:" + i);
                 fetterIndex.Add(i + 1);
             }
         }
@@ -575,17 +527,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
     //读表  拿到羁绊的相关数据
     void GetExcelFile1()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   //绝对路径
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))   //using用来强行做资源释放
-        //{
-        //    ExcelWorksheet worksheet7 = excelpackge.Workbook.Worksheets[7];
         for (int i = 0; i < fetterIndex.Count; i++)
         {
             fetterInformation.Add(GetFetterInformation(fetterIndex[i]));
         }
-        //}
     }
     //获取羁绊信息
     List<string> GetFetterInformation(int id)
@@ -608,44 +553,28 @@ public class HeroIdChangeAndSave : MonoBehaviour
     {
         //数组1
         int size1 = array1.Length;
-
         //数组2
         int size2 = array2.Length;
-
         int end = size1;
-
         bool swap = false;
-
         for (int i = 0; i < end;)
         {
-
             swap = false;//开始假设是第一种情况
-
             for (int j = i; j < size2; j++)//找到与该元素存在相同的元素，将这个相同的元素交换到与该元素相同下标的位置上
             {
-
                 if (array1[i] == array2[j])//第二种情况，找到了相等的元素
                 {
-
                     string tmp = array2[i];//对数组2进行交换
-
                     array2[i] = array2[j];
-
                     array2[j] = tmp;
-
                     swap = true;//设置标志
-
                     break;
-
                 }
             }
-
             if (swap != true)//第一种情况，没有相同元素存在时，将这个元素交换到尚未进行比较的尾部
             {
                 string tmp = array1[i];
-
                 array1[i] = array1[--end];
-
                 array1[end] = tmp;
             }
             else
@@ -656,7 +585,6 @@ public class HeroIdChangeAndSave : MonoBehaviour
         //输出交集
         for (int i = 0; i < end; i++)
         {
-            //print(array1[i].ToString());
             intersectionArray.Add(array1[i].ToString());
         }
     }

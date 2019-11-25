@@ -5,15 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class ExitGame : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
     //退出游戏
     public void ExitGame1()
     {

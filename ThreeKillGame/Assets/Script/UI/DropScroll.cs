@@ -4,8 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections.Generic;
 public class DropScroll : MonoBehaviour {
-
-	// Use this for initialization
+    
     [SerializeField]
     private Button[] btnList;               //提供多个按钮
     private RectTransform thisRT;
@@ -15,11 +14,6 @@ public class DropScroll : MonoBehaviour {
     private List<RectTransform> scrollViewList = new List<RectTransform>(); 
 	void Start () {
         Init();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
 	}
 
     public void Init()
@@ -91,9 +85,7 @@ public class DropScroll : MonoBehaviour {
             }
             num--;
         }
-        //Debug.Log(num);
     }
-
 
     private void HideAllScrollView()
     {

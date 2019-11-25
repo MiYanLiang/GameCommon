@@ -5,9 +5,7 @@ using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Text gold;          //玩家金币
-    //public CreateAndUpdate cau;
 
     [SerializeField]
     Image playerForcePic;      //玩家势力头像
@@ -42,7 +40,6 @@ public class UIControl : MonoBehaviour
         //加载声音
         int soundStades = PlayerPrefs.GetInt("soundStates");
         soundContrll_(soundStades);
-        //print("pppppppppppppppppppppppppppppppppppppppp"+soundStades);
     }
 
     //声音控制，继承main场景选择

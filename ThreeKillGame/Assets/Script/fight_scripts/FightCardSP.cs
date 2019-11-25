@@ -76,8 +76,6 @@ public class FightCardSP : MonoBehaviour
         winBattles = 0;
     }
 
-
-
     private void OnEnable()
     {
         isStart = false;
@@ -241,9 +239,7 @@ public class FightCardSP : MonoBehaviour
             return;
         }
         fightNum++;
-
     }
-
 
     /// <summary>
     /// 找到要攻击的对手
@@ -589,8 +585,6 @@ public class FightCardSP : MonoBehaviour
         isStart = true;
     }
 
-
-
     int[] enemyArmsActive = new int[3] { 0, 0, 0 };
     int enemyNums = 0;
     /// <summary>
@@ -794,8 +788,6 @@ public class FightCardSP : MonoBehaviour
                 }
             }
         }
-
-        
     }
 
     private void OtherInitialization()
@@ -883,7 +875,6 @@ public class FightCardSP : MonoBehaviour
             obj.GetComponent<CardMove>().Fight_State.isPopular = false;
         }
     }
-
 
     /// <summary>
     /// 初始化兵种技能激活状态

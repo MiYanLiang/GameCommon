@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class BeginSend : MonoBehaviour
 {
-    // Start is called before the first frame update
     public GameObject Difficulty;
     public ForcesChoose FC;
     int DifficultyType;
@@ -15,16 +14,7 @@ public class BeginSend : MonoBehaviour
     //int forcePrestigeNum;//当前势力所需声望
     public GameObject forcesText; //主界面的最上方势力解说Text
     List<int> fetterId = new List<int>();  //六个势力的下标
-    void Start()
-    {
 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
     public void ClickBeginGame()
     {
         GetDifficultyType();

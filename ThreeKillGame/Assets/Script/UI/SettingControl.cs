@@ -8,14 +8,7 @@ public class SettingControl : MonoBehaviour {
 	// Use this for initialization
     public GameObject settingPanel;//拿到设置面板
     public GameObject soundTxt;//声音文本
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
     public void OpenSettingPanel()
     {
         settingPanel.SetActive(true);

@@ -5,12 +5,7 @@ using UnityEngine.UI;
 
 public class SetFontSizeFromTop : MonoBehaviour
 {
-    // Start is called before the first frame update
     string txt;
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

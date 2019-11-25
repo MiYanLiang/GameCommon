@@ -9,14 +9,6 @@ public class SoundControl : MonoBehaviour {
     public GameObject showSoundTxt;
     public GameObject cameraAudio;
     int soundStates;
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 
     public void ClickSoundSet()
     {
