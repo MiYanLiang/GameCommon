@@ -17,12 +17,23 @@ public class DrumSkillControll : MonoBehaviour
     AudioClip[] audioDrums; //战鼓点击音效，水-0，风-1，雷-2，火-3，土-4
     [SerializeField]
     AudioSource audioSource;
+    [SerializeField]
+    Text combosText;    //连击文字
+    private int combosNums; //记录连击次数
+
+    bool isComb = false;
+    float combTimeNotes = 1.5f;   //连击间隔
+    float combTimes = 0;        //计时器
 
     private void OnEnable()
     {
         isChange = false;
         drumNums = 1;
         UpdateShowDrumText();   //刷新敲鼓次数显示
+
+        combosNums = 0;
+        combosText.text = combosNums + "连击";
+        combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 0);
     }
 
     //点击战鼓延时控制
@@ -44,6 +55,32 @@ public class DrumSkillControll : MonoBehaviour
                 canTakeDrum = true;
             }
         }
+
+        if (isComb)
+        {
+            combTimes += Time.deltaTime;
+            combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, (combTimeNotes - combTimes) / combTimeNotes);
+            if (combTimes >= combTimeNotes)
+            {
+                Debug.Log("连击中断");
+                combosNums = 0;
+                combosText.text = combosNums + "连击";
+                combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 0);
+                isComb = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 战鼓连击
+    /// </summary>
+    private void CombDurm()
+    {
+        combosNums++;
+        combosText.text = combosNums + "连击";
+        combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 1);
+        combTimes = 0;
+        isComb = true;
     }
 
     //战鼓技能--------------------------------------------
@@ -96,6 +133,7 @@ public class DrumSkillControll : MonoBehaviour
         icon.name = StateName.batterName;
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.batterName, typeof(Sprite)) as Sprite;
         drumNums--;
+        CombDurm();
         UpdateShowDrumText();
 
         //下面是第一次第二次点击风鼓的时间差，暂时无用
@@ -136,6 +174,7 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
+        CombDurm();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {
@@ -171,6 +210,8 @@ public class DrumSkillControll : MonoBehaviour
         zhangu_lei.transform.SetParent(carvans);
         //战鼓可敲击次数减一
         drumNums--;
+        //展示连击
+        CombDurm();
         //次数显示刷新
         UpdateShowDrumText();
     }
@@ -196,6 +237,7 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
+        CombDurm();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {
@@ -220,6 +262,7 @@ public class DrumSkillControll : MonoBehaviour
         Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, FightCardSP.playerCards[index].transform);
         //战鼓可敲击次数减一
         drumNums--;
+        CombDurm();
         //次数显示刷新
         UpdateShowDrumText();
     }
@@ -245,6 +288,7 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
+        CombDurm();
         int index = -1;
         for (int i = 0; i < 9; i++)
         {
@@ -270,6 +314,7 @@ public class DrumSkillControll : MonoBehaviour
         icon.name = StateName.fireAttackName;
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.fireAttackName, typeof(Sprite)) as Sprite;
         drumNums--;
+        CombDurm();
         UpdateShowDrumText();
     }
 
@@ -295,6 +340,7 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
+        CombDurm();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {     
@@ -328,6 +374,7 @@ public class DrumSkillControll : MonoBehaviour
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.standName, typeof(Sprite)) as Sprite;
         //战鼓可敲击次数减一
         drumNums--;
+        CombDurm();
         //次数显示刷新
         UpdateShowDrumText();
     }

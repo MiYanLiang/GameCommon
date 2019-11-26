@@ -17,19 +17,8 @@ public class cutHpTextControll : MonoBehaviour
         cutHpText = GetComponent<Text>();
         TextMoved(cutHpText);
 
-        int count = transform.parent.childCount;
-        Debug.Log("count: " + count);
-        if (count < 2)
-        {
-            textMoveSequence.Play();
-            Invoke("DestortThisText", FightControll.speedTime * 1.6f);  //销毁
-        }
-        else
-        {
-            Invoke("DelayShowText", FightControll.speedTime * 1f);
-            Invoke("DestortThisText", FightControll.speedTime * 2.6f);  //销毁
-        }
-
+        textMoveSequence.Play();
+        Invoke("DestortThisText", FightControll.speedTime * 1.6f);  //销毁
     }
 
     /// <summary>

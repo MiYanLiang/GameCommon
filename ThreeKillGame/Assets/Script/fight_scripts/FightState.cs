@@ -118,5 +118,5 @@ public static class ColorData
     /// <summary>
     /// 绿色（深色）
     /// </summary>
-    public static readonly Color green_deep_Color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
+    public static readonly Color green_deep_Color = new Color(29f / 255f, 156f / 255f, 73f / 255f, 1);
 }

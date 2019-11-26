@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class textControll : MonoBehaviour
 {
-    [SerializeField]
-    private float multiple = 1.5f;
+    //[SerializeField]
+    private float multiple = 1.6f;
 
     private void OnEnable()
     {

@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749c116011fcc4f4a811ab01698af2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multiple: 1.5
 --- !u!1 &957543111
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 749c116011fcc4f4a811ab01698af2ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multiple: 1.5
 --- !u!1 &1196507214
 GameObject:
   m_ObjectHideFlags: 0
@@ -997,6 +999,8 @@ MonoBehaviour:
   stateIcon: {fileID: 1217458279560819971, guid: 6643c404b09b53a49acd6f14fef112fc,
     type: 3}
   cutHp_text: {fileID: 4897758058725108660, guid: 2c309ce7c37d87a40968420e27ba82b9,
+    type: 3}
+  cutHp_text2: {fileID: 4897758058725108660, guid: df9ef94ef5116cb46aca87c5dec020fe,
     type: 3}
   isFightInThisBout: 0
 --- !u!222 &1951681262376790826

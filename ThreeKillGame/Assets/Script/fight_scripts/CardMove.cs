@@ -15,6 +15,7 @@ public class CardMove : MonoBehaviour
 {
     public GameObject stateIcon;        //卡牌上状态小标预制件
     public GameObject cutHp_text;       //掉血文字
+    public GameObject cutHp_text2;      //文字二类
 
     private FightState fight_State;     //特殊攻击状态
     public FightState Fight_State { get => fight_State; set => fight_State = value; }
@@ -241,17 +242,11 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //将造成伤害的30%转化为自身血量
-                        ShanShouSkill(0.3f);
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "嗜血";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("嗜血");
+                        ShanShouSkill(0.3f, 1);
                         break;
                     case 2:
                         //将造成伤害的60%转化为自身血量
-                        ShanShouSkill(0.6f);
-                        gameObject.transform.GetChild(4).GetComponent<Text>().text = "吞噬";
-                        gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                        Debug.Log("吞噬");
+                        ShanShouSkill(0.6f, 2);
                         break;
                 }
                 break;
@@ -389,9 +384,22 @@ public class CardMove : MonoBehaviour
     /// <summary>
     /// 山兽动态技能
     /// </summary>
-    /// <param name="percentage">转化血量百分比</param>
-    private void ShanShouSkill(float percentage)
+    /// <param name="percentage">转化血量百分比</param>   
+    /// <param name="index">兵种激活状态</param>
+    private void ShanShouSkill(float percentage, int index)
     {
+        if (index < 2)
+        {
+            gameObject.transform.GetChild(4).GetComponent<Text>().text = "嗜血";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
+            Debug.Log("嗜血");
+        }
+        else
+        {
+            gameObject.transform.GetChild(4).GetComponent<Text>().text = "吞噬";
+            gameObject.transform.GetChild(4).gameObject.SetActive(true);
+            Debug.Log("吞噬");
+        }
         NormalAttackEffects(EnemyObj, 9);
         UpdateEnemyHp(EnemyObj);
         int addHp = (int)(realDamage * percentage);
@@ -403,7 +411,29 @@ public class CardMove : MonoBehaviour
         {
             Health = Health + addHp;
         }
-        UpdateOwnHp(addHp, gameObject);
+        shanAddHp = addHp;
+        //吸血数值文字
+        if (transform.GetChild(5).childCount < 1)
+        {
+            GameObject cutHpObj = Instantiate(cutHp_text2, transform.GetChild(5));
+            cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
+            cutHpObj.GetComponent<Text>().text = "+" + shanAddHp;
+            transform.GetComponent<Slider>().value = 1 - transform.GetComponent<CardMove>().Health / (float)transform.GetComponent<CardMove>().Fullhealth;
+        }
+        else
+        {
+            Invoke("ShanShouAddHp", FightControll.speedTime * 1.5f);
+        }
+    }
+    int shanAddHp = 0;
+    private void ShanShouAddHp()
+    {
+        GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
+        cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
+        cutHpObj.GetComponent<Text>().text = "+" + shanAddHp;
+
+        //血条的显示
+        transform.GetComponent<Slider>().value = 1 - transform.GetComponent<CardMove>().Health / (float)transform.GetComponent<CardMove>().Fullhealth;
     }
 
     /// <summary>
@@ -430,10 +460,26 @@ public class CardMove : MonoBehaviour
         }
         Health -= hurt;     //反伤
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
+        obj.transform.GetChild(4).gameObject.SetActive(true);
+        fanShangHurt = hurt;
+        NormalAttackEffects(obj, 10);   //反伤特效
+        if (transform.GetChild(5).childCount < 1)
+        {
+            GameObject cutHpObj = Instantiate(cutHp_text2, transform.GetChild(5));
+            cutHpObj.GetComponent<Text>().color = Color.red;
+            cutHpObj.GetComponent<Text>().text = "-" + fanShangHurt;
+        }
+        else
+        {
+            Invoke("haishouAdd", FightControll.speedTime * 1f);
+        }
+    }
+    int fanShangHurt = 0;
+    private void haishouAdd()
+    {
         GameObject cutHpObj = Instantiate(cutHp_text, transform.GetChild(5));
         cutHpObj.GetComponent<Text>().color = Color.red;
-        cutHpObj.GetComponent<Text>().text = "-" + hurt;
-        obj.transform.GetChild(4).gameObject.SetActive(true);
+        cutHpObj.GetComponent<Text>().text = "-" + fanShangHurt;
     }
 
     /// <summary>
@@ -469,6 +515,8 @@ public class CardMove : MonoBehaviour
                 icon.name = StateName.popularName;
                 icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.popularName, typeof(Sprite)) as Sprite;
             }
+            audiosource.clip = Resources.Load("Effect/FightSounds/鹰啸", typeof(AudioClip)) as AudioClip;
+            audiosource.Play();
         }
         Debug.Log("飞兽闪避率："+ realDodgeRate*100+"%");
     }
@@ -483,6 +531,7 @@ public class CardMove : MonoBehaviour
     {
         NormalAttack(EnemyObj);
         UpdateEnemyHp(EnemyObj);
+        NormalAttackEffects(gameObject, 11);
         if (overlayNum_RenJie >= 3)   //只能叠加3次
             return;
         else
@@ -606,16 +655,6 @@ public class CardMove : MonoBehaviour
         }
     }
 
-    private void SanXianSkillAdd(GameObject obj, int damageNote)
-    {
-        if (obj != null && obj.GetComponent<CardMove>().Health > 0)
-        {
-            realDamage = SkillRealDamage(damageNote, obj, false);
-            UpdateEnemyHp(obj);
-            NormalAttackEffects(obj, 4);
-        }
-    }
-
     /// <summary>
     /// 散仙动态技能
     /// </summary>
@@ -689,6 +728,15 @@ public class CardMove : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+    private void SanXianSkillAdd(GameObject obj, int damageNote)
+    {
+        if (obj != null && obj.GetComponent<CardMove>().Health > 0)
+        {
+            realDamage = SkillRealDamage(damageNote, obj, false);
+            UpdateEnemyHp(obj);
+            NormalAttackEffects(obj, 4);
         }
     }
 
@@ -1394,7 +1442,7 @@ public class CardMove : MonoBehaviour
     /// 普通攻击特效
     /// </summary>
     /// <param name="obj"></param>
-    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽</param>
+    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽10反伤11战意</param>
     private void NormalAttackEffects(GameObject obj, int index)
     {
         //如果攻击的敌人是海兽 并且 兵种激活
@@ -1402,6 +1450,7 @@ public class CardMove : MonoBehaviour
             || index == 5
             || index == 6
             || index == 9
+            || index == 11
             || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand){
         }
         else
@@ -1429,12 +1478,12 @@ public class CardMove : MonoBehaviour
                 Instantiate(Resources.Load("Prefab/fightEffect/baojishouji", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 3:
-                audiosource.clip = Resources.Load("Effect/FightSounds/近战普通受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/穿刺", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
                 Instantiate(Resources.Load("Prefab/fightEffect/chuancishouji", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 4:
-                audiosource.clip = Resources.Load("Effect/FightSounds/近战普通受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/横扫", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
                 Instantiate(Resources.Load("Prefab/fightEffect/hengsaoshouji", typeof(GameObject)) as GameObject, obj.transform);
                 break;
@@ -1461,6 +1510,14 @@ public class CardMove : MonoBehaviour
                 audiosource.clip = Resources.Load("Effect/FightSounds/虎啸", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
                 Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 10:
+                audiosource.clip = Resources.Load("Effect/FightSounds/反伤", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                break;
+            case 11:
+                audiosource.clip = Resources.Load("Effect/FightSounds/战士", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
                 break;
         }
 
