@@ -33,7 +33,7 @@ public class DrumSkillControll : MonoBehaviour
 
         combosNums = 0;
         combosText.text = combosNums + "连击";
-        combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 0);
+        combosText.color = new Color(200f / 255f, 0 / 255f, 0 / 255f, 0);
     }
 
     //点击战鼓延时控制
@@ -59,13 +59,13 @@ public class DrumSkillControll : MonoBehaviour
         if (isComb)
         {
             combTimes += Time.deltaTime;
-            combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, (combTimeNotes - combTimes) / combTimeNotes);
+            combosText.color = new Color(200f / 255f, 0 / 255f, 0 / 255f, (combTimeNotes - combTimes) / combTimeNotes);
             if (combTimes >= combTimeNotes)
             {
                 Debug.Log("连击中断");
                 combosNums = 0;
                 combosText.text = combosNums + "连击";
-                combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 0);
+                combosText.color = new Color(200f / 255f, 0 / 255f, 0 / 255f, 0);
                 isComb = false;
             }
         }
@@ -78,7 +78,7 @@ public class DrumSkillControll : MonoBehaviour
     {
         combosNums++;
         combosText.text = combosNums + "连击";
-        combosText.color = new Color(0 / 255f, 0 / 255f, 0 / 255f, 1);
+        combosText.color = new Color(200f / 255f, 0 / 255f, 0 / 255f, 1);
         combTimes = 0;
         isComb = true;
     }
@@ -174,7 +174,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        CombDurm();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {
@@ -237,7 +236,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        CombDurm();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {
@@ -288,7 +286,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        CombDurm();
         int index = -1;
         for (int i = 0; i < 9; i++)
         {
@@ -340,7 +337,6 @@ public class DrumSkillControll : MonoBehaviour
             Debug.Log("战鼓敲击次数不足");
             return;
         }
-        CombDurm();
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
         {     

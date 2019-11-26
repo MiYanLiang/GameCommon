@@ -257,6 +257,10 @@ public class CardMove : MonoBehaviour
                     default:
                         NormalAttack(EnemyObj);
                         UpdateEnemyHp(EnemyObj);
+                        if (activeId > 0)
+                        {
+                            NormalAttackEffects(gameObject, 10);   //反伤特效
+                        }
                         break;
                 }
                 break;
@@ -267,6 +271,11 @@ public class CardMove : MonoBehaviour
                     default:
                         NormalAttack(EnemyObj);
                         UpdateEnemyHp(EnemyObj);
+                        if (activeId > 0)
+                        {
+                            audiosource.clip = Resources.Load("Effect/FightSounds/鹰啸", typeof(AudioClip)) as AudioClip;
+                            audiosource.Play();   //飞鹰特效
+                        }
                         break;
                 }
                 break;
@@ -462,7 +471,7 @@ public class CardMove : MonoBehaviour
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
         obj.transform.GetChild(4).gameObject.SetActive(true);
         fanShangHurt = hurt;
-        NormalAttackEffects(obj, 10);   //反伤特效
+        //NormalAttackEffects(obj, 10);   //反伤特效
         if (transform.GetChild(5).childCount < 1)
         {
             GameObject cutHpObj = Instantiate(cutHp_text2, transform.GetChild(5));
@@ -515,8 +524,6 @@ public class CardMove : MonoBehaviour
                 icon.name = StateName.popularName;
                 icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.popularName, typeof(Sprite)) as Sprite;
             }
-            audiosource.clip = Resources.Load("Effect/FightSounds/鹰啸", typeof(AudioClip)) as AudioClip;
-            audiosource.Play();
         }
         Debug.Log("飞兽闪避率："+ realDodgeRate*100+"%");
     }
