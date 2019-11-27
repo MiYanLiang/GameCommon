@@ -11,7 +11,6 @@ public class ChangeAndGet : MonoBehaviour
     int price;  //武将价格
     int heroId; //武将ID:index
     int btnTag;
-    int money;
     bool boolIndex;
     string btnNum;
     public GameObject hero_Card;    //英雄卡片预制件
@@ -19,34 +18,42 @@ public class ChangeAndGet : MonoBehaviour
     public Transform jiugongge;     //上阵位
     List<string> heroData = new List<string>();
     List<int> ChickenRibsHeroId = new List<int>();  //存放所有的拥有的英雄Id
-    
+
+    private CreateAndUpdate createUpdate;
+
+    private void Start()
+    {
+        createUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
+    }
+
     public void GetResidueCard()
     {
-        if (SearchEmptyEpace(0) == -1) { return; }  //若没有空位直接返回
+        int num = SearchEmptyEpace(0);
+        if (num == -1) { return; }  //若没有空位直接返回
         btnNum = btn.GetComponentInChildren<Text>().text;
         btnTag = int.Parse(btn.name);
         print("btnName:"+btnTag);
-        money = CreateAndUpdate.money;
-        ChickenRibsHeroId = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>().ChickenRibsHeroId;
+        ChickenRibsHeroId = createUpdate.ChickenRibsHeroId;
+        ChangeBtnColor();
+        UpdateGetCard(num);
     }
 
-    public void ChangeBtnColor()
+    private void ChangeBtnColor()
     {
-        if (SearchEmptyEpace(0) == -1) { return; }  //若没有空位直接返回
         GetExcelFile1();
         ChickenRibsHeroId.Add(heroId);
-        if (money >= price)
+        if (CreateAndUpdate.money >= price)
         {
             boolIndex = true;
             transform.Find("Image").gameObject.SetActive(true);
             transform.GetComponent<Button>().enabled = false;   //关闭点击事件
-            money = money - price;
-            CreateAndUpdate.money = money;
+            CreateAndUpdate.money = CreateAndUpdate.money - price;
         }
         else
         {
             boolIndex = false;
-            Debug.Log("呸，穷鬼，买不起");
+            //Debug.Log("呸，穷鬼，买不起");
+            createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[3][2]);
         }
         if (boolIndex == true)
         {
@@ -55,12 +62,10 @@ public class ChangeAndGet : MonoBehaviour
     }
 
     //购买英雄
-    public void UpdateGetCard()
+    private void UpdateGetCard(int num)
     {
         if (boolIndex == true)
         {
-            int num = 0;
-            num = SearchEmptyEpace(num);
             if (num == -1) { return; }
             GetExcelFile2();
             ShowAndGradeHero(num);  //升阶或直接展示
@@ -368,7 +373,8 @@ public class ChangeAndGet : MonoBehaviour
         }
         if (nums>=CreateAndUpdate.prepareNum)
         {
-            Debug.Log("备战位已满");
+            //Debug.Log("备战位已满");
+            createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
             return -1;
         }
         else

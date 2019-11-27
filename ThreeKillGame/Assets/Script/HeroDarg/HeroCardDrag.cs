@@ -21,6 +21,8 @@ public class HeroCardDrag : MonoBehaviour
 
     private float moveSpeed = 0.2f;
 
+    private CreateAndUpdate createUpdate;
+
     // Use this for initialization
     void Start()
     {
@@ -28,6 +30,7 @@ public class HeroCardDrag : MonoBehaviour
         jiuGongge_Transform = GameObject.Find("JiuGongge").transform;
         preparation_Transform = GameObject.Find("Preparation").transform;
         backGround = canvas_Transform.GetChild(0);
+        createUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
     }
 
     /// <summary>
@@ -89,9 +92,15 @@ public class HeroCardDrag : MonoBehaviour
             if ((go.tag == "GridP" && battleNums >= CreateAndUpdate.prepareNum) || (go.tag == "GridJ" && battleNums >= CreateAndUpdate.battleNum))
             {
                 if (go.tag == "GridJ")
-                    Debug.Log("上阵位已满");
+                {
+                    createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[4][2]);
+                    //Debug.Log("上阵位已满");
+                }
                 else
-                    Debug.Log("备战位已满");
+                {
+                    createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
+                    //Debug.Log("备战位已满");
+                }
                 SetPosAndParent(transform, beginParentTransform);
                 transform.GetComponent<Image>().raycastTarget = true;
             }

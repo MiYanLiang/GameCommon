@@ -69,6 +69,9 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     Text specialFightText;  //战役名
 
+    [SerializeField]
+    CreateAndUpdate creatandupdate; //刷新脚本：CreateAndUpdate
+
     private void Awake()
     {
         battles = 1;
@@ -416,12 +419,13 @@ public class FightCardSP : MonoBehaviour
         ShowGameOver();
     }
 
+
     /// <summary>
     /// 重置卡牌数值，玩家加经验加金币
     /// </summary>
     public void RecoverCardData()
     {
-        CreateAndUpdate.AddMoneyAndExp();
+        creatandupdate.AddMoneyAndExp();
 
         for (int n = 0; n < 9; n++)
         {

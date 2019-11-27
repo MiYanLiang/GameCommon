@@ -77,16 +77,28 @@ public class CreateAndUpdate : MonoBehaviour
     Slider player_hp;//玩家血条
     [SerializeField]
     Text textHertNum;   //招募中民心的显示
+    
+    [SerializeField]
+    private Transform prompTran;    //提示文本框
+    [SerializeField]
+    private GameObject tipsText;    //提示text预制件
 
+    [SerializeField]
+    int debug_Money;
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
-    public static void AddMoneyAndExp()
+    public void AddMoneyAndExp()
     {
         experience++;
         if (level < LoadJsonFile.levelTableDatas.Count && experience >= int.Parse(LoadJsonFile.levelTableDatas[level][2]))
         {
             level++;
+            if (prompTran.childCount < 1)
+            {
+                GameObject tipObj = Instantiate(tipsText, prompTran);
+                tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
+            }
             experience = 0;
             SetMaxBatAndPre();
         }
@@ -128,14 +140,20 @@ public class CreateAndUpdate : MonoBehaviour
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
             level++;
+            if (prompTran.childCount < 1)
+            {
+                GameObject tipObj = Instantiate(tipsText, prompTran);
+                tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
+            }
             experience = 0;
             SetMaxBatAndPre();
             ChangeLevelText();
-            Debug.Log("使用金币升级");
+            //Debug.Log("使用金币升级");
         }
         else
         {
-            Debug.Log("金币不够");
+            GoldNotEnough(LoadJsonFile.TipsTableDates[3][2]);
+            //Debug.Log("金币不够");
         }
     }
 
@@ -150,7 +168,7 @@ public class CreateAndUpdate : MonoBehaviour
     void Start()
     {
         money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
-        //money += 500;
+        money += debug_Money;
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
         SetPeopleHarets();
@@ -1655,12 +1673,11 @@ public class CreateAndUpdate : MonoBehaviour
         }
         else
         {
-            print("啊，呸，穷鬼");
+            //print("啊，呸，穷鬼");
+            GoldNotEnough(LoadJsonFile.TipsTableDates[3][2]);
         }
         LateInitHeroNums(0.1f);    //刷新购买的武将拥有数量显示
     }
-
-
 
     //招募显示
     private void HeroLocation()
@@ -2034,6 +2051,11 @@ public class CreateAndUpdate : MonoBehaviour
         money += getMoney;
         GoldBoxObj.GetComponent<Image>().overrideSprite= Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponent<Button>().enabled = false;
+        if (prompTran.childCount<1)
+        {
+            GameObject tipObj = Instantiate(tipsText, prompTran);
+            tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[0][2], getMoney);  //获得金币提示
+        }
         Invoke("NotShowBox",1f);
     }
     //延时后隐藏宝箱
@@ -2047,5 +2069,17 @@ public class CreateAndUpdate : MonoBehaviour
         GoldBox_.SetActive(true);
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponent<Button>().enabled = true;
+    }
+
+    /// <summary>
+    /// 纯文字提示文本
+    /// </summary>
+    public void GoldNotEnough(string str)
+    {
+        if (prompTran.childCount < 1)
+        {
+            GameObject tipObj = Instantiate(tipsText, prompTran);
+            tipObj.GetComponent<Text>().text = str;  //金币不足提示
+        }
     }
 }
