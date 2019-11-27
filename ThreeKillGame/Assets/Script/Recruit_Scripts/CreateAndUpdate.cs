@@ -97,7 +97,14 @@ public class CreateAndUpdate : MonoBehaviour
             if (prompTran.childCount < 1)
             {
                 GameObject tipObj = Instantiate(tipsText, prompTran);
-                tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
+                if (level < 10)
+                {
+                    tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
+                }
+                else
+                {
+                    tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[8][2], level);  //满级提示
+                }
             }
             experience = 0;
             SetMaxBatAndPre();
@@ -135,7 +142,11 @@ public class CreateAndUpdate : MonoBehaviour
     public void BuyExpToLevel()
     {
         if (level >= 10)
+        {
+            GameObject tipObj = Instantiate(tipsText, prompTran);
+            tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[8][2], level);  //满级提示
             return;
+        }
         if (money >= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience))
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
@@ -143,7 +154,14 @@ public class CreateAndUpdate : MonoBehaviour
             if (prompTran.childCount < 1)
             {
                 GameObject tipObj = Instantiate(tipsText, prompTran);
-                tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
+                if (level < 10)
+                {
+                    tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
+                }
+                else
+                {
+                    tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[8][2], level);  //满级提示
+                }
             }
             experience = 0;
             SetMaxBatAndPre();
@@ -2081,5 +2099,13 @@ public class CreateAndUpdate : MonoBehaviour
             GameObject tipObj = Instantiate(tipsText, prompTran);
             tipObj.GetComponent<Text>().text = str;  //金币不足提示
         }
+    }
+
+    /// <summary>
+    /// 敬请期待提示
+    /// </summary>
+    public void StayTunedTips()
+    {
+        GoldNotEnough(LoadJsonFile.TipsTableDates[7][2]);
     }
 }
