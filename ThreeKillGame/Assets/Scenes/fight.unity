@@ -35113,7 +35113,7 @@ MonoBehaviour:
   playerForceFlag: {fileID: 1774610221}
   rivalForceFlag: {fileID: 395486531}
   specialFightText: {fileID: 1662073229}
-  creatandupdate: {fileID: 0}
+  creatandupdate: {fileID: 11389985}
 --- !u!224 &1533575025
 RectTransform:
   m_ObjectHideFlags: 0
