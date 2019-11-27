@@ -57,7 +57,7 @@ public class CreateAndUpdate : MonoBehaviour
     int peopleHearts_orange;
     int peopleHearts_red;
 
-    public int peopleHearts;        //民心
+    public static int peopleHearts; //民心
     public int moraleNum;           //士气
     public static int playerHp;     //血量
     public static int money;        //金币
@@ -85,6 +85,9 @@ public class CreateAndUpdate : MonoBehaviour
 
     [SerializeField]
     int debug_Money;
+
+    private int difficultNum;   //难度index
+
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
@@ -181,11 +184,13 @@ public class CreateAndUpdate : MonoBehaviour
         text_level.text = level + "级";
         text_level_fight.text = level + "级";
         experience = 0;
+        difficultNum = PlayerPrefs.GetInt("DifficultyType");
     }
 
     void Start()
     {
-        money = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][3]);
+        peopleHearts = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][4]);
+        money = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][3]);
         money += debug_Money;
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
@@ -200,8 +205,8 @@ public class CreateAndUpdate : MonoBehaviour
         GetExcelFile();
         HeroLocation();
         //玩家血量设置
-        playerHp = int.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
-        player_hp.value = playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
+        playerHp = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][2]);
+        player_hp.value = playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][2]);
         player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
     }
 
