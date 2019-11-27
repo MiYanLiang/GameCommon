@@ -34,8 +34,8 @@ public class posResFlash : MonoBehaviour
         }
         else
         {
-            UpdateBtn.GetComponent<CreateAndUpdate>().UpdateCard();
             CreateAndUpdate.money += 2; //每局结束的刷新招募不减金币
+            UpdateBtn.GetComponent<CreateAndUpdate>().UpdateCard();
         }
     }
 
