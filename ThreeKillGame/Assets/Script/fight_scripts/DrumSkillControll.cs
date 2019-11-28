@@ -25,6 +25,10 @@ public class DrumSkillControll : MonoBehaviour
     float combTimeNotes = 1.5f;   //连击间隔
     float combTimes = 0;        //计时器
 
+    [SerializeField]
+    public GameObject cutHp_text;       //掉血文字
+
+
     private void OnEnable()
     {
         isChange = false;
@@ -81,9 +85,85 @@ public class DrumSkillControll : MonoBehaviour
         combosText.color = new Color(200f / 255f, 0 / 255f, 0 / 255f, 1);
         combTimes = 0;
         isComb = true;
+        //连击战鼓测试
+        if (combosNums == 3)
+        {
+            SanLianJi();
+        }
+    }
+    //连击战鼓技能--------------------------------------------
+    private void SanLianJi()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+            {
+                if (FightCardSP.enemyCards[i].GetComponent<CardMove>().Health / (float)FightCardSP.enemyCards[i].GetComponent<CardMove>().Fullhealth <= 0.15f)
+                {
+                    GameObject cutHpObj = Instantiate(cutHp_text, FightCardSP.enemyCards[i].transform.GetChild(5));
+                    cutHpObj.GetComponent<Text>().color = Color.red;
+                    cutHpObj.GetComponent<Text>().text = "-" + FightCardSP.enemyCards[i].GetComponent<CardMove>().Health;
+                    FightCardSP.enemyCards[i].GetComponent<CardMove>().Health = 0;
+                    FightCardSP.enemyCards[i].GetComponent<Slider>().value = 1;
+                }
+            }
+        }
+        Instantiate(Resources.Load("Prefab/fightEffect/Drum_FJCY", typeof(GameObject)) as GameObject, carvans);
     }
 
-    //战鼓技能--------------------------------------------
+    //连击战鼓end---------------------------------------------
+
+    //单击战鼓技能--------------------------------------------
+
+    /// <summary>
+    /// 战鼓（火）技能
+    /// </summary>
+    public void FireDrumSkill()
+    {
+        audioSource.clip = audioDrums[3];
+        audioSource.Play();
+        if (!canTakeDrum)
+        {
+            return;
+        }
+        else
+        {
+            canTakeDrum = false;
+            times = 0;
+        }
+        if (drumNums <= 0)
+        {
+            Debug.Log("战鼓敲击次数不足");
+            return;
+        }
+        int index = -1;
+        for (int i = 0; i < 9; i++)
+        {
+            if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
+            {
+                if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isFireAttack)  //没有火攻状态
+                {
+                    //判断还没有记录过目标，或者，i位置的暴击率大于记录位置的暴击率
+                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Force > FightCardSP.playerCards[index].GetComponent<CardMove>().Force)
+                    {
+                        index = i;
+                    }
+                }
+            }
+        }
+        if (index == -1)
+            return;
+        //显示技能文字
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "荒火焚天";
+        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
+        FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isFireAttack = true;
+        GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
+        icon.name = StateName.fireAttackName;
+        icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.fireAttackName, typeof(Sprite)) as Sprite;
+        drumNums--;
+        CombDurm();
+        UpdateShowDrumText();
+    }
 
     /// <summary>
     /// 战鼓（风）技能
@@ -216,106 +296,6 @@ public class DrumSkillControll : MonoBehaviour
     }
 
     /// <summary>
-    /// 战鼓（水）技能
-    /// </summary>
-    public void WaterDrumSkill()
-    {
-        audioSource.clip = audioDrums[0];
-        audioSource.Play();
-        if (!canTakeDrum)
-        {
-            return;
-        }
-        else
-        {
-            canTakeDrum = false;
-            times = 0;
-        }
-        if (drumNums <= 0)
-        {
-            Debug.Log("战鼓敲击次数不足");
-            return;
-        }
-        int index = -1; //记录目标下标
-        for (int i = 0; i < 9; i++)
-        {
-            if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health <= 0)
-            {
-
-                //判断还没有记录过目标，或者，i位置的血量少于记录位置的血量
-                if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth < FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth)
-                {
-                    index = i;
-                }
-
-            }
-        }
-        if (index == -1)
-            return;
-        FightCardSP.playerCards[index].GetComponent<CardMove>().Health = (int)((float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth * 0.3);
-        FightCardSP.playerCards[index].GetComponent<Slider>().value = 1 - FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth;
-        //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "起死回生";
-        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
-        Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, FightCardSP.playerCards[index].transform);
-        //战鼓可敲击次数减一
-        drumNums--;
-        CombDurm();
-        //次数显示刷新
-        UpdateShowDrumText();
-    }
-
-    /// <summary>
-    /// 战鼓（火）技能
-    /// </summary>
-    public void FireDrumSkill()
-    {
-        audioSource.clip = audioDrums[3];
-        audioSource.Play();
-        if (!canTakeDrum)
-        {
-            return;
-        }
-        else
-        {
-            canTakeDrum = false;
-            times = 0;
-        }
-        if (drumNums <= 0)
-        {
-            Debug.Log("战鼓敲击次数不足");
-            return;
-        }
-        int index = -1;
-        for (int i = 0; i < 9; i++)
-        {
-            if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
-            {
-                if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isFireAttack)  //没有火攻状态
-                {
-                    //判断还没有记录过目标，或者，i位置的暴击率大于记录位置的暴击率
-                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Force > FightCardSP.playerCards[index].GetComponent<CardMove>().Force)
-                    {
-                        index = i;
-                    }
-                }
-            }
-        }
-        if (index == -1)
-            return;
-        //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "荒火焚天";
-        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
-        FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isFireAttack = true;
-        GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
-        icon.name = StateName.fireAttackName;
-        icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.fireAttackName, typeof(Sprite)) as Sprite;
-        drumNums--;
-        CombDurm();
-        UpdateShowDrumText();
-    }
-
-    /// <summary>
     /// 战鼓（土）技能     
     /// 血量百分比最低的单位加一个盾，免疫2次攻击
     /// </summary>
@@ -368,6 +348,56 @@ public class DrumSkillControll : MonoBehaviour
         icon.name = StateName.standName;
         //加载状态图片资源
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.standName, typeof(Sprite)) as Sprite;
+        //战鼓可敲击次数减一
+        drumNums--;
+        CombDurm();
+        //次数显示刷新
+        UpdateShowDrumText();
+    }
+
+    /// <summary>
+    /// 战鼓（水）技能
+    /// </summary>
+    public void WaterDrumSkill()
+    {
+        audioSource.clip = audioDrums[0];
+        audioSource.Play();
+        if (!canTakeDrum)
+        {
+            return;
+        }
+        else
+        {
+            canTakeDrum = false;
+            times = 0;
+        }
+        if (drumNums <= 0)
+        {
+            Debug.Log("战鼓敲击次数不足");
+            return;
+        }
+        int index = -1; //记录目标下标
+        for (int i = 0; i < 9; i++)
+        {
+            if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health <= 0)
+            {
+
+                //判断还没有记录过目标，或者，i位置的血量少于记录位置的血量
+                if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth < FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth)
+                {
+                    index = i;
+                }
+
+            }
+        }
+        if (index == -1)
+            return;
+        FightCardSP.playerCards[index].GetComponent<CardMove>().Health = (int)((float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth * 0.3);
+        FightCardSP.playerCards[index].GetComponent<Slider>().value = 1 - FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth;
+        //显示技能文字
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "起死回生";
+        FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
+        Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, FightCardSP.playerCards[index].transform);
         //战鼓可敲击次数减一
         drumNums--;
         CombDurm();

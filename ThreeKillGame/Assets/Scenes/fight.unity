@@ -35156,6 +35156,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 23a6a739ee894f74a8bd88ae88b52a95, type: 3}
   audioSource: {fileID: 1834285383}
   combosText: {fileID: 1507910030}
+  cutHp_text: {fileID: 4897758058725108660, guid: 2c309ce7c37d87a40968420e27ba82b9,
+    type: 3}
 --- !u!1 &1535884083
 GameObject:
   m_ObjectHideFlags: 0
