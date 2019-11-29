@@ -25,6 +25,9 @@ public class DrumSkillControll : MonoBehaviour
     float combTimeNotes = 1.5f;   //连击间隔
     float combTimes = 0;        //计时器
 
+    [SerializeField]
+    public GameObject cutHp_text;       //掉血文字
+
 
     private void OnEnable()
     {
@@ -82,7 +85,39 @@ public class DrumSkillControll : MonoBehaviour
         combosText.color = new Color(200f / 255f, 0 / 255f, 0 / 255f, 1);
         combTimes = 0;
         isComb = true;
+        //连击战鼓测试
+        if (combosNums == 3)
+        {
+            SanLianJi();
+        }
     }
+    //连击战鼓技能--------------------------------------------
+    private void SanLianJi()
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            if (FightCardSP.enemyCards[i] != null && FightCardSP.enemyCards[i].GetComponent<CardMove>().Health > 0)
+            {
+                if (FightCardSP.enemyCards[i].GetComponent<CardMove>().Health / (float)FightCardSP.enemyCards[i].GetComponent<CardMove>().Fullhealth <= 0.15f)
+                {
+                    GameObject cutHpObj = Instantiate(cutHp_text, FightCardSP.enemyCards[i].transform.GetChild(5));
+                    cutHpObj.GetComponent<Text>().color = Color.red;
+                    cutHpObj.GetComponent<Text>().text = "-" + FightCardSP.enemyCards[i].GetComponent<CardMove>().Health;
+                    FightCardSP.enemyCards[i].GetComponent<CardMove>().Health = 0;
+                    FightCardSP.enemyCards[i].GetComponent<Slider>().value = 1;
+                }
+            }
+        }
+        Instantiate(Resources.Load("Prefab/fightEffect/Drum_FJCY", typeof(GameObject)) as GameObject, carvans);
+    }
+
+
+
+    //连击战鼓end---------------------------------------------
+
+
+
+
 
 
     //单击战鼓技能--------------------------------------------
