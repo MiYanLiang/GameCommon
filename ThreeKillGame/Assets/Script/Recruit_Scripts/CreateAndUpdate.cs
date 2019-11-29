@@ -2079,7 +2079,7 @@ public class CreateAndUpdate : MonoBehaviour
             GameObject tipObj = Instantiate(tipsText, prompTran);
             tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[0][2], getMoney);  //获得金币提示
         }
-        Invoke("NotShowBox",1f);
+        Invoke("NotShowBox",1.5f);
     }
     //延时后隐藏宝箱
     void NotShowBox()
