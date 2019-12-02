@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class posResFlash : MonoBehaviour
 {
@@ -12,6 +13,8 @@ public class posResFlash : MonoBehaviour
     public Transform[] playerCanvas;    //玩家武将专属界面
     public GameObject UpdateBtn;    //刷新招募按钮
     private bool isLockUpdateCard;  //记录是否对刷新招募上锁
+    [SerializeField]
+    GameObject topPower;    //顶部其他势力信息
 
     private void Start()
     {
@@ -42,23 +45,25 @@ public class posResFlash : MonoBehaviour
     //顶部势力按钮执行，优先显示界面
     public void ChangePosShow(int n)
     {
-        fights[n].SetParent(posRes);
-        fights[n].SetParent(canvas);
-        jiugongges[n].SetParent(canvas);
-        jiugongges[n].SetParent(Shangzhenwei);
-        if (n == 0) //关闭或显示备战位等
-        {
-            for (int i = 0; i < playerCanvas.Length; i++)
-            {
-                playerCanvas[i].gameObject.SetActive(true);
-            }
-        }
-        else
-        {
-            for (int i = 0; i < playerCanvas.Length; i++)
-            {
-                playerCanvas[i].gameObject.SetActive(false);
-            }
-        }
+        if(n!=0)
+            topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + UIControl.array_forces[n - 1], typeof(Sprite)) as Sprite;
+        //fights[n].SetParent(posRes);
+        //fights[n].SetParent(canvas);
+        //jiugongges[n].SetParent(canvas);
+        //jiugongges[n].SetParent(Shangzhenwei);
+        //if (n == 0) //关闭或显示备战位等
+        //{
+        //    for (int i = 0; i < playerCanvas.Length; i++)
+        //    {
+        //        playerCanvas[i].gameObject.SetActive(true);
+        //    }
+        //}
+        //else
+        //{
+        //    for (int i = 0; i < playerCanvas.Length; i++)
+        //    {
+        //        playerCanvas[i].gameObject.SetActive(false);
+        //    }
+        //}
     }
 }

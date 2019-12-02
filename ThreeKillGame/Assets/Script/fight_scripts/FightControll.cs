@@ -181,19 +181,30 @@ public class FightControll : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private int selectForce = -1;
+    public void ChangeSelectForce(int index)
+    {
+        selectForce = index;
+    }
+
     /// <summary>
     /// 点击开始战斗，传递数据到战斗界面
     /// </summary>
     public void StartFightSendHeroData()
     {
-        int rivalId= Random.Range(0, 5);    //随机挑选对手0,1,2,3,4
+        int rivalId = Random.Range(0, 5);    //随机挑选对手0,1,2,3,4
         //玩家的敌人设置
         while (true)
         {
-            if (npcPlayerHps[rivalId]>0)
+            if (npcPlayerHps[rivalId] > 0)
                 break;
             else
                 rivalId = Random.Range(0, 5);
+        }
+        if (selectForce != -1 && npcPlayerHps[selectForce] > 0)  //选择敌对势力
+        {
+            rivalId = selectForce;
         }
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
         FightCardSps[0].GetComponent<FightCardSP>().enemyForceId = rivalId;
