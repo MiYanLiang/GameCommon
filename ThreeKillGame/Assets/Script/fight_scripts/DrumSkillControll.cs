@@ -88,7 +88,7 @@ public class DrumSkillControll : MonoBehaviour
         //连击战鼓测试
         if (combosNums == 3)
         {
-            SanLianJi();
+            //SanLianJi();
         }
     }
     //连击战鼓技能--------------------------------------------

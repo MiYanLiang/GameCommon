@@ -323,7 +323,7 @@ public class FightCardSP : MonoBehaviour
                             //展示战况
                             if (isSpecialLevel)
                             {
-                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.NPCTableDates[specialLevelId][15]);
+                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.NPCTableDates[specialLevelId][15]);
                             }
                             else
                             {
@@ -386,7 +386,7 @@ public class FightCardSP : MonoBehaviour
 
                             if (isSpecialLevel)
                             {
-                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.NPCTableDates[specialLevelId][15]);
+                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.NPCTableDates[specialLevelId][15]);
                             }
                             else
                             {

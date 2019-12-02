@@ -7,7 +7,7 @@ public class textControll2 : MonoBehaviour
 
     private void Start()
     {
-        Invoke("DestortThisText", FightControll.speedTime * 1.6f);  //销毁
+        Invoke("DestortThisText", FightControll.speedTime * 2f);  //销毁
     }
 
     /// <summary>

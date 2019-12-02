@@ -18,7 +18,7 @@ public class cutHpTextControll : MonoBehaviour
         TextMoved(cutHpText);
 
         textMoveSequence.Play();
-        Invoke("DestortThisText", FightControll.speedTime * 1.6f);  //销毁
+        Invoke("DestortThisText", FightControll.speedTime * 2f);  //销毁
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public class cutHpTextControll : MonoBehaviour
         textMoveSequence.Append(textMove01);
         textMoveSequence.Join(textColor01);
 
-        textMoveSequence.AppendInterval(FightControll.speedTime * 1f);
+        textMoveSequence.AppendInterval(FightControll.speedTime * 1.4f);
 
         textMoveSequence.Append(textMove02);
         textMoveSequence.Join(textColor02);
