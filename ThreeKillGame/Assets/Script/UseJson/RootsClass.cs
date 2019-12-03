@@ -62,6 +62,10 @@ public class Roots
     /// NPC和boss数据表
     /// </summary>
     public List<NPCTableItem> NPCTable { get; set; }
-    
+
+    /// <summary>
+    /// Flags表
+    /// </summary>
+    public List<FlagsTableItem> flagsTable { get; set; }
 
 }

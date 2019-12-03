@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable";
 
 
     /// <summary>
@@ -81,6 +81,10 @@ public class LoadJsonFile : MonoBehaviour
     /// </summary>
     public static List<List<string>> NPCTableDates;
 
+    /// <summary>
+    /// Flags数据表
+    /// </summary>
+    public static List<List<string>> FlagsTableDates;
 
 
 
@@ -162,6 +166,11 @@ public class LoadJsonFile : MonoBehaviour
                 forcesTableDatas[i].Add(root.ForcesTable[i].Prestige);
                 forcesTableDatas[i].Add(root.ForcesTable[i].forcesSign);
                 forcesTableDatas[i].Add(root.ForcesTable[i].forcesName);
+                forcesTableDatas[i].Add(root.ForcesTable[i].city);
+                forcesTableDatas[i].Add(root.ForcesTable[i].cityIcon);
+                forcesTableDatas[i].Add(root.ForcesTable[i].firstHeroId);
+                forcesTableDatas[i].Add(root.ForcesTable[i].flagId);
+                forcesTableDatas[i].Add(root.ForcesTable[i].exclusiveSoldierId);
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
@@ -357,7 +366,20 @@ public class LoadJsonFile : MonoBehaviour
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
-
+        //加载FlagsTable数据:FlagsTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            FlagsTableDates = new List<List<string>>(root.flagsTable.Count);
+            for (int i = 0; i < root.flagsTable.Count; i++)
+            {
+                FlagsTableDates.Add(new List<string>());
+                FlagsTableDates[i].Add(root.flagsTable[i].flagId);
+                FlagsTableDates[i].Add(root.flagsTable[i].flagIcon);
+                FlagsTableDates[i].Add(root.flagsTable[i].flagEffect);
+            }
+            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
 
 
         if (indexTable>= tableNames.Length)

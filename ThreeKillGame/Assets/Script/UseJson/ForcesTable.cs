@@ -24,4 +24,24 @@
     /// 势力名
     /// </summary>
     public string forcesName { get; set; }
+    /// <summary>
+    /// 城市
+    /// </summary>
+    public string city { get; set; }
+    /// <summary>
+    /// 城市IconId
+    /// </summary>
+    public string cityIcon { get; set; }
+    /// <summary>
+    /// 初始武将ID
+    /// </summary>
+    public string firstHeroId { get; set; }
+    /// <summary>
+    /// 战旗ID
+    /// </summary>
+    public string flagId { get; set; }
+    /// <summary>
+    /// 专属兵种
+    /// </summary>
+    public string exclusiveSoldierId { get; set; }
 }
