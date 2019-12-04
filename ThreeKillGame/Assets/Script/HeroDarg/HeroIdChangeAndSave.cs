@@ -214,7 +214,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             GameObject obj = Instantiate(heroTypePrefab, LeftInformationBar.GetChild(i));
             obj.transform.position = LeftInformationBar.GetChild(i).position;
             obj.GetComponentsInChildren<Text>()[0].text = heroTypeName[i - 1];
-            if (heroTypeName[i - 1] == "山兽")
+            if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[0][1])
             {
                 if (shieldSoldierNum < 3)
                 {
@@ -233,7 +233,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "海兽")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[1][1])
             {
                 if (mahoutNum < 3)
                 {
@@ -252,7 +252,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "飞兽")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[2][1])
             {
                 if (halberdierNum <3)
                 {
@@ -271,7 +271,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "人杰")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[3][1])
             {
                 if (lifeguardNum <3)
                 {
@@ -290,7 +290,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "祖巫")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[4][1])
             {
                 if (spearmanNum < 3)
                 {
@@ -309,7 +309,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "散仙")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[5][1])
             {
                 if (sowarNum < 3)
                 {
@@ -328,7 +328,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "辅神")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[6][1])
             {
                 if (counsellorNum < 3)
                 {
@@ -347,7 +347,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "魔神")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[7][1])
             {
                 if (sapperNum < 3)
                 {
@@ -366,7 +366,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == "天神")
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[8][1])
             {
                 if (necromancerNum < 3)
                 {
@@ -385,6 +385,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
+            /*
             else if (heroTypeName[i - 1] == "神兽")
             {
                 if (god_beast < 3)
@@ -396,9 +397,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     obj.GetComponentsInChildren<Text>()[1].text = god_beast.ToString() + "/" + "6";
                 }
             }
-
+            */
         }
     }
+
     void GetExcelFile1(List<int> battleHeroId)
     {
         for (int i = 0; i < battleHeroId.Count; i++)
@@ -406,6 +408,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             GetHeroTypeFromId(battleHeroId[i]);
         }
     }
+
     //传入英雄id，拿到英雄兵种类型
     void GetHeroTypeFromId(int id)
     {
