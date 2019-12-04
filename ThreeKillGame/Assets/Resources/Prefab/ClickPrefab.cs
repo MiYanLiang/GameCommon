@@ -43,6 +43,7 @@ public class ClickPrefab : MonoBehaviour
     }
     public void ClickSoldiersPrefab()
     {
+        List<List<string>> arrs_name = new List<List<string>>(LoadJsonFile.SoldierTypeDates.Count);
         shieldSoldierName.Clear();
         mahoutName.Clear();
         halberdierName.Clear();
@@ -52,6 +53,17 @@ public class ClickPrefab : MonoBehaviour
         counsellorName.Clear();
         sapperName.Clear();
         necromancerName.Clear();
+
+        arrs_name.Add(shieldSoldierName);
+        arrs_name.Add(mahoutName);
+        arrs_name.Add(halberdierName);
+        arrs_name.Add(lifeguardName);
+        arrs_name.Add(spearmanName);
+        arrs_name.Add(sowarName);
+        arrs_name.Add(counsellorName);
+        arrs_name.Add(sapperName);
+        arrs_name.Add(necromancerName);
+
         god_beastName.Clear();
 
         shieldSoldierId.Clear();
@@ -64,8 +76,26 @@ public class ClickPrefab : MonoBehaviour
         sapperId.Clear();
         necromancerId.Clear();
         god_beastId.Clear();
-        GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
+        GameObject topBar = GameObject.Find("TopInformationBar");
+        topBar.GetComponentInChildren<Text>().text = "";
         init_btn();
+
+        for (int i = 0; i < LoadJsonFile.SoldierTypeDates.Count; i++)
+        {
+            if (this.GetComponentsInChildren<Text>()[0].text == LoadJsonFile.SoldierTypeDates[i][1])
+            {
+                for (int j = 0; j < arrs_name[i].Count; j++)
+                {
+                    topBar.GetComponentsInChildren<Text>()[0].text += "\u2000" + arrs_name[i][j];
+                    topBar.GetComponentsInChildren<Text>()[1].text = LoadJsonFile.SoldierTypeDates[i][1] + "\u2000";
+                    topBar.GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[i][3];
+                    topBar.GetComponentsInChildren<Text>()[3].text = "";
+                }
+                topBar.GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "3兵技" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[0 + i * 2][1] + "]" + "\u2000" + LoadJsonFile.soldierSkillTableDatas[0 + i * 2][2] + LoadJsonFile.soldierSkillTableDatas[0 + i * 2][3]
+                                                                + "\t" + "\u2000" + "6兵技" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[1 + i * 2][1] + "]" + "\u2000" + LoadJsonFile.soldierSkillTableDatas[1 + i * 2][2] + LoadJsonFile.soldierSkillTableDatas[1 + i * 2][3];
+            }
+        }
+        /*
         if (this.GetComponentsInChildren<Text>()[0].text == "山兽")
         {
             for (int i = 0; i < shieldSoldierName.Count; i++)
@@ -165,77 +195,59 @@ public class ClickPrefab : MonoBehaviour
             }
             GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[16][1] + "]" + "\u2000" + "3天神上阵," + LoadJsonFile.soldierSkillTableDatas[16][2] + LoadJsonFile.soldierSkillTableDatas[16][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[17][1] + "]" + "\u2000" + "6天神上阵," + LoadJsonFile.soldierSkillTableDatas[17][2] + LoadJsonFile.soldierSkillTableDatas[17][3];
         }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "神兽")
-        {
-            for (int i = 0; i < god_beastName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "神兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "防守较强，适合放前排防御";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000"+ god_beastName[i] ;
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-        }
-
+        */
     }
+
     void init_btn()
     {
         GetExcelFile3();
-        for (int i = 0; i < shieldSoldierName.Count; i++)
-        {
-            //print(shieldSoldierName[i]);
-        }
     }
+
     void GetExcelFile3()
     {
-        //string filePath = "F:/dev/GameCommon/111.xlsx";   
-        //string filePath = Application.streamingAssetsPath + "\\TableFiles\\111.xlsx";  //相对路径
-        //FileInfo fileinfo = new FileInfo(filePath);
-        //using (ExcelPackage excelpackge = new ExcelPackage(fileinfo))
-        //{
-            //ExcelWorksheet worksheet1 = excelpackge.Workbook.Worksheets[1];
-            GetSoldiersAll();
-            for (int i = 0; i < shieldSoldierId.Count; i++)
-            {
-                shieldSoldierName.Add(GetHeroNameFromId(shieldSoldierId[i]));
-            }
-            for (int i = 0; i < mahoutId.Count; i++)
-            {
-                mahoutName.Add(GetHeroNameFromId(mahoutId[i]));
-            }
-            for (int i = 0; i < halberdierId.Count; i++)
-            {
-                halberdierName.Add(GetHeroNameFromId( halberdierId[i]));
-            }
-            for (int i = 0; i < lifeguardId.Count; i++)
-            {
-                lifeguardName.Add(GetHeroNameFromId( lifeguardId[i]));
-            }
-            for (int i = 0; i < spearmanId.Count; i++)
-            {
-                spearmanName.Add(GetHeroNameFromId(spearmanId[i]));
-            }
-            for (int i = 0; i < sowarId.Count; i++)
-            {
-                sowarName.Add(GetHeroNameFromId(sowarId[i]));
-            }
-            for (int i = 0; i < counsellorId.Count; i++)
-            {
-                counsellorName.Add(GetHeroNameFromId(counsellorId[i]));
-            }
-            for (int i = 0; i < sapperId.Count; i++)
-            {
-                sapperName.Add(GetHeroNameFromId(sapperId[i]));
-            }
-            for (int i = 0; i < necromancerId.Count; i++)
-            {
-                necromancerName.Add(GetHeroNameFromId(necromancerId[i]));
-            }
-            for (int i = 0; i < god_beastId.Count; i++)
-            {
-                god_beastName.Add(GetHeroNameFromId(god_beastId[i]));
-            }
-        //}
+        GetSoldiersAll();
+        for (int i = 0; i < shieldSoldierId.Count; i++)
+        {
+            shieldSoldierName.Add(GetHeroNameFromId(shieldSoldierId[i]));
+        }
+        for (int i = 0; i < mahoutId.Count; i++)
+        {
+            mahoutName.Add(GetHeroNameFromId(mahoutId[i]));
+        }
+        for (int i = 0; i < halberdierId.Count; i++)
+        {
+            halberdierName.Add(GetHeroNameFromId( halberdierId[i]));
+        }
+        for (int i = 0; i < lifeguardId.Count; i++)
+        {
+            lifeguardName.Add(GetHeroNameFromId( lifeguardId[i]));
+        }
+        for (int i = 0; i < spearmanId.Count; i++)
+        {
+            spearmanName.Add(GetHeroNameFromId(spearmanId[i]));
+        }
+        for (int i = 0; i < sowarId.Count; i++)
+        {
+            sowarName.Add(GetHeroNameFromId(sowarId[i]));
+        }
+        for (int i = 0; i < counsellorId.Count; i++)
+        {
+            counsellorName.Add(GetHeroNameFromId(counsellorId[i]));
+        }
+        for (int i = 0; i < sapperId.Count; i++)
+        {
+            sapperName.Add(GetHeroNameFromId(sapperId[i]));
+        }
+        for (int i = 0; i < necromancerId.Count; i++)
+        {
+            necromancerName.Add(GetHeroNameFromId(necromancerId[i]));
+        }
+        for (int i = 0; i < god_beastId.Count; i++)
+        {
+            god_beastName.Add(GetHeroNameFromId(god_beastId[i]));
+        }
     }
+
     void GetSoldiersAll()
     {
         int num = 3;
@@ -283,16 +295,17 @@ public class ClickPrefab : MonoBehaviour
             }
         }
     }
-    string GetHeroNameFromId(int id)
+
+    private string GetHeroNameFromId(int id)
     {
-        string name = "";
-        for (int i = 0; i < 88; i++)
-        {
-            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
-            {
-                name = LoadJsonFile.RoleTableDatas[i][1];
-            }
-        }
-        return name;
+        //string name = "";
+        //for (int i = 0; i < 88; i++)
+        //{
+        //    if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
+        //    {
+        //        name = LoadJsonFile.RoleTableDatas[i][1];
+        //    }
+        //}
+        return LoadJsonFile.RoleTableDatas[id - 1][1];
     }
 }

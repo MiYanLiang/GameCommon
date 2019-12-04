@@ -1715,46 +1715,8 @@ public class CreateAndUpdate : MonoBehaviour
         for (int i = 0; i < heroName.Count; i++)
         {
             //兵种显示
-            if (soliderKind[i].ToString() == "1")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "山";
-            }
-            else if (soliderKind[i].ToString() == "2")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "海";
-            }
-            else if (soliderKind[i].ToString() == "3")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "飞";
-            }
-            else if (soliderKind[i].ToString() == "4")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "人";
-            }
-            else if (soliderKind[i].ToString() == "5")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "巫";
-            }
-            else if (soliderKind[i].ToString() == "6")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "仙";
-            }
-            else if (soliderKind[i].ToString() == "7")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "辅";
-            }
-            else if (soliderKind[i].ToString() == "8")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "魔";
-            }
-            else if (soliderKind[i].ToString() == "9")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "天";
-            }
-            else if (soliderKind[i].ToString() == "10")
-            {
-                heroBtn[i].GetComponentsInChildren<Text>()[5].text = "神";
-            }
+            heroBtn[i].GetComponentsInChildren<Text>()[5].text = LoadJsonFile.SoldierTypeDates[int.Parse(soliderKind[i]) - 1][2];
+            
             //显示背景兵种图片
             heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + soliderKind[i], typeof(Sprite)) as Sprite;
 

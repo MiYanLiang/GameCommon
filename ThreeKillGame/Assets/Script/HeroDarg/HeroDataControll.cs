@@ -99,56 +99,6 @@ public class HeroDataControll : MonoBehaviour {
     //获取兵种名字
     void GetHeroTypeName()
     {
-        string name = "";
-        if (heroKindType == 1)
-        {
-            name = "山兽";
-            heroKindName = name;
-        }
-        else if (heroKindType == 2)
-        {
-            name = "海兽";
-            heroKindName = name;
-        }
-        else if (heroKindType == 3)
-        {
-            name = "飞兽";
-            heroKindName = name;
-        }
-        else if (heroKindType == 4)
-        {
-            name = "人杰";
-            heroKindName = name;
-        }
-        else if (heroKindType == 5)
-        {
-            name = "祖巫";
-            heroKindName = name;
-        }
-        else if (heroKindType == 6)
-        {
-            name = "散仙";
-            heroKindName = name;
-        }
-        else if (heroKindType == 7)
-        {
-            name = "辅神";
-            heroKindName = name;
-        }
-        else if (heroKindType == 8)
-        {
-            name = "魔神";
-            heroKindName = name;
-        }
-        else if (heroKindType == 9)
-        {
-            name = "天神";
-            heroKindName = name;
-        }
-        else if (heroKindType == 10)
-        {
-            name = "神兽";
-            heroKindName = name;
-        }
+        heroKindName = LoadJsonFile.SoldierTypeDates[heroKindType - 1][1];
     }
 }

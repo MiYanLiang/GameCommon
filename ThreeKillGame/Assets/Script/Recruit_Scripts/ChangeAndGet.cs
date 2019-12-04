@@ -24,6 +24,18 @@ public class ChangeAndGet : MonoBehaviour
     private void Start()
     {
         createUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
+
+        CreateStartHero();  //创建加载初始武将
+    }
+
+    /// <summary>
+    /// 创建加载初始武将
+    /// </summary>
+    private void CreateStartHero()
+    {
+        heroId = int.Parse(LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][8]);  //初始武将id获取
+        PutCardToPos(preparation.GetChild(0), 1);   //放置到备战位一号位置，一阶
+        HeroIdChangeAndSave.pos_heroId[9] = heroId;
     }
 
     public void GetResidueCard()
@@ -32,7 +44,6 @@ public class ChangeAndGet : MonoBehaviour
         if (num == -1) { return; }  //若没有空位直接返回
         btnNum = btn.GetComponentInChildren<Text>().text;
         btnTag = int.Parse(btn.name);
-        print("btnName:"+btnTag);
         ChickenRibsHeroId = createUpdate.ChickenRibsHeroId;
         ChangeBtnColor();
         UpdateGetCard(num);
@@ -67,7 +78,6 @@ public class ChangeAndGet : MonoBehaviour
         if (boolIndex == true)
         {
             if (num == -1) { return; }
-            GetExcelFile2();
             ShowAndGradeHero(num);  //升阶或直接展示
         }
     }
@@ -88,12 +98,9 @@ public class ChangeAndGet : MonoBehaviour
                 }
             }
         }
-        //print("kkkkkkkkkkkkkkkkkkkheroId:" + HeroDate[0]);
         List<List<string>> fetterInformation = new List<List<string>>();
         List<string> heroIdDate = new List<string>();
-        int heroKindType = int.Parse(HeroDate[3]);
-        string heroKindName = "";
-        GetHeroTypeName(heroKindType, heroKindName);
+        string heroKindName = GetHeroTypeName(HeroDate[3]);  //获取兵种名
         GameObject.Find("TopInformationBar").GetComponentInChildren<Text>().text = "";
         int heroId_ = heroId;
         heroIdDate.Add(heroId_.ToString());
@@ -126,59 +133,15 @@ public class ChangeAndGet : MonoBehaviour
         HeroDate.Clear();
     }
 
-    void GetHeroTypeName(int heroKindType,string heroKindName)
+    /// <summary>
+    /// 获取兵种名
+    /// </summary>
+    /// <param name="heroKindType">类型编号</param>
+    /// <returns></returns>
+    private string GetHeroTypeName(string heroKindType)
     {
-        string name = "";
-        if (heroKindType == 1)
-        {
-            name = "山兽";
-            heroKindName = name;
-        }
-        else if (heroKindType == 2)
-        {
-            name = "海兽";
-            heroKindName = name;
-        }
-        else if (heroKindType == 3)
-        {
-            name = "飞兽";
-            heroKindName = name;
-        }
-        else if (heroKindType == 4)
-        {
-            name = "人杰";
-            heroKindName = name;
-        }
-        else if (heroKindType == 5)
-        {
-            name = "祖巫";
-            heroKindName = name;
-        }
-        else if (heroKindType == 6)
-        {
-            name = "散仙";
-            heroKindName = name;
-        }
-        else if (heroKindType == 7)
-        {
-            name = "辅神";
-            heroKindName = name;
-        }
-        else if (heroKindType == 8)
-        {
-            name = "魔神";
-            heroKindName = name;
-        }
-        else if (heroKindType == 9)
-        {
-            name = "天神";
-            heroKindName = name;
-        }
-        else if (heroKindType == 10)
-        {
-            name = "神兽";
-            heroKindName = name;
-        }
+        int index = int.Parse(heroKindType);
+        return LoadJsonFile.SoldierTypeDates[index - 1][1];
     }
 
     /// <summary>
@@ -223,7 +186,7 @@ public class ChangeAndGet : MonoBehaviour
             index_pos++;
         }
         index_pos = 0;  //归零
-        
+
         if (gradeone.Count >= 2)
         {
             if (gradetwo.Count >= 2)
@@ -235,7 +198,7 @@ public class ChangeAndGet : MonoBehaviour
                     if (gradeone[i] < 9)  //在九宫格中
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
-                        if (jiugongge.GetChild(gradeone[0]).childCount>0)
+                        if (jiugongge.GetChild(gradeone[0]).childCount > 0)
                             Destroy(jiugongge.GetChild(gradeone[0]).GetChild(0).gameObject);   //销毁新生成的二阶武将卡牌
                     }
                     else    //在备战位中
@@ -248,11 +211,11 @@ public class ChangeAndGet : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     HeroIdChangeAndSave.pos_heroId[gradetwo[i]] = 0;
-                    if (gradetwo[i] < 9)  
+                    if (gradetwo[i] < 9)
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁二阶武将卡牌
                     }
-                    else    
+                    else
                     {
                         Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
                     }
@@ -274,17 +237,17 @@ public class ChangeAndGet : MonoBehaviour
                 for (int i = 0; i < 2; i++)
                 {
                     HeroIdChangeAndSave.pos_heroId[gradeone[i]] = 0;
-                    if (gradeone[i]<9)  //在九宫格中
+                    if (gradeone[i] < 9)  //在九宫格中
                     {
                         Destroy(jiugongge.GetChild(gradeone[i]).GetChild(0).gameObject);   //销毁一阶武将卡牌
                     }
                     else    //在备战位中
                     {
-                        Destroy(preparation.GetChild(gradeone[i]-9).GetChild(0).gameObject);
+                        Destroy(preparation.GetChild(gradeone[i] - 9).GetChild(0).gameObject);
                     }
                 }
                 //放置二阶卡牌
-                if (gradeone[0]<9)
+                if (gradeone[0] < 9)
                 {
                     PutCardToPos(jiugongge.GetChild(gradeone[0]), 2);
                 }
@@ -298,7 +261,7 @@ public class ChangeAndGet : MonoBehaviour
         else
         {
             //购买展示一阶
-            PutCardToPos(preparation.GetChild(num),1);
+            PutCardToPos(preparation.GetChild(num), 1);
             HeroIdChangeAndSave.pos_heroId[num + 9] = heroId;   //记录购买武将的id信息
         }
         index_pos = 0;
@@ -315,7 +278,7 @@ public class ChangeAndGet : MonoBehaviour
         //实例化武将卡牌到备战位,并传递数据过去
         GameObject newheroCard = Instantiate(hero_Card, card_parant);
         newheroCard.transform.position = card_parant.position;
-        List<string> newData = LoadJsonFile.DeepClone<string>(heroData);    //list深拷贝
+        List<string> newData = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroId - 1]);    //list深拷贝
         newheroCard.GetComponent<HeroDataControll>().HeroData = newData;
         //设置品阶颜色表现和属性
         newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = grade.ToString();
@@ -391,13 +354,8 @@ public class ChangeAndGet : MonoBehaviour
         GetHeroId(btnTag);
         GetSpecificValue(heroId);
     }
-    //读取相应英雄的所有数据
-    void GetExcelFile2()
-    {
-        GetHeroDateFromId(heroId);
-    }
 
-    //获取表中英雄的所有数据
+    //获取表中英雄的所有数据（暂时弃用）
     void GetHeroDateFromId(int id)
     {
         heroData.Clear();   //清空上一次所购买的英雄数据
@@ -429,12 +387,14 @@ public class ChangeAndGet : MonoBehaviour
     //在表一中拿到点击英雄的id
     void GetHeroId(int num)
     {
-        for (int i = 0; i < 792; i++)
+        heroId = int.Parse(LoadJsonFile.RandowTableDates[num - 1][0]);
+
+        /*for (int i = 0; i < 792; i++)
         {
             if (LoadJsonFile.RandowTableDates[i][1] == num.ToString())
             {
                 heroId = int.Parse(LoadJsonFile.RandowTableDates[i][0]);
             }
-        }
+        }*/
     }
 }

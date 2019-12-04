@@ -105,50 +105,10 @@ public class SoldiersControl : MonoBehaviour
     {
         for (int i = 0; i < heroTypeAll.Count; i++)
         {
-            string name = "";
-            if (heroTypeAll[i] == 1)
-            {
-                name = "山兽";
-            }
-            else if (heroTypeAll[i] == 2)
-            {
-                name = "海兽";
-            }
-            else if (heroTypeAll[i] == 3)
-            {
-                name = "飞兽";
-            }
-            else if (heroTypeAll[i] == 4)
-            {
-                name = "人杰";
-            }
-            else if (heroTypeAll[i] == 5)
-            {
-                name = "祖巫";
-            }
-            else if (heroTypeAll[i] == 6)
-            {
-                name = "散仙";
-            }
-            else if (heroTypeAll[i] == 7)
-            {
-                name = "辅神";
-            }
-            else if (heroTypeAll[i] == 8)
-            {
-                name = "魔神";
-            }
-            else if (heroTypeAll[i] == 9)
-            {
-                name = "天神";
-            }
-            else if (heroTypeAll[i] == 10)
-            {
-                name = "神兽";
-            }
-            heroTypeName.Add(name);
+            heroTypeName.Add(LoadJsonFile.SoldierTypeDates[heroTypeAll[i] - 1][1]);
         }
     }
+
     //冒泡排序
     void ArraySort(List<int> arr)
     {

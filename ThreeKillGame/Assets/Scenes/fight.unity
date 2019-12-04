@@ -343,7 +343,7 @@ MonoBehaviour:
   prompTran: {fileID: 1637822661}
   tipsText: {fileID: 7708770542960138778, guid: ac5ecacb0172c3547b1f39033ffcf053,
     type: 3}
-  debug_Money: 0
+  debug_Money: 100
   goldOfGrade: {fileID: 1602380208}
 --- !u!1 &15026664
 GameObject:
