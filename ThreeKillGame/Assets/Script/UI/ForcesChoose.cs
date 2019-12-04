@@ -26,7 +26,7 @@ public class ForcesChoose : MonoBehaviour
 
     //战役
     public GameObject battleName;
-    int battleId;
+    public static int battleId;
     void Start()
     {
         currentPrestigeTo = PlayerPrefs.GetInt("prestigeNum");
@@ -39,7 +39,7 @@ public class ForcesChoose : MonoBehaviour
     private void Update()
     {
         ShowSelected();
-        currentPrestige.GetComponent<Text>().text=PlayerPrefs.GetInt("prestigeNum").ToString();//随时刷新声望值
+        currentPrestige.GetComponent<Text>().text = PlayerPrefs.GetInt("prestigeNum").ToString();//随时刷新声望值
         //RandomBattle();
         //print(currentForcesIndex);
     }
@@ -231,7 +231,7 @@ public class ForcesChoose : MonoBehaviour
         int temp_num = 0;
         int battleCount = LoadJsonFile.BattleTableDates.Count;
         temp_num = Random.Range(0, battleCount);
-        battleId = temp_num;  //为0、1、2
+        battleId = temp_num;
         battleName.GetComponent<Text>().text = LoadJsonFile.BattleTableDates[battleId][1];  //战役名称
         ShowTextOfForcesData(LoadJsonFile.BattleTableDates[battleId][2]); //战役解释
         //调整字体大小

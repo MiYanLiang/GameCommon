@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8919,7 +8919,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1943447727}
   m_Father: {fileID: 1776039369}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8988,6 +8989,7 @@ MonoBehaviour:
   - {fileID: 322040162}
   fightBtn: {fileID: 1420345992}
   cameraAudio: {fileID: 283626260}
+  battle_Text: {fileID: 1986787743}
 --- !u!114 &335961168
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15344,7 +15346,7 @@ RectTransform:
   - {fileID: 1373231505}
   - {fileID: 1688924027}
   m_Father: {fileID: 1776039369}
-  m_RootOrder: 30
+  m_RootOrder: 29
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -28378,7 +28380,7 @@ RectTransform:
   - {fileID: 1420345991}
   - {fileID: 1932310022}
   m_Father: {fileID: 1776039369}
-  m_RootOrder: 32
+  m_RootOrder: 31
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -37841,7 +37843,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1628052355
 RectTransform:
   m_ObjectHideFlags: 0
@@ -38544,7 +38546,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1776039369}
-  m_RootOrder: 31
+  m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -41252,7 +41254,6 @@ RectTransform:
   - {fileID: 484281009}
   - {fileID: 457771710}
   - {fileID: 1272533441}
-  - {fileID: 1943447727}
   - {fileID: 630095854}
   - {fileID: 1637822661}
   - {fileID: 1159457379}
@@ -45912,13 +45913,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 443953082}
-  m_Father: {fileID: 1776039369}
-  m_RootOrder: 29
+  m_Father: {fileID: 335961164}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 455, y: 918.49}
-  m_SizeDelta: {x: 170, y: 83.01}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -85, y: -41.505005}
+  m_SizeDelta: {x: 170, y: 83.01001}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!82 &1943447728
 AudioSource:
@@ -47728,13 +47729,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 50
-    m_Alignment: 3
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u516C\u5143112\u5E74"
+  m_Text: "\u516C\u5143100\u5E74"
 --- !u!222 &1986787744
 CanvasRenderer:
   m_ObjectHideFlags: 0

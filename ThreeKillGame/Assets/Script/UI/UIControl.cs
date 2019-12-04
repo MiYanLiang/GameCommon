@@ -19,11 +19,15 @@ public class UIControl : MonoBehaviour
     Button fightBtn;
     public GameObject cameraAudio;//摄像机
 
+    private int battleId;   //开局所选战役ID
+    [SerializeField]
+    public Text battle_Text;
+
     private void Awake()
     {
         int id_others = 0;
         playerForceId = PlayerPrefs.GetInt("forcesId");
-        playerForcePic.sprite = Resources.Load("Image/calligraphy/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        playerForcePic.sprite = Resources.Load("Image/calligraphy/Forces/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
         for (int i = 0; i < 5; i++)
         {
             //创建其他势力ID
@@ -33,13 +37,19 @@ public class UIControl : MonoBehaviour
             } while ((id_others==playerForceId)||IsHadForceId(id_others));
             array_forces[i] = id_others;
             //设置其他势力的头像
-            otherForcePic[i].sprite = Resources.Load("Image/calligraphy/" + array_forces[i], typeof(Sprite)) as Sprite; 
+            otherForcePic[i].sprite = Resources.Load("Image/calligraphy/Forces/" + array_forces[i], typeof(Sprite)) as Sprite; 
         }
         Invoke("OpenPlayFightBtn", 0.5f);
 
         //加载声音
         int soundStades = PlayerPrefs.GetInt("soundStates");
         soundContrll_(soundStades);
+    }
+
+    private void Start()
+    {
+        battleId = PlayerPrefs.GetInt("battleId");
+        battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
     }
 
     //声音控制，继承main场景选择

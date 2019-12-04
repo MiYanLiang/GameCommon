@@ -46,7 +46,7 @@ public class posResFlash : MonoBehaviour
     public void ChangePosShow(int n)
     {
         if(n!=0)
-            topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + UIControl.array_forces[n - 1], typeof(Sprite)) as Sprite;
+            topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.array_forces[n - 1], typeof(Sprite)) as Sprite;
         //fights[n].SetParent(posRes);
         //fights[n].SetParent(canvas);
         //jiugongges[n].SetParent(canvas);

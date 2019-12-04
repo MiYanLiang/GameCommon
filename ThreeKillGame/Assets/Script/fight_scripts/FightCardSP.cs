@@ -72,10 +72,13 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     CreateAndUpdate creatandupdate; //刷新脚本：CreateAndUpdate
 
+    private int battleId;   //开局所选战役ID
+
+
     private void Awake()
     {
+        battleId = PlayerPrefs.GetInt("battleId");
         battles = 1;
-        battle_Text.text = "上古" + battles + "日";
         winBattles = 0;
     }
 
@@ -88,7 +91,7 @@ public class FightCardSP : MonoBehaviour
         roundNum = 1;
         isPlayerBout = true;
         battles += 1;
-        battle_Text.text = "上古" + battles + "日";
+        battle_Text.text = "公元" + (battles + int.Parse(LoadJsonFile.BattleTableDates[battleId][4]) - 1) + "年";
 
         InitArmsSkillStatus();
         //敌人初始化
@@ -102,7 +105,7 @@ public class FightCardSP : MonoBehaviour
         isEndOFInit = true;
         roundTextObj.text = "回合 " + roundNum;
         roundTextObj.gameObject.SetActive(true);
-        Invoke("LiteTimeStart", roundWaitTime);  
+        Invoke("LiteTimeStart", roundWaitTime);
     }
 
     private bool isOver = false;    //记录是否结束这轮战斗
@@ -296,27 +299,27 @@ public class FightCardSP : MonoBehaviour
                             //展示战斗胜负信息
                             if (remainScale >= 0.75f)
                             {
-                                SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/完", typeof(Sprite)) as Sprite;
-                                SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/完", typeof(Sprite)) as Sprite;
+                                SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
                             }
                             else
                             {
                                 if (remainScale >= 0.5f)
                                 {
-                                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/大", typeof(Sprite)) as Sprite;
-                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/大", typeof(Sprite)) as Sprite;
+                                    SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
                                 }
                                 else
                                 {
                                     if (remainScale >= 0.25f)
                                     {
-                                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
-                                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/利", typeof(Sprite)) as Sprite;
+                                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
+                                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/利", typeof(Sprite)) as Sprite;
                                     }
                                     else
                                     {
-                                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/险", typeof(Sprite)) as Sprite;
-                                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/胜", typeof(Sprite)) as Sprite;
+                                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/险", typeof(Sprite)) as Sprite;
+                                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
                                     }
                                 }
                             }
@@ -381,8 +384,8 @@ public class FightCardSP : MonoBehaviour
                                                                                     //金币
                             CreateAndUpdate.money += 0;   //玩家不加金币
                             
-                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/惜", typeof(Sprite)) as Sprite;
-                            SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/败", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
 
                             if (isSpecialLevel)
                             {
@@ -526,28 +529,28 @@ public class FightCardSP : MonoBehaviour
             addPrestige = int.Parse(LoadJsonFile.difficultyChooseDatas[fightCtl.difnum - 1][15 + idIndex]);
             if (idIndex == 0) //第一名
             {
-                gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_威震", typeof(Sprite)) as Sprite;
-                gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_华夏", typeof(Sprite)) as Sprite;
+                gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_威震", typeof(Sprite)) as Sprite;
+                gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_华夏", typeof(Sprite)) as Sprite;
             }
             else
             {
                 if (idIndex == 1) //第二名
                 {
-                    gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_统领", typeof(Sprite)) as Sprite;
-                    gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_九州", typeof(Sprite)) as Sprite;
+                    gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_统领", typeof(Sprite)) as Sprite;
+                    gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_九州", typeof(Sprite)) as Sprite;
                 }
                 else    //第三名
                 {
-                    gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_称霸", typeof(Sprite)) as Sprite;
-                    gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_一方", typeof(Sprite)) as Sprite;
+                    gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_称霸", typeof(Sprite)) as Sprite;
+                    gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_一方", typeof(Sprite)) as Sprite;
                 }
             }
         }
         else
         {
             addPrestige = int.Parse(LoadJsonFile.difficultyChooseDatas[fightCtl.difnum - 1][18]);
-            gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_遗恨", typeof(Sprite)) as Sprite;
-            gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/" + "总结算_千古", typeof(Sprite)) as Sprite;
+            gameOverBg.transform.GetChild(0).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_遗恨", typeof(Sprite)) as Sprite;
+            gameOverBg.transform.GetChild(0).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/GameOver/" + "总结算_千古", typeof(Sprite)) as Sprite;
         }
         gameOverBg.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = "声望 +" + addPrestige;
         PlayerPrefs.SetInt("prestigeNum", PlayerPrefs.GetInt("prestigeNum") + addPrestige);
@@ -930,16 +933,16 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     private void InitForceFlag()
     {
-        playerForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
+        playerForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
         if (isSpecialLevel)
         {
             specialFightText.text = LoadJsonFile.NPCTableDates[specialLevelId][2];
-            rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + LoadJsonFile.NPCTableDates[specialLevelId][16], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
+            rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.NPCTableDates[specialLevelId][16], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
         }
         else
         {
             specialFightText.text = "";
-            rivalForceFlag.sprite = Resources.Load("Image/calligraphy/" + UIControl.array_forces[enemyForceId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
+            rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.array_forces[enemyForceId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
         }
     }
 }

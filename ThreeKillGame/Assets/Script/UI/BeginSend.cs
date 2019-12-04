@@ -19,14 +19,12 @@ public class BeginSend : MonoBehaviour
     {
         GetDifficultyType();
         GetForcesId();
-        //print("难度："+DifficultyType);
-        //print("势力ID："+ forcesId);
+
         PlayerPrefs.SetInt("DifficultyType", DifficultyType);   //难度值1-4
-        //PlayerPrefs.SetInt("forcesId", forcesId);                //玩家势力ID 1-11
         PlayerPrefs.SetInt("prestigeNum", prestigeNum);     //声望值
+        PlayerPrefs.SetInt("battleId", ForcesChoose.battleId);     //战役id
         if (forcesId < 1)
         {
-            //forcesText.GetComponent<Text>().text = "\u3000\u3000" + "请在地图中选择一个势力。";
             forcesId = fetterId[0]+1;
             PlayerPrefs.SetInt("forcesId", forcesId);                //玩家势力ID 1-11
             SceneManager.LoadScene(1);
@@ -36,7 +34,6 @@ public class BeginSend : MonoBehaviour
             PlayerPrefs.SetInt("forcesId", forcesId);                //玩家势力ID 1-11
             if (int.Parse(LoadJsonFile.forcesTableDatas[FC.currentForcesIndex][3]) <= prestigeNum)
             {
-
                 SceneManager.LoadScene(1);
             }
             else

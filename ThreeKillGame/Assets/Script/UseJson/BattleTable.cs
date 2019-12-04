@@ -16,4 +16,8 @@
     /// 相关势力ID
     /// </summary>
     public string forceId { get; set; }
+    /// <summary>
+    /// 起始年份
+    /// </summary>
+    public string startYear { get; set; }
 }
