@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4534,7 +4534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abe14d5578d9a8047bdf2665441a3045, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed_time: 0.25
+  speed_time: 0.3
   backGround: {fileID: 335961164}
   hero_Card: {fileID: 5760532879993438556, guid: bd44d993d38830c4f860268c4735b9f4,
     type: 3}
@@ -4559,9 +4559,9 @@ MonoBehaviour:
   - {fileID: 837913003}
   - {fileID: 202457983}
   difnum: 0
-  npcLessHpValue: 5
+  npcLessHpValue: -5
   allWinTimes: 0000000000000000000000000000000000000000
-  minNum: 30
+  minNum: 40
   maxNum: 60
   npcWinRate: 0000000000000000000000000000000000000000
   npcPlayerHps: 0000000000000000000000000000000000000000
@@ -21961,7 +21961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -24194,7 +24194,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -37384,7 +37384,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1628052355
 RectTransform:
   m_ObjectHideFlags: 0
