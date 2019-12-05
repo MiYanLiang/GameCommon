@@ -1723,7 +1723,7 @@ public class CreateAndUpdate : MonoBehaviour
             heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + soliderKind[i], typeof(Sprite)) as Sprite;
 
             //英雄名字显示
-            heroBtn[i].GetComponentsInChildren<Text>()[0].text = heroName[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[0].text = "";// heroName[i].ToString();
             //根据稀有度设置字体颜色
             if (soliderRarity[i] == "1")
             {
