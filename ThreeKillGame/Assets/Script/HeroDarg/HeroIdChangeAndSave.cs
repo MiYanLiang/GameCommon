@@ -413,7 +413,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
     void GetHeroTypeFromId(int id)
     {
         int num = 3;
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
@@ -462,10 +463,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 necromancerNum++;
             }
-            else if (soldiersKindId[i] == 10)
-            {
-                god_beast++;
-            }
+            //else if (soldiersKindId[i] == 10)
+            //{
+            //    god_beast++;
+            //}
         }
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////下面拿到激活的羁绊

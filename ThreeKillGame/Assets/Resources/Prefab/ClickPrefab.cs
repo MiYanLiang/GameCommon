@@ -1,14 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
-//using OfficeOpenXml;    //引入使用EPPlus类库
-using System.Linq;  //去除重复
 
 public class ClickPrefab : MonoBehaviour
 {
-    // Start is called before the first frame update
     ////////////////////////////////////////////////////////存放某类型兵种的名字
     List<string> shieldSoldierName = new List<string>();  //盾兵
     List<string> mahoutName = new List<string>();  //象兵
@@ -31,16 +26,7 @@ public class ClickPrefab : MonoBehaviour
     List<int> sapperId = new List<int>();  //工兵
     List<int> necromancerId = new List<int>();  //方士
     List<int> god_beastId = new List<int>();  //神兽
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
     public void ClickSoldiersPrefab()
     {
         List<List<string>> arrs_name = new List<List<string>>(LoadJsonFile.SoldierTypeDates.Count);
@@ -95,107 +81,6 @@ public class ClickPrefab : MonoBehaviour
                                                                 + "\t" + "\u2000" + "6兵技" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[1 + i * 2][1] + "]" + "\u2000" + LoadJsonFile.soldierSkillTableDatas[1 + i * 2][2] + LoadJsonFile.soldierSkillTableDatas[1 + i * 2][3];
             }
         }
-        /*
-        if (this.GetComponentsInChildren<Text>()[0].text == "山兽")
-        {
-            for (int i = 0; i < shieldSoldierName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "山兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[0][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + shieldSoldierName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text +=  "\t" + "\u2000" + "["+LoadJsonFile.soldierSkillTableDatas[0][1]+"]" + "\u2000" + "3山兽上阵,"+LoadJsonFile.soldierSkillTableDatas[0][2]+LoadJsonFile.soldierSkillTableDatas[0][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[1][1] + "]" + "\u2000" + "6山兽上阵," + LoadJsonFile.soldierSkillTableDatas[1][2] + LoadJsonFile.soldierSkillTableDatas[1][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "海兽")
-        {
-            for (int i = 0; i < mahoutName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "海兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[1][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + mahoutName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t"+"\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[2][1] + "]" + "\u2000" + "3海兽上阵," + LoadJsonFile.soldierSkillTableDatas[2][2] + LoadJsonFile.soldierSkillTableDatas[2][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[3][1] + "]" + "\u2000" + "6海兽上阵," + LoadJsonFile.soldierSkillTableDatas[3][2] + LoadJsonFile.soldierSkillTableDatas[3][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "飞兽")
-        {
-            for (int i = 0; i < halberdierName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "飞兽" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[2][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + halberdierName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[4][1] + "]" + "\u2000" + "3飞兽上阵," + LoadJsonFile.soldierSkillTableDatas[4][2] + LoadJsonFile.soldierSkillTableDatas[4][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[5][1] + "]" + "\u2000" + "6飞兽上阵," + LoadJsonFile.soldierSkillTableDatas[5][2] + LoadJsonFile.soldierSkillTableDatas[5][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "人杰")
-        {
-            for (int i = 0; i < lifeguardName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "人杰" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[3][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + lifeguardName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[6][1] + "]" + "\u2000" + "3人杰上阵," + LoadJsonFile.soldierSkillTableDatas[6][2] + LoadJsonFile.soldierSkillTableDatas[6][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[7][1] + "]" + "\u2000" + "6人杰上阵," + LoadJsonFile.soldierSkillTableDatas[7][2] + LoadJsonFile.soldierSkillTableDatas[7][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "祖巫")
-        {
-            for (int i = 0; i < spearmanName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "祖巫" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[4][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + spearmanName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[8][1] + "]" + "\u2000" + "3祖巫上阵," + LoadJsonFile.soldierSkillTableDatas[8][2] + LoadJsonFile.soldierSkillTableDatas[8][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[9][1] + "]" + "\u2000" + "6祖巫上阵," + LoadJsonFile.soldierSkillTableDatas[9][2] + LoadJsonFile.soldierSkillTableDatas[9][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "散仙")
-        {
-            for (int i = 0; i < sowarName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "散仙" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[5][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sowarName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[10][1] + "]" + "\u2000" + "3散仙上阵," + LoadJsonFile.soldierSkillTableDatas[10][2] + LoadJsonFile.soldierSkillTableDatas[10][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[11][1] + "]" + "\u2000" + "6散仙上阵," + LoadJsonFile.soldierSkillTableDatas[11][2] + LoadJsonFile.soldierSkillTableDatas[11][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "辅神")
-        {
-            for (int i = 0; i < counsellorName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "辅神" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[6][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + counsellorName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[12][1] + "]" + "\u2000" + "3辅神上阵," + LoadJsonFile.soldierSkillTableDatas[12][2] + LoadJsonFile.soldierSkillTableDatas[12][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[13][1] + "]" + "\u2000" + "6辅神上阵," + LoadJsonFile.soldierSkillTableDatas[13][2] + LoadJsonFile.soldierSkillTableDatas[13][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "魔神")
-        {
-            for (int i = 0; i < sapperName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "魔神" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[7][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + sapperName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[14][1] + "]" + "\u2000" + "3魔神上阵," + LoadJsonFile.soldierSkillTableDatas[14][2] + LoadJsonFile.soldierSkillTableDatas[14][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[15][1] + "]" + "\u2000" + "6魔神上阵," + LoadJsonFile.soldierSkillTableDatas[15][2] + LoadJsonFile.soldierSkillTableDatas[15][3];
-        }
-        else if (this.GetComponentsInChildren<Text>()[0].text == "天神")
-        {
-            for (int i = 0; i < necromancerName.Count; i++)
-            {
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "天神" + "\u2000";
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = LoadJsonFile.SoldierTypeDates[8][3];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\u2000" + necromancerName[i];
-                GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
-            }
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text += "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[16][1] + "]" + "\u2000" + "3天神上阵," + LoadJsonFile.soldierSkillTableDatas[16][2] + LoadJsonFile.soldierSkillTableDatas[16][3] + "\t" + "\u2000" + "[" + LoadJsonFile.soldierSkillTableDatas[17][1] + "]" + "\u2000" + "6天神上阵," + LoadJsonFile.soldierSkillTableDatas[17][2] + LoadJsonFile.soldierSkillTableDatas[17][3];
-        }
-        */
     }
 
     void init_btn()
@@ -251,7 +136,8 @@ public class ClickPrefab : MonoBehaviour
     void GetSoldiersAll()
     {
         int num = 3;
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (LoadJsonFile.RoleTableDatas[i][num] == "1")
             {
@@ -289,23 +175,11 @@ public class ClickPrefab : MonoBehaviour
             {
                 necromancerId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
             }
-            else if (LoadJsonFile.RoleTableDatas[i][num] == "10")
-            {
-                god_beastId.Add(int.Parse(LoadJsonFile.RoleTableDatas[i][0]));
-            }
         }
     }
 
     private string GetHeroNameFromId(int id)
     {
-        //string name = "";
-        //for (int i = 0; i < 88; i++)
-        //{
-        //    if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
-        //    {
-        //        name = LoadJsonFile.RoleTableDatas[i][1];
-        //    }
-        //}
         return LoadJsonFile.RoleTableDatas[id - 1][1];
     }
 }

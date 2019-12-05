@@ -91,7 +91,8 @@ public class SoldiersControl : MonoBehaviour
     void GetHeroType(int id)
     {
         int num = 3;
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
@@ -171,7 +172,8 @@ public class SoldiersControl : MonoBehaviour
     void GetHeroTypeFromId(int id)
     {
         int num = 3;
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
@@ -410,7 +412,8 @@ public class SoldiersControl : MonoBehaviour
     void GetSoldiersAll()
     {
         int num = 3;
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (LoadJsonFile.RoleTableDatas[i][num] == "1")
             {
@@ -453,7 +456,8 @@ public class SoldiersControl : MonoBehaviour
     string GetHeroNameFromId(int id)
     {
         string name = "";
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {

@@ -346,26 +346,24 @@ public class ChangeAndGet : MonoBehaviour
     }
 
     //获取表中英雄的所有数据（暂时弃用）
-    void GetHeroDateFromId(int id)
+    private void GetHeroDateFromId(int id)
     {
         heroData.Clear();   //清空上一次所购买的英雄数据
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
-            for (int j = 0; j < 21; j++)
+            if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)    //通过Id获取当前单元格在第几行
             {
-
-                if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)    //通过Id获取当前单元格在第几行
-                {
-                    heroData.Add(LoadJsonFile.RoleTableDatas[i][j]);
-                }
+                heroData = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[i]);
             }
         }
     }
 
     //获取表中英雄的价格
-    void GetSpecificValue(int id)
+    private void GetSpecificValue(int id)
     {
-        for (int i = 0; i < 88; i++)
+        int heroNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < heroNums; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)    //通过Id获取当前单元格在第几行
             {
@@ -373,9 +371,9 @@ public class ChangeAndGet : MonoBehaviour
             }
         }  
     }
-    
+
     //在表一中拿到点击英雄的id
-    void GetHeroId(int num)
+    private void GetHeroId(int num)
     {
         heroId = int.Parse(LoadJsonFile.RandowTableDates[num - 1][0]);
     }

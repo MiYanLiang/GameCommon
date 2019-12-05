@@ -683,16 +683,16 @@ public class FightCardSP : MonoBehaviour
                     switch (int.Parse(datas[4]))
                     {
                         case 1:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
                             break;
                         case 2:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
                             break;
                         case 3:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
                             break;
                         case 4:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
                             break;
                     }
                     enemyCards[i].GetComponent<CardMove>().OtherDataSet();
@@ -778,16 +778,16 @@ public class FightCardSP : MonoBehaviour
                     switch (int.Parse(datas[4]))
                     {
                         case 1:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
                             break;
                         case 2:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
                             break;
                         case 3:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
                             break;
                         case 4:
-                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                            enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
                             break;
                     }
                     enemyCards[i].GetComponent<CardMove>().OtherDataSet();
@@ -845,16 +845,16 @@ public class FightCardSP : MonoBehaviour
                 switch (int.Parse(datas[4]))
                 {
                     case 1:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
                         break;
                     case 2:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
                         break;
                     case 3:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
                         break;
                     case 4:
-                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                        playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
                         break;
                 }
                 playerCards[i].GetComponent<CardMove>().OtherDataSet();     //其他初始化

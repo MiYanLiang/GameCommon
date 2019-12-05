@@ -219,6 +219,8 @@ public class LoadJsonFile : MonoBehaviour
                 RoleTableDatas[i].Add(root.RoleTable[i].soldierSkillId);
                 RoleTableDatas[i].Add(root.RoleTable[i].fetterSkillId);
                 RoleTableDatas[i].Add(root.RoleTable[i].roleIntro);
+                RoleTableDatas[i].Add(root.RoleTable[i].isHero);
+                RoleTableDatas[i].Add(root.RoleTable[i].roleIcon);
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
@@ -247,13 +249,10 @@ public class LoadJsonFile : MonoBehaviour
                 FetterTableDates[i].Add(root.FetterTable[i].id);
                 FetterTableDates[i].Add(root.FetterTable[i].fetterName);
                 FetterTableDates[i].Add(root.FetterTable[i].rolesId);
-                FetterTableDates[i].Add(root.FetterTable[i].attackPCT);
-                FetterTableDates[i].Add(root.FetterTable[i].defensePCT);
-                FetterTableDates[i].Add(root.FetterTable[i].soldierNumPCT);
+                FetterTableDates[i].Add(root.FetterTable[i].heroName);
                 FetterTableDates[i].Add(root.FetterTable[i].attack);
                 FetterTableDates[i].Add(root.FetterTable[i].defense);
                 FetterTableDates[i].Add(root.FetterTable[i].soldierNum);
-                FetterTableDates[i].Add(root.FetterTable[i].heroName);
                 FetterTableDates[i].Add(root.FetterTable[i].dodgeRate);
                 FetterTableDates[i].Add(root.FetterTable[i].critRate);
                 FetterTableDates[i].Add(root.FetterTable[i].critDamage);

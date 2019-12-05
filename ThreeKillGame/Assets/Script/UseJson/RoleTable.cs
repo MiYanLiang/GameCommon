@@ -84,4 +84,12 @@
     /// 武将介绍
     /// </summary>
     public string roleIntro { get; set; }
+    /// <summary>
+    /// 是否是史诗武将
+    /// </summary>
+    public string isHero { get; set; }
+    /// <summary>
+    /// 武将头像id
+    /// </summary>
+    public string roleIcon { get; set; }
 }

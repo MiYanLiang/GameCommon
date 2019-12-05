@@ -1713,14 +1713,14 @@ public class CreateAndUpdate : MonoBehaviour
             heroName.RemoveAt(5);
         }
         textHertNum.text= peopleHearts.ToString();
-
+        int datasNums = LoadJsonFile.RoleTableDatas[0].Count;
         for (int i = 0; i < heroName.Count; i++)
         {
             //兵种显示
             heroBtn[i].GetComponentsInChildren<Text>()[5].text = LoadJsonFile.SoldierTypeDates[int.Parse(soliderKind[i]) - 1][2];
             
-            //显示背景兵种图片
-            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + soliderKind[i], typeof(Sprite)) as Sprite;
+            //显示武将背景图片
+            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[excelText[i] - 1][datasNums - 1] , typeof(Sprite)) as Sprite;
 
             //英雄名字显示
             heroBtn[i].GetComponentsInChildren<Text>()[0].text = "";// heroName[i].ToString();
@@ -1783,49 +1783,46 @@ public class CreateAndUpdate : MonoBehaviour
             }
 
         }
-        //print("count: "+excelText.Count);
     }
     //根据id和列名拿到具体的值--英雄表
     void GetSpecificValue(int id, string name)
     {
-        for (int i = 0; i < 82; i++)
+        int hreoNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < hreoNums; i++)
         {
             if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
             {
-                if (int.Parse(LoadJsonFile.RoleTableDatas[i][0]) == id)
+                if (name == "roleName")
                 {
-                    if (name == "roleName")
-                    {
-                        heroName.Add(LoadJsonFile.RoleTableDatas[i][1]);
-                    }
-                    if (name == "attack")
-                    {
-                        attack = int.Parse(LoadJsonFile.RoleTableDatas[i][6]);
-                    }
-                    if (name == "recruitingMoney")
-                    {
-                        soliderMoney.Add(LoadJsonFile.RoleTableDatas[i][5]);
-                    }
-                    if (name == "soliderAttack")
-                    {
-                        soliderAttack.Add(LoadJsonFile.RoleTableDatas[i][6]);
-                    }
-                    if (name == "soliderDefense")
-                    {
-                        soliderDefense.Add(LoadJsonFile.RoleTableDatas[i][7]);
-                    }
-                    if (name == "soliderKind")
-                    {
-                        soliderKind.Add(LoadJsonFile.RoleTableDatas[i][3]);
-                    }
-                    if (name == "soliderForce")
-                    {
-                        soliderForce.Add(LoadJsonFile.RoleTableDatas[i][2]);
-                    }
-                    if (name == "soliderRarity")
-                    {
-                        soliderRarity.Add(LoadJsonFile.RoleTableDatas[i][4]);
-                    }
+                    heroName.Add(LoadJsonFile.RoleTableDatas[i][1]);
+                }
+                if (name == "attack")
+                {
+                    attack = int.Parse(LoadJsonFile.RoleTableDatas[i][6]);
+                }
+                if (name == "recruitingMoney")
+                {
+                    soliderMoney.Add(LoadJsonFile.RoleTableDatas[i][5]);
+                }
+                if (name == "soliderAttack")
+                {
+                    soliderAttack.Add(LoadJsonFile.RoleTableDatas[i][6]);
+                }
+                if (name == "soliderDefense")
+                {
+                    soliderDefense.Add(LoadJsonFile.RoleTableDatas[i][7]);
+                }
+                if (name == "soliderKind")
+                {
+                    soliderKind.Add(LoadJsonFile.RoleTableDatas[i][3]);
+                }
+                if (name == "soliderForce")
+                {
+                    soliderForce.Add(LoadJsonFile.RoleTableDatas[i][2]);
+                }
+                if (name == "soliderRarity")
+                {
+                    soliderRarity.Add(LoadJsonFile.RoleTableDatas[i][4]);
                 }
             }
         }
@@ -1834,7 +1831,8 @@ public class CreateAndUpdate : MonoBehaviour
     //把英雄按照稀有度分类
     void GetHeroRarity()
     {
-        for (int i = 0; i < 82; i++)
+        int hreoNums = LoadJsonFile.RoleTableDatas.Count;
+        for (int i = 0; i < hreoNums; i++)
         {
             if (LoadJsonFile.RoleTableDatas[i][4] == "1")             //拿到绿色
             {

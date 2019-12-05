@@ -239,17 +239,14 @@ public class FetterContronl : MonoBehaviour
         }
     }
     //获取羁绊英雄名
-    List<string> GetFetterInformationFromId( int id)
+    List<string> GetFetterInformationFromId(int id)
     {
         List<string> arr = new List<string>();
         for (int i = 0; i < 46; i++)
         {
             if (int.Parse(LoadJsonFile.FetterTableDates[i][0]) == id)
             {
-                for (int j = 0; j < 16; j++)
-                {
-                    arr.Add(LoadJsonFile.FetterTableDates[i][j]);
-                }
+                arr = LoadJsonFile.DeepClone<string>(LoadJsonFile.FetterTableDates[i]);
             }
         }
         return arr;

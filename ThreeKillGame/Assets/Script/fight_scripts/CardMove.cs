@@ -113,8 +113,8 @@ public class CardMove : MonoBehaviour
 
     private void Start()
     {
-        //设置兵种背景
-        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/" + ArmsId, typeof(Sprite)) as Sprite;
+        //设置武将头像背景
+        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[HeroId - 1][22], typeof(Sprite)) as Sprite;
         audiosource = GetComponent<AudioSource>();
         realDodgeRate = DodgeRate;  //真实闪避率初始化
         ArmsStaticSkillGet(ArmsId, ArmsSkillStatus);   //静态兵种技能

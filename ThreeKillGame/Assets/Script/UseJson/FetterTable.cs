@@ -13,17 +13,9 @@
     /// </summary>
     public string rolesId { get; set; }
     /// <summary>
-    /// 攻击加成
+    /// 羁绊所需英雄名称
     /// </summary>
-    public string attackPCT { get; set; }
-    /// <summary>
-    /// 防御加成
-    /// </summary>
-    public string defensePCT { get; set; }
-    /// <summary>
-    /// 血量加成
-    /// </summary>
-    public string soldierNumPCT { get; set; }
+    public string heroName { get; set; }
     /// <summary>
     /// 攻击
     /// </summary>
@@ -36,10 +28,6 @@
     /// 血量
     /// </summary>
     public string soldierNum { get; set; }
-    /// <summary>
-    /// 羁绊所需英雄名称
-    /// </summary>
-    public string heroName { get; set; }
     /// <summary>
     /// 闪避率
     /// </summary>

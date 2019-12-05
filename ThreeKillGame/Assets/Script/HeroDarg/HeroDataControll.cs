@@ -10,8 +10,8 @@ public class HeroDataControll : MonoBehaviour {
     //public List<string> HeroData { get => heroData; set => heroData = value; }
     //index	    roleName	所属势力    soldierKind	  rarity  recruitingMoney  attack    defense	soldierNum	    闪避率	
     //0         1           2           3             4       5                6         7          8               9       
-    //暴击率	暴击伤害	重击率	    重击伤害	  破甲    装备id           典故id	 武器技id	强化兵种技id	羁绊技id
-    //10        11          12          13            14      15               16        17         18              19
+    //暴击率	暴击伤害	重击率	    重击伤害	  破甲    装备id           典故id	 武器技id	强化兵种技id	羁绊技id  roleIntro	 IsHero	 roleIcon
+    //10        11          12          13            14      15               16        17         18              19          20          21      22
 
     private int grade_hero;  //记录卡牌品阶
     public int Grade_hero { get => grade_hero; set => grade_hero = value; }
@@ -25,23 +25,11 @@ public class HeroDataControll : MonoBehaviour {
     List<List<string>> fetterInformation = new List<List<string>>();
 
     int heroidtest;
-    string heroName;
-    int heroKindType;
-    string heroKindName;
-    string attack;
-    string defense;
-    string soldierNum;
     string heroInformation;
 
     // Use this for initialization
     void Start () {
         heroidtest = int.Parse(HeroData[0]);
-        heroName = HeroData[1];
-        heroKindType = int.Parse(HeroData[3]);
-        GetHeroTypeName();
-        attack = HeroData[6];
-        defense = HeroData[7];
-        soldierNum = HeroData[8];
         heroInformation = HeroData[20];
     }
 
@@ -56,8 +44,8 @@ public class HeroDataControll : MonoBehaviour {
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
             //设置左上角兵种文字
             gameObject.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(HeroData[3])-1][2];
-            //设置兵种背景
-            gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/ArmsPicture/"+HeroData[3],typeof(Sprite)) as Sprite;
+            //设置武将背景
+            gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + HeroData[22], typeof(Sprite)) as Sprite;
         }
     }
     
@@ -72,9 +60,9 @@ public class HeroDataControll : MonoBehaviour {
         print("点击的"+heroId);
         fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         //显示点击英雄的名字  及  阶数（阶数尚未得到）
-        topBar.GetComponentsInChildren<Text>()[1].text = heroName+ "\u1500";
+        topBar.GetComponentsInChildren<Text>()[1].text = HeroData[1] + "\u1500";
         //显示兵种及英雄相关属性
-        topBar.GetComponentsInChildren<Text>()[2].text = heroKindName + "\u2000" + "攻击" + attack + "\u2000" + "防御" + defense + "\u2000" + "士兵" + soldierNum;
+        topBar.GetComponentsInChildren<Text>()[2].text = GetHeroTypeName(int.Parse(HeroData[3])) + "\u2000" + "攻击" + HeroData[6] + "\u2000" + "防御" + HeroData[7] + "\u2000" + "士兵" + HeroData[8];
         //显示羁绊内容
         if (fetterInformation.Count > 0)
         {
@@ -97,8 +85,8 @@ public class HeroDataControll : MonoBehaviour {
     }
 
     //获取兵种名字
-    void GetHeroTypeName()
+    private string GetHeroTypeName(int kindType)
     {
-        heroKindName = LoadJsonFile.SoldierTypeDates[heroKindType - 1][1];
+        return LoadJsonFile.SoldierTypeDates[kindType - 1][1];
     }
 }
