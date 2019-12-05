@@ -105,13 +105,19 @@ public static class ColorData
     /// 亮红色
     /// </summary>
     public static readonly Color red_Color = new Color(255f / 255f, 0f / 255f, 0f / 255f, 1);
+
     /// <summary>
     /// 蓝色
     /// </summary>
     public static readonly Color blue_Color = new Color(0f / 255f, 125f / 255f, 255f / 255f, 1);
 
     /// <summary>
-    /// 绿色（浅色）
+    /// 蓝色（武将稀有度）
+    /// </summary>
+    public static readonly Color blue_Color_hero = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1);
+
+    /// <summary>
+    /// 绿色（武将稀有度）
     /// </summary>
     public static readonly Color green_Color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);
 
@@ -119,4 +125,15 @@ public static class ColorData
     /// 绿色（深色）
     /// </summary>
     public static readonly Color green_deep_Color = new Color(29f / 255f, 156f / 255f, 73f / 255f, 1);
+
+    /// <summary>
+    /// 紫色（武将稀有度）
+    /// </summary>
+    public static readonly Color purple_Color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1);
+   
+    /// <summary>
+    /// 红色（武将稀有度）
+    /// </summary>
+    public static readonly Color red_Color_hero = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);
+
 }

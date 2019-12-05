@@ -1118,11 +1118,14 @@ public class CreateAndUpdate : MonoBehaviour
     {
         if (money >= 2)
         {
+            GameObject topBar = GameObject.Find("TopInformationBar");
+            if (topBar == null)
+                return;
             //点击刷新，清空上显示栏
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[0].text = "";
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[1].text = "";
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[2].text = "";
-            GameObject.Find("TopInformationBar").GetComponentsInChildren<Text>()[3].text = "";
+            for (int i = 0; i < 4; i++)
+            {
+                topBar.GetComponentsInChildren<Text>()[i].text = "";
+            }
 
             money -= 2;
             getCardId.Clear();
@@ -1135,7 +1138,6 @@ public class CreateAndUpdate : MonoBehaviour
             soliderKind.Clear();
             soliderForce.Clear();
             soliderRarity.Clear();
-            //heroBtn.Clear();
             switch (level)
             {
                 case 1:
@@ -1690,8 +1692,8 @@ public class CreateAndUpdate : MonoBehaviour
             HeroLocation();
             for (int i = 0; i < myCard.Count; i++)
             {
-                heroBtn[i].transform.Find("Image").gameObject.SetActive(false);
-                heroBtn[i].GetComponent<Button>().enabled = true;   //开启点击事件
+                heroBtn[i].transform.GetChild(heroBtn[i].transform.childCount - 1).gameObject.SetActive(false);
+                //heroBtn[i].GetComponent<Button>().enabled = true;   //开启点击事件
             }
         }
         else
@@ -1723,28 +1725,26 @@ public class CreateAndUpdate : MonoBehaviour
             //英雄名字显示
             heroBtn[i].GetComponentsInChildren<Text>()[0].text = heroName[i].ToString();
             //根据稀有度设置字体颜色
-            if (soliderRarity[i].ToString() == "1")
+            if (soliderRarity[i] == "1")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(49f / 255f, 193f / 255f, 82f / 255f, 1);  //绿色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.green_Color;  //绿色
             }
-            else if (soliderRarity[i].ToString() == "2")
+            else if (soliderRarity[i] == "2")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(48f / 255f, 127f / 255f, 192f / 255f, 1); //蓝色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.blue_Color_hero; //蓝色
             }
-            else if (soliderRarity[i].ToString() == "3")
+            else if (soliderRarity[i] == "3")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1); //紫色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.purple_Color; //紫色
             }
-            else if (soliderRarity[i].ToString() == "4")
+            else if (soliderRarity[i] == "4")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);  //红色
+                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.red_Color_hero;  //红色
             }
             //花费显示
-            heroBtn[i].GetComponentsInChildren<Text>()[3].text = soliderMoney[i].ToString();
-            //攻击显示
-            //heroBtn[i].GetComponentsInChildren<Text>()[5].text = soliderAttack[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[3].text = soliderMoney[i];
             //防御显示
-            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderDefense[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderDefense[i];
             //势力显示
             heroBtn[i].name = getCardId[i].ToString();
         }
