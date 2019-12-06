@@ -614,7 +614,7 @@ public class FightCardSP : MonoBehaviour
             for (int i = 0; i < arrayNPC_str.Length; i++)
             {
                 arrayNPC_str[i] = null;
-                if (LoadJsonFile.NPCTableDates[specialLevelId][6+i]!="")
+                if (LoadJsonFile.NPCTableDates[specialLevelId][6 + i] != "")
                 {
                     strArr = LoadJsonFile.NPCTableDates[specialLevelId][6 + i].Split(',');
                     heroId_NPC = int.Parse(strArr[0]);
@@ -679,7 +679,7 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
                     enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                     switch (int.Parse(datas[4]))
                     {
                         case 1:
@@ -777,7 +777,7 @@ public class FightCardSP : MonoBehaviour
                     //破甲百分比
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                     //显示武将名
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";// datas[1];
                     //稀有度设置文字颜色表现
                     switch (int.Parse(datas[4]))
                     {
@@ -848,7 +848,7 @@ public class FightCardSP : MonoBehaviour
                 //破甲百分比
                 playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = "";// datas[1];
                 //稀有度设置文字颜色表现
                 switch (int.Parse(datas[4]))
                 {

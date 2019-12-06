@@ -6916,7 +6916,7 @@ GameObject:
   - component: {fileID: 265964046}
   - component: {fileID: 265964048}
   m_Layer: 5
-  m_Name: Power (1)
+  m_Name: Power
   m_TagString: Grid
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
