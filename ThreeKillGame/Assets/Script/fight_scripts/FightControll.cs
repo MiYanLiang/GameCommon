@@ -161,20 +161,24 @@ public class FightControll : MonoBehaviour
                     switch (int.Parse(enemyHeroDatas[i][m][4]))
                     {
                         case 1:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_Color;  //绿色
+                            //newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_Color;  //绿色
+                            newheroCard.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.green_Color;  //绿色
                             break;
                         case 2:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
+                            //newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
+                            newheroCard.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.blue_Color_hero; //蓝色
                             break;
                         case 3:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.purple_Color; //紫色
+                            //newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.purple_Color; //紫色
+                            newheroCard.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.purple_Color; //紫色
                             break;
                         case 4:
-                            newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
+                            //newheroCard.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
+                            newheroCard.transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.red_Color_hero;  //红色
                             break;
                     }
                     //显示英雄名等信息
-                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][1];
+                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = "";// enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(1).GetComponent<Text>().text = enemyHeroDatas[i][m][6];
                 }
             }

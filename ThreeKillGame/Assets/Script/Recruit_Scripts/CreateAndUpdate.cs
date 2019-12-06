@@ -1727,19 +1727,23 @@ public class CreateAndUpdate : MonoBehaviour
             //根据稀有度设置字体颜色
             if (soliderRarity[i] == "1")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.green_Color;  //绿色
+                //heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.green_Color;  //绿色
+                heroBtn[i].GetComponentsInChildren<Image>()[2].color = ColorData.green_Color;  //绿色
             }
             else if (soliderRarity[i] == "2")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.blue_Color_hero; //蓝色
+                //heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.blue_Color_hero; //蓝色
+                heroBtn[i].GetComponentsInChildren<Image>()[2].color = ColorData.blue_Color_hero; //蓝色
             }
             else if (soliderRarity[i] == "3")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.purple_Color; //紫色
+                //heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.purple_Color; //紫色
+                heroBtn[i].GetComponentsInChildren<Image>()[2].color = ColorData.purple_Color; //紫色
             }
             else if (soliderRarity[i] == "4")
             {
-                heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.red_Color_hero;  //红色
+                //heroBtn[i].GetComponentsInChildren<Text>()[0].color = ColorData.red_Color_hero;  //红色
+                heroBtn[i].GetComponentsInChildren<Image>()[2].color = ColorData.red_Color_hero;  //红色
             }
             //花费显示
             heroBtn[i].GetComponentsInChildren<Text>()[3].text = soliderMoney[i];
