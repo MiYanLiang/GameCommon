@@ -19,7 +19,7 @@ def export_json(xls, fn):
                 ss += "\t\t\t\"Prestige\": \"" + conv_int(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"forcesSign\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"forcesName\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
-                ss += "\t\t\t\"city\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
+                ss += "\t\t\t\"city\": \"" + conv_int(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"cityIcon\": \"" + conv_int(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"firstHeroId\": \"" + conv_int(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"flagId\": \"" + conv_int(c[ri.Next()]) + "\",\n"
