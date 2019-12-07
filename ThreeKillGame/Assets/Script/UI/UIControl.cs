@@ -8,11 +8,13 @@ public class UIControl : MonoBehaviour
     public Text gold;          //玩家金币
 
     [SerializeField]
-    Image playerForcePic;      //玩家势力头像
+    Image playerForce_main;     //玩家势力头像主城
+    [SerializeField]
+    Transform playerForce;      //玩家势力头像
     [HideInInspector]
     public static int playerForceId;  //玩家势力ID
     [SerializeField]
-    Image[] otherForcePic;     //其他势力头像
+    Transform[] otherForce;     //其他势力头像
     [HideInInspector]
     public static int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
     [SerializeField]
@@ -23,22 +25,17 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     public Text battle_Text;
 
+    [SerializeField]
+    Transform cityPos;  //城市位置
+
+    [SerializeField]
+    Image fightOrDefend; //进攻或防守图片
+
+    [SerializeField]
+    Transform selectForceIamge; //选择势力icon
+
     private void Awake()
     {
-        int id_others = 0;
-        playerForceId = PlayerPrefs.GetInt("forcesId");
-        playerForcePic.sprite = Resources.Load("Image/calligraphy/Forces/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
-        for (int i = 0; i < 5; i++)
-        {
-            //创建其他势力ID
-            do
-            {
-                id_others = Random.Range(1, 12);
-            } while ((id_others==playerForceId)||IsHadForceId(id_others));
-            array_forces[i] = id_others;
-            //设置其他势力的头像
-            otherForcePic[i].sprite = Resources.Load("Image/calligraphy/Forces/" + array_forces[i], typeof(Sprite)) as Sprite; 
-        }
         Invoke("OpenPlayFightBtn", 0.5f);
 
         //加载声音
@@ -48,8 +45,39 @@ public class UIControl : MonoBehaviour
 
     private void Start()
     {
+        initForces();
         battleId = PlayerPrefs.GetInt("battleId");
         battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
+    }
+
+    /// <summary>
+    /// 初始化势力表现
+    /// </summary>
+    private void initForces()
+    {
+        int id_others = 0;
+        playerForceId = PlayerPrefs.GetInt("forcesId");
+        playerForce_main.sprite = Resources.Load("Image/calligraphy/Forces/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        playerForce.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
+        playerForce.position = cityPos.GetChild(int.Parse(LoadJsonFile.forcesTableDatas[playerForceId - 1][6])).position;   //城市位置设置
+        string str = "";
+        int forceCount = LoadJsonFile.forcesTableDatas.Count + 1;
+        for (int i = 0; i < 5; i++)
+        {
+            //创建其他势力ID
+            do
+            {
+                id_others = Random.Range(1, forceCount);
+            } while ((id_others == playerForceId) || IsHadForceId(id_others));
+            array_forces[i] = id_others;
+            //设置其他势力的头像
+            otherForce[i].GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + array_forces[i], typeof(Sprite)) as Sprite;
+            otherForce[i].GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[array_forces[i] - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
+            otherForce[i].position = cityPos.GetChild(int.Parse(LoadJsonFile.forcesTableDatas[array_forces[i] - 1][6])).position;   //城市位置设置
+            str += array_forces[i] + LoadJsonFile.forcesTableDatas[array_forces[i] - 1][5] + "; ";
+        }
+        Debug.Log("npc势力ID: " + str);
     }
 
     //声音控制，继承main场景选择
@@ -84,8 +112,22 @@ public class UIControl : MonoBehaviour
         return false;
     }
 
-    // Update is called once per frame
-    void Update()
+    //设置进攻防守战鼓的image
+    public void setTextContent(int index)   //-1守，0-5攻
+    {
+        if (index<0)
+        {
+            fightOrDefend.sprite = Resources.Load("Effect/UI/toBattle/守", typeof(Sprite)) as Sprite;
+            selectForceIamge.position = playerForce.position;
+        }
+        else
+        {
+            fightOrDefend.sprite = Resources.Load("Effect/UI/toBattle/攻", typeof(Sprite)) as Sprite;
+            selectForceIamge.position = otherForce[index].position;
+        }
+    }
+
+    private void LateUpdate()
     {
         gold.text = CreateAndUpdate.money + "";   //玩家金钱显示
     }

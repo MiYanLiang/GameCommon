@@ -45,8 +45,8 @@ public class posResFlash : MonoBehaviour
     //顶部势力按钮执行，优先显示界面
     public void ChangePosShow(int n)
     {
-        if(n!=0)
-            topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.array_forces[n - 1], typeof(Sprite)) as Sprite;
+        int forceId = (n == 0) ? UIControl.playerForceId : UIControl.array_forces[n - 1];
+        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + forceId, typeof(Sprite)) as Sprite;
         //fights[n].SetParent(posRes);
         //fights[n].SetParent(canvas);
         //jiugongges[n].SetParent(canvas);
