@@ -184,9 +184,8 @@ public class FightControll : MonoBehaviour
             }
         }
     }
-
-    [SerializeField]
-    private int selectForce = -1;   //为守
+    
+    public int selectForce = -1;   //为守
     public void ChangeSelectForce(int index)
     {
         selectForce = index;

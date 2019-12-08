@@ -72,8 +72,10 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     CreateAndUpdate creatandupdate; //刷新脚本：CreateAndUpdate
 
-    private int battleId;   //开局所选战役ID
+    [SerializeField]
+    GameObject getOrloseText;   //获得或者失去文本
 
+    private int battleId;   //开局所选战役ID
 
     private void Awake()
     {
@@ -106,6 +108,7 @@ public class FightCardSP : MonoBehaviour
         roundTextObj.text = "回合 " + roundNum;
         roundTextObj.gameObject.SetActive(true);
         Invoke("LiteTimeStart", roundWaitTime);
+
     }
 
     private bool isOver = false;    //记录是否结束这轮战斗
@@ -293,14 +296,23 @@ public class FightCardSP : MonoBehaviour
                             float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
                                                                                 //敌方扣血
 
-                            //金币
-                            CreateAndUpdate.money += 1;   //玩家加金币
-
+                            int addMoney = 0;
+                            if (fightCtl.selectForce != -1)
+                            {
+                                addMoney = 1;
+                            }
+                            else
+                            {
+                                addMoney = ((int)remainScale * 5) + 1;
+                            }
+                            CreateAndUpdate.money += addMoney;   //玩家加金币
+                            string str = "";
                             //展示战斗胜负信息
-                            if (remainScale >= 0.75f)
+                            if (remainScale >= 0.8f)
                             {
                                 SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/完", typeof(Sprite)) as Sprite;
                                 SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
+                                str = "完胜";
                             }
                             else
                             {
@@ -308,21 +320,27 @@ public class FightCardSP : MonoBehaviour
                                 {
                                     SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/大", typeof(Sprite)) as Sprite;
                                     SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
+                                    str = "大胜";
                                 }
                                 else
                                 {
-                                    if (remainScale >= 0.25f)
+                                    if (remainScale >= 0.2f)
                                     {
                                         SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
                                         SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/利", typeof(Sprite)) as Sprite;
+                                        str = "小胜";
                                     }
                                     else
                                     {
                                         SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/险", typeof(Sprite)) as Sprite;
                                         SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/胜", typeof(Sprite)) as Sprite;
+                                        str = "险胜";
                                     }
                                 }
                             }
+                            getOrloseText.GetComponent<Text>().text = string.Format("{0}敌方，获得{1}金币！", str, addMoney);
+
+
                             //展示战况
                             if (isSpecialLevel)
                             {
@@ -379,11 +397,20 @@ public class FightCardSP : MonoBehaviour
                                     remainingHP += enemyCards[j].GetComponent<CardMove>().Health;
                                 }
                             }
-                            float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                            CreateAndUpdate.playerHp -= (int)(remainScale * 10);    //玩家扣血
-                                                                                    //金币
-                            CreateAndUpdate.money += 0;   //玩家不加金币
-                            
+                            int cutHp = 0;
+                            if (fightCtl.selectForce != -1) //防守
+                            {
+                                float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
+                                cutHp = (int)(remainScale * 10);    //玩家扣血
+                            }
+                            else
+                            {
+                                cutHp = 2;
+                            }
+                            CreateAndUpdate.playerHp -= cutHp;
+                            getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}城防值！", cutHp);
+                            //CreateAndUpdate.money += 0;   //玩家不加金币
+
                             SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
                             SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
 
@@ -420,8 +447,8 @@ public class FightCardSP : MonoBehaviour
 
         SettlementPic.gameObject.SetActive(true);
         ShowGameOver();
+        getOrloseText.SetActive(true);
     }
-
 
     /// <summary>
     /// 重置卡牌数值，玩家加经验加金币
@@ -945,16 +972,21 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     private void InitForceFlag()
     {
+        int npcForceId = -1;    //记录对手势力id
         playerForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
+        SettlementPic.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.playerForceId, typeof(Sprite)) as Sprite; //结算面板的头像
         if (isSpecialLevel)
         {
             specialFightText.text = LoadJsonFile.NPCTableDates[specialLevelId][2];
-            rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.NPCTableDates[specialLevelId][16], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
+            npcForceId = int.Parse(LoadJsonFile.NPCTableDates[specialLevelId][16]);
         }
         else
         {
             specialFightText.text = "";
-            rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.array_forces[enemyForceId], typeof(Sprite)) as Sprite;    //设置对手势力的头像
+            npcForceId = UIControl.array_forces[enemyForceId];
         }
+        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
+        SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;
+        SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId -1][1];
     }
 }
