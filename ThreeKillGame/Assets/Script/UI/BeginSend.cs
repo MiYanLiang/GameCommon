@@ -6,41 +6,20 @@ using UnityEngine.SceneManagement;
 public class BeginSend : MonoBehaviour
 {
     public GameObject Difficulty;
-    public ForcesChoose FC;
     int DifficultyType;
-    int forcesId;
     public GameObject Prestige; //声望
-    int prestigeNum; //声望值
-    //int forcePrestigeNum;//当前势力所需声望
     public GameObject forcesText; //主界面的最上方势力解说Text
-    List<int> fetterId = new List<int>();  //六个势力的下标
 
     public void ClickBeginGame()
     {
         GetDifficultyType();
-        GetForcesId();
 
-        PlayerPrefs.SetInt("DifficultyType", DifficultyType);   //难度值1-4
-        PlayerPrefs.SetInt("prestigeNum", prestigeNum);     //声望值
-        PlayerPrefs.SetInt("battleId", ForcesChoose.battleId);     //战役id
-        if (forcesId < 1)
-        {
-            forcesId = fetterId[0]+1;
-            PlayerPrefs.SetInt("forcesId", forcesId);                //玩家势力ID 1-11
-            SceneManager.LoadScene(1);
-        }
-        else
-        {
-            PlayerPrefs.SetInt("forcesId", forcesId);                //玩家势力ID 1-11
-            if (int.Parse(LoadJsonFile.forcesTableDatas[FC.currentForcesIndex][3]) <= prestigeNum)
-            {
-                SceneManager.LoadScene(1);
-            }
-            else
-            {
-                forcesText.GetComponent<Text>().text = "\u3000\u3000" + "您的声望值不足，无法选中此势力。";
-            }
-        }
+        int prestigeNum = int.Parse(Prestige.GetComponent<Text>().text);
+        PlayerPrefs.SetInt("DifficultyType", DifficultyType);       //难度值1-4
+        PlayerPrefs.SetInt("prestigeNum", prestigeNum);             //声望值
+        PlayerPrefs.SetInt("battleId", ForcesChoose.battleId);      //战役id
+        PlayerPrefs.SetInt("forcesId", ForcesChoose.playerForceId); //玩家势力ID
+        SceneManager.LoadScene(1);
     }
     void GetDifficultyType()
     {
@@ -60,11 +39,5 @@ public class BeginSend : MonoBehaviour
         {
             DifficultyType = 4;
         }
-    }
-    void GetForcesId()
-    {
-        forcesId = FC.currentForcesIndex+1;
-        fetterId = FC.getForces;
-        prestigeNum = int.Parse(Prestige.GetComponent<Text>().text);
     }
 }

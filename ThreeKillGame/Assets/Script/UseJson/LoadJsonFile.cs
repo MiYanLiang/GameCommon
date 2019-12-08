@@ -275,6 +275,7 @@ public class LoadJsonFile : MonoBehaviour
                 BattleTableDates[i].Add(root.BattleTable[i].battleIntro);
                 BattleTableDates[i].Add(root.BattleTable[i].forceId);
                 BattleTableDates[i].Add(root.BattleTable[i].startYear);
+                BattleTableDates[i].Add(root.BattleTable[i].cityId);
             }
             Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }

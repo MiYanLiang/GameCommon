@@ -20,4 +20,8 @@
     /// 起始年份
     /// </summary>
     public string startYear { get; set; }
+    /// <summary>
+    /// 城池坐标
+    /// </summary>
+    public string cityId { get; set; }
 }
