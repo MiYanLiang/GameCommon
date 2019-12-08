@@ -2071,10 +2071,10 @@ public class CreateAndUpdate : MonoBehaviour
     }
 
     /// <summary>
-    /// 敬请期待提示
+    /// 读表展示纯文本提示
     /// </summary>
-    public void StayTunedTips()
+    public void LoadTableShowTip(int id)
     {
-        GoldNotEnough(LoadJsonFile.TipsTableDates[7][2]);
+        GoldNotEnough(LoadJsonFile.TipsTableDates[id - 1][2]);
     }
 }
