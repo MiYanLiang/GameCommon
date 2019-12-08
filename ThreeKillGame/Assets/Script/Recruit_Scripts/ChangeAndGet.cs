@@ -33,9 +33,13 @@ public class ChangeAndGet : MonoBehaviour
     /// </summary>
     private void CreateStartHero()
     {
-        heroId = int.Parse(LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][8]);  //初始武将id获取
-        PutCardToPos(preparation.GetChild(0), 1);   //放置到备战位一号位置，一阶
-        HeroIdChangeAndSave.pos_heroId[9] = heroId;
+        string[] ids = LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][8].Split(',');
+        for (int i = 0; i < ids.Length; i++)
+        {
+            heroId = int.Parse(ids[i]);  //初始武将id获取
+            PutCardToPos(preparation.GetChild(i), 1);   //放置到备战位一号位置，一阶
+            HeroIdChangeAndSave.pos_heroId[9 + i] = heroId;
+        }
     }
 
     public void GetResidueCard(GameObject btn)

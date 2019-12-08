@@ -273,8 +273,7 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         if (activeId > 0)
                         {
-                            audiosource.clip = Resources.Load("Effect/FightSounds/鹰啸", typeof(AudioClip)) as AudioClip;
-                            audiosource.Play();   //飞鹰特效
+                            NormalAttackEffects(EnemyObj, 12);
                         }
                         break;
                 }
@@ -538,7 +537,7 @@ public class CardMove : MonoBehaviour
     {
         NormalAttack(EnemyObj);
         UpdateEnemyHp(EnemyObj);
-        NormalAttackEffects(gameObject, 11);
+        NormalAttackEffects(EnemyObj, 11);
         if (overlayNum_RenJie >= 3)   //只能叠加3次
             return;
         else
@@ -1449,7 +1448,7 @@ public class CardMove : MonoBehaviour
     /// 普通攻击特效
     /// </summary>
     /// <param name="obj"></param>
-    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽10反伤11战意</param>
+    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽10反伤11战意12飞兽</param>
     private void NormalAttackEffects(GameObject obj, int index)
     {
         //如果攻击的敌人是海兽 并且 兵种激活
@@ -1470,64 +1469,73 @@ public class CardMove : MonoBehaviour
         {
             case 0:
                 //攻击音效播放
-                audiosource.clip = Resources.Load("Effect/FightSounds/近战普通受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/普通攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/普通攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 1:
-                audiosource.clip = Resources.Load("Effect/FightSounds/近战暴击受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/暴击攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/baojishouji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/暴击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 2:
-                audiosource.clip = Resources.Load("Effect/FightSounds/近战暴击受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/暴击攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/baojishouji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/暴击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 3:
-                audiosource.clip = Resources.Load("Effect/FightSounds/穿刺", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/5枪兵攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/chuancishouji", typeof(GameObject)) as GameObject, obj.transform);
+                GameObject effect = Instantiate(Resources.Load("Prefab/fightEffect/5枪兵攻击", typeof(GameObject)) as GameObject, obj.transform);
+                if (IsPlayerOrEnemy == 1)
+                {
+                    effect.transform.localEulerAngles += new Vector3(0, 0, 180);
+                }
                 break;
             case 4:
-                audiosource.clip = Resources.Load("Effect/FightSounds/横扫", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/6戟兵攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/hengsaoshouji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/6戟兵攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 5:
-                audiosource.clip = Resources.Load("Effect/FightSounds/火焰受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/8统帅攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/huoyanshouji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/8统帅攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 6:
-                audiosource.clip = Resources.Load("Effect/FightSounds/雷电受击", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/7谋士攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/leidianshouji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/7谋士攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 7:
-                GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/xuanyun", typeof(GameObject)) as GameObject, obj.transform);
+                GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/眩晕", typeof(GameObject)) as GameObject, obj.transform);
                 xuanyunEffect.name = StateName.xuanyunEffect;
                 break;
             case 8:
-                audiosource.clip = Resources.Load("Effect/FightSounds/受治疗", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/9方士攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/9方士攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 9:
-                audiosource.clip = Resources.Load("Effect/FightSounds/虎啸", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/1虎卫攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
-                Instantiate(Resources.Load("Prefab/fightEffect/putonggongji", typeof(GameObject)) as GameObject, obj.transform);
+                Instantiate(Resources.Load("Prefab/fightEffect/1虎卫攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
             case 10:
-                audiosource.clip = Resources.Load("Effect/FightSounds/反伤", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/2陷阵攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
                 break;
             case 11:
-                audiosource.clip = Resources.Load("Effect/FightSounds/战士", typeof(AudioClip)) as AudioClip;
+                audiosource.clip = Resources.Load("Effect/FightSounds/4禁卫攻击", typeof(AudioClip)) as AudioClip;
                 audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/4禁卫攻击", typeof(GameObject)) as GameObject, obj.transform);
+                break;
+            case 12:
+                audiosource.clip = Resources.Load("Effect/FightSounds/3飞甲攻击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/3飞甲攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
         }
-
     }
 
     /// <summary>

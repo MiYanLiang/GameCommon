@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 2860873659566380767}
   - component: {fileID: 2860873659566380766}
   - component: {fileID: 3984903376282300540}
+  - component: {fileID: 2651682865708315988}
   m_Layer: 5
-  m_Name: huoyanshouji
+  m_Name: "8\u7EDF\u5E05\u653B\u51FB"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,7 +60,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.19607843}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -95,3 +96,16 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &2651682865708315988
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2860873659566380763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2f6beeec3f3dbf44860592bdfe75b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destoryTime: 0.3

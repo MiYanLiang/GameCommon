@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4147374825486473310}
   - component: {fileID: 90590813}
   m_Layer: 5
-  m_Name: zhangu_lei_01
+  m_Name: "\u6218\u9F13_\u5929\u96F7"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -108,4 +108,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2f6beeec3f3dbf44860592bdfe75b60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destoryTime: 0.5
+  destoryTime: 0.3

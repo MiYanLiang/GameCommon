@@ -290,9 +290,9 @@ public class DrumSkillControll : MonoBehaviour
         icon.name = StateName.dizzyName;
         //加载状态图片资源
         icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.dizzyName, typeof(Sprite)) as Sprite;
-        GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/xuanyun", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
+        GameObject xuanyunEffect = Instantiate(Resources.Load("Prefab/fightEffect/眩晕", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
         xuanyunEffect.name = StateName.xuanyunEffect;
-        GameObject zhangu_lei = Instantiate(Resources.Load("Prefab/fightEffect/zhangu_lei_01", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
+        GameObject zhangu_lei = Instantiate(Resources.Load("Prefab/fightEffect/战鼓_天雷", typeof(GameObject)) as GameObject, FightCardSP.enemyCards[index].transform);
         zhangu_lei.transform.SetParent(carvans);
         //战鼓可敲击次数减一
         drumNums--;
@@ -404,7 +404,7 @@ public class DrumSkillControll : MonoBehaviour
         //显示技能文字
         FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "起死回生";
         FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
-        Instantiate(Resources.Load("Prefab/fightEffect/shouzhiliao", typeof(GameObject)) as GameObject, FightCardSP.playerCards[index].transform);
+        Instantiate(Resources.Load("Prefab/fightEffect/9方士攻击", typeof(GameObject)) as GameObject, FightCardSP.playerCards[index].transform);
         //战鼓可敲击次数减一
         drumNums--;
         CombDurm();
