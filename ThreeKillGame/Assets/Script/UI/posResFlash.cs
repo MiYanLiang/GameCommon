@@ -13,8 +13,6 @@ public class posResFlash : MonoBehaviour
     public Transform[] playerCanvas;    //玩家武将专属界面
     public GameObject UpdateBtn;    //刷新招募按钮
     private bool isLockUpdateCard;  //记录是否对刷新招募上锁
-    [SerializeField]
-    GameObject topPower;    //顶部其他势力信息
 
     private void Start()
     {
@@ -45,8 +43,6 @@ public class posResFlash : MonoBehaviour
     //顶部势力按钮执行，优先显示界面
     public void ChangePosShow(int n)
     {
-        int forceId = (n == 0) ? UIControl.playerForceId : UIControl.array_forces[n - 1];
-        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + forceId, typeof(Sprite)) as Sprite;
         //fights[n].SetParent(posRes);
         //fights[n].SetParent(canvas);
         //jiugongges[n].SetParent(canvas);

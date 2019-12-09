@@ -344,11 +344,11 @@ public class FightCardSP : MonoBehaviour
                             //展示战况
                             if (isSpecialLevel)
                             {
-                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.NPCTableDates[specialLevelId][15]);
+                                //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.NPCTableDates[specialLevelId][15]);
                             }
                             else
                             {
-                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
+                                //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
                             }
                             fightControll.GetComponent<FightControll>().BattleSettlement();
                             
@@ -416,11 +416,11 @@ public class FightCardSP : MonoBehaviour
 
                             if (isSpecialLevel)
                             {
-                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.NPCTableDates[specialLevelId][15]);
+                                //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.NPCTableDates[specialLevelId][15]);
                             }
                             else
                             {
-                                SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.array_forces[enemyForceId] - 1][1]);
+                                //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
                             }
                             fightControll.GetComponent<FightControll>().BattleSettlement();
                             
@@ -478,16 +478,16 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     private void ShowGameOver()
     {
-        if (CreateAndUpdate.playerHp<=0)    //失败结算
+        if (CreateAndUpdate.playerHp <= 0)    //失败结算
         {
             SettlementPic.transform.GetChild(5).gameObject.SetActive(false);
             Invoke("ClearingTheGame", 2f);    //延时打开本次游戏结束界面
             //ClearingTheGame();
             return;
         }
-        for (int i = 0; i < 5; i++)
+        for (int i = 0; i < fightCtl.npcPlayerHps.Length; i++)
         {
-            if (fightCtl.npcPlayerHps[i]>0) //有npc还活着
+            if (fightCtl.npcPlayerHps[i] > 0) //有npc还活着
                 return;
         }
         //结算胜利
@@ -506,7 +506,7 @@ public class FightCardSP : MonoBehaviour
         int[] arrRankWinTimes = new int[6] { -1, -1, -1, -1, -1, -1 };  //结束势力胜场排名
         for (int i = 0; i < 5; i++)
         {
-            arrRank[i] = UIControl.array_forces[i];
+            arrRank[i] = UIControl.enemy_forces[i];
             arrRankWinTimes[i] = fightCtl.allWinTimes[i];
         }
         int tempWintimes, idIndex = -1;
@@ -983,7 +983,7 @@ public class FightCardSP : MonoBehaviour
         else
         {
             specialFightText.text = "";
-            npcForceId = UIControl.array_forces[enemyForceId];
+            npcForceId = UIControl.enemy_forces[enemyForceId];
         }
         rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
         SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;
