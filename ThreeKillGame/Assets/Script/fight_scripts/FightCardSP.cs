@@ -299,11 +299,11 @@ public class FightCardSP : MonoBehaviour
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
                             {
-                                addMoney = 1;
+                                addMoney = (int)(remainScale * 5) + 1; 
                             }
                             else
                             {
-                                addMoney = ((int)remainScale * 5) + 1;
+                                addMoney = 1;
                             }
                             CreateAndUpdate.money += addMoney;   //玩家加金币
                             string str = "";
@@ -398,12 +398,12 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             int cutHp = 0;
-                            if (fightCtl.selectForce != -1) //防守
+                            if (fightCtl.selectForce != -1) 
                             {
                                 float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
                                 cutHp = (int)(remainScale * 10);    //玩家扣血
                             }
-                            else
+                            else  //防守
                             {
                                 cutHp = 2;
                             }
@@ -973,8 +973,8 @@ public class FightCardSP : MonoBehaviour
     private void InitForceFlag()
     {
         int npcForceId = -1;    //记录对手势力id
-        playerForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.playerForceId, typeof(Sprite)) as Sprite;           //设置玩家势力的头像
-        SettlementPic.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + UIControl.playerForceId, typeof(Sprite)) as Sprite; //结算面板的头像
+        playerForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][4], typeof(Sprite)) as Sprite;           //设置玩家势力的头像
+        SettlementPic.transform.GetChild(1).GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][4], typeof(Sprite)) as Sprite; //结算面板的头像
         if (isSpecialLevel)
         {
             specialFightText.text = LoadJsonFile.NPCTableDates[specialLevelId][2];
@@ -985,8 +985,8 @@ public class FightCardSP : MonoBehaviour
             specialFightText.text = "";
             npcForceId = UIControl.enemy_forces[enemyForceId];
         }
-        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
-        SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;
+        rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
+        SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;
         SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId -1][1];
     }
 }

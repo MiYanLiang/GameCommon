@@ -19,8 +19,6 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     GameObject npcForceCity;    //npc城市预制件
 
-    public static int[] array_forces = { 0, 0, 0, 0, 0 };   //其他势力id
-
     public static List<int> enemy_forces;   //战役中其他势力id
     private List<GameObject> npcForcesObjs; //npc城市集合
 
@@ -84,8 +82,8 @@ public class UIControl : MonoBehaviour
     {
         //玩家势力初始化
         playerForceId = PlayerPrefs.GetInt("forcesId");
-        playerForce_main.sprite = Resources.Load("Image/calligraphy/Forces/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
-        playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + playerForceId, typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        playerForce_main.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
         playerForce.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
         playerForce.GetComponent<Button>().onClick.AddListener(delegate () {
             updateTopPowerData(-1);
@@ -128,7 +126,7 @@ public class UIControl : MonoBehaviour
         //实例化npc城市
         GameObject force_obj = Instantiate(npcForceCity, forcesParentTran);
         //设置势力图标
-        force_obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + npcForceId, typeof(Sprite)) as Sprite;
+        force_obj.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;
         //设置城池图标
         force_obj.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][7], typeof(Sprite)) as Sprite;
         //城市位置设置
@@ -164,7 +162,7 @@ public class UIControl : MonoBehaviour
     public void updateTopPowerData(int index)   //-1为玩家, 0-n为npc
     {
         int forceId = (index < 0) ? playerForceId : enemy_forces[index];
-        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + forceId, typeof(Sprite)) as Sprite;
+        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;
         setTextContent(index);
         fightControll.ChangeSelectForce(index);
     }

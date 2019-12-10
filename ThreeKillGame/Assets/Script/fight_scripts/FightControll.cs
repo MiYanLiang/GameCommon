@@ -131,7 +131,7 @@ public class FightControll : MonoBehaviour
             }
             EmFightControll emFctll = new EmFightControll();
             //npc上阵武将数据更新
-            enemyHeroDatas[i] = emFctll.SendHeroData(sendData, npcUnits[i], FightCardSps[0].GetComponent<FightCardSP>().battles - 1);
+            enemyHeroDatas[i] = emFctll.SendHeroData(sendData, npcUnits[i], FightCardSps[0].GetComponent<FightCardSP>().battles - 1, i);
             //清理临时传递的数据
             for (int n = 0; n < sendData.Length; n++)
             {

@@ -30,240 +30,264 @@ public class EmFightControll : MonoBehaviour
     /// </summary>
     /// <param name="arrHeroData">武将数据</param>
     /// <param name="enemyUnits">阵容兵种定位[前排，中排，后排]</param>
-    /// <param name="battles">总周目数</param>
+    /// <param name="battles">总周目数 - 1</param>
+    /// <param name="npcForceIndex">npc势力索引</param>
     /// <returns></returns>
-    public List<string>[] SendHeroData(List<string>[] arrHeroData, int[] enemyUnits, int battles)
+    public List<string>[] SendHeroData(List<string>[] arrHeroData, int[] enemyUnits, int battles, int npcForceIndex)
     {
-        int heroCount = 0;  //记录英雄数
-        for (int i = 0; i < arrHeroData.Length; i++)    //依次处理传过来的九个位置
+        if (battles == -1)  //游戏开始第一年
         {
-            if (arrHeroData[i] != null)   //若该位置有英雄
+            string[] heroArrs = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[npcForceIndex]][8].Split(',');
+            int num = 0;
+            //添加新英雄到总英雄数据中
+            for (int i = 0; i < 9; i++)
             {
-                heroCount++;
-                switch (arrHeroData[i][1])  //判断英雄的品阶       
+                if (num >= heroArrs.Length)
+                    break;
+                if (array_str[i] == null)
                 {
-                    case "1":
-                        switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][4])   //判断稀有度
-                        {
-                            case "1":   //绿1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][7]))  //判断此卡牌参与的战斗周目
-                                {
-                                    if (GradeOrColor()) //升阶
-                                    {
-                                        array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                    else                //升色
-                                    {
-                                        array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "2");  //执行升色方法传递所需兵种和升色值（稀有度1234）
-                                        if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                            case "2":   //蓝1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][8]))
-                                {
-                                    if (GradeOrColor()) //升阶
-                                    {
-                                        array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                    else                //升色
-                                    {
-                                        array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "3");  //执行升色方法传递所需兵种和升色值（稀有度1234）
-                                        if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                            case "3":   //紫1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][9]))
-                                {
-                                    if (GradeOrColor()) //升阶
-                                    {
-                                        array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                    else                //升色
-                                    {
-                                        array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "4");  //执行升色方法传递所需兵种和升色值（稀有度1234）
-                                        if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                            case "4":   //橙1
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][10]))
-                                {
-                                    if (GradeOrColor()) //升阶
-                                    {
-                                        array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                        }
-                        break;
-                    case "2":
-                        switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][4])   //判断稀有度
-                        {
-                            case "1":   //绿2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][11]) && GradeOrColor())  //判断此卡牌参与的战斗周目
-                                {
-                                    //二阶英雄升阶，失败后不用升色
-                                    {
-                                        array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                            case "2":   //蓝2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][12]) && GradeOrColor())
-                                {
-                                    //升阶
-                                    {
-                                        array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                            case "3":   //紫2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][13]) && GradeOrColor())
-                                {
-                                    //升阶
-                                    {
-                                        array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                            case "4":   //橙2
-                                if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][14]) && GradeOrColor())
-                                {
-                                    //升阶
-                                    {
-                                        array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
-                                    }
-                                }
-                                else
-                                {
-                                    HoldHeroData(arrHeroData, i);   //保持英雄数据
-                                }
-                                break;
-                        }
-                        break;
-                    case "3":   //三阶英雄保持数据
-                        HoldHeroData(arrHeroData, i);   //保持英雄数据
-                        break;
+                    int heroId = (int)float.Parse(heroArrs[i]);  //初始武将id获取
+                    //添加新英雄的数据
+                    array_str[i] = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroId - 1]);
+                    array_str[i].Add("1");  //品阶
+                    array_str[i].Add("1");  //战斗周目数
+                    num++;
                 }
-            }
-        }
-
-        //更新英雄上阵位置和个数
-        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[1][hardNum + 1]) - 1)
-        {
-            if (heroCount < arrayBattles[0])
-            {
-                //添加英雄 
-                AddHeros(enemyUnits, arrayBattles[0] - heroCount);
             }
         }
         else
         {
-            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[2][hardNum + 1]) - 1)
+            int heroCount = 0;  //记录英雄数
+            for (int i = 0; i < arrHeroData.Length; i++)    //依次处理传过来的九个位置
             {
-                if (heroCount < arrayBattles[1])
+                if (arrHeroData[i] != null)   //若该位置有英雄
                 {
-                    AddHeros(enemyUnits, arrayBattles[1] - heroCount);
-                }
-            }
-            else
-            {
-                if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[3][hardNum + 1]) - 1)
-                {
-                    if (heroCount < arrayBattles[2])
+                    heroCount++;
+                    switch (arrHeroData[i][1])  //判断英雄的品阶       
                     {
-                        AddHeros(enemyUnits, arrayBattles[2] - heroCount);
-                    }
-                }
-                else
-                {
-                    if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[4][hardNum + 1]) - 1)
-                    {
-                        if (heroCount < arrayBattles[3])
-                        {
-                            AddHeros(enemyUnits, arrayBattles[3] - heroCount);
-                        }
-                    }
-                    else
-                    {
-                        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[5][hardNum + 1]) - 1)
-                        {
-                            if (heroCount < arrayBattles[4])
+                        case "1":
+                            switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][4])   //判断稀有度
                             {
-                                AddHeros(enemyUnits, arrayBattles[4] - heroCount);
-                            }
-                        }
-                        else
-                        {
-                            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[6][hardNum + 1]) - 1)
-                            {
-                                if (heroCount < arrayBattles[5])
-                                {
-                                    AddHeros(enemyUnits, arrayBattles[5] - heroCount);
-                                }
-                            }
-                            else
-                            {
-                                if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[7][hardNum + 1]) - 1)
-                                {
-                                    if (heroCount < arrayBattles[6])
+                                case "1":   //绿1
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][7]))  //判断此卡牌参与的战斗周目
                                     {
-                                        AddHeros(enemyUnits, arrayBattles[6] - heroCount);
-                                    }
-                                }
-                                else
-                                {
-                                    if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[8][hardNum + 1]) - 1)
-                                    {
-                                        if (heroCount < arrayBattles[7])
+                                        if (GradeOrColor()) //升阶
                                         {
-                                            AddHeros(enemyUnits, arrayBattles[7] - heroCount);
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                        else                //升色
+                                        {
+                                            array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "2");  //执行升色方法传递所需兵种和升色值（稀有度1234）
+                                            if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
                                         }
                                     }
                                     else
                                     {
-                                        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[9][hardNum + 1]) - 1)
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                                case "2":   //蓝1
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][8]))
+                                    {
+                                        if (GradeOrColor()) //升阶
                                         {
-                                            if (heroCount < arrayBattles[8])
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                        else                //升色
+                                        {
+                                            array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "3");  //执行升色方法传递所需兵种和升色值（稀有度1234）
+                                            if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                                case "3":   //紫1
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][9]))
+                                    {
+                                        if (GradeOrColor()) //升阶
+                                        {
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                        else                //升色
+                                        {
+                                            array_str[i] = UpColor(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][3], "4");  //执行升色方法传递所需兵种和升色值（稀有度1234）
+                                            if (array_str[i] == null) HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                                case "4":   //橙1
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][10]))
+                                    {
+                                        if (GradeOrColor()) //升阶
+                                        {
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                            }
+                            break;
+                        case "2":
+                            switch (LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1][4])   //判断稀有度
+                            {
+                                case "1":   //绿2
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][11]) && GradeOrColor())  //判断此卡牌参与的战斗周目
+                                    {
+                                        //二阶英雄升阶，失败后不用升色
+                                        {
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                                case "2":   //蓝2
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][12]) && GradeOrColor())
+                                    {
+                                        //升阶
+                                        {
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                                case "3":   //紫2
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][13]) && GradeOrColor())
+                                    {
+                                        //升阶
+                                        {
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                                case "4":   //橙2
+                                    if (int.Parse(arrHeroData[i][2]) >= int.Parse(LoadJsonFile.difficultyChooseDatas[hardNum - 1][14]) && GradeOrColor())
+                                    {
+                                        //升阶
+                                        {
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                    }
+                                    else
+                                    {
+                                        HoldHeroData(arrHeroData, i);   //保持英雄数据
+                                    }
+                                    break;
+                            }
+                            break;
+                        case "3":   //三阶英雄保持数据
+                            HoldHeroData(arrHeroData, i);   //保持英雄数据
+                            break;
+                    }
+                }
+            }
+
+            //更新英雄上阵位置和个数
+            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[1][hardNum + 1]) - 1)
+            {
+                if (heroCount < arrayBattles[0])
+                {
+                    //添加英雄 
+                    AddHeros(enemyUnits, arrayBattles[0] - heroCount);
+                }
+            }
+            else
+            {
+                if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[2][hardNum + 1]) - 1)
+                {
+                    if (heroCount < arrayBattles[1])
+                    {
+                        AddHeros(enemyUnits, arrayBattles[1] - heroCount);
+                    }
+                }
+                else
+                {
+                    if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[3][hardNum + 1]) - 1)
+                    {
+                        if (heroCount < arrayBattles[2])
+                        {
+                            AddHeros(enemyUnits, arrayBattles[2] - heroCount);
+                        }
+                    }
+                    else
+                    {
+                        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[4][hardNum + 1]) - 1)
+                        {
+                            if (heroCount < arrayBattles[3])
+                            {
+                                AddHeros(enemyUnits, arrayBattles[3] - heroCount);
+                            }
+                        }
+                        else
+                        {
+                            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[5][hardNum + 1]) - 1)
+                            {
+                                if (heroCount < arrayBattles[4])
+                                {
+                                    AddHeros(enemyUnits, arrayBattles[4] - heroCount);
+                                }
+                            }
+                            else
+                            {
+                                if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[6][hardNum + 1]) - 1)
+                                {
+                                    if (heroCount < arrayBattles[5])
+                                    {
+                                        AddHeros(enemyUnits, arrayBattles[5] - heroCount);
+                                    }
+                                }
+                                else
+                                {
+                                    if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[7][hardNum + 1]) - 1)
+                                    {
+                                        if (heroCount < arrayBattles[6])
+                                        {
+                                            AddHeros(enemyUnits, arrayBattles[6] - heroCount);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[8][hardNum + 1]) - 1)
+                                        {
+                                            if (heroCount < arrayBattles[7])
                                             {
-                                                AddHeros(enemyUnits, arrayBattles[8] - heroCount);
+                                                AddHeros(enemyUnits, arrayBattles[7] - heroCount);
                                             }
                                         }
                                         else
                                         {
-                                            if (heroCount < arrayBattles[9])
+                                            if (battles < int.Parse(LoadJsonFile.DifficultyTableDates[9][hardNum + 1]) - 1)
                                             {
-                                                AddHeros(enemyUnits, arrayBattles[9] - heroCount);
+                                                if (heroCount < arrayBattles[8])
+                                                {
+                                                    AddHeros(enemyUnits, arrayBattles[8] - heroCount);
+                                                }
+                                            }
+                                            else
+                                            {
+                                                if (heroCount < arrayBattles[9])
+                                                {
+                                                    AddHeros(enemyUnits, arrayBattles[9] - heroCount);
+                                                }
                                             }
                                         }
                                     }
@@ -381,11 +405,11 @@ public class EmFightControll : MonoBehaviour
         //添加新英雄到总英雄数据中
         for (int i = 0; i < 9; i++)
         {
-            if (num>=v)
+            if (num >= v)
             {
                 break;
             }
-            if (array_str[i]==null)
+            if (array_str[i] == null)
             {
                 //添加新英雄的数据
                 array_str[i] = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[newheroIds[num] - 1]);
