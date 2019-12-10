@@ -37,7 +37,7 @@ public class EmFightControll : MonoBehaviour
     {
         if (battles == -1)  //游戏开始第一年
         {
-            string[] heroArrs = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[npcForceIndex]][8].Split(',');
+            string[] heroArrs = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[npcForceIndex] - 1][8].Split(',');
             int num = 0;
             //添加新英雄到总英雄数据中
             for (int i = 0; i < 9; i++)
