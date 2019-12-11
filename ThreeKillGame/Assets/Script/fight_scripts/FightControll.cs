@@ -190,7 +190,7 @@ public class FightControll : MonoBehaviour
                             break;
                     }
                     //显示英雄名等信息
-                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = "";// enemyHeroDatas[i][m][1];
+                    newheroCard.transform.GetChild(0).GetComponent<Text>().text = enemyHeroDatas[i][m][1];
                     newheroCard.transform.GetChild(1).GetComponent<Text>().text = enemyHeroDatas[i][m][6];
                 }
             }

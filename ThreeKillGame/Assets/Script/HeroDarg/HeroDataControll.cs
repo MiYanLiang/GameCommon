@@ -40,7 +40,7 @@ public class HeroDataControll : MonoBehaviour {
     {
         if (HeroData != null)
         {
-            gameObject.transform.GetChild(0).GetComponent<Text>().text = "";//HeroData[1];
+            gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
             //设置左上角兵种文字
             gameObject.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(HeroData[3])-1][2];

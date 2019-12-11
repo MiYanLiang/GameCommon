@@ -162,14 +162,13 @@ public class FightCardSP : MonoBehaviour
                 roundTextObj.text = "回合 " + roundNum;
                 roundTextObj.gameObject.SetActive(true);
             }
-            
 
             fightNum = 0;
 
             isStart = false;
             Invoke("LiteTimeStart", roundWaitTime);
-
         }
+
         //回合开始
         if (!isStart)
             return;
@@ -177,6 +176,7 @@ public class FightCardSP : MonoBehaviour
         //若有武将正在攻击
         if (isFightNow)
             return;
+
         //  玩家卡牌槽此位置有卡牌            此卡牌位为先手攻击                                                 此卡牌为后手                                                       敌方此卡牌位无卡牌                敌方在此位置的卡牌血量小于零                                  玩家此卡牌位卡牌武将血量不为零
         if (playerCards[fightNum] != null && (playerCards[fightNum].GetComponent<CardMove>().IsAttack_first || (!playerCards[fightNum].GetComponent<CardMove>().IsAttack_first && (enemyCards[fightNum] == null || enemyCards[fightNum].GetComponent<CardMove>().Health <= 0))) && playerCards[fightNum].GetComponent<CardMove>().Health > 0)
         {
@@ -706,7 +706,7 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
                     enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
                     switch (int.Parse(datas[4]))
                     {
                         case 1:
@@ -804,7 +804,7 @@ public class FightCardSP : MonoBehaviour
                     //破甲百分比
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                     //显示武将名
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";// datas[1];
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
                     //稀有度设置文字颜色表现
                     switch (int.Parse(datas[4]))
                     {
@@ -875,7 +875,7 @@ public class FightCardSP : MonoBehaviour
                 //破甲百分比
                 playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = "";// datas[1];
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
                 //稀有度设置文字颜色表现
                 switch (int.Parse(datas[4]))
                 {
