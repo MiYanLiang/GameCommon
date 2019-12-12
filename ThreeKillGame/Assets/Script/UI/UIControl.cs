@@ -161,9 +161,20 @@ public class UIControl : MonoBehaviour
     //更新顶部信息
     public void updateTopPowerData(int index)   //-1为玩家, 0-n为npc
     {
+        int powerNums = 0;
+        if(index != -1)
+        {
+            powerNums = fightControll.GetNowNPCPowerNums(index);
+        }
+        else
+        {
+            powerNums = transform.GetComponent<HeroIdChangeAndSave>().GetNowPlayerPowerNums();
+        }
+
         int forceId = (index < 0) ? playerForceId : enemy_forces[index];
         topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;    //势力头像
         topPower.transform.GetChild(2).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][5];   //显示城市名 
+        topPower.transform.GetChild(3).GetComponent<Text>().text = "战力：" + powerNums;   //显示战力
         setTextContent(index);
         fightControll.ChangeSelectForce(index);
     }

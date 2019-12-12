@@ -105,6 +105,22 @@ public class HeroIdChangeAndSave : MonoBehaviour
     }
 
 
+    /// <summary>
+    /// 获取玩家当前战力值
+    /// </summary>
+    public int GetNowPlayerPowerNums()
+    {
+        int num = 0;
+        for(int i = 0; i < JiuGongGe.childCount; i++)
+        {
+            if(JiuGongGe.GetChild(i).childCount > 0)
+            {
+                num += int.Parse(JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[6]);
+            }
+        }
+        return num;
+    }
+
     private void Start()
     {
         forcesIndex = PlayerPrefs.GetInt("forcesId");

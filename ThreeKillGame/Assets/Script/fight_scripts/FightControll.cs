@@ -307,10 +307,13 @@ public class FightControll : MonoBehaviour
         //更新血条
         int sliderCount = npcPlayer_hpSliders.Count;
         int allHp = int.Parse(LoadJsonFile.difficultyChooseDatas[difnum - 1][6]);
+        int indexHp = 0;
         for (int i = 0; i < sliderCount; i++)
         {
             npcPlayer_hpSliders[i].value = npcPlayerHps[i] / (float)allHp;
+            indexHp = int.Parse(npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text);
             npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
+            npcPlayer_hpSliders[i].transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = indexHp - ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0) + "";  //设置城池播放扣血文字内容
         }
     }
 
@@ -371,5 +374,21 @@ public class FightControll : MonoBehaviour
     public void EndOfGame()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
+    /// <summary>
+    /// 获取某npc当前战力值
+    /// </summary>
+    public int GetNowNPCPowerNums(int index)
+    {
+        int num = 0;
+        for(int i = 0; i < JiuGongGes[index].childCount; i++)
+        {
+            if(JiuGongGes[index].GetChild(i).childCount > 0)
+            {
+                num += int.Parse(JiuGongGes[index].GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[6]);
+            }
+        }
+        return num;
     }
 }

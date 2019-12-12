@@ -278,13 +278,13 @@ public class ChangeAndGet : MonoBehaviour
         newheroCard.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = grade.ToString();
         newheroCard.GetComponent<HeroDataControll>().Grade_hero = grade;
         newheroCard.GetComponent<HeroDataControll>().BattleNums = 0;
-        if (grade==1)
+        if (grade == 1)
         {
             newheroCard.GetComponent<HeroDataControll>().Price_hero = price;
         }
         else
         {
-            if (grade==2)
+            if (grade == 2)
             {
                 newheroCard.GetComponent<HeroDataControll>().Price_hero = price * 2;
             }

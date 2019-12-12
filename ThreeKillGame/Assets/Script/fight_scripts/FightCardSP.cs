@@ -308,6 +308,8 @@ public class FightCardSP : MonoBehaviour
                                 addMoney = 1;
                             }
                             CreateAndUpdate.money += addMoney;   //玩家加金币
+                            player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "";  //设置城池播放扣血文字内容
+
                             string str = "";
                             //展示战斗胜负信息
                             if (remainScale >= 0.8f)
@@ -411,9 +413,10 @@ public class FightCardSP : MonoBehaviour
                             }
                             CreateAndUpdate.playerHp -= cutHp;
                             getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}城防值！", cutHp);
-                            //CreateAndUpdate.money += 0;   //玩家不加金币
+                            player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
 
-                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
+
+                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
                             SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
 
                             if (isSpecialLevel)
@@ -710,7 +713,7 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
                     enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = ""; //datas[1];
                     switch (int.Parse(datas[4]))
                     {
                         case 1:
@@ -808,7 +811,7 @@ public class FightCardSP : MonoBehaviour
                     //破甲百分比
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                     //显示武将名
-                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                    enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                     //稀有度设置文字颜色表现
                     switch (int.Parse(datas[4]))
                     {
@@ -879,7 +882,7 @@ public class FightCardSP : MonoBehaviour
                 //破甲百分比
                 playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
-                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
+                playerCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                 //稀有度设置文字颜色表现
                 switch (int.Parse(datas[4]))
                 {
