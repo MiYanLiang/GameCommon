@@ -76,6 +76,8 @@ public class CreateAndUpdate : MonoBehaviour
     [SerializeField]
     Slider player_hp;//玩家血条
     [SerializeField]
+    Slider player_hp2;//玩家血条2
+    [SerializeField]
     Text textHertNum;   //招募中民心的显示
     
     [SerializeField]
@@ -208,6 +210,9 @@ public class CreateAndUpdate : MonoBehaviour
         playerHp = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][2]);
         player_hp.value = playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][2]);
         player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
+        player_hp2.value = playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][2]);
+        player_hp2.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
+        LateInitHeroNums(0f);
     }
 
     /// <summary>
@@ -1760,7 +1765,7 @@ public class CreateAndUpdate : MonoBehaviour
     /// <param name="times"></param>
     public void LateInitHeroNums(float times)
     {
-        Invoke("UpdateHadHeroNumsText", times);
+        Invoke("UpdateHadHeroNumsText", 0);
     }
 
     /// <summary>

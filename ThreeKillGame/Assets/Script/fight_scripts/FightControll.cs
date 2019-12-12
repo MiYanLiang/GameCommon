@@ -33,7 +33,7 @@ public class FightControll : MonoBehaviour
     public int[] npcPlayerHps;
     //npc玩家血条
     [HideInInspector]
-    public List<Slider> npcPlayer_hp;
+    public List<Slider> npcPlayer_hpSliders;
 
     [HideInInspector]
     public int difnum = 0; //记录难度值
@@ -305,12 +305,12 @@ public class FightControll : MonoBehaviour
             textList.GetChild(i).GetComponent<Text>().text = "";
         }
         //更新血条
-        int sliderCount = npcPlayer_hp.Count;
+        int sliderCount = npcPlayer_hpSliders.Count;
         int allHp = int.Parse(LoadJsonFile.difficultyChooseDatas[difnum - 1][6]);
         for (int i = 0; i < sliderCount; i++)
         {
-            npcPlayer_hp[i].value = npcPlayerHps[i] / (float)allHp;
-            npcPlayer_hp[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
+            npcPlayer_hpSliders[i].value = npcPlayerHps[i] / (float)allHp;
+            npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
         }
     }
 

@@ -165,7 +165,7 @@ public class LoadJsonFile : MonoBehaviour
                 forcesTableDatas[i].Add(root.ForcesTable[i].forceIntro);
                 forcesTableDatas[i].Add(root.ForcesTable[i].Prestige);
                 forcesTableDatas[i].Add(root.ForcesTable[i].forcesSign);
-                forcesTableDatas[i].Add(root.ForcesTable[i].forcesName);
+                forcesTableDatas[i].Add(root.ForcesTable[i].cityName);
                 forcesTableDatas[i].Add(root.ForcesTable[i].city);
                 forcesTableDatas[i].Add(root.ForcesTable[i].cityIcon);
                 forcesTableDatas[i].Add(root.ForcesTable[i].firstHeroId);

@@ -21,9 +21,9 @@
     /// </summary>
     public string forcesSign { get; set; }
     /// <summary>
-    /// 势力名
+    /// 城市名
     /// </summary>
-    public string forcesName { get; set; }
+    public string cityName { get; set; }
     /// <summary>
     /// 城市
     /// </summary>

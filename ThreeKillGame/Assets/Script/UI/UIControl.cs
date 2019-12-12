@@ -50,7 +50,7 @@ public class UIControl : MonoBehaviour
     GameObject jiuGongGeObj_npc;   //npc所用九宫格
 
     [SerializeField]
-    Transform npc_ShangZhenWei; //上阵位
+    Transform npc_ShangZhenWei; //npc上阵位父节点
 
     private AudioSource backAudioSource;
 
@@ -98,7 +98,7 @@ public class UIControl : MonoBehaviour
         //实例化城池集合
         npcForcesObjs = new List<GameObject>(count);
         //实例化npc血条集合
-        fightControll.npcPlayer_hp = new List<Slider>(count - 1);
+        fightControll.npcPlayer_hpSliders = new List<Slider>(count - 1);
         for (int i = 0; i < count; i++)
         {
             indexForce = int.Parse(str_Force[i]);
@@ -142,7 +142,7 @@ public class UIControl : MonoBehaviour
             npcForceOnClick(index);
         });
         npcForcesObjs.Add(force_obj);   //添加到npc集合
-        fightControll.npcPlayer_hp.Add(force_obj.transform.GetChild(1).GetComponent<Slider>()); //添加npc血条集合
+        fightControll.npcPlayer_hpSliders.Add(force_obj.transform.GetChild(1).GetComponent<Slider>()); //添加npc血条集合
         //npc上阵九宫格实例化
         fightControll.JiuGongGes.Add(Instantiate(jiuGongGeObj_npc, npc_ShangZhenWei).transform);
     }
@@ -162,7 +162,8 @@ public class UIControl : MonoBehaviour
     public void updateTopPowerData(int index)   //-1为玩家, 0-n为npc
     {
         int forceId = (index < 0) ? playerForceId : enemy_forces[index];
-        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;
+        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;    //势力头像
+        topPower.transform.GetChild(2).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][5];   //显示城市名 
         setTextContent(index);
         fightControll.ChangeSelectForce(index);
     }

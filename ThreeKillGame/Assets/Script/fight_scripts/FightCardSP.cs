@@ -5,7 +5,9 @@ using UnityEngine.UI;
 public class FightCardSP : MonoBehaviour
 {
     [SerializeField]
-    private Slider player_hp;//玩家血条
+    Slider player_hp;//玩家血条
+    [SerializeField]
+    Slider player_hp2;//玩家血条2
 
     [SerializeField]
     private GameObject SettlementPic;   //结算页面
@@ -471,6 +473,8 @@ public class FightCardSP : MonoBehaviour
         //玩家血条刷新
         player_hp.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
         player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
+        player_hp2.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
+        player_hp2.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
     }
 
     /// <summary>
