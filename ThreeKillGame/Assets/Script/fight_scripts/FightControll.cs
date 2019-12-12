@@ -313,7 +313,16 @@ public class FightControll : MonoBehaviour
             npcPlayer_hpSliders[i].value = npcPlayerHps[i] / (float)allHp;
             indexHp = int.Parse(npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text);
             npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
-            npcPlayer_hpSliders[i].transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = indexHp - ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0) + "";  //设置城池播放扣血文字内容
+            indexHp = indexHp - ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0);
+            if (indexHp != 0)
+            {
+                npcPlayer_hpSliders[i].transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + indexHp;  //设置城池播放扣血文字内容
+            }
+            else
+            {
+                npcPlayer_hpSliders[i].transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "";
+            }
+            
         }
     }
 

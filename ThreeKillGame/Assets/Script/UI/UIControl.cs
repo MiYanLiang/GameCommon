@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class UIControl : MonoBehaviour
 {
+    public static bool isShowCutHpText;
+
     public Text gold;          //玩家金币
 
 
@@ -56,6 +58,8 @@ public class UIControl : MonoBehaviour
 
     private void Awake()
     {
+        isShowCutHpText = false;
+
         enemy_forces = new List<int>();
 
         battleId = PlayerPrefs.GetInt("battleId");
@@ -216,5 +220,14 @@ public class UIControl : MonoBehaviour
     private void LateUpdate()
     {
         gold.text = CreateAndUpdate.money + "";   //玩家金钱显示
+    }
+
+    /// <summary>
+    /// 更改城池掉血是否显示
+    /// </summary>
+    /// <param name="boo"></param>
+    public void ChangeisShowCutHpText(bool boo)
+    {
+        isShowCutHpText = boo;
     }
 }
