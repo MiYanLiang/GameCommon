@@ -301,7 +301,7 @@ public class FightCardSP : MonoBehaviour
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
                             {
-                                addMoney = (int)(remainScale * 5) + 1; 
+                                addMoney = (int)(remainScale * 5); 
                             }
                             else
                             {
