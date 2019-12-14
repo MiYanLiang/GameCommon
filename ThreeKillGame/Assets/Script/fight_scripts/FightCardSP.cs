@@ -79,6 +79,9 @@ public class FightCardSP : MonoBehaviour
 
     private int battleId;   //开局所选战役ID
 
+    [SerializeField]
+    Transform playerForceCity; //玩家城池
+
     private void Awake()
     {
         battleId = PlayerPrefs.GetInt("battleId");
@@ -96,7 +99,6 @@ public class FightCardSP : MonoBehaviour
         isPlayerBout = true;
         battles += 1;
         battle_Text.text = "公元" + (battles + int.Parse(LoadJsonFile.BattleTableDates[battleId][4]) - 1) + "年";
-
         InitArmsSkillStatus();
         //敌人初始化
         InitializeBattleCard();
@@ -299,12 +301,15 @@ public class FightCardSP : MonoBehaviour
 
                             int cutHp = 0;
                             cutHp = (int)(remainScale * fightCtl.maxCutHp);                                                    //敌方扣血
+                            cutHp = cutHp > fightCtl.defCutHp ? cutHp : fightCtl.defCutHp;
                             fightCtl.npcPlayerHps[enemyForceId] -= cutHp;
+
 
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
                             {
-                                addMoney = (int)(remainScale * fightCtl.maxAddGold); 
+                                addMoney = (int)(remainScale * fightCtl.maxAddGold);
+                                addMoney = addMoney > fightCtl.defAddGold ? addMoney : fightCtl.defAddGold;
                             }
                             else
                             {
@@ -405,10 +410,11 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             int cutHp = 0;
-                            if (fightCtl.selectForce != -1) 
+                            if (fightCtl.selectForce != -1)
                             {
                                 float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
                                 cutHp = (int)(remainScale * fightCtl.maxCutHp);    //玩家扣血
+                                cutHp = cutHp > fightCtl.defCutHp ? cutHp : fightCtl.defCutHp;
                             }
                             else  //防守
                             {
@@ -419,7 +425,7 @@ public class FightCardSP : MonoBehaviour
                             player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
 
 
-                    SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
+                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
                             SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
 
                             if (isSpecialLevel)
@@ -431,7 +437,7 @@ public class FightCardSP : MonoBehaviour
                                 //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
                             }
                             fightControll.GetComponent<FightControll>().BattleSettlement();
-                            
+
                             Invoke("ShowSettlementPic", 1f);    //延时打开结算界面
 
                             return null;
@@ -481,6 +487,10 @@ public class FightCardSP : MonoBehaviour
         player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
         player_hp2.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
         player_hp2.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
+        if (fightCtl.hpFloatToFire >= player_hp.value)
+        {
+            playerForceCity.GetChild(3).gameObject.SetActive(true); //开启冒火特效
+        }
     }
 
     /// <summary>

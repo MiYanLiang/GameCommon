@@ -60,6 +60,9 @@ public class FightControll : MonoBehaviour
     [Header("防守金币值")]
     [SerializeField]
     public int defAddGold = 1;
+    [Header("冒火开启血量百分比")]
+    [SerializeField]
+    public float hpFloatToFire = 0.2f;
 
     //记录npc的胜率
     private int[] npcWinRate;
@@ -329,6 +332,10 @@ public class FightControll : MonoBehaviour
         for (int i = 0; i < sliderCount; i++)
         {
             npcPlayer_hpSliders[i].value = npcPlayerHps[i] / (float)allHp;
+            if (hpFloatToFire >= npcPlayer_hpSliders[i].value)
+            {
+                npcPlayer_hpSliders[i].transform.parent.GetChild(2).gameObject.SetActive(true); //开启冒火特效
+            }
             indexHp = int.Parse(npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text);
 
             npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
@@ -378,6 +385,7 @@ public class FightControll : MonoBehaviour
         FightCardSps[0].GetComponent<FightCardSP>().array_str = enemyHeroDatas[rivalId];
         FightCardSps[0].GetComponent<FightCardSP>().enemyForceId = rivalId;
         FightCardSps[0].gameObject.SetActive(true);
+        OpenOrCloseFightTV(true);
     }
 
     //打开或关闭 玩家 的战斗界面

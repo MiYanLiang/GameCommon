@@ -14,7 +14,7 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     Image playerForce_main;     //玩家势力头像主城
     [SerializeField]
-    Transform playerForce;      //玩家势力头像
+    public Transform playerForce;      //玩家势力头像
     [HideInInspector]
     public static int playerForceId;  //玩家势力ID
 
