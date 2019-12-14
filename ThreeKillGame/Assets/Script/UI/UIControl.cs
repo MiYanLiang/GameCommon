@@ -179,6 +179,8 @@ public class UIControl : MonoBehaviour
         topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;    //势力头像
         topPower.transform.GetChild(2).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][5];   //显示城市名 
         topPower.transform.GetChild(3).GetComponent<Text>().text = "战力：" + powerNums;   //显示战力
+        topPower.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][1];
+        topPower.transform.GetChild(4).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text = "\u2000\u2000\u2000" + LoadJsonFile.forcesTableDatas[forceId - 1][2];
         setTextContent(index);
         fightControll.ChangeSelectForce(index);
     }

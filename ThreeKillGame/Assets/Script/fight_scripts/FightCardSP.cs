@@ -296,7 +296,10 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                                                                                //敌方扣血
+
+                            int cutHp = 0;
+                            cutHp = (int)(remainScale * 10);                                                    //敌方扣血
+                            fightCtl.npcPlayerHps[enemyForceId] -= cutHp;
 
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
@@ -714,25 +717,8 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = ""; //datas[1];
-                    switch (int.Parse(datas[4]))
-                    {
-                        case 1:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.green_Color;  //绿色
-                            break;
-                        case 2:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.blue_Color_hero; //蓝色
-                            break;
-                        case 3:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.purple_Color; //紫色
-                            break;
-                        case 4:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.red_Color_hero;  //红色
-                            break;
-                    }
+                    CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
+                    
                     enemyCards[i].GetComponent<CardMove>().OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
@@ -812,26 +798,8 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                     //显示武将名
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
-                    //稀有度设置文字颜色表现
-                    switch (int.Parse(datas[4]))
-                    {
-                        case 1:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.green_Color;  //绿色
-                            break;
-                        case 2:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.blue_Color_hero; //蓝色
-                            break;
-                        case 3:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.purple_Color; //紫色
-                            break;
-                        case 4:
-                            //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
-                            enemyCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.red_Color_hero;  //红色
-                            break;
-                    }
+                    CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
+
                     enemyCards[i].GetComponent<CardMove>().OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
@@ -883,26 +851,8 @@ public class FightCardSP : MonoBehaviour
                 playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
                 playerCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
-                //稀有度设置文字颜色表现
-                switch (int.Parse(datas[4]))
-                {
-                    case 1:
-                        //playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
-                        playerCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.green_Color;  //绿色
-                        break;
-                    case 2:
-                        //playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
-                        playerCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.blue_Color_hero; //蓝色
-                        break;
-                    case 3:
-                        //playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
-                        playerCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.purple_Color; //紫色
-                        break;
-                    case 4:
-                        //playerCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
-                        playerCards[i].transform.GetChild(0).GetChild(0).GetComponent<Image>().color = ColorData.red_Color_hero;  //红色
-                        break;
-                }
+                CardRarityShow(int.Parse(datas[4]), playerCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
+
                 playerCards[i].GetComponent<CardMove>().OtherDataSet();     //其他初始化
                 InitFightState(playerCards[i]);     //战斗状态控制初始化
             }
@@ -995,5 +945,28 @@ public class FightCardSP : MonoBehaviour
         rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
         SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;
         SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId -1][1];
+    }
+
+    private void CardRarityShow(int rarity, Transform imageObj)
+    {
+        switch (rarity)
+        {
+            case 1:
+                //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.green_Color;  //绿色
+                imageObj.GetComponent<Image>().color = ColorData.green_Color;  //绿色
+                break;
+            case 2:
+                //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.blue_Color_hero; //蓝色
+                imageObj.GetComponent<Image>().color = ColorData.blue_Color_hero; //蓝色
+                break;
+            case 3:
+                //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.purple_Color; //紫色
+                imageObj.GetComponent<Image>().color = ColorData.purple_Color; //紫色
+                break;
+            case 4:
+                //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
+                imageObj.GetComponent<Image>().color = ColorData.red_Color_hero;  //红色
+                break;
+        }
     }
 }

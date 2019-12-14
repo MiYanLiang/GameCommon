@@ -196,7 +196,8 @@ public class FightControll : MonoBehaviour
             }
         }
     }
-    
+
+    [HideInInspector]
     public int selectForce = -1;   //为守
     public void ChangeSelectForce(int index)
     {
@@ -312,6 +313,7 @@ public class FightControll : MonoBehaviour
         {
             npcPlayer_hpSliders[i].value = npcPlayerHps[i] / (float)allHp;
             indexHp = int.Parse(npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text);
+
             npcPlayer_hpSliders[i].transform.GetChild(3).GetComponent<Text>().text = ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0).ToString();
             indexHp = indexHp - ((npcPlayerHps[i] >= 0) ? npcPlayerHps[i] : 0);
             if (indexHp != 0)
@@ -322,7 +324,12 @@ public class FightControll : MonoBehaviour
             {
                 npcPlayer_hpSliders[i].transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "";
             }
-            
+
+            if (npcPlayerHps[i] <= 0)   //npc势力消亡城池表现
+            {
+                npcPlayer_hpSliders[i].transform.parent.GetComponent<Button>().interactable = false;
+                npcPlayer_hpSliders[i].transform.parent.GetChild(0).gameObject.SetActive(false);
+            }
         }
     }
 

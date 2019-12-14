@@ -105,23 +105,23 @@ public class ChangeAndGet : MonoBehaviour
         topBar.GetComponentsInChildren<Text>()[1].text = HeroDate[1] + "\u1500";
         //显示兵种及英雄相关属性
         topBar.GetComponentsInChildren<Text>()[2].text = heroKindName + "\u2000" + "攻击" + HeroDate[6] + "\u2000" + "防御" + HeroDate[7] + "\u2000" + "士兵" + HeroDate[8];
-        //显示羁绊内容
-        if (fetterInformation.Count > 0)
-        {
-            for (int j = 0; j < fetterInformation.Count; j++)
-            {
-                for (int i = 0; i < fetterInformation[j].Count; i++)
-                {
-                    topBar.GetComponentsInChildren<Text>()[0].text += "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" + "," + "防御+" + fetterInformation[j][4] + "%" + "," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
-                    break;
-                }
-            }
-        }
-        else
-        {
-            topBar.GetComponentInChildren<Text>().text = "\u3000" + "此英雄无羁绊";
-        }
         topBar.GetComponentsInChildren<Text>()[3].text = HeroDate[20];
+        //显示羁绊内容
+        //if (fetterInformation.Count > 0)
+        //{
+        //    for (int j = 0; j < fetterInformation.Count; j++)
+        //    {
+        //        for (int i = 0; i < fetterInformation[j].Count; i++)
+        //        {
+        //            topBar.GetComponentsInChildren<Text>()[0].text += "[" + fetterInformation[j][1] + "]" + fetterInformation[j][9] + "同时上阵时," + "攻击+" + fetterInformation[j][3] + "%" + "," + "防御+" + fetterInformation[j][4] + "%" + "," + "士兵+" + fetterInformation[j][5] + "%" + "\t";
+        //            break;
+        //        }
+        //    }
+        //}
+        //else
+        //{
+        //    topBar.GetComponentInChildren<Text>().text = "\u3000" + "此英雄无羁绊";
+        //}
         heroIdDate.Clear();
         fetterInformation.Clear();
         HeroDate.Clear();

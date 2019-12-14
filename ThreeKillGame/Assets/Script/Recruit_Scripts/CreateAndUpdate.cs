@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -2048,6 +2049,8 @@ public class CreateAndUpdate : MonoBehaviour
             GameObject tipObj = Instantiate(tipsText, prompTran);
             tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[0][2], getMoney);  //获得金币提示
         }
+        Color color = GoldBoxObj.GetComponent<Image>().color;
+        GoldBoxObj.GetComponent<Image>().DOColor(new Color(color.r, color.g, color.b, 0), 1f);  //渐渐隐藏
         Invoke("NotShowBox",1f);
     }
     //延时后隐藏宝箱
@@ -2058,9 +2061,11 @@ public class CreateAndUpdate : MonoBehaviour
     //产生宝箱
     public void ShowGlodBox()
     {
-        GoldBox_.SetActive(true);
+        Color color = GoldBoxObj.GetComponent<Image>().color;
+        GoldBoxObj.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 1);
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponent<Button>().enabled = true;
+        GoldBox_.SetActive(true);
     }
 
     /// <summary>
