@@ -6273,13 +6273,14 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1464187868}
   m_Father: {fileID: 1215974743}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 589.3}
+  m_AnchoredPosition: {x: 0, y: 540}
   m_SizeDelta: {x: 900, y: 282.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &840631252
@@ -6329,7 +6330,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "\u3000\u3000\u5341\u516B\u8DEF\u8BF8\u4FAF\u4E2D\uFF0C\u867D\u6709\u66F9\u64CD\u3001\u5B59\u575A\u3001\u5218\u5907\u7B49\u594B\u529B\u800C\u6218\uFF0C\u7136\u5176\u4F59\u8BF8\u4FAF\u5219\u5404\u81EA\u5FC3\u6000\u9B3C\u80CE\uFF0C\u5148\u662F\u76DF\u4E3B\u8881\u7ECD\u7528\u8BA1\u593A\u53D6\u5180\u5DDE\uFF0C\u5176\u5F1F\u8881\u672F\u5219\u5750\u62E5\u5357\u9633\uFF0C\u610F\u6B32\u4FB5\u541E\u8346\u5DDE\u2026\u2026\u5404\u8DEF\u8BF8\u4FAF\u76F8\u4E92\u653B\u4F10\uFF0C\u7FA4\u96C4\u5272\u636E\u7684\u65F6\u4EE3\u5DF2\u7136\u5230\u6765\u2026\u2026"
 --- !u!222 &840631254
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10129,6 +10130,85 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inputText: {fileID: 123865500}
+--- !u!1 &1464187867
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1464187868}
+  - component: {fileID: 1464187871}
+  - component: {fileID: 1464187870}
+  m_Layer: 5
+  m_Name: forceName
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1464187868
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464187867}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 840631251}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 171.79999, y: 92.7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1464187870
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464187867}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: 65585f9679c2fd944a2bde26e0fc65e2, type: 3}
+    m_FontSize: 70
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 7
+    m_MaxSize: 70
+    m_Alignment: 7
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\u9EC4\u5DFE"
+--- !u!222 &1464187871
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464187867}
+  m_CullTransparentMesh: 0
 --- !u!1 &1464694038
 GameObject:
   m_ObjectHideFlags: 0
@@ -10423,7 +10503,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 438}
+  m_AnchoredPosition: {x: 0, y: 407}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1570787388

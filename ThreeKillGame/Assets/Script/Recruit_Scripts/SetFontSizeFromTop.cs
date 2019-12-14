@@ -11,7 +11,7 @@ public class SetFontSizeFromTop : MonoBehaviour
     void Update()
     {
         txt = this.GetComponent<Text>().text;
-        if (txt.Length > 3)
+        if (txt.Length > 2)
         {
             this.GetComponent<Text>().fontSize = 50;
         }

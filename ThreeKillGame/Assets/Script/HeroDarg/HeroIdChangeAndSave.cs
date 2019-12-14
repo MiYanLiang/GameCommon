@@ -8,6 +8,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
 {
     public static int[] pos_heroId = new int[16];           //记录九宫格和备战区的英雄id
 
+    [SerializeField]
+    Text powerNumText;  //主城战力显示text
+
     public Transform JiuGongGe; //九宫格
     public Transform BeiZhanWei;//备战位
 
@@ -106,7 +109,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
 
     /// <summary>
-    /// 获取玩家当前战力值
+    /// 获取并更新玩家当前战力值
     /// </summary>
     public int GetNowPlayerPowerNums()
     {
@@ -118,6 +121,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 num += int.Parse(JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[6]);
             }
         }
+        powerNumText.text = "战力：" + num;
         return num;
     }
 

@@ -48,6 +48,8 @@ public class ForcesChoose : MonoBehaviour
     /// </summary>
     public void RandomBattle()
     {
+        forcesText.transform.GetChild(0).GetComponent<Text>().text = "";    //势力名显示
+
         for (int i = 0; i < forcesTran.childCount; i++)
         {
             Destroy(forcesTran.GetChild(i).gameObject);
@@ -120,6 +122,8 @@ public class ForcesChoose : MonoBehaviour
         {
             GoldNotEnough(LoadJsonFile.TipsTableDates[6][2]);
         }
+        forcesText.transform.GetChild(0).GetComponent<Text>().fontSize = LoadJsonFile.forcesTableDatas[forceId - 1][1].Length > 2 ? 50 : 70;
+        forcesText.transform.GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][1];    //势力名显示
         ShowTextOfForcesData(LoadJsonFile.forcesTableDatas[forceId - 1][2]); //战役解释
     }
 

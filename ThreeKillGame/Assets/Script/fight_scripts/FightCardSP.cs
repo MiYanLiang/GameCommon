@@ -155,7 +155,7 @@ public class FightCardSP : MonoBehaviour
                 }
             }
 
-            DrumSkillControll.drumNums += 1;    //每回合增加击鼓次数
+            //DrumSkillControll.drumNums += 1;    //每回合增加击鼓次数
             DrumSkillControll.isChange = true;
             Debug.Log("///回合" + roundNum + "结束///");
             if (!isOver)
@@ -415,7 +415,7 @@ public class FightCardSP : MonoBehaviour
                                 cutHp = 2;
                             }
                             CreateAndUpdate.playerHp -= cutHp;
-                            getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}城防值！", cutHp);
+                            getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}势力值！", cutHp);
                             player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
 
 

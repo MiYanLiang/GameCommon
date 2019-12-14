@@ -166,6 +166,7 @@ public class HeroCardDrag : MonoBehaviour
         GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
         GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
         backGround.GetComponent<HeroIdChangeAndSave>().SaveNowHeroId(); //刷新保存当前拥有的武将id
+        backGround.GetComponent<HeroIdChangeAndSave>().GetNowPlayerPowerNums();
     }
 
     /// <summary>

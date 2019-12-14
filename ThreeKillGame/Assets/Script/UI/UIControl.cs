@@ -75,6 +75,7 @@ public class UIControl : MonoBehaviour
 
     private void Start()
     {
+        force_Index = -2;
         battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
         initForces();   //初始化势力
     }
@@ -87,6 +88,8 @@ public class UIControl : MonoBehaviour
         //玩家势力初始化
         playerForceId = PlayerPrefs.GetInt("forcesId");
         playerForce_main.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
+        playerForce_main.transform.parent.GetChild(5).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[playerForceId - 1][5];  //主城城市名显示
+        playerForce_main.transform.parent.GetChild(6).GetComponent<Text>().text = "战力：0";  //主城战力显示
         playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
         playerForce.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
         playerForce.GetComponent<Button>().onClick.AddListener(delegate () {
@@ -162,27 +165,47 @@ public class UIControl : MonoBehaviour
 
     }
 
+    private int force_Index;    //势力选择记录
     //更新顶部信息
     public void updateTopPowerData(int index)   //-1为玩家, 0-n为npc
     {
-        int powerNums = 0;
-        if(index != -1)
+        if (force_Index != index)
         {
-            powerNums = fightControll.GetNowNPCPowerNums(index);
+            force_Index = index;
+            int powerNums = 0;
+            if (index != -1)
+            {
+                powerNums = fightControll.GetNowNPCPowerNums(index);
+            }
+            else
+            {
+                powerNums = transform.GetComponent<HeroIdChangeAndSave>().GetNowPlayerPowerNums();
+            }
+
+            int forceId = (index < 0) ? playerForceId : enemy_forces[index];
+            topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;    //势力头像
+            topPower.transform.GetChild(2).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][5];   //显示城市名 
+            topPower.transform.GetChild(3).GetComponent<Text>().text = "战力：" + powerNums;   //显示战力
+            topPower.transform.GetChild(4).GetChild(0).GetComponent<Text>().fontSize = LoadJsonFile.forcesTableDatas[forceId - 1][1].Length > 2 ? 50 : 70;
+            topPower.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][1];
+            topPower.transform.GetChild(4).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text = "\u2000\u2000\u2000" + LoadJsonFile.forcesTableDatas[forceId - 1][2];
+            setTextContent(index);
+            fightControll.ChangeSelectForce(index);
         }
         else
         {
-            powerNums = transform.GetComponent<HeroIdChangeAndSave>().GetNowPlayerPowerNums();
-        }
+            //再次点击该势力城池
+            if (index != -1)
+            {
 
-        int forceId = (index < 0) ? playerForceId : enemy_forces[index];
-        topPower.transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;    //势力头像
-        topPower.transform.GetChild(2).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][5];   //显示城市名 
-        topPower.transform.GetChild(3).GetComponent<Text>().text = "战力：" + powerNums;   //显示战力
-        topPower.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][1];
-        topPower.transform.GetChild(4).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text = "\u2000\u2000\u2000" + LoadJsonFile.forcesTableDatas[forceId - 1][2];
-        setTextContent(index);
-        fightControll.ChangeSelectForce(index);
+            }
+            else
+            {
+                //回城
+                force_Index = -2;
+                playerForce.parent.parent.GetChild(2).GetComponent<Button>().onClick.Invoke();
+            }
+        }
     }
 
     //设置进攻防守战鼓的image

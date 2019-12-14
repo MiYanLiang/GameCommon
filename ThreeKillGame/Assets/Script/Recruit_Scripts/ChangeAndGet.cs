@@ -102,7 +102,9 @@ public class ChangeAndGet : MonoBehaviour
         heroIdDate.Add(heroId_.ToString());
         fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         //显示点击英雄的名字  及  阶数（阶数尚未得到）
+        topBar.GetComponentsInChildren<Text>()[1].fontSize = HeroDate[1].Length > 2 ? 50 : 70;
         topBar.GetComponentsInChildren<Text>()[1].text = HeroDate[1] + "\u1500";
+
         //显示兵种及英雄相关属性
         topBar.GetComponentsInChildren<Text>()[2].text = heroKindName + "\u2000" + "攻击" + HeroDate[6] + "\u2000" + "防御" + HeroDate[7] + "\u2000" + "士兵" + HeroDate[8];
         topBar.GetComponentsInChildren<Text>()[3].text = HeroDate[20];

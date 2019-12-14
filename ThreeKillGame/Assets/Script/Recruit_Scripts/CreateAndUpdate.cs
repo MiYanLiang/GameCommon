@@ -10,6 +10,8 @@ public class CreateAndUpdate : MonoBehaviour
     GameObject backGround;
     [SerializeField]
     GameObject GoldBoxObj;
+    [SerializeField]
+    GameObject GoldBoxObj_BigMap;
     List<int> heroId = new List<int>();
     [HideInInspector]
     public List<int> myCard = new List<int>();
@@ -2057,6 +2059,7 @@ public class CreateAndUpdate : MonoBehaviour
     void NotShowBox()
     {
         GoldBoxObj.SetActive(false);
+        GoldBoxObj_BigMap.SetActive(false);
     }
     //产生宝箱
     public void ShowGlodBox()

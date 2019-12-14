@@ -51,6 +51,7 @@ public class HeroDataControll : MonoBehaviour {
         print("点击的"+heroId);
         fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         //显示点击英雄的名字  及  阶数
+        topBar.GetComponentsInChildren<Text>()[1].fontSize = HeroData[1].Length > 2 ? 50 : 70;
         topBar.GetComponentsInChildren<Text>()[1].text = HeroData[1] + "\u1500" /*+ Grade_hero*/;
         //显示兵种及英雄相关属性
         topBar.GetComponentsInChildren<Text>()[2].text = GetHeroTypeName(int.Parse(HeroData[3])) + "\u2000" + "攻击" + HeroData[6] + "\u2000" + "防御" + HeroData[7] + "\u2000" + "士兵" + HeroData[8];
