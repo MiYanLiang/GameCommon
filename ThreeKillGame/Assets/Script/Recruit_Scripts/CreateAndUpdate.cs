@@ -87,7 +87,7 @@ public class CreateAndUpdate : MonoBehaviour
     private Transform prompTran;    //提示文本框
     [SerializeField]
     private GameObject tipsText;    //提示text预制件
-
+    [Header("测试金币")]
     [SerializeField]
     int debug_Money;
 
@@ -2069,6 +2069,7 @@ public class CreateAndUpdate : MonoBehaviour
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponent<Button>().enabled = true;
         GoldBox_.SetActive(true);
+        GoldBoxObj_BigMap.SetActive(true);
     }
 
     /// <summary>

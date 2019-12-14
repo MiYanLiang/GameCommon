@@ -75,7 +75,7 @@ public class UIControl : MonoBehaviour
 
     private void Start()
     {
-        force_Index = -2;
+        InitSelectForceIndex();
         battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
         initForces();   //初始化势力
     }
@@ -202,7 +202,7 @@ public class UIControl : MonoBehaviour
             else
             {
                 //回城
-                force_Index = -2;
+                InitSelectForceIndex();
                 playerForce.parent.parent.GetChild(2).GetComponent<Button>().onClick.Invoke();
             }
         }
@@ -254,5 +254,13 @@ public class UIControl : MonoBehaviour
     public void ChangeisShowCutHpText(bool boo)
     {
         isShowCutHpText = boo;
+    }
+
+    /// <summary>
+    /// 重置势力选择
+    /// </summary>
+    public void InitSelectForceIndex()
+    {
+        force_Index = -2;
     }
 }

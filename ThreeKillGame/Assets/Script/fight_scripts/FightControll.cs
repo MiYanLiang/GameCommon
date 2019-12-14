@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class FightControll : MonoBehaviour
 {
     public static float textDelayTime = 0.1f;   //延迟加载文字
+
+    [Header("战斗卡牌移动速度")]
     [SerializeField]
     private float speed_time = 0.3f;
     public static float speedTime;    //卡牌移动速度
@@ -37,13 +39,28 @@ public class FightControll : MonoBehaviour
 
     [HideInInspector]
     public int difnum = 0; //记录难度值
-
+    [Header("npc减血加成")]
     [SerializeField]
     private int npcLessHpValue = 0; //npc减血加成
+    [Header("npc胜率min")]
     [SerializeField]
     private int minNum = 30; //胜率随机最小值
+    [Header("npc胜率max")]
     [SerializeField]
     private int maxNum = 70; //胜率随机最大值
+    [Header("进攻扣血最大值")]
+    [SerializeField]
+    public int maxCutHp = 10;
+    [Header("防守扣血值")]
+    [SerializeField]
+    public int defCutHp = 2;
+    [Header("进攻金币最大值")]
+    [SerializeField]
+    public int maxAddGold = 5;
+    [Header("防守金币值")]
+    [SerializeField]
+    public int defAddGold = 1;
+
     //记录npc的胜率
     private int[] npcWinRate;
     //记录npc胜利总数量

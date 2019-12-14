@@ -298,17 +298,17 @@ public class FightCardSP : MonoBehaviour
                             float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
 
                             int cutHp = 0;
-                            cutHp = (int)(remainScale * 10);                                                    //敌方扣血
+                            cutHp = (int)(remainScale * fightCtl.maxCutHp);                                                    //敌方扣血
                             fightCtl.npcPlayerHps[enemyForceId] -= cutHp;
 
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
                             {
-                                addMoney = (int)(remainScale * 5); 
+                                addMoney = (int)(remainScale * fightCtl.maxAddGold); 
                             }
                             else
                             {
-                                addMoney = 1;
+                                addMoney = fightCtl.defAddGold;
                             }
                             CreateAndUpdate.money += addMoney;   //玩家加金币
                             player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "";  //设置城池播放扣血文字内容
@@ -408,11 +408,11 @@ public class FightCardSP : MonoBehaviour
                             if (fightCtl.selectForce != -1) 
                             {
                                 float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                                cutHp = (int)(remainScale * 10);    //玩家扣血
+                                cutHp = (int)(remainScale * fightCtl.maxCutHp);    //玩家扣血
                             }
                             else  //防守
                             {
-                                cutHp = 2;
+                                cutHp = fightCtl.defCutHp;
                             }
                             CreateAndUpdate.playerHp -= cutHp;
                             getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}势力值！", cutHp);
