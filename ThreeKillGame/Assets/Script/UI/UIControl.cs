@@ -54,6 +54,12 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     Transform npc_ShangZhenWei; //npc上阵位父节点
 
+    [SerializeField]
+    Transform endGameInfoList;  //游戏结束结算信息父控件
+
+    [SerializeField]
+    GameObject informationObj;  //游戏结束结算信息Textobj
+
     private AudioSource backAudioSource;
 
     private void Awake()
@@ -118,6 +124,8 @@ public class UIControl : MonoBehaviour
             {
                 playerForce.position = cityPos.GetChild(int.Parse(str_Pos[i])).position;   //玩家城市位置设置
             }
+            //实例化结束游戏的信息结算控件
+            Instantiate(informationObj, endGameInfoList);
         }
         //实例化npc上阵武将数据集合
         fightControll.InitNpcDataList(count - 1);

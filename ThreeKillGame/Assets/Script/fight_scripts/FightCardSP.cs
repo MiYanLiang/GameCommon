@@ -520,18 +520,24 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     private void ClearingTheGame()
     {
+        int forceCount = UIControl.enemy_forces.Count + 1;  //势力总数
         SettlementPic.transform.parent.gameObject.SetActive(false);
-        int[] arrRank = new int[6] { -1, -1, -1, -1, -1, -1 };  //结束势力排名id
-        int[] arrRankWinTimes = new int[6] { -1, -1, -1, -1, -1, -1 };  //结束势力胜场排名
-        for (int i = 0; i < 5; i++)
+        int[] arrRank = new int[forceCount];  //结束势力排名id
+        int[] arrRankWinTimes = new int[forceCount];  //结束势力胜场排名
+        for (int i = 0; i < forceCount; i++)
+        {
+            arrRank[i] = -1;
+            arrRankWinTimes[i] = -1;
+        }
+        for (int i = 0; i < forceCount - 1; i++)
         {
             arrRank[i] = UIControl.enemy_forces[i];
             arrRankWinTimes[i] = fightCtl.allWinTimes[i];
         }
         int tempWintimes, idIndex = -1;
-        for (int i = 0; i < 5; i++)     //对npc进行排名
+        for (int i = 0; i < forceCount - 1; i++)     //对npc进行排名
         {
-            for (int j = 4; j > i; j--)
+            for (int j = forceCount - 2; j > i; j--)
             {
                 if (arrRankWinTimes[j] > arrRankWinTimes[j - 1])
                 {
@@ -544,9 +550,9 @@ public class FightCardSP : MonoBehaviour
                 }
             }
         }
-        for (int i = 0; i < 6; i++)     //对玩家进行排名
+        for (int i = 0; i < forceCount; i++)     //对玩家进行排名
         {
-            if (i == 5)   //最后一名
+            if (i == forceCount - 1)   //最后一名
             {
                 idIndex = i;    //记录玩家的名次
                 arrRank[i] = UIControl.playerForceId;
@@ -557,7 +563,7 @@ public class FightCardSP : MonoBehaviour
                 if (winBattles > arrRankWinTimes[i])
                 {
                     idIndex = i;
-                    for (int j = 4; j >= i; j--)
+                    for (int j = forceCount - 2; j >= i; j--)
                     {
                         arrRank[j + 1] = arrRank[j];
                         arrRankWinTimes[j + 1] = arrRankWinTimes[j];
@@ -600,21 +606,22 @@ public class FightCardSP : MonoBehaviour
         }
         gameOverBg.transform.GetChild(0).GetChild(0).GetComponent<Text>().text = "声望 +" + addPrestige;
         PlayerPrefs.SetInt("prestigeNum", PlayerPrefs.GetInt("prestigeNum") + addPrestige);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < forceCount; i++)
         {
             //势力
-            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[arrRank[i] - 1][1] + "";
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[arrRank[i] - 1][1] + "";
             //胜场
-            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(1).GetComponent<Text>().text = arrRankWinTimes[i] + "";
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(1).GetComponent<Text>().text = arrRankWinTimes[i] + "";
             //平局
-            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(2).GetComponent<Text>().text = 0 + "";
+            //gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(2).GetComponent<Text>().text = 0 + "";
             //败场
-            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(i).GetChild(3).GetComponent<Text>().text = (battles - 1 - arrRankWinTimes[i]) + "";
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(0).GetChild(0).GetChild(i).GetChild(3).GetComponent<Text>().text = (battles - 1 - arrRankWinTimes[i]) + "";
         }
         for (int i = 0; i < 4; i++) //玩家势力红字
         {
-            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(idIndex).GetChild(i).GetComponent<Text>().color = Color.white;
+            gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetChild(0).GetChild(0).GetChild(idIndex).GetChild(i).GetComponent<Text>().color = Color.white;
         }
+        gameOverBg.transform.GetChild(0).GetChild(3).GetChild(1).GetComponent<ScrollRect>().verticalNormalizedPosition = 1; //回到顶部
         gameOverBg.SetActive(true);
     }
 
