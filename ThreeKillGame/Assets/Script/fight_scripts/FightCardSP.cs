@@ -303,8 +303,7 @@ public class FightCardSP : MonoBehaviour
                             cutHp = (int)(remainScale * fightCtl.maxCutHp);                                                    //敌方扣血
                             cutHp = cutHp > fightCtl.defCutHp ? cutHp : fightCtl.defCutHp;
                             fightCtl.npcPlayerHps[enemyForceId] -= cutHp;
-
-
+                            
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
                             {

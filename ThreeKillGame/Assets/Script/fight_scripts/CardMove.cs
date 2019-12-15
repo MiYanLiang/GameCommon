@@ -574,65 +574,16 @@ public class CardMove : MonoBehaviour
     /// <param name="percent">伤害百分比</param>
     private void ZuWuSkill(float percent)
     {
+        realDamage = Force;
         realDamage = SkillRealDamage(realDamage, EnemyObj, false);  //计算技能伤害
         UpdateEnemyHp(EnemyObj);
         NormalAttackEffects(EnemyObj, 3);
         realDamage = Force;
         realDamage = (int)(realDamage * percent);
-        if (IsPlayerOrEnemy == 0)
-        {
-            if (EnemyIndex == 0)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.enemyCards[3]);
-            }
-            else if (EnemyIndex == 1)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.enemyCards[4]);
-            }
-            else if (EnemyIndex == 2)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.enemyCards[5]);
-            }
-            else if (EnemyIndex == 3)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.enemyCards[6]);
-            }
-            else if (EnemyIndex == 4)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.enemyCards[7]);
-            }
-            else if (EnemyIndex == 5)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.enemyCards[8]);
-            }
-        }
-        else
-        {
-            if (EnemyIndex == 0)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.playerCards[3]);
-            }
-            else if (EnemyIndex == 1)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.playerCards[4]);
-            }
-            else if (EnemyIndex == 2)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.playerCards[5]);
-            }
-            else if (EnemyIndex == 3)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.playerCards[6]);
-            }
-            else if (EnemyIndex == 4)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.playerCards[7]);
-            }
-            else if (EnemyIndex == 5)
-            {
-                ZuWuSkillSkillSecond(FightCardSP.playerCards[8]);
-            }
-        }
+
+        ZuWuSkillSkillSecond(IsPlayerOrEnemy == 0 ?
+            FightCardSP.enemyCards[EnemyIndex + 3] : FightCardSP.playerCards[EnemyIndex + 3]
+            );
     }
 
     /// <summary>
@@ -681,58 +632,20 @@ public class CardMove : MonoBehaviour
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
             Debug.Log("狂斩");
         }
-        if (EnemyIndex < 3)   //前排
+
+        int index = EnemyIndex / 3; //0前排1中排2后排
+        if (IsPlayerOrEnemy == 0) // 该卡牌是己方(playerCards)，在敌方(enemyCards)中找目标
         {
-            if (IsPlayerOrEnemy == 0) // 该卡牌是己方(playerCards)，在敌方(enemyCards)中找目标
+            for (int i = index * 3; i < (index + 1) * 3; i++)
             {
-                for (int i = 0; i < 3; i++)
-                {
-                    SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
-                }
-            }
-            else
-            {
-                for (int i = 0; i < 3; i++)
-                {
-                    SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
-                }
+                SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
             }
         }
         else
         {
-            if (EnemyIndex < 6)   //中排
+            for (int i = index * 3; i < (index + 1) * 3; i++)
             {
-                if (IsPlayerOrEnemy == 0)
-                {
-                    for (int i = 3; i < 6; i++)
-                    {
-                        SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
-                    }
-                }
-                else
-                {
-                    for (int i = 3; i < 6; i++)
-                    {
-                        SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
-                    }
-                }
-            }
-            else    //后排
-            {
-                if (IsPlayerOrEnemy == 0)
-                {
-                    for (int i = 6; i < 9; i++)
-                    {
-                        SanXianSkillAdd(FightCardSP.enemyCards[i], damageNote);
-                    }
-                }
-                else
-                {
-                    for (int i = 6; i < 9; i++)
-                    {
-                        SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
-                    }
-                }
+                SanXianSkillAdd(FightCardSP.playerCards[i], damageNote);
             }
         }
     }

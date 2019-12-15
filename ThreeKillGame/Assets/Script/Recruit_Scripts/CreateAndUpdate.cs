@@ -77,6 +77,8 @@ public class CreateAndUpdate : MonoBehaviour
     [SerializeField]
     Text text_level_fight;  //战斗中等级显示
     [SerializeField]
+    Text text_level_map;    //大地图等级显示
+    [SerializeField]
     Slider player_hp;//玩家血条
     [SerializeField]
     Slider player_hp2;//玩家血条2
@@ -93,6 +95,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     private int difficultNum;   //难度index
 
+    private int maxLevel;   //满级记录
     /// <summary>
     /// 战斗结束后增加金币和经验
     /// </summary>
@@ -105,7 +108,7 @@ public class CreateAndUpdate : MonoBehaviour
             if (prompTran.childCount < 1)
             {
                 GameObject tipObj = Instantiate(tipsText, prompTran);
-                if (level < 10)
+                if (level < maxLevel)
                 {
                     tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
                 }
@@ -136,7 +139,8 @@ public class CreateAndUpdate : MonoBehaviour
     {
         text_level.text = level + "级";
         text_level_fight.text = level + "级";
-        if (level == 10)
+        text_level_map.text = level + "级";
+        if (level == maxLevel)
         {
             goldOfGrade.transform.parent.GetChild(0).GetComponent<Text>().text = "满级";
             goldOfGrade.transform.parent.GetChild(1).gameObject.SetActive(false);
@@ -149,7 +153,7 @@ public class CreateAndUpdate : MonoBehaviour
     /// </summary>
     public void BuyExpToLevel()
     {
-        if (level >= 10)
+        if (level >= maxLevel)
         {
             GameObject tipObj = Instantiate(tipsText, prompTran);
             tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[8][2], level);  //满级提示
@@ -162,7 +166,7 @@ public class CreateAndUpdate : MonoBehaviour
             if (prompTran.childCount < 1)
             {
                 GameObject tipObj = Instantiate(tipsText, prompTran);
-                if (level < 10)
+                if (level < maxLevel)
                 {
                     tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[2][2], level);  //升级提示
                 }
@@ -188,12 +192,14 @@ public class CreateAndUpdate : MonoBehaviour
         level = 1;
         text_level.text = level + "级";
         text_level_fight.text = level + "级";
+        text_level_map.text = level + "级";
         experience = 0;
         difficultNum = PlayerPrefs.GetInt("DifficultyType");
     }
 
     void Start()
     {
+        maxLevel = int.Parse(LoadJsonFile.levelTableDatas[LoadJsonFile.levelTableDatas.Count - 1][1]);
         peopleHearts = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][4]);
         money = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][3]);
         money += debug_Money;
@@ -1755,8 +1761,8 @@ public class CreateAndUpdate : MonoBehaviour
             }
             //花费显示
             heroBtn[i].GetComponentsInChildren<Text>()[3].text = soliderMoney[i];
-            //防御显示
-            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderDefense[i];
+            //攻击显示
+            heroBtn[i].GetComponentsInChildren<Text>()[4].text = soliderAttack[i];
             //势力显示
             heroBtn[i].name = getCardId[i].ToString();
         }
