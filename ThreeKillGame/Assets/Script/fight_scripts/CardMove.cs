@@ -398,15 +398,15 @@ public class CardMove : MonoBehaviour
     {
         if (index < 2)
         {
-            gameObject.transform.GetChild(4).GetComponent<Text>().text = "嗜血";
+            gameObject.transform.GetChild(4).GetComponent<Text>().text = "虎扑";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("嗜血");
+            Debug.Log("虎扑");
         }
         else
         {
-            gameObject.transform.GetChild(4).GetComponent<Text>().text = "吞噬";
+            gameObject.transform.GetChild(4).GetComponent<Text>().text = "狂战";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("吞噬");
+            Debug.Log("狂战");
         }
         NormalAttackEffects(EnemyObj, 9);
         UpdateEnemyHp(EnemyObj);
@@ -457,8 +457,8 @@ public class CardMove : MonoBehaviour
         if (obj.GetComponent<CardMove>().ArmsSkillStatus == 1)
         {
             hurt = (int)(realDamage * 0.2f);
-            Debug.Log("毒刺");
-            obj.transform.GetChild(4).GetComponent<Text>().text = "毒刺";
+            Debug.Log("刺甲");
+            obj.transform.GetChild(4).GetComponent<Text>().text = "刺甲";
         }
         else
         {
@@ -503,15 +503,15 @@ public class CardMove : MonoBehaviour
         {
             if (ArmsSkillStatus == 1)
             {
-                gameObject.transform.GetChild(4).GetComponent<Text>().text = "疾风";
+                gameObject.transform.GetChild(4).GetComponent<Text>().text = "飞闪";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                //Debug.Log("疾风");
+                //Debug.Log("飞闪");
             }
             if (ArmsSkillStatus == 2)
             {
-                gameObject.transform.GetChild(4).GetComponent<Text>().text = "瞬闪";
+                gameObject.transform.GetChild(4).GetComponent<Text>().text = "疾风";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                //Debug.Log("瞬闪");
+                //Debug.Log("疾风");
             }
             //每损失20%血量提升闪避率
             realDodgeRate = DodgeRate + (percentage * num);
@@ -553,9 +553,9 @@ public class CardMove : MonoBehaviour
             }
             if (ArmsSkillStatus == 2)
             {
-                gameObject.transform.GetChild(4).GetComponent<Text>().text = "战魂";
+                gameObject.transform.GetChild(4).GetComponent<Text>().text = "英魂";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("战魂");
+                Debug.Log("英魂");
             }
             if (!Fight_State.isFightMean) //判断是否有战意状态
             {
