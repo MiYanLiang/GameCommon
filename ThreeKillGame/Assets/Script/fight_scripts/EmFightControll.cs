@@ -502,11 +502,14 @@ public class EmFightControll : MonoBehaviour
         array_str[i].Add((int.Parse(arrHeroData[i][2])+1).ToString());    //记录他的参与战斗周目数+1
     }
 
+    [Header("升阶 <= RangeIndex < 升色")]
+    [SerializeField]
+    int rangeIndex = 30;    
     //判断是升阶（true）还是升色（false）
     private bool GradeOrColor()
     {
         int num = Random.Range(1, 101);
-        if (num <= 30)  
+        if (num <= rangeIndex)  
             return true;
         else
             return false;

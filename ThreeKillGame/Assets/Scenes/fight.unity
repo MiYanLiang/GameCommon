@@ -3791,8 +3791,8 @@ MonoBehaviour:
   npcLessHpValue: 0
   minNum: 50
   maxNum: 90
-  maxCutHp: 20
-  defCutHp: 3
+  maxCutHp: 1
+  defCutHp: 1
   maxAddGold: 5
   defAddGold: 2
   hpFloatToFire: 0.3
@@ -3817,6 +3817,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c1eec02d1bd7a74aaa1cedba9d1d4a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rangeIndex: 30
 --- !u!1 &174789342
 GameObject:
   m_ObjectHideFlags: 0

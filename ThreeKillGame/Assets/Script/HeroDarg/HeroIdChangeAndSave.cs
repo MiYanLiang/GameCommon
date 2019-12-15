@@ -495,7 +495,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         fetterInformation.Clear();
         GetExcelFile();
         MakeArray(array0);
-        GetExcelFile1();
+        //GetExcelFile1();  //暂时关闭读取羁绊
     }
     //读表
     void GetExcelFile()
