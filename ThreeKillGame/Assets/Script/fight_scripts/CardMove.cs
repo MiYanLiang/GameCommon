@@ -1250,8 +1250,15 @@ public class CardMove : MonoBehaviour
                 force = (int)(force * CritDamage);
             }
         }
-        //攻击特效
-        NormalAttackEffects(EnemyObj, index_attack);
+        if (ArmsSkillStatus > 0 && (ArmsId == "3" || ArmsId == "4"))
+        {
+            //飞兽和禁卫激活兵种技能不播放普通攻击特效
+        }
+        else
+        {
+            //攻击特效
+            NormalAttackEffects(EnemyObj, index_attack);
+        }
         //添加破甲值的计算     攻击*（（70*2）/（70+防御*(1-破甲百分比)））
         return (int)(force * (140 / (70 + EnemyObj.GetComponent<CardMove>().Defence * (1 - ArmorPenetrationRate))));
     }
