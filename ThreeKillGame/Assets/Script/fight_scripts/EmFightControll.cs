@@ -73,7 +73,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (GradeOrColor()) //升阶
                                         {
-                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                         else                //升色
                                         {
@@ -91,7 +91,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (GradeOrColor()) //升阶
                                         {
-                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                         else                //升色
                                         {
@@ -109,7 +109,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (GradeOrColor()) //升阶
                                         {
-                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                         else                //升色
                                         {
@@ -127,7 +127,11 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         if (GradeOrColor()) //升阶
                                         {
-                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(2, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
+                                        }
+                                        else
+                                        {
+                                            HoldHeroData(arrHeroData, i);   //保持英雄数据
                                         }
                                     }
                                     else
@@ -145,7 +149,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         //二阶英雄升阶，失败后不用升色
                                         {
-                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                     }
                                     else
@@ -158,7 +162,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         //升阶
                                         {
-                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                     }
                                     else
@@ -171,7 +175,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         //升阶
                                         {
-                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                     }
                                     else
@@ -184,7 +188,7 @@ public class EmFightControll : MonoBehaviour
                                     {
                                         //升阶
                                         {
-                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]) + 1);  //执行升阶方法传递所需阶值和英雄id
+                                            array_str[i] = UpGrade(3, int.Parse(arrHeroData[i][0]));  //执行升阶方法传递所需阶值和英雄id
                                         }
                                     }
                                     else
