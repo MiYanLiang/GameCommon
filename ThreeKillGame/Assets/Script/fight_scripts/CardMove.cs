@@ -242,7 +242,7 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //将造成伤害的30%转化为自身血量
-                        ShanShouSkill(0.3f, 1);
+                        ShanShouSkill(0.4f, 1);
                         break;
                     case 2:
                         //将造成伤害的60%转化为自身血量
@@ -342,11 +342,11 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //随机攻击3个不同目标，每个造成20%伤害，20%几率击晕1回合。
-                        FuShenSkill(3, 0.2f, 0.2f);
+                        FuShenSkill(3, 0.2f, 0.3f);
                         break;
                     case 2:
                         //随机攻击3个不同目标，每个造成20%伤害，30%几率击晕1回合。
-                        FuShenSkill(3, 0.2f, 0.3f);
+                        FuShenSkill(4, 0.25f, 0.3f);
                         break;
                 }
                 break;
@@ -360,11 +360,11 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //随机攻击3个目标，每个造成45%伤害，对同一目标最多攻击2次。
-                        MoShenSkill(0.45f, 3);
+                        MoShenSkill(0.5f, 3);
                         break;
                     case 2:
                         //随机攻击4个目标，每个造成40%伤害，对同一目标最多攻击2次。
-                        MoShenSkill(0.40f, 4);
+                        MoShenSkill(0.5f, 4);
                         break;
                 }
                 break;
