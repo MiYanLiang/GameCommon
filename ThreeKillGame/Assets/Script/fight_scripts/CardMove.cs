@@ -241,7 +241,7 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //将造成伤害的30%转化为自身血量
+                        //将造成伤害的40%转化为自身血量
                         ShanShouSkill(0.4f, 1);
                         break;
                     case 2:
@@ -341,11 +341,11 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //随机攻击3个不同目标，每个造成20%伤害，20%几率击晕1回合。
+                        //随机攻击3个不同目标，每个造成20%伤害，30%几率击晕1回合。
                         FuShenSkill(3, 0.2f, 0.3f);
                         break;
                     case 2:
-                        //随机攻击3个不同目标，每个造成20%伤害，30%几率击晕1回合。
+                        //随机攻击4个不同目标，每个造成25%伤害，30%几率击晕1回合。
                         FuShenSkill(4, 0.25f, 0.3f);
                         break;
                 }
@@ -359,11 +359,11 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //随机攻击3个目标，每个造成45%伤害，对同一目标最多攻击2次。
+                        //随机攻击3个目标，每个造成50%伤害，对同一目标最多攻击2次。
                         MoShenSkill(0.5f, 3);
                         break;
                     case 2:
-                        //随机攻击4个目标，每个造成40%伤害，对同一目标最多攻击2次。
+                        //随机攻击4个目标，每个造成50%伤害，对同一目标最多攻击2次。
                         MoShenSkill(0.5f, 4);
                         break;
                 }
@@ -578,12 +578,15 @@ public class CardMove : MonoBehaviour
         realDamage = SkillRealDamage(realDamage, EnemyObj, false);  //计算技能伤害
         UpdateEnemyHp(EnemyObj);
         NormalAttackEffects(EnemyObj, 3);
-        realDamage = Force;
-        realDamage = (int)(realDamage * percent);
+        if (EnemyIndex < 6)
+        {
+            realDamage = Force;
+            realDamage = (int)(realDamage * percent);
 
-        ZuWuSkillSkillSecond(IsPlayerOrEnemy == 0 ?
-            FightCardSP.enemyCards[EnemyIndex + 3] : FightCardSP.playerCards[EnemyIndex + 3]
-            );
+            ZuWuSkillSkillSecond(IsPlayerOrEnemy == 0 ?
+                FightCardSP.enemyCards[EnemyIndex + 3] : FightCardSP.playerCards[EnemyIndex + 3]
+                );
+        }
     }
 
     /// <summary>

@@ -326,14 +326,16 @@ public class DrumSkillControll : MonoBehaviour
         }
         int index = -1; //记录目标下标
         for (int i = 0; i < 9; i++)
-        {     
-            if (FightCardSP.playerCards[i]!=null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health>0 )
+        {
+            if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
             {
                 //没有坚盾状态
                 if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isWithStand)
                 {
                     //判断还没有记录过目标，或者，i位置的血量少于记录位置的血量
-                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth < FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth)
+                    if (index == -1 ||
+                        FightCardSP.playerCards[i].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth <
+                        FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth)
                     {
                         index = i;
                     }
