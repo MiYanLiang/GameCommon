@@ -310,8 +310,8 @@ public class CardMove : MonoBehaviour
                         ZuWuSkill(0.5f);
                         break;
                     case 2:
-                        //突刺敌方后排80%伤害。
-                        ZuWuSkill(0.8f);
+                        //突刺敌方后排75%伤害。
+                        ZuWuSkill(0.75f);
                         break;
                 }
                 break;
@@ -324,12 +324,12 @@ public class CardMove : MonoBehaviour
                         UpdateEnemyHp(EnemyObj);
                         break;
                     case 1:
-                        //攻击同一排敌人，每个造成50%伤害。
-                        SanXianSkill(0.5f);
+                        //攻击同一排敌人，每个造成70%伤害。
+                        SanXianSkill(0.7f);
                         break;
                     case 2:
-                        //攻击同一排敌人，每个造成75%伤害。
-                        SanXianSkill(0.75f);
+                        //攻击同一排敌人，每个造成80%伤害。
+                        SanXianSkill(0.8f);
                         break;
                 }
                 break;
@@ -1547,7 +1547,7 @@ public class CardMove : MonoBehaviour
         transform.GetChild(10).GetComponent<Text>().text = "自爆";
         transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
         transform.GetChild(10).gameObject.SetActive(true);
-        realDamage = (int)((float)Force * 3);
+        realDamage = (int)((float)Force * 5);
         if (Fight_State.isFireAttack == true)
         {
             UpdateEnemyHp(EnemyObj);
