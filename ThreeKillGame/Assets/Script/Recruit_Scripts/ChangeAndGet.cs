@@ -19,11 +19,11 @@ public class ChangeAndGet : MonoBehaviour
     List<string> heroData = new List<string>();
     List<int> ChickenRibsHeroId = new List<int>();  //存放所有的拥有的英雄Id
 
-    private CreateAndUpdate createUpdate;
+    private CreateAndUpdate createAndUpdate;
 
     private void Start()
     {
-        createUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
+        createAndUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
 
         CreateStartHero();  //创建加载初始武将
     }
@@ -48,7 +48,7 @@ public class ChangeAndGet : MonoBehaviour
         if (num == -1) { return; }  //若没有空位直接返回
         btnNum = btn.GetComponentInChildren<Text>().text;
         btnTag = int.Parse(btn.name);
-        ChickenRibsHeroId = createUpdate.ChickenRibsHeroId;
+        ChickenRibsHeroId = createAndUpdate.ChickenRibsHeroId;
         ChangeBtnColor(btn.transform);
         UpdateGetCard(num);
     }
@@ -63,12 +63,13 @@ public class ChangeAndGet : MonoBehaviour
             tran.GetChild(tran.childCount - 1).gameObject.SetActive(true);  //显示已招图片
             //tran.GetComponent<Button>().enabled = false;   //关闭点击事件
             CreateAndUpdate.money = CreateAndUpdate.money - price;
+            createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
         }
         else
         {
             boolIndex = false;
             //Debug.Log("呸，穷鬼，买不起");
-            createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[3][2]);
+            createAndUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[3][2]);
         }
         if (boolIndex == true)
         {
@@ -337,7 +338,7 @@ public class ChangeAndGet : MonoBehaviour
         if (nums>=CreateAndUpdate.prepareNum)
         {
             //Debug.Log("备战位已满");
-            createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
+            createAndUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
             return -1;
         }
         else

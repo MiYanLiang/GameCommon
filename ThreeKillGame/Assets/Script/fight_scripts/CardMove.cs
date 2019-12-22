@@ -193,7 +193,8 @@ public class CardMove : MonoBehaviour
             {
                 if (Fight_State.isFireAttack == true)
                 {
-                    FireFightSkill();//火攻
+                    //FireFightSkill();//火攻群体
+                    FireZiBaoSkill();//火攻-自爆
                 }
                 else
                 {
@@ -233,7 +234,7 @@ public class CardMove : MonoBehaviour
     {
         switch (armsId)
         {
-            case "1":   //山兽
+            case "1":   //山兽-虎卫
                 switch (activeId)
                 {
                     case 0:
@@ -251,7 +252,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "2":   //海兽
+            case "2":   //海兽-陷阵
                 switch (activeId)
                 {
                     default:
@@ -265,7 +266,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "3":   //飞兽
+            case "3":   //飞兽-飞甲
                 switch (activeId)
                 {
                     default:
@@ -279,7 +280,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "4":   //人杰
+            case "4":   //人杰-禁卫
                 switch (activeId)
                 {
                     case 0:
@@ -297,7 +298,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "5":   //祖巫
+            case "5":   //祖巫-枪兵
                 switch (activeId)
                 {
                     case 0:
@@ -315,7 +316,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "6":   //散仙
+            case "6":   //散仙-戟兵
                 switch (activeId)
                 {
                     case 0:
@@ -333,7 +334,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "7":   //辅神
+            case "7":   //辅神-谋士
                 switch (activeId)
                 {
                     case 0:
@@ -351,7 +352,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "8":   //魔神
+            case "8":   //魔神-都统
                 switch (activeId)
                 {
                     case 0:
@@ -369,7 +370,7 @@ public class CardMove : MonoBehaviour
                 }
                 break;
 
-            case "9":   //天神
+            case "9":   //天神-方士
                 switch (activeId)
                 {
                     case 0:
@@ -390,7 +391,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 山兽动态技能
+    /// 山兽动态技能-虎卫
     /// </summary>
     /// <param name="percentage">转化血量百分比</param>   
     /// <param name="index">兵种激活状态</param>
@@ -445,7 +446,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 海兽动态技能
+    /// 海兽动态技能-陷阵
     /// </summary>
     /// <param name="obj">敌人卡牌</param>
     /// <param name="index">兵种激活状态</param>
@@ -491,7 +492,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 飞兽动态技能
+    /// 飞兽动态技能-飞甲
     /// </summary>
     /// <param name="percenHp">每次损失的血量</param>
     /// <param name="percentage">每次提升的闪避率</param>
@@ -529,7 +530,7 @@ public class CardMove : MonoBehaviour
 
     private int overlayNum_RenJie = 0; //记录 人杰 技能效果叠加次数
     /// <summary>
-    /// 人杰动态技能
+    /// 人杰动态技能-禁卫
     /// </summary>
     /// <param name="percent_Force">攻击加成百分比</param>
     /// <param name="percent_Defence">防御加成百分比</param>
@@ -569,7 +570,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 祖巫动态技能
+    /// 祖巫动态技能-枪兵
     /// </summary>
     /// <param name="percent">伤害百分比</param>
     private void ZuWuSkill(float percent)
@@ -616,7 +617,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 散仙动态技能
+    /// 散仙动态技能-戟兵
     /// </summary>
     /// <param name="percent">伤害百分比</param>
     private void SanXianSkill(float percent)
@@ -663,7 +664,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 辅神动态技能
+    /// 辅神动态技能-谋士
     /// </summary>
     /// <param name="nums">攻击目标数</param>
     /// <param name="percentage">伤害百分比</param>
@@ -807,7 +808,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 魔神动态技能
+    /// 魔神动态技能-都统
     /// </summary>
     /// <param name="percent">伤害百分比</param>
     ///  /// <param name="attackNum">攻击目标个数</param>  3兵种是3  6兵种是4
@@ -839,7 +840,7 @@ public class CardMove : MonoBehaviour
                 }
             }
             int rondomNum = 0;
-            if (arrayGo.Count < 3)
+            if (arrayGo.Count < attackNum)
             {
                 rondomNum = arrayGo.Count;
             }
@@ -876,7 +877,7 @@ public class CardMove : MonoBehaviour
         else
         {
             List<int> arrayGo = new List<int>(); //位置数列，为同一目标最多攻击两次做准被
-            for (int i = 0; i < 8; i++)
+            for (int i = 0; i < 9; i++)
             {
                 if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health > 0)
                 {
@@ -885,7 +886,7 @@ public class CardMove : MonoBehaviour
                 }
             }
             int rondomNum = 0;      //要攻击的敌人数量
-            if (arrayGo.Count < 3)  //敌方上阵不够3个处理
+            if (arrayGo.Count < attackNum)  //敌方上阵不够3个处理
             {
                 rondomNum = arrayGo.Count;
             }
@@ -921,7 +922,7 @@ public class CardMove : MonoBehaviour
     }
 
     /// <summary>
-    /// 天神动态技能
+    /// 天神动态技能-方士
     /// </summary>
     /// <param name="nums">治疗个数</param>
     /// <param name="percentage">治疗量是伤害的百分比</param>
@@ -1039,7 +1040,7 @@ public class CardMove : MonoBehaviour
     {
         switch (armsId)
         {
-            case "1":   //山兽
+            case "1":   //山兽-虎卫
                 switch (activeId)
                 {
                     case 0:
@@ -1052,7 +1053,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "2":   //海兽
+            case "2":   //海兽-陷阵
                 switch (activeId)
                 {
                     case 0:
@@ -1067,7 +1068,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "3":   //飞兽
+            case "3":   //飞兽-飞甲
                 switch (activeId)
                 {
                     case 0:
@@ -1080,7 +1081,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "4":   //人杰
+            case "4":   //人杰-禁卫
                 switch (activeId)
                 {
                     case 0:
@@ -1095,7 +1096,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "5":   //祖巫
+            case "5":   //祖巫-枪兵
                 switch (activeId)
                 {
                     case 0:
@@ -1108,7 +1109,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "6":   //散仙
+            case "6":   //散仙-戟兵
                 switch (activeId)
                 {
                     case 0:
@@ -1121,7 +1122,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "7":   //辅神
+            case "7":   //辅神-谋士
                 switch (activeId)
                 {
                     case 0:
@@ -1134,7 +1135,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "8":   //魔神
+            case "8":   //魔神-都统
                 switch (activeId)
                 {
                     case 0:
@@ -1147,7 +1148,7 @@ public class CardMove : MonoBehaviour
                         break;
                 }
                 break;
-            case "9":   //天神
+            case "9":   //天神-方士
                 switch (activeId)
                 {
                     case 0:
@@ -1371,7 +1372,7 @@ public class CardMove : MonoBehaviour
     /// 普通攻击特效
     /// </summary>
     /// <param name="obj"></param>
-    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽10反伤11战意12飞兽</param>
+    /// <param name="index">0普通攻击1重击2暴击3穿刺4横扫5火攻6雷震7眩晕8受治疗9山兽10反伤11战意12飞兽13自爆</param>
     private void NormalAttackEffects(GameObject obj, int index)
     {
         //如果攻击的敌人是海兽 并且 兵种激活
@@ -1458,6 +1459,11 @@ public class CardMove : MonoBehaviour
                 audiosource.Play();
                 Instantiate(Resources.Load("Prefab/fightEffect/3飞甲攻击", typeof(GameObject)) as GameObject, obj.transform);
                 break;
+            case 13:
+                audiosource.clip = Resources.Load("Effect/FightSounds/暴击攻击", typeof(AudioClip)) as AudioClip;
+                audiosource.Play();
+                Instantiate(Resources.Load("Prefab/fightEffect/drumSkill_zibao", typeof(GameObject)) as GameObject, obj.transform);
+                break;
         }
     }
 
@@ -1528,6 +1534,26 @@ public class CardMove : MonoBehaviour
                     NormalAttackEffects(FightCardSP.enemyCards[i], 5);
                 }
             }
+            Destroy(transform.GetChild(9).Find(StateName.fireAttackName).gameObject);  //消除火攻状态图标
+            Fight_State.isFireAttack = false;
+        }
+    }
+
+    /// <summary>
+    /// 火攻单体自爆技能
+    /// </summary>
+    private void FireZiBaoSkill()
+    {
+        transform.GetChild(10).GetComponent<Text>().text = "自爆";
+        transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
+        transform.GetChild(10).gameObject.SetActive(true);
+        realDamage = (int)((float)Force * 3);
+        if (Fight_State.isFireAttack == true)
+        {
+            UpdateEnemyHp(EnemyObj);
+            NormalAttackEffects(EnemyObj, 13);
+            gameObject.GetComponent<CardMove>().Health = 0;
+            gameObject.GetComponent<Slider>().value = 1 - gameObject.GetComponent<CardMove>().Health / (float)gameObject.GetComponent<CardMove>().Fullhealth;
             Destroy(transform.GetChild(9).Find(StateName.fireAttackName).gameObject);  //消除火攻状态图标
             Fight_State.isFireAttack = false;
         }

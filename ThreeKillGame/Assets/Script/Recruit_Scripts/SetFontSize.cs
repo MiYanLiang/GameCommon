@@ -4,18 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 public class SetFontSize : MonoBehaviour
 {
-    string txt;
+    Text thisText;
 
-    void Update()
+    private void Awake()
     {
-        txt = this.GetComponent<Text>().text;
-        if (txt.Length > 2)
+        thisText = GetComponent<Text>();
+        //Invoke("UpdateFontSize", 0.05f);
+    }
+
+    private void Start()
+    {
+        UpdateFontSize();
+    }
+
+    public void UpdateFontSize()
+    {
+        if (thisText.text.Length > 2)
         {
-            this.GetComponent<Text>().fontSize = 40;
+            thisText.fontSize = 40;
         }
         else
         {
-            this.GetComponent<Text>().fontSize = 50;
+            thisText.fontSize = 50;
         }
     }
 }

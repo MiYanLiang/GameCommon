@@ -1037,6 +1037,7 @@ GameObject:
   - component: {fileID: 4396879335973751615}
   - component: {fileID: 722603656090594804}
   - component: {fileID: 4747079497371142614}
+  - component: {fileID: 113715262634821277}
   m_Layer: 5
   m_Name: name
   m_TagString: Card
@@ -1106,3 +1107,15 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 0.85
   m_Text: "\u5F20\u98DE\u554A"
+--- !u!114 &113715262634821277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8720646319320420980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: def0927a0f5853f46a7b57d769f0ed3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -92,6 +92,14 @@ public class CreateAndUpdate : MonoBehaviour
     [Header("测试金币")]
     [SerializeField]
     int debug_Money;
+    [Header("刷新金币")]
+    [SerializeField]
+    int updateMoney = 2;
+    public Text updateMoneyText;    //刷新金币文本
+    [HideInInspector]
+    public int cutMoney;    //刷新使用的实际金币
+
+    public Text goldText;          //玩家金币
 
     private int difficultNum;   //难度index
 
@@ -162,6 +170,7 @@ public class CreateAndUpdate : MonoBehaviour
         if (money >= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience))
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
+            goldText.text = money.ToString();
             level++;
             if (prompTran.childCount < 1)
             {
@@ -189,6 +198,8 @@ public class CreateAndUpdate : MonoBehaviour
 
     private void Awake()
     {
+        cutMoney = 0;    //免费刷新
+        updateMoneyText.text = cutMoney.ToString();
         level = 1;
         text_level.text = level + "级";
         text_level_fight.text = level + "级";
@@ -203,6 +214,7 @@ public class CreateAndUpdate : MonoBehaviour
         peopleHearts = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][4]);
         money = int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][3]);
         money += debug_Money;
+        goldText.text = money.ToString();
         UpdateGoldOfGrade();
         SetMaxBatAndPre();  //设置最大备战位和上阵位
         SetPeopleHarets();
@@ -1130,7 +1142,8 @@ public class CreateAndUpdate : MonoBehaviour
     //玩家点击刷新
     public void UpdateCard()
     {
-        if (money >= 2)
+
+        if (money >= cutMoney)
         {
             GameObject topBar = GameObject.Find("TopInformationBar");
             if (topBar == null)
@@ -1141,7 +1154,10 @@ public class CreateAndUpdate : MonoBehaviour
                 topBar.GetComponentsInChildren<Text>()[i].text = "";
             }
 
-            money -= 2;
+            money -= cutMoney;
+            goldText.text = money.ToString();
+            cutMoney = updateMoney;
+            updateMoneyText.text = cutMoney.ToString();
             getCardId.Clear();
             SetPeopleHarets();
             myCard.Clear();
@@ -1738,6 +1754,7 @@ public class CreateAndUpdate : MonoBehaviour
 
             //英雄名字显示
             heroBtn[i].GetComponentsInChildren<Text>()[0].text = heroName[i].ToString();
+            heroBtn[i].GetComponentsInChildren<Text>()[0].transform.GetComponent<SetFontSize>().UpdateFontSize(); //字体大小设置
             //根据稀有度设置字体颜色
             if (soliderRarity[i] == "1")
             {
@@ -2050,6 +2067,7 @@ public class CreateAndUpdate : MonoBehaviour
         int taxMax = int.Parse(moneyStr[1]) + 1;
         int getMoney = Random.Range(taxMin,taxMax);
         money += getMoney;
+        goldText.text = money.ToString();
         GoldBoxObj.GetComponent<Image>().overrideSprite= Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponent<Button>().enabled = false;
         if (prompTran.childCount<1)

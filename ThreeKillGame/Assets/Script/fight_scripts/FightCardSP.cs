@@ -72,7 +72,7 @@ public class FightCardSP : MonoBehaviour
     Text specialFightText;  //战役名
 
     [SerializeField]
-    CreateAndUpdate creatandupdate; //刷新脚本：CreateAndUpdate
+    CreateAndUpdate createAndUpdate; //刷新脚本：CreateAndUpdate
 
     [SerializeField]
     GameObject getOrloseText;   //获得或者失去文本
@@ -315,6 +315,8 @@ public class FightCardSP : MonoBehaviour
                                 addMoney = fightCtl.defAddGold;
                             }
                             CreateAndUpdate.money += addMoney;   //玩家加金币
+                            createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
+
                             player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "";  //设置城池播放扣血文字内容
 
                             string str = "";
@@ -468,7 +470,7 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     public void RecoverCardData()
     {
-        creatandupdate.AddMoneyAndExp();
+        createAndUpdate.AddMoneyAndExp();
 
         for (int n = 0; n < 9; n++)
         {

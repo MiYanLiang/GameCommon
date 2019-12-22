@@ -10,14 +10,15 @@ public class SetFontSizeFromTop : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        txt = this.GetComponent<Text>().text;
+        Debug.Log("傻瓜");
+        txt = GetComponent<Text>().text;
         if (txt.Length > 2)
         {
-            this.GetComponent<Text>().fontSize = 50;
+            GetComponent<Text>().fontSize = 50;
         }
         else
         {
-            this.GetComponent<Text>().fontSize = 70;
+            GetComponent<Text>().fontSize = 70;
         }
     }
 }

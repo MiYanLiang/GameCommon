@@ -14,11 +14,11 @@ public class NamePanel : MonoBehaviour {
 	// Update is called once per frame
     void Update()
     {
-        inputName = inputText.GetComponent<Text>().text;
-        if (inputName == "" || inputName == null)
-        {
-            inputName = "玩家";
-        }
+        //inputName = inputText.GetComponent<Text>().text;
+        //if (inputName == "" || inputName == null)
+        //{
+        //    inputName = "玩家";
+        //}
     }
 
     //打开修改名字面板

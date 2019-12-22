@@ -56,6 +56,8 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     string[] a;
     string[] b;
+    
+    private CreateAndUpdate createAndUpdate;
 
     /// <summary>
     /// 出售选中的卡牌武将
@@ -63,6 +65,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public void SellSelectHeroCard()
     {
         CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
+        createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
         pos_heroId[index_SelectCard] = 0;
@@ -127,8 +130,10 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     private void Start()
     {
+        createAndUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
+
         forcesIndex = PlayerPrefs.GetInt("forcesId");
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < LoadJsonFile.forcesTableDatas.Count; i++)
         {
             if (int.Parse(LoadJsonFile.forcesTableDatas[i][0]) == forcesIndex)
             {

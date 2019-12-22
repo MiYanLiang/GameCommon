@@ -150,8 +150,9 @@ public class DrumSkillControll : MonoBehaviour
             {
                 if (!FightCardSP.playerCards[i].GetComponent<CardMove>().Fight_State.isFireAttack)  //没有火攻状态
                 {
-                    //判断还没有记录过目标，或者，i位置的暴击率大于记录位置的暴击率
-                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Force > FightCardSP.playerCards[index].GetComponent<CardMove>().Force)
+                    //判断还没有记录过目标，或者，i位置的生命值小于记录位置的生命值
+                    if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth <
+                        FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth)
                     {
                         index = i;
                     }
@@ -161,7 +162,7 @@ public class DrumSkillControll : MonoBehaviour
         if (index == -1)
             return;
         //显示技能文字
-        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "荒火焚天";
+        FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "自爆";
         FightCardSP.playerCards[index].transform.GetChild(4).gameObject.SetActive(true);
         FightCardSP.playerCards[index].GetComponent<CardMove>().Fight_State.isFireAttack = true;
         GameObject icon = Instantiate(stateIcon, FightCardSP.playerCards[index].transform.GetChild(9));
@@ -390,18 +391,17 @@ public class DrumSkillControll : MonoBehaviour
         {
             if (FightCardSP.playerCards[i] != null && FightCardSP.playerCards[i].GetComponent<CardMove>().Health <= 0)
             {
-
                 //判断还没有记录过目标，或者，i位置的血量少于记录位置的血量
-                if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth < FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth)
+                if (index == -1 || FightCardSP.playerCards[i].GetComponent<CardMove>().Fullhealth > FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth)
                 {
                     index = i;
                 }
-
             }
         }
         if (index == -1)
             return;
-        FightCardSP.playerCards[index].GetComponent<CardMove>().Health = (int)((float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth * 0.3);
+        //以40%血量复活武将单位
+        FightCardSP.playerCards[index].GetComponent<CardMove>().Health = (int)((float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth * 0.4);
         FightCardSP.playerCards[index].GetComponent<Slider>().value = 1 - FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth;
         //显示技能文字
         FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "起死回生";

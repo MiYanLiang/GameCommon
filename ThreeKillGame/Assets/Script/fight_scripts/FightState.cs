@@ -83,7 +83,12 @@ public static class StateName
     /// <summary>
     /// 火攻
     /// </summary>
-    public static readonly string fireAttackName = "state_fireAttack";
+    public static readonly string fireAttackName = "state_zibao";
+
+    /// <summary>
+    /// 火攻群攻
+    /// </summary>
+    public static readonly string fireAllAttackName = "state_fireAttack";
 
     /// <summary>
     /// 战意（人杰兵种技能）

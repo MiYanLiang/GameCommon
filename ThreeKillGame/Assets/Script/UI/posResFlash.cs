@@ -14,10 +14,13 @@ public class posResFlash : MonoBehaviour
     public GameObject UpdateBtn;    //刷新招募按钮
     private bool isLockUpdateCard;  //记录是否对刷新招募上锁
 
+    CreateAndUpdate createAndUpdate;
+
     private void Start()
     {
         isLockUpdateCard = false;
         ChangePosShow(0);//恢复战斗和备战位显示玩家自身
+        createAndUpdate = UpdateBtn.GetComponent<CreateAndUpdate>();
     }
 
     //改变上锁状态
@@ -35,8 +38,10 @@ public class posResFlash : MonoBehaviour
         }
         else
         {
-            CreateAndUpdate.money += 2; //每局结束的刷新招募不减金币
-            UpdateBtn.GetComponent<CreateAndUpdate>().UpdateCard();
+            createAndUpdate.cutMoney = 0; //每局结束的刷新招募不减金币
+            createAndUpdate.UpdateCard();
+            createAndUpdate.cutMoney = 0;
+            createAndUpdate.updateMoneyText.text = createAndUpdate.cutMoney.ToString();
         }
     }
 

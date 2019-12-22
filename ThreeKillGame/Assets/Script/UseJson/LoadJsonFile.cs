@@ -119,7 +119,8 @@ public class LoadJsonFile : MonoBehaviour
                 levelTableDatas[i].Add(root.LevelTable[i].battleNum);
                 levelTableDatas[i].Add(root.LevelTable[i].prepareNum);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载难度表数据:DifficultyChoose
         {
@@ -149,7 +150,8 @@ public class LoadJsonFile : MonoBehaviour
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward3);
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward0);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载势力信息表数据:ForcesTable
         {
@@ -172,7 +174,8 @@ public class LoadJsonFile : MonoBehaviour
                 forcesTableDatas[i].Add(root.ForcesTable[i].flagId);
                 forcesTableDatas[i].Add(root.ForcesTable[i].exclusiveSoldierId);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载兵种技能表数据:SoldierSkillTable
         {
@@ -188,7 +191,8 @@ public class LoadJsonFile : MonoBehaviour
                 soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].skillDynamicIntro);
                 soldierSkillTableDatas[i].Add(root.SoldierSkillTable[i].corresArms);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载武将信息表数据:RoleTable
         {
@@ -222,7 +226,8 @@ public class LoadJsonFile : MonoBehaviour
                 RoleTableDatas[i].Add(root.RoleTable[i].isHero);
                 RoleTableDatas[i].Add(root.RoleTable[i].roleIcon);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载武将唯一索引数据:RandowTable
         {
@@ -235,7 +240,8 @@ public class LoadJsonFile : MonoBehaviour
                 RandowTableDates[i].Add(root.RandowTable[i].id);
                 RandowTableDates[i].Add(root.RandowTable[i].num);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载羁绊数据:FetterTable
         {
@@ -260,7 +266,8 @@ public class LoadJsonFile : MonoBehaviour
                 FetterTableDates[i].Add(root.FetterTable[i].thumpDamage);
                 FetterTableDates[i].Add(root.FetterTable[i].exposeArmor);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载战役表数据:BattleTable
         {
@@ -277,7 +284,8 @@ public class LoadJsonFile : MonoBehaviour
                 BattleTableDates[i].Add(root.BattleTable[i].startYear);
                 BattleTableDates[i].Add(root.BattleTable[i].cityId);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载npc上阵位开启表数据:DifficultyTable
         {
@@ -294,7 +302,8 @@ public class LoadJsonFile : MonoBehaviour
                 DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek3);
                 DifficultyTableDates[i].Add(root.DifficultyTable[i].openWeek4);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //战鼓开启等级表数据:WarDrumTable
         {
@@ -308,7 +317,8 @@ public class LoadJsonFile : MonoBehaviour
                 WarDrumTableDates[i].Add(root.WarDrumTable[i].warDrumName);
                 WarDrumTableDates[i].Add(root.WarDrumTable[i].unlockLevel);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载文本信息表数据:TipsTable
         {
@@ -322,7 +332,8 @@ public class LoadJsonFile : MonoBehaviour
                 TipsTableDates[i].Add(root.TipsTable[i].type);
                 TipsTableDates[i].Add(root.TipsTable[i].text);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载兵种信息表数据:SoldierType
         {
@@ -337,7 +348,8 @@ public class LoadJsonFile : MonoBehaviour
                 SoldierTypeDates[i].Add(root.SoldierType[i].logo);
                 SoldierTypeDates[i].Add(root.SoldierType[i].soldierIntroduce);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载NPC和boss数据表数据:NPCTable
         {
@@ -365,7 +377,8 @@ public class LoadJsonFile : MonoBehaviour
                 NPCTableDates[i].Add(root.NPCTable[i].intro);
                 NPCTableDates[i].Add(root.NPCTable[i].forceId);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
         }
         //加载FlagsTable数据:FlagsTable
         {
@@ -430,7 +443,7 @@ public class LoadJsonFile : MonoBehaviour
         {
             path = Path.Combine(Folder, fileName);  //合并文件路径
             var asset = Resources.Load<TextAsset>(path);
-            Debug.Log("Loading..." + fileName + " from---" + path);
+            Debug.Log("Loading..." + fileName + "\nFrom:" + path);
             if (asset == null)
             {
                 Debug.LogError("No text asset could be found at resource path: " + path);

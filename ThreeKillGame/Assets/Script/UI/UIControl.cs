@@ -6,8 +6,6 @@ public class UIControl : MonoBehaviour
 {
     public static bool isShowCutHpText;
 
-    public Text gold;          //玩家金币
-
 
     [SerializeField]
     Transform forcesParentTran; //势力城市父节点
@@ -248,11 +246,6 @@ public class UIControl : MonoBehaviour
     private void OpenPlayFightBtn()
     {
         fightBtn.enabled = true;
-    }
-
-    private void LateUpdate()
-    {
-        gold.text = CreateAndUpdate.money + "";   //玩家金钱显示
     }
 
     /// <summary>
