@@ -56,6 +56,7 @@ public class TeachUIControl : MonoBehaviour
         }
         else
         {
+            teachUIObj.GetChild(indexBakeImage).GetChild(indexContent - 1).gameObject.SetActive(false);
             PlayTeachUI();
         }
     }
