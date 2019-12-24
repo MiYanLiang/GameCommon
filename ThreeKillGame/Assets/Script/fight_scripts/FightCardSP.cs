@@ -82,6 +82,9 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     Transform playerForceCity; //玩家城池
 
+    [SerializeField]
+    ChangeAndGet changeAndGet;
+
     private void Awake()
     {
         battleId = PlayerPrefs.GetInt("battleId");
@@ -303,7 +306,12 @@ public class FightCardSP : MonoBehaviour
                             cutHp = (int)(remainScale * fightCtl.maxCutHp);                                                    //敌方扣血
                             cutHp = cutHp > fightCtl.defCutHp ? cutHp : fightCtl.defCutHp;
                             fightCtl.npcPlayerHps[enemyForceId] -= cutHp;
-                            
+
+                            if (fightCtl.npcPlayerHps[enemyForceId] <= 0)
+                            {
+                                changeAndGet.GetEnemyStartHero(enemyForceId);   //消灭势力，得到其初始武将
+                            }
+
                             int addMoney = 0;
                             if (fightCtl.selectForce != -1)
                             {

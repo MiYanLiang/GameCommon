@@ -42,6 +42,31 @@ public class ChangeAndGet : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 获得敌方势力初始武将
+    /// </summary>
+    /// <param name="forceIndex"></param>
+    public void GetEnemyStartHero(int forceIndex)
+    {
+        string[] ids = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[forceIndex] - 1][8].Split(',');
+        for (int i = 0; i < ids.Length; i++)
+        {
+            heroId = (int)float.Parse(ids[i]);  //初始武将id获取
+            int posIndex = SearchEmptyEpace(0); //获取备战位的空位
+            if (posIndex != -1)
+            {
+                PutCardToPos(preparation.GetChild(posIndex), 1);   //放置到备战位一号位置，一阶
+                HeroIdChangeAndSave.pos_heroId[9 + i] = heroId;
+                createAndUpdate.GoldNotEnough("获得势力的初始武将");
+            }
+            else
+            {
+                createAndUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
+            }
+        }
+    }
+
+
     public void GetResidueCard(GameObject btn)
     {
         int num = SearchEmptyEpace(0);
@@ -332,10 +357,10 @@ public class ChangeAndGet : MonoBehaviour
         int nums = 0;   //记录备战位武将数量
         for (int i = 0; i < preparation.childCount; i++)
         {
-            if (preparation.GetChild(i).childCount>0)
+            if (preparation.GetChild(i).childCount > 0)
                 nums++;
         }
-        if (nums>=CreateAndUpdate.prepareNum)
+        if (nums >= CreateAndUpdate.prepareNum)
         {
             //Debug.Log("备战位已满");
             createAndUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
