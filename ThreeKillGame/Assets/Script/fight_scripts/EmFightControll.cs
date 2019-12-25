@@ -16,7 +16,7 @@ public class EmFightControll : MonoBehaviour
     List<int> getHeroId = new List<int>();
 
     //上阵位置                 
-    int[] arrayBattles = new int[10]{ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };    
+    int[] arrayBattles = new int[10] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
 
     List<string>[] array_str = new List<string>[9]; //存储最终传递的英雄数据
 
@@ -304,7 +304,7 @@ public class EmFightControll : MonoBehaviour
         }
         return array_str;
     }
-    
+
     //array_str   [0]heroid [3]kind兵种 [4]稀有度
     /// <summary>
     /// 添加敌方英雄卡牌
@@ -322,14 +322,14 @@ public class EmFightControll : MonoBehaviour
 
         for (int i = 0; i < 9; i++)
         {
-            if (array_str[i]!=null)
+            if (array_str[i] != null)
             {
-                if (array_str[i][4]=="1")   //判断稀有度是否为1
+                if (array_str[i][4] == "1")   //判断稀有度是否为1
                 {
                     heroIds.Add(int.Parse(array_str[i][0]));
                 }
                 int bingzhong = int.Parse(array_str[i][3]);
-                if (bingzhong==enemyUnits[0])
+                if (bingzhong == enemyUnits[0])
                 {
                     hero_kindNum[0]++;
                 }
@@ -352,13 +352,13 @@ public class EmFightControll : MonoBehaviour
         //添加v个英雄
         for (int i = 0; i < v; i++)
         {
-            int id_newHero=0;
-            if (hero_kindNum[0]<3)
+            int id_newHero = 0;
+            if (hero_kindNum[0] < 3)
             {
                 int index = 0;
                 while (true)
                 {
-                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[0].ToString() && LoadJsonFile.RoleTableDatas[index-1][4] == "1")
+                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[0].ToString() && LoadJsonFile.RoleTableDatas[index - 1][4] == "1")
                         break;
                 }
                 int id = index;
@@ -370,12 +370,12 @@ public class EmFightControll : MonoBehaviour
                 hero_kindNum[0]++;
                 continue;
             }
-            if (hero_kindNum[1]<3)
+            if (hero_kindNum[1] < 3)
             {
                 int index = 0;
                 while (true)
                 {
-                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[1].ToString() && LoadJsonFile.RoleTableDatas[index-1][4] == "1")
+                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[1].ToString() && LoadJsonFile.RoleTableDatas[index - 1][4] == "1")
                         break;
                 }
                 int id = index;
@@ -387,12 +387,12 @@ public class EmFightControll : MonoBehaviour
                 hero_kindNum[1]++;
                 continue;
             }
-            if (hero_kindNum[2]<3)
+            if (hero_kindNum[2] < 3)
             {
                 int index = 0;
                 while (true)
                 {
-                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[2].ToString() && LoadJsonFile.RoleTableDatas[index-1][4] == "1")
+                    if (LoadJsonFile.RoleTableDatas[index++][3] == enemyUnits[2].ToString() && LoadJsonFile.RoleTableDatas[index - 1][4] == "1")
                         break;
                 }
                 int id = index;
@@ -434,7 +434,7 @@ public class EmFightControll : MonoBehaviour
     {
         int num = heroIds.Count;
         //若没有英雄则直接返回
-        if (num < 1) return false;     
+        if (num < 1) return false;
         for (int i = 0; i < num; i++)
         {
             if (heroIds[i] == id_newHero)   //有该英雄
@@ -455,13 +455,13 @@ public class EmFightControll : MonoBehaviour
     {
         List<string> str_list = new List<string>();
         //随机拿到符合要求的武将数据，给品阶和战斗周目数为1
-        List<int> heroids=new List<int>();
+        List<int> heroids = new List<int>();
         for (int i = 0; i < LoadJsonFile.RoleTableDatas.Count; i++) //遍历所有武将
         {
             //判断兵种和稀有度（颜色）
             if (LoadJsonFile.RoleTableDatas[i][3] == v1 && LoadJsonFile.RoleTableDatas[i][4] == v2)
             {
-                heroids.Add(i+1);   //存储符合的英雄id
+                heroids.Add(i + 1);   //存储符合的英雄id
             }
         }
         int num = heroids.Count;    //符合的英雄总数
@@ -470,7 +470,7 @@ public class EmFightControll : MonoBehaviour
             Debug.Log("///没有符合的升色英雄///");
             return null;
         }
-        str_list = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroids[Random.Range(0, num)]-1]);
+        str_list = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroids[Random.Range(0, num)] - 1]);
         str_list.Add("1");  //品阶
         str_list.Add("1");  //战斗周目数
         return str_list;
@@ -497,23 +497,23 @@ public class EmFightControll : MonoBehaviour
     /// </summary>
     /// <param name="arrHeroData"></param>
     /// <param name="i"></param>
-    private void HoldHeroData(List<string>[] arrHeroData, int i)   
+    private void HoldHeroData(List<string>[] arrHeroData, int i)
     {
         List<string> newHeroData = new List<string>();
         newHeroData = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[int.Parse(arrHeroData[i][0]) - 1]);  //记录该英雄所有数据
         array_str[i] = newHeroData;
         array_str[i].Add(arrHeroData[i][1]);    //记录他的品阶
-        array_str[i].Add((int.Parse(arrHeroData[i][2])+1).ToString());    //记录他的参与战斗周目数+1
+        array_str[i].Add((int.Parse(arrHeroData[i][2]) + 1).ToString());    //记录他的参与战斗周目数+1
     }
 
     [Header("升阶 <= RangeIndex < 升色")]
     [SerializeField]
-    int rangeIndex = 30;    
+    int rangeIndex = 30;
     //判断是升阶（true）还是升色（false）
     private bool GradeOrColor()
     {
         int num = Random.Range(1, 101);
-        if (num <= rangeIndex)  
+        if (num <= rangeIndex)
             return true;
         else
             return false;

@@ -281,7 +281,7 @@ public class DrumSkillControll : MonoBehaviour
             return;
         //显示技能文字
         FightCardSP.enemyCards[index].transform.GetChild(10).GetComponent<Text>().text = "眩晕";
-        FightCardSP.enemyCards[index].transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+        FightCardSP.enemyCards[index].transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
         FightCardSP.enemyCards[index].transform.GetChild(10).gameObject.SetActive(true);
         //改变 目标的攻击状态 眩晕激活状态
         FightCardSP.enemyCards[index].GetComponent<CardMove>().Fight_State.isDizzy = true;
@@ -320,7 +320,7 @@ public class DrumSkillControll : MonoBehaviour
             canTakeDrum = false;
             times = 0;
         }
-        if (drumNums<=0)
+        if (drumNums <= 0)
         {
             Debug.Log("战鼓敲击次数不足");
             return;
@@ -423,5 +423,4 @@ public class DrumSkillControll : MonoBehaviour
     {
         drumText.text = drumNums + "";
     }
-
 }

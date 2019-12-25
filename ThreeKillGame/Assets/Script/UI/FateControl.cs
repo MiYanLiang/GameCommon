@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FateControl : MonoBehaviour {
+public class FateControl : MonoBehaviour
+{
 
-	// Use this for initialization
+    // Use this for initialization
     public GameObject fatePanel;//拿到缘集的面板
 
     //打开身份面板

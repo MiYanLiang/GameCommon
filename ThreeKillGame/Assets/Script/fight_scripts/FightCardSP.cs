@@ -309,6 +309,7 @@ public class FightCardSP : MonoBehaviour
 
                             if (fightCtl.npcPlayerHps[enemyForceId] <= 0)
                             {
+                                //Debug.Log(string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]));
                                 changeAndGet.GetEnemyStartHero(enemyForceId);   //消灭势力，得到其初始武将
                             }
 
@@ -372,7 +373,7 @@ public class FightCardSP : MonoBehaviour
                                 //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
                             }
                             fightControll.GetComponent<FightControll>().BattleSettlement();
-                            
+
                             //延时显示结算界面
                             Invoke("ShowSettlementPic", 1f);
                             //RecoverCardData();  //战斗结算结束恢复卡牌数值
@@ -524,7 +525,7 @@ public class FightCardSP : MonoBehaviour
         Invoke("ClearingTheGame", 2f);    //延时打开本次游戏结束界面
         //ClearingTheGame();
     }
-    
+
     /// <summary>
     /// 游戏结算
     /// </summary>
@@ -669,7 +670,7 @@ public class FightCardSP : MonoBehaviour
         //特殊关卡敌人初始化
         if (isSpecialLevel)
         {
-            Debug.Log("加载特殊敌人关卡: "+ LoadJsonFile.NPCTableDates[specialLevelId][2]);
+            Debug.Log("加载特殊敌人关卡: " + LoadJsonFile.NPCTableDates[specialLevelId][2]);
 
             string[] strArr;
             int heroId_NPC = 0;
@@ -744,7 +745,7 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = ""; //datas[1];
                     CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
-                    
+
                     enemyCards[i].GetComponent<CardMove>().OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
@@ -836,7 +837,7 @@ public class FightCardSP : MonoBehaviour
     private void OtherInitialization()
     {
         FightControll.playerHeroHps = 0;    //玩家英雄总血量
-        
+
         //玩家卡牌初始化
         for (int i = 0; i < playerCards.Length; i++)
         {
@@ -970,7 +971,7 @@ public class FightCardSP : MonoBehaviour
         }
         rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
         SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;
-        SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId -1][1];
+        SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1];
     }
 
     private void CardRarityShow(int rarity, Transform imageObj)

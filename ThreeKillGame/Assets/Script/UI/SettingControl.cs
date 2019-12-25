@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SettingControl : MonoBehaviour {
+public class SettingControl : MonoBehaviour
+{
 
-	// Use this for initialization
+    // Use this for initialization
     public GameObject settingPanel;//拿到设置面板
     public GameObject soundTxt;//声音文本
 
@@ -17,7 +18,7 @@ public class SettingControl : MonoBehaviour {
         {
             soundTxt.GetComponent<Text>().text = "声音    开";
         }
-        else if(soundStades==0)
+        else if (soundStades == 0)
         {
             soundTxt.GetComponent<Text>().text = "声音    关";
         }

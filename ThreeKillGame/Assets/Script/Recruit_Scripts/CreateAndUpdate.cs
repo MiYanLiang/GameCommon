@@ -84,7 +84,7 @@ public class CreateAndUpdate : MonoBehaviour
     Slider player_hp2;//玩家血条2
     [SerializeField]
     Text textHertNum;   //招募中民心的显示
-    
+
     [SerializeField]
     private Transform prompTran;    //提示文本框
     [SerializeField]
@@ -134,7 +134,7 @@ public class CreateAndUpdate : MonoBehaviour
     Text goldOfGrade;   //升级所需金币显示
     public void UpdateGoldOfGrade()
     {
-        if (level<10)
+        if (level < 10)
         {
             goldOfGrade.text = (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience).ToString();
         }
@@ -244,7 +244,7 @@ public class CreateAndUpdate : MonoBehaviour
         battleNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][4]);  //设置最大上阵位
         prepareNum = int.Parse(LoadJsonFile.levelTableDatas[level - 1][5]); //设置最大备战位
     }
-    
+
     void GetExcelFile()
     {
         excelText.Clear();
@@ -435,7 +435,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 6:
-                   // print("sssssssssssssssssssssssssssssssssssssssss:6");
+                    // print("sssssssssssssssssssssssssssssssssssssssss:6");
                     int pr6 = Random.Range(1, 101);
                     if (pr6 < 2 + peopleHearts_orange)
                     {
@@ -539,7 +539,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 8:
-                   // print("sssssssssssssssssssssssssssssssssssssssss:8");
+                    // print("sssssssssssssssssssssssssssssssssssssssss:8");
                     int pr8 = Random.Range(1, 101);
                     if (pr8 < 4 + peopleHearts_orange)
                     {
@@ -591,7 +591,7 @@ public class CreateAndUpdate : MonoBehaviour
                     }
                     break;
                 case 9:
-                   // print("sssssssssssssssssssssssssssssssssssssssss:9");
+                    // print("sssssssssssssssssssssssssssssssssssssssss:9");
                     int pr9 = Random.Range(1, 101);
                     if (pr9 < 4 + peopleHearts_orange)
                     {
@@ -1634,7 +1634,7 @@ public class CreateAndUpdate : MonoBehaviour
                         }
                     }
                     break;
-                default :
+                default:
                     while (myCard.Count < count)
                     {
                         int pr9 = Random.Range(1, 101);
@@ -1742,15 +1742,15 @@ public class CreateAndUpdate : MonoBehaviour
         {
             heroName.RemoveAt(5);
         }
-        textHertNum.text= peopleHearts.ToString();
+        textHertNum.text = peopleHearts.ToString();
         int datasNums = LoadJsonFile.RoleTableDatas[0].Count;
         for (int i = 0; i < heroName.Count; i++)
         {
             //兵种显示
             heroBtn[i].GetComponentsInChildren<Text>()[5].text = LoadJsonFile.SoldierTypeDates[int.Parse(soliderKind[i]) - 1][2];
-            
+
             //显示武将背景图片
-            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[excelText[i] - 1][datasNums - 1] , typeof(Sprite)) as Sprite;
+            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[excelText[i] - 1][datasNums - 1], typeof(Sprite)) as Sprite;
 
             //英雄名字显示
             heroBtn[i].GetComponentsInChildren<Text>()[0].text = heroName[i].ToString();
@@ -1893,35 +1893,35 @@ public class CreateAndUpdate : MonoBehaviour
         for (int i = 0; i < 738; i++)
         {
 
-                for (int y = 0; y < greenHeroId.Count; y++)
+            for (int y = 0; y < greenHeroId.Count; y++)
+            {
+                if (LoadJsonFile.RandowTableDates[i][0] == (greenHeroId[y] + 1).ToString())
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == (greenHeroId[y]+1).ToString())
-                    {
-                        greenCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
-                    }
+                    greenCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                 }
-                for (int y = 0; y < blueHeroId.Count; y++)
+            }
+            for (int y = 0; y < blueHeroId.Count; y++)
+            {
+                if (LoadJsonFile.RandowTableDates[i][0] == (blueHeroId[y] + 1).ToString())
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == (blueHeroId[y]+1).ToString())
-                    {
-                        blueCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
-                    }
+                    blueCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                 }
-                for (int y = 0; y < purpleHeroId.Count; y++)
+            }
+            for (int y = 0; y < purpleHeroId.Count; y++)
+            {
+                if (LoadJsonFile.RandowTableDates[i][0] == (purpleHeroId[y] + 1).ToString())
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == (purpleHeroId[y]+1).ToString())
-                    {
-                        purpleCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
-                    }
+                    purpleCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                 }
-                for (int y = 0; y < orangeHeroId.Count; y++)
+            }
+            for (int y = 0; y < orangeHeroId.Count; y++)
+            {
+                if (LoadJsonFile.RandowTableDates[i][0] == (orangeHeroId[y] + 1).ToString())
                 {
-                    if (LoadJsonFile.RandowTableDates[i][0] == (orangeHeroId[y]+1).ToString())
-                    {
-                        orangeCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
-                    }
+                    orangeCard.Add(int.Parse(LoadJsonFile.RandowTableDates[i][1]));
                 }
-            
+            }
+
         }
     }
     //民心加成
@@ -2065,19 +2065,19 @@ public class CreateAndUpdate : MonoBehaviour
         string[] moneyStr = money_str.Split(',');
         int taxMin = int.Parse(moneyStr[0]);
         int taxMax = int.Parse(moneyStr[1]) + 1;
-        int getMoney = Random.Range(taxMin,taxMax);
+        int getMoney = Random.Range(taxMin, taxMax);
         money += getMoney;
         goldText.text = money.ToString();
-        GoldBoxObj.GetComponent<Image>().overrideSprite= Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
+        GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponent<Button>().enabled = false;
-        if (prompTran.childCount<1)
+        if (prompTran.childCount < 1)
         {
             GameObject tipObj = Instantiate(tipsText, prompTran);
             tipObj.GetComponent<Text>().text = string.Format(LoadJsonFile.TipsTableDates[0][2], getMoney);  //获得金币提示
         }
         Color color = GoldBoxObj.GetComponent<Image>().color;
         GoldBoxObj.GetComponent<Image>().DOColor(new Color(color.r, color.g, color.b, 0), 1f);  //渐渐隐藏
-        Invoke("NotShowBox",1f);
+        Invoke("NotShowBox", 1f);
     }
     //延时后隐藏宝箱
     void NotShowBox()

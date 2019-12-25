@@ -9,7 +9,7 @@ public class EmFightCardSP : MonoBehaviour
     //private Slider player_hp;//势力npc血条
     //[SerializeField]
     //private GameObject updateBtn;   //招募刷新控件，用来获取脚本
-    
+
 
     //private bool isEndOFInit = false;   //记录是否初始化结束
     //private int battles;       //记录对战次数
@@ -297,7 +297,7 @@ public class EmFightCardSP : MonoBehaviour
     //                    //金币
     //                    updateBtn.GetComponent<CreateAndUpdate>().money += 1;   //玩家加金币
 
-                        
+
     //                    return null;
     //                }
     //            }
@@ -337,7 +337,7 @@ public class EmFightCardSP : MonoBehaviour
     //                    //金币
     //                    updateBtn.GetComponent<CreateAndUpdate>().money += 0;   //玩家不加金币
 
-                        
+
     //                    return null;
     //                }
     //            }

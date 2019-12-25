@@ -56,7 +56,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     string[] a;
     string[] b;
-    
+
     private CreateAndUpdate createAndUpdate;
 
     /// <summary>
@@ -69,7 +69,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
         pos_heroId[index_SelectCard] = 0;
-        Invoke("LoadTextOfNum",0.1f);
+        Invoke("LoadTextOfNum", 0.1f);
     }
     //延时刷新备战位和上阵位人数显示
     private void LoadTextOfNum()
@@ -93,7 +93,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 if (i < 9)    //在上阵位
                 {
                     //1阶代表1个数量，2阶3个，3阶9个
-                    if (JiuGongGe.GetChild(i).childCount>0)
+                    if (JiuGongGe.GetChild(i).childCount > 0)
                     {
                         num += ((int)Mathf.Pow(3, JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero - 1));
                     }
@@ -117,9 +117,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public int GetNowPlayerPowerNums()
     {
         int num = 0;
-        for(int i = 0; i < JiuGongGe.childCount; i++)
+        for (int i = 0; i < JiuGongGe.childCount; i++)
         {
-            if(JiuGongGe.GetChild(i).childCount > 0)
+            if (JiuGongGe.GetChild(i).childCount > 0)
             {
                 num += int.Parse(JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[6]);
             }
@@ -146,7 +146,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             pos_heroId[i] = 0;
         }
         //拿到当前声望
-        print("声望(prestigeNum):"+PlayerPrefs.GetInt("prestigeNum"));
+        print("声望(prestigeNum):" + PlayerPrefs.GetInt("prestigeNum"));
     }
 
     /// <summary>
@@ -234,7 +234,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     //左侧信息栏显示
     void MakeLeftInformation()
     {
-        for (int i = 1; i < heroTypeName.Count+1; i++)
+        for (int i = 1; i < heroTypeName.Count + 1; i++)
         {
             GameObject obj = Instantiate(heroTypePrefab, LeftInformationBar.GetChild(i));
             obj.transform.position = LeftInformationBar.GetChild(i).position;
@@ -279,7 +279,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             }
             else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[2][1])
             {
-                if (halberdierNum <3)
+                if (halberdierNum < 3)
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "3";
                 }
@@ -298,7 +298,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             }
             else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[3][1])
             {
-                if (lifeguardNum <3)
+                if (lifeguardNum < 3)
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "3";
                 }
@@ -324,7 +324,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "6";
-                    if(spearmanNum < 6)
+                    if (spearmanNum < 6)
                     {
                         activationSkillId_soldiers.Add(53);
                     }
@@ -381,7 +381,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 else
                 {
                     obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "6";
-                    if(sapperNum < 6)
+                    if (sapperNum < 6)
                     {
                         activationSkillId_soldiers.Add(83);
                     }

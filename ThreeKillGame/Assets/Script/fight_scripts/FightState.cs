@@ -135,7 +135,7 @@ public static class ColorData
     /// 紫色（武将稀有度）
     /// </summary>
     public static readonly Color purple_Color = new Color(215f / 255f, 37f / 255f, 236f / 255f, 1);
-   
+
     /// <summary>
     /// 红色（武将稀有度）
     /// </summary>

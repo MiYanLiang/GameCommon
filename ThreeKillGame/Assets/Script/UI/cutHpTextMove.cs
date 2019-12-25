@@ -7,7 +7,7 @@ public class cutHpTextMove : MonoBehaviour
     Text cutHpText;
 
     public string content_text; //展示内容
-    
+
     private Sequence textMoveSequence;  //DOTween队列
 
     private void Awake()
@@ -16,12 +16,12 @@ public class cutHpTextMove : MonoBehaviour
         cutHpText = GetComponent<Text>();
         cutHpText.text = content_text;
     }
-    
+
     private void OnEnable()
     {
         TextMoved(cutHpText);
         cutHpText.text = content_text;
-        if(UIControl.isShowCutHpText)
+        if (UIControl.isShowCutHpText)
             Invoke("DelayShowText", 1.5f);
     }
 
@@ -45,11 +45,11 @@ public class cutHpTextMove : MonoBehaviour
         Color color = graphic.color;
         graphic.color = new Color(color.r, color.g, color.b, 0);
         textMoveSequence = DOTween.Sequence();
-        
+
         Tweener textColor01 = graphic.DOColor(new Color(color.r, color.g, color.b, 1), 1f);
         Tweener textColor02 = graphic.DOColor(new Color(color.r, color.g, color.b, 1), 2f);
         Tweener textColor03 = graphic.DOColor(new Color(color.r, color.g, color.b, 0), 1f);
-        
+
         textMoveSequence.Join(textColor01);
 
         textMoveSequence.AppendInterval(0);

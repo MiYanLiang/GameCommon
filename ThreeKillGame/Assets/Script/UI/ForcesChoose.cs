@@ -83,10 +83,11 @@ public class ForcesChoose : MonoBehaviour
             force.transform.position = cityTran.GetChild(int.Parse(forcesPos[i])).position;
             force.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[forceId - 1][7], typeof(Sprite)) as Sprite;
             force.transform.GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[forceId - 1][4], typeof(Sprite)) as Sprite;
-            force.GetComponent<Button>().onClick.AddListener(delegate () {
+            force.GetComponent<Button>().onClick.AddListener(delegate ()
+            {
                 SelectForce(forceId);
             });
-            if (prestigeNum>= int.Parse(LoadJsonFile.forcesTableDatas[forceId - 1][3]))
+            if (prestigeNum >= int.Parse(LoadJsonFile.forcesTableDatas[forceId - 1][3]))
             {
                 force.transform.GetChild(1).gameObject.SetActive(false);
             }

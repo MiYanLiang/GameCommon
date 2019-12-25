@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IdentityControl : MonoBehaviour {
+public class IdentityControl : MonoBehaviour
+{
 
     public GameObject IdentityPanel;//拿到身份的面板
     public Text tittleName;
-    string[] productOrder = {"十等","九等","八等","七等","六等","五等","四等","三等","二等","一等" };
+    string[] productOrder = { "十等", "九等", "八等", "七等", "六等", "五等", "四等", "三等", "二等", "一等" };
     string updateTittle;
     int clickNum;
 
@@ -21,7 +22,7 @@ public class IdentityControl : MonoBehaviour {
         return clickNum;
     }
 
-	// Use this for initialization
+    // Use this for initialization
     void Start()
     {
         clickNum = 0;

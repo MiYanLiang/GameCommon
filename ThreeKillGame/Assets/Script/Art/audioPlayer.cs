@@ -20,7 +20,7 @@ public class audioPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_currentAudio !=null)
+        if (_currentAudio != null)
         {
             if (_currentAudio.isPlaying) return;//如果正在播放时，不执行
             //如果播放停止

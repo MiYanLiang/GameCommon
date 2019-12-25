@@ -37,6 +37,7 @@ public class ChangeAndGet : MonoBehaviour
         for (int i = 0; i < ids.Length; i++)
         {
             heroId = (int)float.Parse(ids[i]);  //初始武将id获取
+            GetSpecificValue(heroId);   //更新武将价格
             PutCardToPos(preparation.GetChild(i), 1);   //放置到备战位一号位置，一阶
             HeroIdChangeAndSave.pos_heroId[9 + i] = heroId;
         }
@@ -48,6 +49,7 @@ public class ChangeAndGet : MonoBehaviour
     /// <param name="forceIndex"></param>
     public void GetEnemyStartHero(int forceIndex)
     {
+        Debug.Log(string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[forceIndex] - 1][1]));
         string[] ids = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[forceIndex] - 1][8].Split(',');
         for (int i = 0; i < ids.Length; i++)
         {
@@ -55,6 +57,7 @@ public class ChangeAndGet : MonoBehaviour
             int posIndex = SearchEmptyEpace(0); //获取备战位的空位
             if (posIndex != -1)
             {
+                GetSpecificValue(heroId);   //更新武将价格
                 PutCardToPos(preparation.GetChild(posIndex), 1);   //放置到备战位一号位置，一阶
                 HeroIdChangeAndSave.pos_heroId[9 + i] = heroId;
                 createAndUpdate.GoldNotEnough("获得势力的初始武将");
@@ -80,7 +83,8 @@ public class ChangeAndGet : MonoBehaviour
 
     private void ChangeBtnColor(Transform tran)
     {
-        GetExcelFile1();
+        heroId = int.Parse(LoadJsonFile.RandowTableDates[btnTag - 1][0]);
+        GetSpecificValue(heroId);
         ChickenRibsHeroId.Add(heroId);
         if (CreateAndUpdate.money >= price)
         {
@@ -118,7 +122,8 @@ public class ChangeAndGet : MonoBehaviour
         GameObject topBar = GameObject.Find("TopInformationBar");
         btnNum = btn.GetComponentInChildren<Text>().text;
         btnTag = int.Parse(btn.name);
-        GetExcelFile1();
+        heroId = int.Parse(LoadJsonFile.RandowTableDates[btnTag - 1][0]);   //武将id获取
+        GetSpecificValue(heroId);
         List<string> HeroDate = LoadJsonFile.DeepClone<string>(LoadJsonFile.RoleTableDatas[heroId - 1]);
         List<List<string>> fetterInformation = new List<List<string>>();
         List<string> heroIdDate = new List<string>();
@@ -180,9 +185,9 @@ public class ChangeAndGet : MonoBehaviour
         int index_pos = 0;  //索引位置
         while (index_pos < count_pos_heroId)
         {
-            if (HeroIdChangeAndSave.pos_heroId[index_pos]== heroId)
+            if (HeroIdChangeAndSave.pos_heroId[index_pos] == heroId)
             {
-                if (index_pos<9)
+                if (index_pos < 9)
                 {
                     if (jiugongge.GetChild(index_pos).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 1)
                     {
@@ -195,11 +200,11 @@ public class ChangeAndGet : MonoBehaviour
                 }
                 else
                 {
-                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 1)
+                    if (preparation.GetChild(index_pos - 9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 1)
                     {
                         gradeone.Add(index_pos);
                     }
-                    if (preparation.GetChild(index_pos-9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 2)
+                    if (preparation.GetChild(index_pos - 9).GetChild(0).GetComponent<HeroDataControll>().Grade_hero == 2)
                     {
                         gradetwo.Add(index_pos);
                     }
@@ -374,13 +379,6 @@ public class ChangeAndGet : MonoBehaviour
         return num;
     }
 
-    //读表
-    void GetExcelFile1()
-    {
-        GetHeroId(btnTag);
-        GetSpecificValue(heroId);
-    }
-
     //获取表中英雄的所有数据（暂时弃用）
     private void GetHeroDateFromId(int id)
     {
@@ -405,12 +403,6 @@ public class ChangeAndGet : MonoBehaviour
             {
                 price = int.Parse(LoadJsonFile.RoleTableDatas[i][5]);
             }
-        }  
-    }
-
-    //在表一中拿到点击英雄的id
-    private void GetHeroId(int num)
-    {
-        heroId = int.Parse(LoadJsonFile.RandowTableDates[num - 1][0]);
+        }
     }
 }

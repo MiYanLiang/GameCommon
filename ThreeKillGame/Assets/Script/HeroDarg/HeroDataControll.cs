@@ -2,8 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HeroDataControll : MonoBehaviour {
-    
+public class HeroDataControll : MonoBehaviour
+{
+
     public List<string> HeroData = new List<string>(); //存储当前武将的数据
     List<string> heroIdDate = new List<string>();
     List<string> HeroDataTest = new List<string>();
@@ -34,12 +35,12 @@ public class HeroDataControll : MonoBehaviour {
             gameObject.transform.GetChild(0).GetComponent<Text>().text = HeroData[1];
             gameObject.transform.GetChild(1).GetComponent<Text>().text = HeroData[6];
             //设置左上角兵种文字
-            gameObject.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(HeroData[3])-1][2];
+            gameObject.transform.GetChild(5).GetChild(0).GetComponent<Text>().text = LoadJsonFile.SoldierTypeDates[int.Parse(HeroData[3]) - 1][2];
             //设置武将背景
             gameObject.transform.GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + HeroData[22], typeof(Sprite)) as Sprite;
         }
     }
-    
+
     //获取点击当前卡牌武将的id
     public void GetThisCardId()
     {
@@ -48,8 +49,8 @@ public class HeroDataControll : MonoBehaviour {
         topBar.GetComponentInChildren<Text>().text = "";
         int heroId = int.Parse(HeroData[0]);
         heroIdDate.Add(heroId.ToString());
-        print("点击的"+heroId);
-        fetterInformation=GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
+        print("点击的" + heroId);
+        fetterInformation = GameObject.Find("FettrrControl").GetComponent<FetterContronl>().init_One(heroIdDate);
         //显示点击英雄的名字  及  阶数
         topBar.GetComponentsInChildren<Text>()[1].fontSize = HeroData[1].Length > 2 ? 50 : 70;
         topBar.GetComponentsInChildren<Text>()[1].text = HeroData[1] + "\u1500" /*+ Grade_hero*/;

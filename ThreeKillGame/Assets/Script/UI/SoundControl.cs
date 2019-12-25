@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SoundControl : MonoBehaviour {
+public class SoundControl : MonoBehaviour
+{
 
     // Use this for initialization
     public GameObject showSoundTxt;
@@ -24,7 +25,7 @@ public class SoundControl : MonoBehaviour {
             cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
             showSoundTxt.GetComponent<Text>().text = "声音    开";
         }
-        PlayerPrefs.SetInt("soundStates",soundStates);
-        print("..................soundStates:"+soundStates);
+        PlayerPrefs.SetInt("soundStates", soundStates);
+        print("..................soundStates:" + soundStates);
     }
 }

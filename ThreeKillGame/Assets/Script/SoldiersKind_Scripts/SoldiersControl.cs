@@ -7,7 +7,7 @@ public class SoldiersControl : MonoBehaviour
 {
     // Start is called before the first frame update
     List<int> myHeroId = new List<int>() { 1, 1, 6, 16, 26 }; //我拥有的英雄id数列，，，，每次购买的时候给我传过来
-    List<int> battleHeroId_ = new List<int>() { 4, 6, 3, 21, 5, 5, 3,72,71,71,72,70 };  //传过来的上阵英雄Id数列
+    List<int> battleHeroId_ = new List<int>() { 4, 6, 3, 21, 5, 5, 3, 72, 71, 71, 72, 70 };  //传过来的上阵英雄Id数列
     List<int> heroTypeAll = new List<int>();//存放我的所有兵种id
     List<int> battleHeroType = new List<int>();//存放上阵所有兵种id
     List<string> heroTypeName = new List<string>();//存放我的所有兵种名字，无重复
@@ -42,7 +42,7 @@ public class SoldiersControl : MonoBehaviour
     int sapperNum_All = 3;                   //工兵数量
     int necromancerNum_All = 3;               //方士数量
     ////////////////////////////////////////////////////////////技能id
-    int skillIndex= 0;
+    int skillIndex = 0;
     List<int> skillArray = new List<int>(); //开通技能列表
     List<string> skillInformation = new List<string>();//技能信息，暂时只存技能名字
     ///////////////////////////////////////////////////////////存放某类型兵种的所有id
@@ -55,12 +55,12 @@ public class SoldiersControl : MonoBehaviour
     List<int> counsellorId = new List<int>();  //军师
     List<int> sapperId = new List<int>();  //工兵
     List<int> necromancerId = new List<int>();  //方士
- ////////////////////////////////////////////////////////存放某类型兵种的名字
+                                                ////////////////////////////////////////////////////////存放某类型兵种的名字
     List<string> shieldSoldierName = new List<string>();  //盾兵
     List<string> mahoutName = new List<string>();  //象兵
     List<string> halberdierName = new List<string>();  //戟兵
     List<string> lifeguardName = new List<string>();  //禁卫
-    List<string> spearmanName  = new List<string>();  //枪兵
+    List<string> spearmanName = new List<string>();  //枪兵
     List<string> sowarName = new List<string>();  //骑兵
     List<string> counsellorName = new List<string>();  //军师
     List<string> sapperName = new List<string>();  //工兵
@@ -185,7 +185,7 @@ public class SoldiersControl : MonoBehaviour
     //给上阵的兵种类型计数
     void GetSoldiersTypeNum()
     {
-        for (int i=0;i<battleHeroType.Count;i++)
+        for (int i = 0; i < battleHeroType.Count; i++)
         {
             if (battleHeroType[i] == 1)
             {
@@ -298,7 +298,7 @@ public class SoldiersControl : MonoBehaviour
             skillIndex = 63;
             skillArray.Add(skillIndex);
         }
-        else if (sowarNum  > 5)
+        else if (sowarNum > 5)
         {
             sowarNum_All = 6;
             skillIndex = 66;
@@ -328,7 +328,7 @@ public class SoldiersControl : MonoBehaviour
             skillIndex = 86;
             skillArray.Add(skillIndex);
         }
-        if(necromancerNum > 2 && necromancerNum < 6)
+        if (necromancerNum > 2 && necromancerNum < 6)
         {
             necromancerNum_All = 3;
             skillIndex = 93;

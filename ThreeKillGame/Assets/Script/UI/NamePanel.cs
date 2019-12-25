@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NamePanel : MonoBehaviour {
+public class NamePanel : MonoBehaviour
+{
 
     public GameObject UpdateNameObj;//拿到修改名字的面板
     public GameObject headText;  //头像文本框
     public GameObject text;   //被修改的文本框
     public GameObject inputText;   //输入的文本框
     string inputName = "";
-	
-	// Update is called once per frame
+
+    // Update is called once per frame
     void Update()
     {
         //inputName = inputText.GetComponent<Text>().text;

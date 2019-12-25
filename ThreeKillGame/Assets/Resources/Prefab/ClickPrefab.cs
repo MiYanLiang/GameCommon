@@ -15,7 +15,7 @@ public class ClickPrefab : MonoBehaviour
     List<string> sapperName = new List<string>();  //工兵
     List<string> necromancerName = new List<string>();  //方士
     List<string> god_beastName = new List<string>();//神兽
-///////////////////////////////////////////////////////////存放某类型兵种的所有id
+                                                    ///////////////////////////////////////////////////////////存放某类型兵种的所有id
     List<int> shieldSoldierId = new List<int>();  //盾兵
     List<int> mahoutId = new List<int>();  //象兵
     List<int> halberdierId = new List<int>();  //戟兵
@@ -101,11 +101,11 @@ public class ClickPrefab : MonoBehaviour
         }
         for (int i = 0; i < halberdierId.Count; i++)
         {
-            halberdierName.Add(GetHeroNameFromId( halberdierId[i]));
+            halberdierName.Add(GetHeroNameFromId(halberdierId[i]));
         }
         for (int i = 0; i < lifeguardId.Count; i++)
         {
-            lifeguardName.Add(GetHeroNameFromId( lifeguardId[i]));
+            lifeguardName.Add(GetHeroNameFromId(lifeguardId[i]));
         }
         for (int i = 0; i < spearmanId.Count; i++)
         {

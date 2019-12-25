@@ -396,7 +396,7 @@ public class LoadJsonFile : MonoBehaviour
         }
 
 
-        if (indexTable>= tableNames.Length)
+        if (indexTable >= tableNames.Length)
             Debug.Log("所有Json数据加载成功。");
         else
             Debug.Log("还有Json数据未进行加载。");
@@ -428,7 +428,7 @@ public class LoadJsonFile : MonoBehaviour
         else
             Debug.Log("////请检查Json表名");
     }
-    
+
 
     /// <summary>
     /// 通过json文件名获取json数据
@@ -469,7 +469,7 @@ public class LoadJsonFile : MonoBehaviour
     /// </summary>
     public JsonReader LoadJsonUseStreamReader(string fileName)
     {
-        StreamReader streamreader = new StreamReader(Application.dataPath + "/StreamingAssets/Jsons/"+ fileName + ".json");  //读取数据，转换成数据流
+        StreamReader streamreader = new StreamReader(Application.dataPath + "/StreamingAssets/Jsons/" + fileName + ".json");  //读取数据，转换成数据流
         JsonReader js = new JsonReader(streamreader);   //再转换成json数据
         //Root r = JsonMapper.ToObject<Root>(js);     //读取
         //for (int i = 0; i < r.LevelTable.Count; i++)  //遍历获取数据
@@ -505,5 +505,4 @@ public class LoadJsonFile : MonoBehaviour
         }
         return www.text;
     }
-
 }

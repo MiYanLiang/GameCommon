@@ -15,12 +15,12 @@ public class FightControll : MonoBehaviour
     private float speed_time = 0.3f;
     public static float speedTime;    //卡牌移动速度
     public static int fightPosCha;    //卡牌攻击位置差
-    
+
     [SerializeField]
     Transform backGround;   //用来获取背景上的代码UIControl
 
     public GameObject hero_Card;    //英雄卡片预制件
-    
+
     [HideInInspector]
     public List<Transform> JiuGongGes; //npc九宫格集合
 
@@ -423,9 +423,9 @@ public class FightControll : MonoBehaviour
     public int GetNowNPCPowerNums(int index)
     {
         int num = 0;
-        for(int i = 0; i < JiuGongGes[index].childCount; i++)
+        for (int i = 0; i < JiuGongGes[index].childCount; i++)
         {
-            if(JiuGongGes[index].GetChild(i).childCount > 0)
+            if (JiuGongGes[index].GetChild(i).childCount > 0)
             {
                 num += int.Parse(JiuGongGes[index].GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[6]);
             }

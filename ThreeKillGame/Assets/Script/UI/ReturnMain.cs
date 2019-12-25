@@ -7,7 +7,7 @@ public class ReturnMain : MonoBehaviour
 {
     public void ClickReturnMain()
     {
-        PlayerPrefs.SetInt("prestigeNum",200);
+        PlayerPrefs.SetInt("prestigeNum", 200);
         SceneManager.LoadScene(0);
     }
 }

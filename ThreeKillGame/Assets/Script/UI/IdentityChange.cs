@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class IdentityChange : MonoBehaviour {
+public class IdentityChange : MonoBehaviour
+{
 
     public GameObject btnText;
     public GameObject identityText;

@@ -22,7 +22,7 @@ public class FetterContronl : MonoBehaviour
 
     string[] a;
     string[] b;
-   
+
     public List<List<string>> init_Go(List<string> array0)                        /////////////////////此方法暂时无用
     {
         fetterInformation.Clear();
@@ -87,7 +87,7 @@ public class FetterContronl : MonoBehaviour
             ArraySort(heroId);
             if (ArrayChangeString(intersectionArray) == ArrayChangeString(heroId))
             {
-                fetterIndex.Add(i+1);
+                fetterIndex.Add(i + 1);
             }
         }
     }
@@ -158,7 +158,7 @@ public class FetterContronl : MonoBehaviour
     //冒泡排序
     void ArraySort(List<string> arr)
     {
-        string temp="";
+        string temp = "";
         for (int i = 0; i < arr.Count - 1; i++)
         {
             for (int j = 0; j < arr.Count - 1 - i; j++)

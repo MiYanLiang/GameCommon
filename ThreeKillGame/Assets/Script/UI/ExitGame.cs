@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class ExitGame : MonoBehaviour {
+public class ExitGame : MonoBehaviour
+{
 
     //退出游戏
     public void ExitGame1()

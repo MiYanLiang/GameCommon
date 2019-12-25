@@ -496,7 +496,7 @@ public class CardMove : MonoBehaviour
     /// </summary>
     /// <param name="percenHp">每次损失的血量</param>
     /// <param name="percentage">每次提升的闪避率</param>
-    public void FeiShouSkill(float percenHp,float percentage)
+    public void FeiShouSkill(float percenHp, float percentage)
     {
         float loseHp = (Fullhealth - Health) / (float)Fullhealth;
         int num = (int)(loseHp / percenHp);
@@ -525,7 +525,7 @@ public class CardMove : MonoBehaviour
                 icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.popularName, typeof(Sprite)) as Sprite;
             }
         }
-        Debug.Log("飞兽闪避率："+ realDodgeRate*100+"%");
+        Debug.Log("飞兽闪避率：" + realDodgeRate * 100 + "%");
     }
 
     private int overlayNum_RenJie = 0; //记录 人杰 技能效果叠加次数
@@ -1030,7 +1030,7 @@ public class CardMove : MonoBehaviour
             }
         }
     }
-    
+
     /// <summary>
     /// 静态兵种技能数据加成（开始战斗卡牌加载时调用一次）
     /// </summary>
@@ -1224,7 +1224,7 @@ public class CardMove : MonoBehaviour
         {
             Debug.Log("闪避");
             EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "闪避";
-            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.blue_Color;
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().color = ColorData.blue_Color;
             EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
             EnemyObj.transform.GetComponent<AudioSource>().clip = Resources.Load("Effect/FightSounds/闪避", typeof(AudioClip)) as AudioClip;
             EnemyObj.transform.GetComponent<AudioSource>().Play();
@@ -1236,7 +1236,7 @@ public class CardMove : MonoBehaviour
             index_attack = 1;
             Debug.Log("重击");
             EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "重击";
-            EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+            EnemyObj.transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
             EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
             force = (int)(force * ThumpDamage);
         }
@@ -1248,7 +1248,7 @@ public class CardMove : MonoBehaviour
                 index_attack = 2;
                 Debug.Log("暴击");
                 EnemyObj.transform.GetChild(10).GetComponent<Text>().text = "暴击";
-                EnemyObj.transform.GetChild(10).GetComponent<Text>().color=ColorData.red_Color;
+                EnemyObj.transform.GetChild(10).GetComponent<Text>().color = ColorData.red_Color;
                 EnemyObj.transform.GetChild(10).gameObject.SetActive(true);
                 //anim.Play("fightCardStatus");
                 force = (int)(force * CritDamage);
@@ -1354,7 +1354,7 @@ public class CardMove : MonoBehaviour
         GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
         cutHpObj.GetComponent<Text>().color = ColorData.green_deep_Color;
         cutHpObj.GetComponent<Text>().text = "+" + addHp;
-        
+
         //血条的显示
         obj.GetComponent<Slider>().value = 1 - obj.GetComponent<CardMove>().Health / (float)obj.GetComponent<CardMove>().Fullhealth;
     }
@@ -1376,12 +1376,13 @@ public class CardMove : MonoBehaviour
     private void NormalAttackEffects(GameObject obj, int index)
     {
         //如果攻击的敌人是海兽 并且 兵种激活
-        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0 
+        if (EnemyObj.GetComponent<CardMove>().ArmsId == "2" && EnemyObj.GetComponent<CardMove>().ArmsSkillStatus > 0
             || index == 5
             || index == 6
             || index == 9
             || index == 11
-            || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand){
+            || EnemyObj.GetComponent<CardMove>().Fight_State.isWithStand)
+        {
         }
         else
         {

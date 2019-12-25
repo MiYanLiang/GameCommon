@@ -96,7 +96,8 @@ public class UIControl : MonoBehaviour
         playerForce_main.transform.parent.GetChild(6).GetComponent<Text>().text = "战力：0";  //主城战力显示
         playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
         playerForce.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
-        playerForce.GetComponent<Button>().onClick.AddListener(delegate () {
+        playerForce.GetComponent<Button>().onClick.AddListener(delegate ()
+        {
             updateTopPowerData(-1);
         });
         //npc势力初始化
@@ -113,7 +114,7 @@ public class UIControl : MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             indexForce = int.Parse(str_Force[i]);
-            if (indexForce!= playerForceId)
+            if (indexForce != playerForceId)
             {
                 enemy_forces.Add(indexForce);
                 InitEnemyForce(indexForce, int.Parse(str_Pos[i]));
@@ -151,7 +152,8 @@ public class UIControl : MonoBehaviour
             if (enemy_forces[index] == npcForceId)
                 break;
         }
-        force_obj.GetComponent<Button>().onClick.AddListener(delegate() {
+        force_obj.GetComponent<Button>().onClick.AddListener(delegate ()
+        {
             npcForceOnClick(index);
         });
         npcForcesObjs.Add(force_obj);   //添加到npc集合
@@ -217,7 +219,7 @@ public class UIControl : MonoBehaviour
     //设置进攻防守战鼓的image
     private void setTextContent(int index)   //-1守，0-n攻
     {
-        if (index<0)
+        if (index < 0)
         {
             fightOrDefend.sprite = Resources.Load("Effect/UI/toBattle/守", typeof(Sprite)) as Sprite;
             selectForceIamge.position = playerForce.position;
