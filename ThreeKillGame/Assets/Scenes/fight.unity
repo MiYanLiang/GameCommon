@@ -470,7 +470,7 @@ GameObject:
   - component: {fileID: 11389985}
   m_Layer: 5
   m_Name: RefreshBtn
-  m_TagString: Back
+  m_TagString: Refresh
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

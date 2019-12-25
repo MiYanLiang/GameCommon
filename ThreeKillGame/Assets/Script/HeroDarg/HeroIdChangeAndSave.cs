@@ -130,7 +130,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     private void Start()
     {
-        createAndUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
+        createAndUpdate = GameObject.FindWithTag("Refresh").GetComponent<CreateAndUpdate>();
 
         forcesIndex = PlayerPrefs.GetInt("forcesId");
         for (int i = 0; i < LoadJsonFile.forcesTableDatas.Count; i++)

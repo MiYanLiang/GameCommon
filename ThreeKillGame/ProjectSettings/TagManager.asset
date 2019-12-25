@@ -12,6 +12,7 @@ TagManager:
   - GridP
   - Undefined
   - goldBox
+  - Refresh
   layers:
   - Default
   - TransparentFX

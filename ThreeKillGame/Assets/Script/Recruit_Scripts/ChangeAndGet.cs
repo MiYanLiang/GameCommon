@@ -23,7 +23,7 @@ public class ChangeAndGet : MonoBehaviour
 
     private void Start()
     {
-        createAndUpdate = GameObject.FindWithTag("Back").GetComponent<CreateAndUpdate>();
+        createAndUpdate = GameObject.FindWithTag("Refresh").GetComponent<CreateAndUpdate>();
 
         CreateStartHero();  //创建加载初始武将
     }
