@@ -49,7 +49,8 @@ public class ChangeAndGet : MonoBehaviour
     /// <param name="forceIndex"></param>
     public void GetEnemyStartHero(int forceIndex)
     {
-        Debug.Log(string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[forceIndex] - 1][1]));
+        string heroNames = " ";
+        string forceName = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[forceIndex] - 1][1];
         string[] ids = LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[forceIndex] - 1][8].Split(',');
         for (int i = 0; i < ids.Length; i++)
         {
@@ -60,12 +61,18 @@ public class ChangeAndGet : MonoBehaviour
                 GetSpecificValue(heroId);   //更新武将价格
                 PutCardToPos(preparation.GetChild(posIndex), 1);   //放置到备战位一号位置，一阶
                 HeroIdChangeAndSave.pos_heroId[9 + i] = heroId;
-                createAndUpdate.GoldNotEnough("获得势力的初始武将");
+                heroNames = heroNames + LoadJsonFile.RoleTableDatas[heroId - 1][1] + " ";
+                //createAndUpdate.GoldNotEnough("获得势力的初始武将");
             }
-            else
-            {
-                createAndUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
-            }
+            
+        }
+        if(heroNames != " ")
+        {
+            createAndUpdate.GoldNotEnough(string.Format(LoadJsonFile.TipsTableDates[14][2], forceName, heroNames));
+        }
+        else
+        {
+            createAndUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
         }
     }
 
