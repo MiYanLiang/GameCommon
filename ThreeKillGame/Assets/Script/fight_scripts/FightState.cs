@@ -141,4 +141,13 @@ public static class ColorData
     /// </summary>
     public static readonly Color red_Color_hero = new Color(227f / 255f, 16f / 255f, 16f / 255f, 1);
 
+    /// <summary>
+    /// 未激活兵种色(灰色)
+    /// </summary>
+    public static readonly Color notAct_Gray = new Color(178f / 255f, 170f / 255f, 170f / 255f, 1);
+
+    /// <summary>
+    /// 激活兵种色（黄色）
+    /// </summary>
+    public static readonly Color act_Yellow = new Color(224f / 255f, 177f / 255f, 90f / 255f, 1);
 }

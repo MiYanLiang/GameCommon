@@ -468,6 +468,7 @@ public class CardMove : MonoBehaviour
             obj.transform.GetChild(4).GetComponent<Text>().text = "刃甲";
         }
         Health -= hurt;     //反伤
+        ShowDeathText();
         transform.GetComponent<Slider>().value = 1 - Health / (float)Fullhealth;
         obj.transform.GetChild(4).gameObject.SetActive(true);
         fanShangHurt = hurt;
@@ -1323,6 +1324,7 @@ public class CardMove : MonoBehaviour
                     DrumSkillControll.drumNums++;   //战鼓敲击次数加1
                     DrumSkillControll.isChange = true;
                 }
+                obj.GetComponent<CardMove>().ShowDeathText();
             }
             obj.GetComponent<Slider>().value = 1 - (obj.GetComponent<CardMove>().Health) / ((float)obj.GetComponent<CardMove>().Fullhealth);
         }
@@ -1554,9 +1556,26 @@ public class CardMove : MonoBehaviour
             UpdateEnemyHp(EnemyObj);
             NormalAttackEffects(EnemyObj, 13);
             gameObject.GetComponent<CardMove>().Health = 0;
+            gameObject.GetComponent<CardMove>().ShowDeathText();
             gameObject.GetComponent<Slider>().value = 1 - gameObject.GetComponent<CardMove>().Health / (float)gameObject.GetComponent<CardMove>().Fullhealth;
             Destroy(transform.GetChild(9).Find(StateName.fireAttackName).gameObject);  //消除火攻状态图标
             Fight_State.isFireAttack = false;
         }
     }
+    /// <summary>
+    /// 是否显示阵亡文字
+    /// </summary>
+    /// <param name="isDead"></param>
+    public void ShowDeathText()
+    {
+        if (Health > 0)
+        {
+            transform.GetChild(11).gameObject.SetActive(false);
+        }
+        else
+        {
+            transform.GetChild(11).gameObject.SetActive(true);
+        }
+    }
+
 }

@@ -402,6 +402,7 @@ public class DrumSkillControll : MonoBehaviour
             return;
         //以40%血量复活武将单位
         FightCardSP.playerCards[index].GetComponent<CardMove>().Health = (int)((float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth * 0.4);
+        FightCardSP.playerCards[index].GetComponent<CardMove>().ShowDeathText();
         FightCardSP.playerCards[index].GetComponent<Slider>().value = 1 - FightCardSP.playerCards[index].GetComponent<CardMove>().Health / (float)FightCardSP.playerCards[index].GetComponent<CardMove>().Fullhealth;
         //显示技能文字
         FightCardSP.playerCards[index].transform.GetChild(4).GetComponent<Text>().text = "起死回生";

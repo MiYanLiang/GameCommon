@@ -243,10 +243,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (shieldSoldierNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = shieldSoldierNum.ToString() + "/" + "6";
                     if (shieldSoldierNum < 6)
                     {
@@ -262,10 +264,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (mahoutNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = mahoutNum.ToString() + "/" + "6";
                     if (mahoutNum < 6)
                     {
@@ -281,10 +285,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (halberdierNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = halberdierNum.ToString() + "/" + "6";
                     if (halberdierNum < 6)
                     {
@@ -300,10 +306,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (lifeguardNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = lifeguardNum.ToString() + "/" + "6";
                     if (lifeguardNum < 6)
                     {
@@ -319,10 +327,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (spearmanNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = spearmanNum.ToString() + "/" + "6";
                     if (spearmanNum < 6)
                     {
@@ -338,10 +348,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (sowarNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = sowarNum.ToString() + "/" + "6";
                     if (sowarNum < 6)
                     {
@@ -357,10 +369,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (counsellorNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = counsellorNum.ToString() + "/" + "6";
                     if (counsellorNum < 6)
                     {
@@ -376,10 +390,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (sapperNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = sapperNum.ToString() + "/" + "6";
                     if (sapperNum < 6)
                     {
@@ -395,10 +411,12 @@ public class HeroIdChangeAndSave : MonoBehaviour
             {
                 if (necromancerNum < 3)
                 {
+                    obj.GetComponent<Image>().color = ColorData.notAct_Gray;
                     obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "3";
                 }
                 else
                 {
+                    obj.GetComponent<Image>().color = ColorData.act_Yellow;
                     obj.GetComponentsInChildren<Text>()[1].text = necromancerNum.ToString() + "/" + "6";
                     if (necromancerNum < 6)
                     {

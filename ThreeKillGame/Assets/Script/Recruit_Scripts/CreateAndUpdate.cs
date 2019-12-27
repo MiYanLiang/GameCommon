@@ -2069,7 +2069,7 @@ public class CreateAndUpdate : MonoBehaviour
         money += getMoney;
         goldText.text = money.ToString();
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
-        GoldBoxObj.GetComponent<Button>().enabled = false;
+        GoldBoxObj.GetComponentInChildren<Button>().enabled = false;
         if (prompTran.childCount < 1)
         {
             GameObject tipObj = Instantiate(tipsText, prompTran);
@@ -2091,7 +2091,7 @@ public class CreateAndUpdate : MonoBehaviour
         Color color = GoldBoxObj.GetComponent<Image>().color;
         GoldBoxObj.GetComponent<Image>().color = new Color(color.r, color.g, color.b, 1);
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_闭", typeof(Sprite)) as Sprite;
-        GoldBoxObj.GetComponent<Button>().enabled = true;
+        GoldBoxObj.GetComponentInChildren<Button>().enabled = true;
         GoldBox_.SetActive(true);
         GoldBoxObj_BigMap.SetActive(true);
     }
