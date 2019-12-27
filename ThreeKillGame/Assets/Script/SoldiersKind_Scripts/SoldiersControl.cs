@@ -106,7 +106,7 @@ public class SoldiersControl : MonoBehaviour
     {
         for (int i = 0; i < heroTypeAll.Count; i++)
         {
-            heroTypeName.Add(LoadJsonFile.SoldierTypeDates[heroTypeAll[i] - 1][1]);
+            heroTypeName.Add(LoadJsonFile.SoldierTypeDates[heroTypeAll[i] - 1][2]);
         }
     }
 

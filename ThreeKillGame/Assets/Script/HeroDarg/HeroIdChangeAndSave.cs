@@ -239,7 +239,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
             GameObject obj = Instantiate(heroTypePrefab, LeftInformationBar.GetChild(i));
             obj.transform.position = LeftInformationBar.GetChild(i).position;
             obj.GetComponentsInChildren<Text>()[0].text = heroTypeName[i - 1];
-            if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[0][1])
+            if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[0][2])
             {
                 if (shieldSoldierNum < 3)
                 {
@@ -260,7 +260,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[1][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[1][2])
             {
                 if (mahoutNum < 3)
                 {
@@ -281,7 +281,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[2][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[2][2])
             {
                 if (halberdierNum < 3)
                 {
@@ -302,7 +302,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[3][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[3][2])
             {
                 if (lifeguardNum < 3)
                 {
@@ -323,7 +323,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[4][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[4][2])
             {
                 if (spearmanNum < 3)
                 {
@@ -344,7 +344,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[5][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[5][2])
             {
                 if (sowarNum < 3)
                 {
@@ -365,7 +365,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[6][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[6][2])
             {
                 if (counsellorNum < 3)
                 {
@@ -386,7 +386,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[7][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[7][2])
             {
                 if (sapperNum < 3)
                 {
@@ -407,7 +407,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
                     }
                 }
             }
-            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[8][1])
+            else if (heroTypeName[i - 1] == LoadJsonFile.SoldierTypeDates[8][2])
             {
                 if (necromancerNum < 3)
                 {
