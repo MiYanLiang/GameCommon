@@ -1139,6 +1139,14 @@ public class CreateAndUpdate : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.S))
+        {
+            UpdateCard();
+        }
+    }
+
     //玩家点击刷新
     public void UpdateCard()
     {

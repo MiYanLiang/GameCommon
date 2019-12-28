@@ -68,7 +68,7 @@ public class ClickPrefab : MonoBehaviour
 
         for (int i = 0; i < LoadJsonFile.SoldierTypeDates.Count; i++)
         {
-            if (this.GetComponentsInChildren<Text>()[0].text == LoadJsonFile.SoldierTypeDates[i][1])
+            if (this.GetComponentsInChildren<Text>()[0].text == LoadJsonFile.SoldierTypeDates[i][2])
             {
                 for (int j = 0; j < arrs_name[i].Count; j++)
                 {
