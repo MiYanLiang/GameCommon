@@ -427,6 +427,7 @@ public class LoadJsonFile : MonoBehaviour
             JsonDataToSheets(arrStr);   //传递Json文件名进行加载
         else
             Debug.Log("////请检查Json表名");
+        DontDestroyOnLoad(gameObject);//跳转场景等不销毁
     }
 
 

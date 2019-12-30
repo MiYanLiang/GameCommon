@@ -30,10 +30,7 @@ public class HeroCardDrag : MonoBehaviour
         jiuGongge_Transform = GameObject.Find("JiuGongge").transform;
         preparation_Transform = GameObject.Find("Preparation").transform;
         backGround = canvas_Transform.GetChild(0);
-        if (GameObject.FindWithTag("Refresh")!=null)
-        {
-            createUpdate = GameObject.FindWithTag("Refresh").GetComponent<CreateAndUpdate>();
-        }
+        createUpdate = GameObject.Find("RefreshBtn").transform.GetComponent<CreateAndUpdate>();
     }
 
     /// <summary>

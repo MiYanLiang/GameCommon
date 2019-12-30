@@ -2123,4 +2123,5 @@ public class CreateAndUpdate : MonoBehaviour
     {
         GoldNotEnough(LoadJsonFile.TipsTableDates[id - 1][2]);
     }
+    
 }

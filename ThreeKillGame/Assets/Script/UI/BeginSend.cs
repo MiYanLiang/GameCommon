@@ -19,6 +19,7 @@ public class BeginSend : MonoBehaviour
         PlayerPrefs.SetInt("prestigeNum", prestigeNum);             //声望值
         PlayerPrefs.SetInt("battleId", ForcesChoose.battleId);      //战役id
         PlayerPrefs.SetInt("forcesId", ForcesChoose.playerForceId); //玩家势力ID
+
         SceneManager.LoadScene(1);
     }
     void GetDifficultyType()
