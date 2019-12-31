@@ -19,13 +19,13 @@ public class ChangeAndGet : MonoBehaviour
     List<string> heroData = new List<string>();
     List<int> ChickenRibsHeroId = new List<int>();  //存放所有的拥有的英雄Id
 
-    private CreateAndUpdate createAndUpdate;
+    [SerializeField]
+    CreateAndUpdate createAndUpdate;
 
     private void Start()
     {
-        createAndUpdate = GameObject.Find("RefreshBtn").transform.GetComponent<CreateAndUpdate>();
-
         CreateStartHero();  //创建加载初始武将
+        transform.parent.gameObject.SetActive(false);
     }
 
     /// <summary>

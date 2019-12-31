@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class HeroCardDrag : MonoBehaviour
 {
 
-    private Transform backGround;    //背景存放id数据
+    private HeroIdChangeAndSave backGround_hidcas;    //背景存放id数据
     private Transform beginParentTransform; //记录拖拽卡片的父级对象
     /// <summary>
     /// UI界面的顶层Canvas
@@ -20,8 +20,7 @@ public class HeroCardDrag : MonoBehaviour
     private Transform preparation_Transform;
 
     private float moveSpeed = 0.2f;
-
-    private CreateAndUpdate createUpdate;
+    
 
     // Use this for initialization
     void Start()
@@ -29,8 +28,7 @@ public class HeroCardDrag : MonoBehaviour
         canvas_Transform = GameObject.Find("Canvas").transform;
         jiuGongge_Transform = GameObject.Find("JiuGongge").transform;
         preparation_Transform = GameObject.Find("Preparation").transform;
-        backGround = canvas_Transform.GetChild(0);
-        createUpdate = GameObject.Find("RefreshBtn").transform.GetComponent<CreateAndUpdate>();
+        backGround_hidcas = canvas_Transform.GetChild(0).GetComponent<HeroIdChangeAndSave>();
     }
 
     /// <summary>
@@ -93,12 +91,12 @@ public class HeroCardDrag : MonoBehaviour
             {
                 if (go.tag == "GridJ")
                 {
-                    createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[4][2]);
+                    backGround_hidcas.StringTipShow(LoadJsonFile.TipsTableDates[4][2]);
                     //Debug.Log("上阵位已满");
                 }
                 else
                 {
-                    createUpdate.GoldNotEnough(LoadJsonFile.TipsTableDates[5][2]);
+                    backGround_hidcas.StringTipShow(LoadJsonFile.TipsTableDates[5][2]);
                     //Debug.Log("备战位已满");
                 }
                 SetPosAndParent(transform, beginParentTransform);
@@ -165,8 +163,8 @@ public class HeroCardDrag : MonoBehaviour
     {
         GameObject.Find("ArrayText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
         GameObject.Find("ReadyText").GetComponent<UIDynamicDisplay>().ChangeNumOfPeople();
-        backGround.GetComponent<HeroIdChangeAndSave>().SaveNowHeroId(); //刷新保存当前拥有的武将id
-        backGround.GetComponent<HeroIdChangeAndSave>().GetNowPlayerPowerNums();
+        backGround_hidcas.SaveNowHeroId(); //刷新保存当前拥有的武将id
+        backGround_hidcas.GetNowPlayerPowerNums();
     }
 
     /// <summary>
@@ -183,7 +181,6 @@ public class HeroCardDrag : MonoBehaviour
     //调用背景图代码恢复选择框
     public void RestoreUnSelect()
     {
-        GameObject backGround = GameObject.Find("backGround");
-        backGround.GetComponent<HeroIdChangeAndSave>().RestoreCardUnSelect(transform, int.Parse(transform.parent.name));
+        backGround_hidcas.RestoreCardUnSelect(transform, int.Parse(transform.parent.name));
     }
 }

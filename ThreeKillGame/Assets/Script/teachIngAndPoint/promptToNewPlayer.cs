@@ -9,13 +9,33 @@ public class promptToNewPlayer : MonoBehaviour
     [Header("开启时长")]
     [SerializeField]
     float startShow = 5f;   //多久后提示
+    [Header("动画索引")]
+    [SerializeField]
+    int animClipIndex = 0;  //动画片段索引
+
+    [SerializeField]
+    AnimationClip[] handAnimClips;
 
     bool isShow;    //是否提示过
+
+    GameObject tipHandObj;
+
+    Animation anim;
 
     private void Awake()
     {
         isShow = false;
         nowHadShowPrompt = false;
+        tipHandObj = transform.GetChild(0).gameObject;
+        anim = tipHandObj.GetComponent<Animation>();
+    }
+
+    private void Start()
+    {
+        if (animClipIndex < handAnimClips.Length)
+        {
+            //anim.clip = handAnimClips[animClipIndex];
+        }
     }
 
     private void OnEnable()
@@ -47,8 +67,9 @@ public class promptToNewPlayer : MonoBehaviour
     public void isShowPrompt(bool boo)
     {
 
-        gameObject.GetComponent<Image>().enabled = boo;
-        
+        //gameObject.GetComponent<Image>().enabled = boo;
+        tipHandObj.SetActive(boo);
+
         ChangeHadShowPromptState(boo);
        
     }

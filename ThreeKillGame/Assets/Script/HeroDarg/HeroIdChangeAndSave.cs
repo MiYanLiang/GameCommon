@@ -57,7 +57,13 @@ public class HeroIdChangeAndSave : MonoBehaviour
     string[] a;
     string[] b;
 
-    private CreateAndUpdate createAndUpdate;
+    [SerializeField]
+    CreateAndUpdate createAndUpdate;
+
+    [SerializeField]
+    private Transform prompTran;    //提示文本框
+    [SerializeField]
+    private GameObject tipsText;    //提示text预制件
 
     /// <summary>
     /// 出售选中的卡牌武将
@@ -130,7 +136,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
 
     private void Start()
     {
-        createAndUpdate = GameObject.Find("RefreshBtn").transform.GetComponent<CreateAndUpdate>();
+        //createAndUpdate = GameObject.Find("RefreshBtn").transform.GetComponent<CreateAndUpdate>();
 
         forcesIndex = PlayerPrefs.GetInt("forcesId");
         for (int i = 0; i < LoadJsonFile.forcesTableDatas.Count; i++)
@@ -661,5 +667,17 @@ public class HeroIdChangeAndSave : MonoBehaviour
             date += arr[i];
         }
         return date;
+    }
+
+    /// <summary>
+    /// 纯文字提示文本
+    /// </summary>
+    public void StringTipShow(string str)
+    {
+        if (prompTran.childCount < 1)
+        {
+            GameObject tipObj = Instantiate(tipsText, prompTran);
+            tipObj.GetComponent<Text>().text = str;  //金币不足提示
+        }
     }
 }
