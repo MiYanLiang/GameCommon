@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using DG.Tweening;
 
 public class HeroIdChangeAndSave : MonoBehaviour
 {
@@ -72,6 +73,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
     {
         CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
         createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
+        createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_deep_Color;
+        createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().text = "+" + SelectHerpCard.GetComponent<HeroDataControll>().Price_hero.ToString();
+        createAndUpdate.goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
         pos_heroId[index_SelectCard] = 0;
@@ -130,7 +134,9 @@ public class HeroIdChangeAndSave : MonoBehaviour
                 num += int.Parse(JiuGongGe.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData[6]);
             }
         }
-        powerNumText.text = "战力：" + num;
+        //powerNumText.text = num;
+        powerNumText.DOText(num.ToString(), 0.5f, true, ScrambleMode.Numerals).SetEase(Ease.Linear).SetAutoKill(false).Play();   //战力动态改变
+
         return num;
     }
 

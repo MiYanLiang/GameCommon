@@ -93,7 +93,7 @@ public class UIControl : MonoBehaviour
         playerForceId = PlayerPrefs.GetInt("forcesId");
         playerForce_main.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
         playerForce_main.transform.parent.GetChild(5).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[playerForceId - 1][5];  //主城城市名显示
-        playerForce_main.transform.parent.GetChild(6).GetComponent<Text>().text = "战力：0";  //主城战力显示
+        playerForce_main.transform.parent.GetChild(6).GetComponent<Text>().text = "0";  //主城战力显示
         playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
         playerForce.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
         playerForce.GetComponent<Button>().onClick.AddListener(delegate ()

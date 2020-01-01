@@ -171,6 +171,10 @@ public class CreateAndUpdate : MonoBehaviour
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
             goldText.text = money.ToString();
+            goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;
+            goldText.transform.GetChild(0).GetComponent<Text>().text = "-" + (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience).ToString();
+            goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+
             level++;
             if (prompTran.childCount < 1)
             {
@@ -1164,6 +1168,10 @@ public class CreateAndUpdate : MonoBehaviour
 
             money -= cutMoney;
             goldText.text = money.ToString();
+            goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;
+            goldText.transform.GetChild(0).GetComponent<Text>().text = "-" + cutMoney.ToString();
+            goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+
             cutMoney = updateMoney;
             updateMoneyText.text = cutMoney.ToString();
             getCardId.Clear();
@@ -2076,6 +2084,11 @@ public class CreateAndUpdate : MonoBehaviour
         int getMoney = Random.Range(taxMin, taxMax);
         money += getMoney;
         goldText.text = money.ToString();
+        goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_deep_Color;
+        goldText.transform.GetChild(0).GetComponent<Text>().text = "+" + getMoney.ToString();
+        goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+        //goldText.DOText(money.ToString(), 1f, true, ScrambleMode.Numerals).SetEase(Ease.Linear).SetAutoKill(false).Play();
+
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponentInChildren<Button>().enabled = false;
         if (prompTran.childCount < 1)

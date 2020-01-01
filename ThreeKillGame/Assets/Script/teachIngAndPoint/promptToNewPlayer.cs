@@ -18,24 +18,24 @@ public class promptToNewPlayer : MonoBehaviour
 
     bool isShow;    //是否提示过
 
+    bool booIndex;  
+
     GameObject tipHandObj;
 
-    Animation anim;
+    Animator anim;
 
     private void Awake()
     {
+        booIndex = false;
         isShow = false;
         nowHadShowPrompt = false;
         tipHandObj = transform.GetChild(0).gameObject;
-        anim = tipHandObj.GetComponent<Animation>();
+        anim = tipHandObj.GetComponent<Animator>();
     }
 
     private void Start()
     {
-        if (animClipIndex < handAnimClips.Length)
-        {
-            //anim.clip = handAnimClips[animClipIndex];
-        }
+        
     }
 
     private void OnEnable()
@@ -60,18 +60,26 @@ public class promptToNewPlayer : MonoBehaviour
         {
             isShow = true;
             isShowPrompt(true);
+            if (animClipIndex < handAnimClips.Length)
+            {
+                string str = handAnimClips[animClipIndex].name;
+                anim.SetTrigger(str);
+                Debug.Log("动画" + animClipIndex + " : " + str);
+            }
         }
     }
 
     //控制指引的显隐
     public void isShowPrompt(bool boo)
     {
+        if (booIndex != boo)
+        {
+            booIndex = boo;
+            //gameObject.GetComponent<Image>().enabled = boo;
+            tipHandObj.SetActive(boo);
 
-        //gameObject.GetComponent<Image>().enabled = boo;
-        tipHandObj.SetActive(boo);
-
-        ChangeHadShowPromptState(boo);
-       
+            ChangeHadShowPromptState(boo);
+        }
     }
 
     //更改全局变量状态

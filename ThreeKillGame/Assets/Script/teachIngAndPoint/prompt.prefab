@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 880, y: 880}
+  m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6215763385413817704
 CanvasRenderer:
@@ -110,7 +110,7 @@ PrefabInstance:
     - target: {fileID: 3714085334207667423, guid: ed58549f25868454db98e8ffebfe7154,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3714085334207667422, guid: ed58549f25868454db98e8ffebfe7154,
         type: 3}
@@ -216,6 +216,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4710920607815748828, guid: ed58549f25868454db98e8ffebfe7154,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714085334028081895, guid: ed58549f25868454db98e8ffebfe7154,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.3137255
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714085334028081895, guid: ed58549f25868454db98e8ffebfe7154,
+        type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ed58549f25868454db98e8ffebfe7154, type: 3}
