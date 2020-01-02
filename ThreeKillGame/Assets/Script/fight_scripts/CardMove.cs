@@ -1310,6 +1310,9 @@ public class CardMove : MonoBehaviour
             if (obj.GetComponent<CardMove>().Fight_State.isFireAttack)  //战鼓火攻（自爆状态）
             {
                 realDamage = 0;
+                obj.transform.GetChild(10).GetComponent<Text>().text = "免伤";
+                obj.transform.GetChild(10).GetComponent<Text>().color = ColorData.blue_Color;
+                obj.transform.GetChild(10).gameObject.SetActive(true);
                 Debug.Log("自爆状态");
             }
             GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
