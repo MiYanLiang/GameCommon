@@ -1313,6 +1313,8 @@ public class CardMove : MonoBehaviour
                 obj.transform.GetChild(10).GetComponent<Text>().text = "免伤";
                 obj.transform.GetChild(10).GetComponent<Text>().color = ColorData.blue_Color;
                 obj.transform.GetChild(10).gameObject.SetActive(true);
+                obj.transform.GetComponent<AudioSource>().clip = Resources.Load("Effect/FightSounds/抵挡", typeof(AudioClip)) as AudioClip;
+                obj.transform.GetComponent<AudioSource>().Play();
                 Debug.Log("自爆状态");
             }
             GameObject cutHpObj = Instantiate(cutHp_text, obj.transform.GetChild(5));
