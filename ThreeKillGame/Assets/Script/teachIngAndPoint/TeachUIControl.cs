@@ -1,12 +1,18 @@
-﻿using System;
+﻿using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TeachUIControl : MonoBehaviour
 {
     [SerializeField]
     Transform teachUIObj;
+    [SerializeField]
+    GameObject tipContune;
+    [SerializeField]
+    GameObject yearText;
 
     private int indexBakeImage; //大背景索引
     private int indexContent;   //小内容索引
@@ -17,6 +23,13 @@ public class TeachUIControl : MonoBehaviour
     [Header("开始引导的背景索引")]
     [SerializeField]
     int firstBackImage = 0;
+
+    private void Awake()
+    {
+        tipContune.SetActive(true);
+        teachUIObj.gameObject.SetActive(true);
+        yearText.SetActive(false);
+    }
 
     private void Start()
     {
@@ -51,12 +64,16 @@ public class TeachUIControl : MonoBehaviour
             else
             {
                 indexBakeImage = 0;
+                tipContune.SetActive(false);
                 teachUIObj.gameObject.SetActive(false);
+                yearText.SetActive(true);
             }
         }
         else
         {
-            teachUIObj.GetChild(indexBakeImage).GetChild(indexContent - 1).gameObject.SetActive(false);
+            teachUIObj.GetChild(indexBakeImage).GetChild(indexContent - 1).GetComponent<Image>().DOColor(new Color(1, 1, 1, 0), 1f);  //渐渐隐藏
+            //teachUIObj.GetChild(indexBakeImage).GetChild(indexContent - 1).GetComponent<Text>().DOColor(new Color(1, 1, 1, 0), 1f);  //渐渐隐藏
+            //teachUIObj.GetChild(indexBakeImage).GetChild(indexContent - 1).gameObject.SetActive(false);
             PlayTeachUI();
         }
     }
@@ -67,6 +84,17 @@ public class TeachUIControl : MonoBehaviour
     private void PlayTeachUI()
     {
         GameObject obj = teachUIObj.GetChild(indexBakeImage).GetChild(indexContent).gameObject;
+        if (obj.GetComponent<Image>() != null)
+        {
+            obj.GetComponent<Image>().color = new Color(1, 1, 1, 0);
+            obj.GetComponent<Image>().DOColor(new Color(1, 1, 1, 1), 1f);  //渐渐隐藏
+        }
+        //if (obj.GetComponent<Text>() != null)
+        //{
+        //    obj.GetComponent<Text>().color = new Color(1, 1, 1, 0);
+        //    obj.GetComponent<Text>().DOColor(new Color(1, 1, 1, 1), 1f);  //渐渐隐藏
+
+        //}
         obj.SetActive(true);
         indexContent++;
     }

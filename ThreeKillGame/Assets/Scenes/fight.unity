@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1006,7 +1006,7 @@ GameObject:
   - component: {fileID: 28771005}
   - component: {fileID: 28771007}
   m_Layer: 5
-  m_Name: 0
+  m_Name: teachTipCintune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1019,12 +1019,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 28771003}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1782198670}
-  m_RootOrder: 0
+  m_Father: {fileID: 1776039369}
+  m_RootOrder: 32
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -16298,7 +16298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.5377358, g: 0.44895867, b: 0.44895867, a: 0.41960785}
+  m_Color: {r: 0.5377358, g: 0.44895867, b: 0.44895867, a: 0}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -23657,7 +23657,7 @@ RectTransform:
   - {fileID: 1950739443}
   - {fileID: 1603408204}
   m_Father: {fileID: 1782198670}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -24168,7 +24168,7 @@ RectTransform:
   - {fileID: 199799867}
   - {fileID: 108534270}
   m_Father: {fileID: 1782198670}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -26958,6 +26958,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teachUIObj: {fileID: 1782198670}
+  tipContune: {fileID: 28771003}
+  yearText: {fileID: 1986787740}
   firstBackImage: 0
 --- !u!4 &1301112893
 Transform:
@@ -33644,7 +33646,7 @@ RectTransform:
   - {fileID: 739083588}
   - {fileID: 1037845914}
   m_Father: {fileID: 1782198670}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -34991,6 +34993,7 @@ RectTransform:
   - {fileID: 630095854}
   - {fileID: 812976931}
   - {fileID: 1782198670}
+  - {fileID: 28771004}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35179,7 +35182,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 28771004}
   - {fileID: 1154146291}
   - {fileID: 1134275407}
   - {fileID: 1680214105}
