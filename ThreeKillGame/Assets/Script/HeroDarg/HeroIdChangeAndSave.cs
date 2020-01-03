@@ -72,10 +72,7 @@ public class HeroIdChangeAndSave : MonoBehaviour
     public void SellSelectHeroCard()
     {
         CreateAndUpdate.money += SelectHerpCard.GetComponent<HeroDataControll>().Price_hero;
-        createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
-        createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_deep_Color;
-        createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().text = "+" + SelectHerpCard.GetComponent<HeroDataControll>().Price_hero.ToString();
-        createAndUpdate.goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+        createAndUpdate.ShowDyCutOrAddGold(true, SelectHerpCard.GetComponent<HeroDataControll>().Price_hero);
         Destroy(SelectHerpCard.gameObject);
         SelectHerpCard = null;
         pos_heroId[index_SelectCard] = 0;

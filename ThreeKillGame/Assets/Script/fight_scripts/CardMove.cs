@@ -1399,7 +1399,7 @@ public class CardMove : MonoBehaviour
         else
         {
             //受攻击后的抖动（持续时间，力量，震动，随机性，淡出）
-            obj.transform.DOShakePosition(0.2f, 15, 3, 50, true);
+            //obj.transform.DOShakePosition(0.2f, 15, 3, 50, true);
         }
         //特效播放
         switch (index)

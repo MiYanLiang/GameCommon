@@ -99,10 +99,7 @@ public class ChangeAndGet : MonoBehaviour
             tran.GetChild(tran.childCount - 1).gameObject.SetActive(true);  //显示已招图片
             //tran.GetComponent<Button>().enabled = false;   //关闭点击事件
             CreateAndUpdate.money = CreateAndUpdate.money - price;
-            createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
-            createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;
-            createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().text = "-" + price.ToString();
-            createAndUpdate.goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+            createAndUpdate.ShowDyCutOrAddGold(false, price);
         }
         else
         {

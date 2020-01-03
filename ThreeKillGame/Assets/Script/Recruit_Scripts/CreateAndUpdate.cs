@@ -170,10 +170,7 @@ public class CreateAndUpdate : MonoBehaviour
         if (money >= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience))
         {
             money -= (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
-            goldText.text = money.ToString();
-            goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;
-            goldText.transform.GetChild(0).GetComponent<Text>().text = "-" + (int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience).ToString();
-            goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+            ShowDyCutOrAddGold(false, int.Parse(LoadJsonFile.levelTableDatas[level][2]) - experience);
 
             level++;
             if (prompTran.childCount < 1)
@@ -1167,10 +1164,7 @@ public class CreateAndUpdate : MonoBehaviour
             }
 
             money -= cutMoney;
-            goldText.text = money.ToString();
-            goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;
-            goldText.transform.GetChild(0).GetComponent<Text>().text = "-" + cutMoney.ToString();
-            goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+            ShowDyCutOrAddGold(false, cutMoney);
 
             cutMoney = updateMoney;
             updateMoneyText.text = cutMoney.ToString();
@@ -2083,11 +2077,7 @@ public class CreateAndUpdate : MonoBehaviour
         int taxMax = int.Parse(moneyStr[1]) + 1;
         int getMoney = Random.Range(taxMin, taxMax);
         money += getMoney;
-        goldText.text = money.ToString();
-        goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_deep_Color;
-        goldText.transform.GetChild(0).GetComponent<Text>().text = "+" + getMoney.ToString();
-        goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
-        //goldText.DOText(money.ToString(), 1f, true, ScrambleMode.Numerals).SetEase(Ease.Linear).SetAutoKill(false).Play();
+        ShowDyCutOrAddGold(true, getMoney);
 
         GoldBoxObj.GetComponent<Image>().overrideSprite = Resources.Load("Image/mainImage/宝箱_开", typeof(Sprite)) as Sprite;
         GoldBoxObj.GetComponentInChildren<Button>().enabled = false;
@@ -2136,5 +2126,25 @@ public class CreateAndUpdate : MonoBehaviour
     {
         GoldNotEnough(LoadJsonFile.TipsTableDates[id - 1][2]);
     }
-    
+
+    /// <summary>
+    /// 动态展示加减金币
+    /// </summary>
+    /// <param name="isAddMoney">是否加金币</param>
+    /// <param name="num">数量</param>
+    public void ShowDyCutOrAddGold(bool isAddMoney, int num)
+    {
+        goldText.text = money.ToString();
+        if (isAddMoney)
+        {
+            goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_deep_Color;
+            goldText.transform.GetChild(0).GetComponent<Text>().text = "+" + num.ToString();
+        }
+        else
+        {
+            goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.red_Color_hero;
+            goldText.transform.GetChild(0).GetComponent<Text>().text = "-" + num.ToString();
+        }
+        goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+    }
 }

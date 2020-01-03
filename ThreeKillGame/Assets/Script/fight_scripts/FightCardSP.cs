@@ -324,10 +324,7 @@ public class FightCardSP : MonoBehaviour
                                 addMoney = fightCtl.defAddGold;
                             }
                             CreateAndUpdate.money += addMoney;   //玩家加金币
-                            createAndUpdate.goldText.text = CreateAndUpdate.money.ToString();
-                            createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().color = ColorData.green_deep_Color;
-                            createAndUpdate.goldText.transform.GetChild(0).GetComponent<Text>().text = "+" + addMoney.ToString();
-                            createAndUpdate.goldText.transform.GetChild(0).GetComponent<Animator>().Play(0);
+                            createAndUpdate.ShowDyCutOrAddGold(true, addMoney);
 
                             player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "";  //设置城池播放扣血文字内容
 
