@@ -149,78 +149,83 @@ public class CardMove : MonoBehaviour
 
     private void Update()
     {
-        //攻击前摇
-        if (IsAttack == StateOfAttack.FightNow && EnemyObj != null)   //如果卡牌攻击状态为攻击 并且 目标敌人存在 
+        if (IsAttack != StateOfAttack.ReadyForFight)
         {
-            //选定目标
-            if (!isCalcul)
+            //攻击前摇
+            if (IsAttack == StateOfAttack.FightNow && EnemyObj != null)   //如果卡牌攻击状态为攻击 并且 目标敌人存在 
             {
-                if (IsHadSpecialState)  //进入特殊攻击
+                //选定目标
+                if (!isCalcul)
                 {
-                    if (Fight_State.isDizzy == true)//自身处于眩晕状态
+                    if (IsHadSpecialState)  //进入特殊攻击
                     {
-                        ReleaseDizzyState(gameObject);   //接触眩晕
-                        FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
-                        ChangeToFight(StateOfAttack.ReadyForFight);     //直接进入备战
-                        return;
-                    }
-                }
-                else
-                {
-                    if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0 && Fight_State.isFireAttack == false)  //远程兵种技能
-                    {
-                        ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);
-                        gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), FightControll.speedTime * 0.9f).SetAutoKill(false);
-                        Invoke("ComeBackTranForm", FightControll.speedTime * 0.9f);
-                        Invoke("ChangeToFightOver", FightControll.speedTime * 2f);
+                        if (Fight_State.isDizzy == true)//自身处于眩晕状态
+                        {
+                            ReleaseDizzyState(gameObject);   //接触眩晕
+                            FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
+                            ChangeToFight(StateOfAttack.ReadyForFight);     //直接进入备战
+                            return;
+                        }
                     }
                     else
                     {
-                        if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
-                            flag = 1;
+                        if ((ArmsId == "7" || ArmsId == "8" || ArmsId == "9") && ArmsSkillStatus > 0 && Fight_State.isFireAttack == false)  //远程兵种技能
+                        {
+                            ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);
+                            gameObject.transform.DOScale(new Vector3(1.2f, 1.2f, 1.2f), FightControll.speedTime * 0.9f).SetAutoKill(false);
+                            Invoke("ComeBackTranForm", FightControll.speedTime * 0.9f);
+                            Invoke("ChangeToFightOver", FightControll.speedTime * 2f);
+                        }
                         else
-                            flag = -1;
+                        {
+                            if (EnemyObj.GetComponent<CardMove>().IsPlayerOrEnemy == 0) //选定目标位置参数
+                                flag = 1;
+                            else
+                                flag = -1;
 
-                        vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, FightControll.fightPosCha, 0)));       //计算要攻击后移动到的位置
-                        gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetAutoKill(false); //武将开始往目标身前移动
+                            vec_Enemy = EnemyObj.transform.position + (flag * (new Vector3(0, FightControll.fightPosCha, 0)));       //计算要攻击后移动到的位置
+                            gameObject.transform.DOMove(vec_Enemy, FightControll.speedTime).SetEase(Ease.Unset).SetAutoKill(false); //武将开始往目标身前移动
+                        }
+                    }
+                    isCalcul = true;
+                }
+
+                //攻击目标
+                if (1f > (gameObject.transform.position - vec_Enemy).magnitude)     //到达目标敌人面前位置
+                {
+                    if (Fight_State.isFireAttack == true)
+                    {
+                        //FireFightSkill();//火攻群体
+                        FireZiBaoSkill();//火攻-自爆
+                    }
+                    else
+                    {
+                        ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //普通攻击+动态技能
+                    }
+
+                    gameObject.transform.DOMove(vec, FightControll.speedTime).SetEase(Ease.Unset).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
+                    ChangeToFight(StateOfAttack.FightOver);                //更改攻击状态为攻击结束，进入攻击后摇
+                }
+            }
+            else
+            {
+                //攻击后摇
+                if (IsAttack == StateOfAttack.FightOver)    //如果卡牌攻击状态为攻击结束
+                {
+                    isCalcul = false;
+                    if (1f > (gameObject.transform.position - vec).magnitude && IsAttack != StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
+                    {
+                        if (Fight_State.isBatter == true)//处于连击状态
+                        {
+                            BatterFightSkill(); //连击技能
+                            return;
+                        }
+
+                        FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
+
+                        ChangeToFight(StateOfAttack.ReadyForFight);     //改变这个卡牌的攻击状态为 准备状态
                     }
                 }
-                isCalcul = true;
-            }
-
-            //攻击目标
-            if (1f > (gameObject.transform.position - vec_Enemy).magnitude)     //到达目标敌人面前位置
-            {
-                if (Fight_State.isFireAttack == true)
-                {
-                    //FireFightSkill();//火攻群体
-                    FireZiBaoSkill();//火攻-自爆
-                }
-                else
-                {
-                    ArmsDynamicSkillGet(ArmsId, ArmsSkillStatus);   //普通攻击+动态技能
-                }
-
-                gameObject.transform.DOMove(vec, FightControll.speedTime).SetAutoKill(false);   //完成攻击,武将开始往原始位置移动
-                ChangeToFight(StateOfAttack.FightOver);                //更改攻击状态为攻击结束，进入攻击后摇
-            }
-        }
-
-        //攻击后摇
-        if (IsAttack == StateOfAttack.FightOver)    //如果卡牌攻击状态为攻击结束
-        {
-            isCalcul = false;
-            if (1f > (gameObject.transform.position - vec).magnitude && IsAttack != StateOfAttack.ReadyForFight) //卡牌回到起始位置 并且 攻击状态不是准备状态
-            {
-                if (Fight_State.isBatter == true)//处于连击状态
-                {
-                    BatterFightSkill(); //连击技能
-                    return;
-                }
-
-                FightCardSP.isFightNow = false;     //通知战斗总控制代码此卡牌攻击结束
-
-                ChangeToFight(StateOfAttack.ReadyForFight);     //改变这个卡牌的攻击状态为 准备状态
             }
         }
     }

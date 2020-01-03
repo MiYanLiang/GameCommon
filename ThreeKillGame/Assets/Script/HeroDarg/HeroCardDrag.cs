@@ -127,7 +127,7 @@ public class HeroCardDrag : MonoBehaviour
                 {
                     go.transform.SetParent(beginParentTransform);
                     transform.GetComponent<Image>().raycastTarget = true;
-                }).SetEase(Ease.InOutQuint);
+                }).SetEase(Ease.Unset);//SetEase(Ease.InOutQuint);
             }
             else
             {
@@ -137,7 +137,7 @@ public class HeroCardDrag : MonoBehaviour
                     {
                         go.transform.SetParent(beginParentTransform);
                         transform.GetComponent<Image>().raycastTarget = true;
-                    }).SetEase(Ease.InOutQuint);
+                    }).SetEase(Ease.Unset);//SetEase(Ease.InOutQuint);
                 });
             }
         }
