@@ -27,6 +27,7 @@ import e_create_TipsTable
 import e_create_SoldierTypeTable
 import e_create_NPCTable
 import e_create_flagsTable
+import e_create_EvevtTable
 
 taskList = (
 
@@ -44,6 +45,7 @@ taskList = (
 	('/111.xlsx', e_create_SoldierTypeTable, '/SoldierType.json'),
 	('/111.xlsx', e_create_NPCTable, '/NPCTable.json'),
 	('/111.xlsx', e_create_flagsTable, '/flagsTable.json'),
+	('/111.xlsx', e_create_EvevtTable, '/EventTable.json'),
 )
 
 
