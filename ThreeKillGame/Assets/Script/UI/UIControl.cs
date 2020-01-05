@@ -58,10 +58,35 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     GameObject informationObj;  //游戏结束结算信息Textobj
 
+    [SerializeField]
+    Transform cityAttObj;   //玩家城池属性tran
+
+    [SerializeField]
+    Transform cityAttObj_world;   //大世界城池属性tran
+
+    private List<int> cityAttValuePy;   //玩家城池属性值0战意1士气2城防3民心
+
+    private List<List<int>> cityAttValueNpc;    //NPC城池属性值
+
     private AudioSource backAudioSource;
+
+    private int difficultNum;   //难度值记录
+
+    public static int yearsIndex;   //记录周目数
+
+    private int[] bigEvent = new int[6];     //大事件记录0事件1周目2 - 5加成值
+
+    private List<int[]> bigEventNpc;    //NPC大事件记录0事件1周目2 - 5加成值
+
+    private int npc_Count = 0;   //记录npc数量
+
+    [SerializeField]
+    Text bigEventInfoText;  //大事件描述文本
 
     private void Awake()
     {
+        yearsIndex = 0;
+
         isShowCutHpText = false;
 
         enemy_forces = new List<int>();
@@ -79,6 +104,9 @@ public class UIControl : MonoBehaviour
 
     private void Start()
     {
+        cityAttValuePy = new List<int>();
+        cityAttValueNpc = new List<List<int>>();
+        difficultNum = CreateAndUpdate.difficultNum;
         InitSelectForceIndex();
         battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
         initForces();   //初始化势力
@@ -89,6 +117,10 @@ public class UIControl : MonoBehaviour
     /// </summary>
     private void initForces()
     {
+        string[] str_Force = LoadJsonFile.BattleTableDates[battleId][3].Split(',');
+        npc_Count = str_Force.Length;
+        initEvent();   //初始化大事件
+
         //玩家势力初始化
         playerForceId = PlayerPrefs.GetInt("forcesId");
         playerForce_main.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
@@ -96,22 +128,26 @@ public class UIControl : MonoBehaviour
         playerForce_main.transform.parent.GetChild(6).GetComponent<Text>().text = "0";  //主城战力显示
         playerForce.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][4], typeof(Sprite)) as Sprite; //设置玩家势力的头像
         playerForce.GetComponent<Image>().sprite = Resources.Load("Image/Map/" + LoadJsonFile.forcesTableDatas[playerForceId - 1][7], typeof(Sprite)) as Sprite;   //设置城池icon
+        for (int i = 0; i < 4; i++) //城池属性设置
+        {
+            cityAttValuePy.Add((int.Parse(LoadJsonFile.forcesTableDatas[playerForceId - 1][11 + i]) + int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][22 + i])));
+            cityAttObj.GetChild(i).GetChild(0).GetComponent<Text>().text = (cityAttValuePy[i] + bigEvent[2 + i]).ToString();
+        }
         playerForce.GetComponent<Button>().onClick.AddListener(delegate ()
         {
             updateTopPowerData(-1);
         });
+
         //npc势力初始化
-        string[] str_Force = LoadJsonFile.BattleTableDates[battleId][3].Split(',');
         string[] str_Pos = LoadJsonFile.BattleTableDates[battleId][5].Split(',');
         int indexForce = 0;
-        int count = str_Force.Length;
         //实例化npc上阵九宫格集合
-        fightControll.JiuGongGes = new List<Transform>(count - 1);
+        fightControll.JiuGongGes = new List<Transform>(npc_Count - 1);
         //实例化城池集合
-        npcForcesObjs = new List<GameObject>(count);
+        npcForcesObjs = new List<GameObject>(npc_Count);
         //实例化npc血条集合
-        fightControll.npcPlayer_hpSliders = new List<Slider>(count - 1);
-        for (int i = 0; i < count; i++)
+        fightControll.npcPlayer_hpSliders = new List<Slider>(npc_Count - 1);
+        for (int i = 0; i < npc_Count; i++)
         {
             indexForce = int.Parse(str_Force[i]);
             if (indexForce != playerForceId)
@@ -127,7 +163,7 @@ public class UIControl : MonoBehaviour
             Instantiate(informationObj, endGameInfoList);
         }
         //实例化npc上阵武将数据集合
-        fightControll.InitNpcDataList(count - 1);
+        fightControll.InitNpcDataList(npc_Count - 1);
     }
 
     /// <summary>
@@ -152,6 +188,12 @@ public class UIControl : MonoBehaviour
             if (enemy_forces[index] == npcForceId)
                 break;
         }
+        List<int> cityAttList = new List<int>();
+        for (int i = 0; i < 4; i++) //城池属性设置
+        {
+            cityAttList.Add((int.Parse(LoadJsonFile.forcesTableDatas[npcForceId - 1][11 + i]) + int.Parse(LoadJsonFile.difficultyChooseDatas[difficultNum - 1][26 + i])));
+        }
+        cityAttValueNpc.Add(cityAttList);
         force_obj.GetComponent<Button>().onClick.AddListener(delegate ()
         {
             npcForceOnClick(index);
@@ -198,6 +240,8 @@ public class UIControl : MonoBehaviour
             topPower.transform.GetChild(4).GetChild(0).GetComponent<Text>().text = LoadJsonFile.forcesTableDatas[forceId - 1][1];
             topPower.transform.GetChild(4).GetChild(1).GetChild(0).GetChild(0).GetComponent<Text>().text = "\u2000\u2000\u2000" + LoadJsonFile.forcesTableDatas[forceId - 1][2];
             setTextContent(index);
+            setCityAttText(index);
+            setBigEventContent(index);
             fightControll.ChangeSelectForce(index);
         }
         else
@@ -213,6 +257,54 @@ public class UIControl : MonoBehaviour
                 InitSelectForceIndex();
                 playerForce.parent.parent.GetChild(2).GetComponent<Button>().onClick.Invoke();
             }
+        }
+    }
+
+    /// <summary>
+    /// 设置大事件提示框内容
+    /// </summary>
+    /// <param name="index"></param>
+    private void setBigEventContent(int index)
+    {
+        string bigEventStr = "";
+        int[] eventValue = (index < 0) ? bigEvent : bigEventNpc[index];
+        if (eventValue[0] != 0)
+        {
+            int valueIndex = 0;
+            for (int i = 2; i < 6; i++)
+            {
+                if (eventValue[i] != 0)
+                {
+                    valueIndex = Mathf.Abs(eventValue[i]);
+                }
+            }
+            bigEventStr = LoadJsonFile.EventTableDates[eventValue[0]][1] + "\n" + string.Format(LoadJsonFile.EventTableDates[eventValue[0]][9], valueIndex);
+        }
+        else
+        {
+            bigEventStr = LoadJsonFile.EventTableDates[eventValue[0]][1] + "\n" + LoadJsonFile.EventTableDates[eventValue[0]][9];
+        }
+        bigEventInfoText.text = bigEventStr;
+    }
+
+    //设置顶部城池属性值显示
+    private void setCityAttText(int index)
+    {
+        List<int> valueList = new List<int>();
+        int[] eventValue = new int[6];
+        if (index < 0)
+        {
+            valueList = cityAttValuePy;
+            eventValue = bigEvent;
+        }
+        else
+        {
+            valueList = cityAttValueNpc[index];
+            eventValue = bigEventNpc[index];
+        }
+        for (int i = 0; i < cityAttObj_world.childCount; i++)
+        {
+            cityAttObj_world.GetChild(i).GetChild(0).GetComponent<Text>().text = (valueList[i] + eventValue[2 + i]).ToString();
         }
     }
 
@@ -265,5 +357,109 @@ public class UIControl : MonoBehaviour
     public void InitSelectForceIndex()
     {
         force_Index = -2;
+    }
+
+    /// <summary>
+    /// 初始化大事件
+    /// </summary>
+    private void initEvent()
+    {
+        //玩家大事件初始化
+        bigEvent = SetEventValue(bigEvent, true);
+        //Npc大事件初始化
+        bigEventNpc = new List<int[]>();
+        for (int i = 0; i < npc_Count; i++)
+        {
+            int[] npcEvent = new int[6];
+            npcEvent = SetEventValue(npcEvent, false);
+            bigEventNpc.Add(npcEvent);
+        }
+    }
+
+    /// <summary>
+    /// 更新大事件
+    /// </summary>
+    public void UpdateBigEventState()
+    {
+        bigEvent[1] -= 1;
+        if (bigEvent[1] <= 0)
+        {
+            bigEvent = SetEventValue(bigEvent, true);
+        }
+        for (int i = 0; i < npc_Count; i++)
+        {
+            bigEventNpc[i][1] -= 1;
+            if (bigEventNpc[i][1] <= 0)
+            {
+                bigEventNpc[i] = SetEventValue(bigEventNpc[i], false);
+            }
+        }
+    }
+
+    /// <summary>
+    /// 设置大事件值
+    /// </summary>
+    /// <param name="cityEvent"></param>
+    /// <param name="isPlayer"></param>
+    /// <returns></returns>
+    private int[] SetEventValue(int[] cityEvent, bool isPlayer)
+    {
+        cityEvent[0] = SelectEvent(isPlayer);
+        cityEvent[1] = int.Parse(LoadJsonFile.EventTableDates[cityEvent[0]][4]);
+        List<int> valueList_npc = EventAddValueSet(cityEvent[0]);
+        for (int j = 2; j < 6; j++)
+        {
+            cityEvent[j] = valueList_npc[j - 2];
+        }
+        return cityEvent;
+    }
+
+    /// <summary>
+    /// 挑选大事件
+    /// </summary>
+    /// <param name="isPlayer">是否为玩家</param>
+    /// <returns>事件索引</returns>
+    private int SelectEvent(bool isPlayer)
+    {
+        int wvCount = 0;
+        int indexEvent = -1;
+        int indexTableRow = isPlayer ? 2 : 3;
+        for (int i = 0; i < LoadJsonFile.EventTableDates.Count; i++)
+        {
+            wvCount += int.Parse(LoadJsonFile.EventTableDates[i][indexTableRow]);
+        }
+        int randValue = Random.Range(0, wvCount + 1);
+        while (randValue >= 0)
+        {
+            indexEvent++;
+            randValue -= int.Parse(LoadJsonFile.EventTableDates[indexEvent][indexTableRow]);
+        }
+        return indexEvent;
+    }
+
+    /// <summary>
+    /// 事件加成值设定
+    /// </summary>
+    /// <param name="indexEvent">事件索引</param>
+    /// <returns>加成值</returns>
+    private List<int> EventAddValueSet(int indexEvent)
+    {
+        List<int> valueList = new List<int>();
+        for (int i = 0; i < 4; i++)
+        {
+            string str = LoadJsonFile.EventTableDates[indexEvent][5 + i];
+            if (str != "")
+            {
+                string[] strArray = str.Split(',');
+                int value = Random.Range(int.Parse(strArray[0]), int.Parse(strArray[1]));
+                Debug.Log("事件 " + LoadJsonFile.EventTableDates[indexEvent][1] + " 的加成值为 " + value);
+                valueList.Add(value);
+            }
+            else
+            {
+                valueList.Add(0);
+            }
+        }
+        return valueList;
     }
 }

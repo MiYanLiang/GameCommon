@@ -101,7 +101,7 @@ public class CreateAndUpdate : MonoBehaviour
 
     public Text goldText;          //玩家金币
 
-    private int difficultNum;   //难度index
+    public static int difficultNum;   //难度index
 
     private int maxLevel;   //满级记录
     /// <summary>

@@ -16,7 +16,7 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     public Text battle_Text;
     [HideInInspector]
-    public int battles;       //记录对战次数
+    public int battles;       //记录对战次数（周目数）
     private int winBattles;   //记录胜利场数
     private int roundNum;     //记录当前回合数量
     private int fightNum;     //记录当前攻击武将的位置
@@ -100,6 +100,7 @@ public class FightCardSP : MonoBehaviour
         fightNum = 0;
         roundNum = 1;
         isPlayerBout = true;
+        UIControl.yearsIndex += 1;
         battles += 1;
         battle_Text.text = "公元" + (battles + int.Parse(LoadJsonFile.BattleTableDates[battleId][4]) - 1) + "年";
         InitArmsSkillStatus();
@@ -493,9 +494,9 @@ public class FightCardSP : MonoBehaviour
             }
         }
         //玩家血条刷新
-        player_hp.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
+        player_hp.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[CreateAndUpdate.difficultNum - 1][2]);
         player_hp.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
-        player_hp2.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[PlayerPrefs.GetInt("DifficultyType") - 1][2]);
+        player_hp2.value = CreateAndUpdate.playerHp / float.Parse(LoadJsonFile.difficultyChooseDatas[CreateAndUpdate.difficultNum - 1][2]);
         player_hp2.transform.GetChild(3).GetComponent<Text>().text = CreateAndUpdate.playerHp.ToString();
         if (fightCtl.hpFloatToFire >= player_hp.value)
         {
