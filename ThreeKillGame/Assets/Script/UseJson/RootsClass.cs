@@ -68,4 +68,8 @@ public class Roots
     /// </summary>
     public List<FlagsTableItem> flagsTable { get; set; }
 
+    /// <summary>
+    /// 大事件数据表
+    /// </summary>
+    public List<EventTableItem> EventTable { get; set; }
 }

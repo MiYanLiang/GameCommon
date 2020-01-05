@@ -44,4 +44,20 @@
     /// 专属兵种
     /// </summary>
     public string exclusiveSoldierId { get; set; }
+    /// <summary>
+    /// 战意初始值
+    /// </summary>
+    public string zhanYi { get; set; }
+    /// <summary>
+    /// 士气初始值
+    /// </summary>
+    public string shiQi { get; set; }
+    /// <summary>
+    /// 城防初始值
+    /// </summary>
+    public string chengFang { get; set; }
+    /// <summary>
+    /// 民心初始值
+    /// </summary>
+    public string minXin { get; set; }
 }

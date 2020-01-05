@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable;EventTable";
 
 
     /// <summary>
@@ -86,6 +86,10 @@ public class LoadJsonFile : MonoBehaviour
     /// </summary>
     public static List<List<string>> FlagsTableDates;
 
+    /// <summary>
+    /// Event大事件数据表
+    /// </summary>
+    public static List<List<string>> EventTableDates;
 
 
     /// <summary>
@@ -149,6 +153,17 @@ public class LoadJsonFile : MonoBehaviour
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward2);
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward3);
                 difficultyChooseDatas[i].Add(root.DifficultyChoose[i].prestigeReward0);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].jiesuanGold);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].jiesuanHp);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].jiesuanChengfang);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].pyZhanyiAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].pyShiqiAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].pyChengfangAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].pyMinxinAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].npcZhanyiAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].npcShiqiAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].npcChengfangAdd);
+                difficultyChooseDatas[i].Add(root.DifficultyChoose[i].npcMinXinAdd);
             }
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
@@ -173,6 +188,10 @@ public class LoadJsonFile : MonoBehaviour
                 forcesTableDatas[i].Add(root.ForcesTable[i].firstHeroId);
                 forcesTableDatas[i].Add(root.ForcesTable[i].flagId);
                 forcesTableDatas[i].Add(root.ForcesTable[i].exclusiveSoldierId);
+                forcesTableDatas[i].Add(root.ForcesTable[i].zhanYi);
+                forcesTableDatas[i].Add(root.ForcesTable[i].shiQi);
+                forcesTableDatas[i].Add(root.ForcesTable[i].chengFang);
+                forcesTableDatas[i].Add(root.ForcesTable[i].minXin);
             }
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
@@ -283,6 +302,9 @@ public class LoadJsonFile : MonoBehaviour
                 BattleTableDates[i].Add(root.BattleTable[i].forceId);
                 BattleTableDates[i].Add(root.BattleTable[i].startYear);
                 BattleTableDates[i].Add(root.BattleTable[i].cityId);
+                BattleTableDates[i].Add(root.BattleTable[i].adventurePrefab);
+                BattleTableDates[i].Add(root.BattleTable[i].testPrefab);
+                BattleTableDates[i].Add(root.BattleTable[i].battlePrefab);
             }
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");
@@ -392,7 +414,30 @@ public class LoadJsonFile : MonoBehaviour
                 FlagsTableDates[i].Add(root.flagsTable[i].flagIcon);
                 FlagsTableDates[i].Add(root.flagsTable[i].flagEffect);
             }
-            Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载EventTable数据:EventTable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            EventTableDates = new List<List<string>>(root.EventTable.Count);
+            for (int i = 0; i < root.EventTable.Count; i++)
+            {
+                EventTableDates.Add(new List<string>());
+                EventTableDates[i].Add(root.EventTable[i].id);
+                EventTableDates[i].Add(root.EventTable[i].type);
+                EventTableDates[i].Add(root.EventTable[i].playerWV);
+                EventTableDates[i].Add(root.EventTable[i].NPCWV);
+                EventTableDates[i].Add(root.EventTable[i].duration);
+                EventTableDates[i].Add(root.EventTable[i].zhanYi);
+                EventTableDates[i].Add(root.EventTable[i].shiQi);
+                EventTableDates[i].Add(root.EventTable[i].chengFang);
+                EventTableDates[i].Add(root.EventTable[i].minXin);
+                EventTableDates[i].Add(root.EventTable[i].introduction);
+            }
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
 
 

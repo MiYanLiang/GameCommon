@@ -24,4 +24,16 @@
     /// 城池坐标
     /// </summary>
     public string cityId { get; set; }
+    /// <summary>
+    /// 白虎事件坐标
+    /// </summary>
+    public string adventurePrefab { get; set; }
+    /// <summary>
+    /// 问答事件坐标
+    /// </summary>
+    public string testPrefab { get; set; }
+    /// <summary>
+    /// 剧情战斗事件坐标
+    /// </summary>
+    public string battlePrefab { get; set; }
 }

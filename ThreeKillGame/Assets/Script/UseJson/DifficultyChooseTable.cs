@@ -76,4 +76,48 @@
     /// 失败声望奖励值
     /// </summary>
     public string prestigeReward0 { get; set; }
+    /// <summary>
+    /// 结算金币区间
+    /// </summary>
+    public string jiesuanGold { get; set; }
+    /// <summary>
+    /// 结算势力值区间
+    /// </summary>
+    public string jiesuanHp { get; set; }
+    /// <summary>
+    /// 结算城防值区间
+    /// </summary>
+    public string jiesuanChengfang { get; set; }
+    /// <summary>
+    /// 玩家战意加成
+    /// </summary>
+    public string pyZhanyiAdd { get; set; }
+    /// <summary>
+    /// 玩家士气加成
+    /// </summary>
+    public string pyShiqiAdd { get; set; }
+    /// <summary>
+    /// 玩家城防加成
+    /// </summary>
+    public string pyChengfangAdd { get; set; }
+    /// <summary>
+    /// 玩家民心加成
+    /// </summary>
+    public string pyMinxinAdd { get; set; }
+    /// <summary>
+    /// NPC战意加成
+    /// </summary>
+    public string npcZhanyiAdd { get; set; }
+    /// <summary>
+    /// NPC士气加成
+    /// </summary>
+    public string npcShiqiAdd { get; set; }
+    /// <summary>
+    /// NPC城防加成
+    /// </summary>
+    public string npcChengfangAdd { get; set; }
+    /// <summary>
+    /// NPC民心加成
+    /// </summary>
+    public string npcMinXinAdd { get; set; }
 }
