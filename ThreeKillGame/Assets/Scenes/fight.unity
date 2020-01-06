@@ -8677,6 +8677,7 @@ MonoBehaviour:
     type: 3}
   cityAttObj: {fileID: 1920567382}
   cityAttObj_world: {fileID: 346861606}
+  cityAttValuePy: 
   bigEventInfoText: {fileID: 528067183}
 --- !u!114 &335961168
 MonoBehaviour:
@@ -32644,6 +32645,7 @@ MonoBehaviour:
   getOrloseText: {fileID: 602883477}
   playerForceCity: {fileID: 1545836807}
   changeAndGet: {fileID: 691465323}
+  uiControl: {fileID: 335961167}
 --- !u!224 &1533575025
 RectTransform:
   m_ObjectHideFlags: 0

@@ -85,6 +85,9 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     ChangeAndGet changeAndGet;
 
+    [SerializeField]
+    UIControl uiControl;
+
     private void Awake()
     {
         battleId = PlayerPrefs.GetInt("battleId");
@@ -703,7 +706,9 @@ public class FightCardSP : MonoBehaviour
             {
                 if (enemyNums >= i * 3)
                 {
-                    if (arrayNPC_str[i * 3 - 3][0] == arrayNPC_str[i * 3 - 2][0] || arrayNPC_str[i * 3 - 3][0] == arrayNPC_str[i * 3 - 1][0] || arrayNPC_str[i * 3 - 2][0] == arrayNPC_str[i * 3 - 1][0])
+                    if (arrayNPC_str[i * 3 - 3][0] == arrayNPC_str[i * 3 - 2][0] || 
+                        arrayNPC_str[i * 3 - 3][0] == arrayNPC_str[i * 3 - 1][0] || 
+                        arrayNPC_str[i * 3 - 2][0] == arrayNPC_str[i * 3 - 1][0])
                     {
                         enemyArmsActive[i - 1] = 0;
                     }
@@ -729,25 +734,26 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i] = Instantiate(heroFightCard, enemyJiuGonggePos[i]);
                     enemyCards[i].transform.position = enemyJiuGonggePos[i].position;
                     enemyCards[i].transform.SetParent(enemyJiuGonggePos[i].parent.parent);
-                    enemyCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 1;
-                    enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
-                    enemyCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
-                    enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count - 1]);
-                    enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
-                    enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = enemyArmsActive[i / 3];
-                    enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
-                    enemyCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
-                    enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
-                    enemyCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
-                    enemyCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
-                    enemyCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
-                    enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
-                    enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
-                    enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
+                    CardMove enemyCards_CM = enemyCards[i].GetComponent<CardMove>();
+                    enemyCards_CM.IsPlayerOrEnemy = 1;
+                    enemyCards_CM.IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
+                    enemyCards_CM.HeroId = int.Parse(datas[0]);
+                    enemyCards_CM.Grade = int.Parse(datas[datas.Count - 1]);
+                    enemyCards_CM.ArmsId = datas[3];
+                    enemyCards_CM.ArmsSkillStatus = enemyArmsActive[i / 3];
+                    enemyCards_CM.Health = enemyCards_CM.Fullhealth = int.Parse(datas[8]);
+                    enemyCards_CM.Force = int.Parse(datas[6]);
+                    enemyCards_CM.Defence = int.Parse(datas[7]);
+                    enemyCards_CM.DodgeRate = float.Parse(datas[9]);
+                    enemyCards_CM.ThumpRate = float.Parse(datas[12]);
+                    enemyCards_CM.ThumpDamage = float.Parse(datas[13]);
+                    enemyCards_CM.CritRate = float.Parse(datas[10]);
+                    enemyCards_CM.CritDamage = float.Parse(datas[11]);
+                    enemyCards_CM.ArmorPenetrationRate = float.Parse(datas[14]);
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = ""; //datas[1];
                     CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
 
-                    enemyCards[i].GetComponent<CardMove>().OtherDataSet();
+                    enemyCards_CM.OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
             }
@@ -767,7 +773,9 @@ public class FightCardSP : MonoBehaviour
             {
                 if (enemyNums >= i * 3)
                 {
-                    if (array_str[i * 3 - 3][0] == array_str[i * 3 - 2][0] || array_str[i * 3 - 3][0] == array_str[i * 3 - 1][0] || array_str[i * 3 - 2][0] == array_str[i * 3 - 1][0])
+                    if (array_str[i * 3 - 3][0] == array_str[i * 3 - 2][0] || 
+                        array_str[i * 3 - 3][0] == array_str[i * 3 - 1][0] || 
+                        array_str[i * 3 - 2][0] == array_str[i * 3 - 1][0])
                     {
                         enemyArmsActive[i - 1] = 0;
                     }
@@ -793,42 +801,43 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i] = Instantiate(heroFightCard, enemyJiuGonggePos[i]);
                     enemyCards[i].transform.position = enemyJiuGonggePos[i].position;
                     enemyCards[i].transform.SetParent(enemyJiuGonggePos[i].parent.parent);
+                    CardMove enemyCards_CM = enemyCards[i].GetComponent<CardMove>();
                     //设置卡牌为敌方卡牌
-                    enemyCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 1;
+                    enemyCards_CM.IsPlayerOrEnemy = 1;
                     //设置敌方卡牌的默认先后手情况
-                    enemyCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
+                    enemyCards_CM.IsAttack_first = ((i + 2) % 2 == 0) ? false : true;
                     //武将ID
-                    enemyCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
+                    enemyCards_CM.HeroId = int.Parse(datas[0]);
                     //品阶
-                    enemyCards[i].GetComponent<CardMove>().Grade = int.Parse(datas[datas.Count - 2]);
+                    enemyCards_CM.Grade = int.Parse(datas[datas.Count - 2]);
                     //兵种
-                    enemyCards[i].GetComponent<CardMove>().ArmsId = datas[3];
+                    enemyCards_CM.ArmsId = datas[3];
                     //兵种技能激活状态
-                    enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = enemyArmsActive[i / 3];
+                    enemyCards_CM.ArmsSkillStatus = enemyArmsActive[i / 3];
                     //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
                     //血量
-                    enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
-                    //攻击力
-                    enemyCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
+                    enemyCards_CM.Health = enemyCards_CM.Fullhealth = int.Parse(datas[8]);
+                    //攻击力 （受战意数值影响）
+                    enemyCards_CM.Force = (int)(int.Parse(datas[6]) * (1f + (uiControl.cityAttValueNpc[enemyForceId][0] + uiControl.bigEventNpc[enemyForceId][2] - 50) / 50f));
                     //防御力
-                    enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
+                    enemyCards_CM.Defence = int.Parse(datas[7]);
                     //闪避率
-                    enemyCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
+                    enemyCards_CM.DodgeRate = float.Parse(datas[9]);
                     //重击率
-                    enemyCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
+                    enemyCards_CM.ThumpRate = float.Parse(datas[12]);
                     //重击伤害百分比
-                    enemyCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
+                    enemyCards_CM.ThumpDamage = float.Parse(datas[13]);
                     //暴击率
-                    enemyCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
+                    enemyCards_CM.CritRate = float.Parse(datas[10]) * (1f + (uiControl.cityAttValueNpc[enemyForceId][3] + uiControl.bigEventNpc[enemyForceId][5] - 50) / 50f * 0.2f);
                     //暴击伤害百分比
-                    enemyCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
+                    enemyCards_CM.CritDamage = float.Parse(datas[11]);
                     //破甲百分比
-                    enemyCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
+                    enemyCards_CM.ArmorPenetrationRate = float.Parse(datas[14]);
                     //显示武将名
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                     CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
 
-                    enemyCards[i].GetComponent<CardMove>().OtherDataSet();
+                    enemyCards_CM.OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
             }
@@ -847,41 +856,42 @@ public class FightCardSP : MonoBehaviour
                 //临时存储玩家数据，传递给战斗卡牌
                 List<string> datas = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().HeroData;
                 FightControll.playerHeroHps += int.Parse(datas[8]);
+                CardMove playerCards_CM = playerCards[i].GetComponent<CardMove>();
                 //设置卡牌为玩家卡牌
-                playerCards[i].GetComponent<CardMove>().IsPlayerOrEnemy = 0;
+                playerCards_CM.IsPlayerOrEnemy = 0;
                 //设置玩家卡牌的默认先后手情况
-                playerCards[i].GetComponent<CardMove>().IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
+                playerCards_CM.IsAttack_first = ((i + 2) % 2 == 0) ? true : false;
                 //武将ID
-                playerCards[i].GetComponent<CardMove>().HeroId = int.Parse(datas[0]);
+                playerCards_CM.HeroId = int.Parse(datas[0]);
                 //品阶
-                playerCards[i].GetComponent<CardMove>().Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
+                playerCards_CM.Grade = jiugongge_BrforeFight.GetChild(i).GetChild(0).GetComponent<HeroDataControll>().Grade_hero;
                 //兵种
-                playerCards[i].GetComponent<CardMove>().ArmsId = datas[3];
+                playerCards_CM.ArmsId = datas[3];
                 //兵种技能激活状态
-                playerCards[i].GetComponent<CardMove>().ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3]) - 1];
+                playerCards_CM.ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3]) - 1];
                 //血量
-                playerCards[i].GetComponent<CardMove>().Health = playerCards[i].GetComponent<CardMove>().Fullhealth = int.Parse(datas[8]);
+                playerCards_CM.Health = playerCards_CM.Fullhealth = int.Parse(datas[8]);
                 //攻击力
-                playerCards[i].GetComponent<CardMove>().Force = int.Parse(datas[6]);
+                playerCards_CM.Force = (int)(int.Parse(datas[6]) * (1f + (uiControl.cityAttValuePy[0] + uiControl.bigEvent[2] - 50) / 50f));
                 //防御力
-                playerCards[i].GetComponent<CardMove>().Defence = int.Parse(datas[7]);
+                playerCards_CM.Defence = fightCtl.selectForce != -1 ? int.Parse(datas[7]) : (int)(int.Parse(datas[7]) * (1f + (uiControl.cityAttValuePy[2] + uiControl.bigEvent[4] - 50) / 50f));
                 //闪避率
-                playerCards[i].GetComponent<CardMove>().DodgeRate = float.Parse(datas[9]);
+                playerCards_CM.DodgeRate = float.Parse(datas[9]);
                 //重击率
-                playerCards[i].GetComponent<CardMove>().ThumpRate = float.Parse(datas[12]);
+                playerCards_CM.ThumpRate = float.Parse(datas[12]);
                 //重击伤害百分比
-                playerCards[i].GetComponent<CardMove>().ThumpDamage = float.Parse(datas[13]);
+                playerCards_CM.ThumpDamage = float.Parse(datas[13]);
                 //暴击率
-                playerCards[i].GetComponent<CardMove>().CritRate = float.Parse(datas[10]);
+                playerCards_CM.CritRate = float.Parse(datas[10]) * (1f + (uiControl.cityAttValuePy[3] + uiControl.bigEvent[5] - 50) / 50f * 0.2f);
                 //暴击伤害百分比
-                playerCards[i].GetComponent<CardMove>().CritDamage = float.Parse(datas[11]);
+                playerCards_CM.CritDamage = float.Parse(datas[11]);
                 //破甲百分比
-                playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
+                playerCards_CM.ArmorPenetrationRate = float.Parse(datas[14]);
                 //显示武将名
                 playerCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                 CardRarityShow(int.Parse(datas[4]), playerCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
 
-                playerCards[i].GetComponent<CardMove>().OtherDataSet();     //其他初始化
+                playerCards_CM.OtherDataSet();     //其他初始化
                 InitFightState(playerCards[i]);     //战斗状态控制初始化
             }
         }
@@ -893,18 +903,16 @@ public class FightCardSP : MonoBehaviour
     /// <param name="obj"></param>
     private void InitFightState(GameObject obj)
     {
-        if (obj.GetComponent<CardMove>())
-        {
-            obj.GetComponent<CardMove>().Fight_State = new FightState();
-            obj.GetComponent<CardMove>().Fight_State.isDizzy = false;
-            obj.GetComponent<CardMove>().Fight_State.isBatter = false;
-            obj.GetComponent<CardMove>().Fight_State.batterNums = 0;
-            obj.GetComponent<CardMove>().Fight_State.isWithStand = false;
-            obj.GetComponent<CardMove>().Fight_State.withStandNums = 0;
-            obj.GetComponent<CardMove>().Fight_State.isFireAttack = false;
-            obj.GetComponent<CardMove>().Fight_State.isFightMean = false;
-            obj.GetComponent<CardMove>().Fight_State.isPopular = false;
-        }
+        CardMove cardMove = obj.GetComponent<CardMove>();
+        cardMove.Fight_State = new FightState();
+        cardMove.Fight_State.isDizzy = false;
+        cardMove.Fight_State.isBatter = false;
+        cardMove.Fight_State.batterNums = 0;
+        cardMove.Fight_State.isWithStand = false;
+        cardMove.Fight_State.withStandNums = 0;
+        cardMove.Fight_State.isFireAttack = false;
+        cardMove.Fight_State.isFightMean = false;
+        cardMove.Fight_State.isPopular = false;
     }
 
     /// <summary>

@@ -64,9 +64,9 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     Transform cityAttObj_world;   //大世界城池属性tran
 
-    private List<int> cityAttValuePy;   //玩家城池属性值0战意1士气2城防3民心
+    public List<int> cityAttValuePy;   //玩家城池属性值0战意1士气2城防3民心
 
-    private List<List<int>> cityAttValueNpc;    //NPC城池属性值
+    public List<List<int>> cityAttValueNpc;    //NPC城池属性值
 
     private AudioSource backAudioSource;
 
@@ -74,9 +74,9 @@ public class UIControl : MonoBehaviour
 
     public static int yearsIndex;   //记录周目数
 
-    private int[] bigEvent = new int[6];     //大事件记录0事件1周目2 - 5加成值
+    public int[] bigEvent = new int[6];     //大事件记录0事件1周目2 - 5加成值
 
-    private List<int[]> bigEventNpc;    //NPC大事件记录0事件1周目2 - 5加成值
+    public List<int[]> bigEventNpc;    //NPC大事件记录0事件1周目2 - 5加成值
 
     private int npc_Count = 0;   //记录npc数量
 
