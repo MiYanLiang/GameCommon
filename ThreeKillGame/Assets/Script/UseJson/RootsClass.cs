@@ -72,4 +72,9 @@ public class Roots
     /// 大事件数据表
     /// </summary>
     public List<EventTableItem> EventTable { get; set; }
+    
+    /// <summary>
+    /// 答题玩法表
+    /// </summary>
+    public List<TestTableItem> TestTable { get; set; }
 }

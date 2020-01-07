@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable;EventTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable;EventTable;TestTable";
 
 
     /// <summary>
@@ -91,6 +91,10 @@ public class LoadJsonFile : MonoBehaviour
     /// </summary>
     public static List<List<string>> EventTableDates;
 
+    /// <summary>
+    /// Test答题玩法数据表
+    /// </summary>
+    public static List<List<string>> TestTableDates;
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -439,7 +443,22 @@ public class LoadJsonFile : MonoBehaviour
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
-
+        //加载TestTable数据
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            TestTableDates = new List<List<string>>(root.EventTable.Count);
+            for (int i=0;i<root.TestTable.Count;i++)
+            {
+                TestTableDates.Add(new List<string>());
+                TestTableDates[i].Add(root.TestTable[i].id);
+                TestTableDates[i].Add(root.TestTable[i].truth);
+                TestTableDates[i].Add(root.TestTable[i].question);
+                TestTableDates[i].Add(root.TestTable[i].answer1);
+                TestTableDates[i].Add(root.TestTable[i].answer2);
+                TestTableDates[i].Add(root.TestTable[i].answer3);
+            }
+        }
 
         if (indexTable >= tableNames.Length)
             Debug.Log("所有Json数据加载成功。");

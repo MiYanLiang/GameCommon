@@ -1,0 +1,59 @@
+{
+	"TestTable": [{
+			"id": "id",
+			"truth": "正确答案",
+			"question": "问题",
+			"answer1": "答案1",
+			"answer2": "答案2",
+			"answer3": "答案3"
+		},
+		{
+			"id": "1",
+			"truth": "1",
+			"question": "吕布最爱人的是谁？",
+			"answer1": "貂蝉",
+			"answer2": "刘备",
+			"answer3": "曹操"
+		},
+		{
+			"id": "2",
+			"truth": "1",
+			"question": "吕布的坐骑是？",
+			"answer1": "赤兔",
+			"answer2": "貂蝉",
+			"answer3": "哈雷摩托"
+		},
+		{
+			"id": "3",
+			"truth": "2",
+			"question": "游戏中，枪兵的3兵种技能是？",
+			"answer1": "狂斩",
+			"answer2": "穿刺",
+			"answer3": "逃跑"
+		},
+		{
+			"id": "4",
+			"truth": "2",
+			"question": "游戏中，可以攻击整个一排的兵种技能是？",
+			"answer1": "佛山无影脚",
+			"answer2": "横扫和狂斩",
+			"answer3": "嗜血"
+		},
+		{
+			"id": "5",
+			"truth": "3",
+			"question": "游戏中，城池属性中的士气有什么作用？",
+			"answer1": "增加武将防御",
+			"answer2": "增加武将攻击",
+			"answer3": "增加武将士气"
+		},
+		{
+			"id": "6",
+			"truth": "3",
+			"question": "游戏中，战鼓雷的效果是？",
+			"answer1": "为己方攻击最高的武将增加连击",
+			"answer2": "为己方攻击最高的武将增加坚盾",
+			"answer3": "击晕攻击最高的敌将"
+		}
+	]
+}
