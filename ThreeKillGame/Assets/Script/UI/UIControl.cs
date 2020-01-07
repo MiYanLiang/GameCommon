@@ -278,11 +278,11 @@ public class UIControl : MonoBehaviour
                     valueIndex = Mathf.Abs(eventValue[i]);
                 }
             }
-            bigEventStr = LoadJsonFile.EventTableDates[eventValue[0]][1] + "\n" + string.Format(LoadJsonFile.EventTableDates[eventValue[0]][9], valueIndex);
+            bigEventStr = LoadJsonFile.EventTableDates[eventValue[0]][1] + "\t" + string.Format(LoadJsonFile.EventTableDates[eventValue[0]][9], valueIndex);
         }
         else
         {
-            bigEventStr = LoadJsonFile.EventTableDates[eventValue[0]][1] + "\n" + LoadJsonFile.EventTableDates[eventValue[0]][9];
+            bigEventStr = LoadJsonFile.EventTableDates[eventValue[0]][1] + "\t" + LoadJsonFile.EventTableDates[eventValue[0]][9];
         }
         bigEventInfoText.text = bigEventStr;
     }

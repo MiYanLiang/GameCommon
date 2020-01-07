@@ -330,11 +330,11 @@ public class CardMove : MonoBehaviour
                         break;
                     case 1:
                         //攻击同一排敌人，每个造成70%伤害。
-                        SanXianSkill(0.7f);
+                        SanXianSkill(0.6f);
                         break;
                     case 2:
                         //攻击同一排敌人，每个造成80%伤害。
-                        SanXianSkill(0.8f);
+                        SanXianSkill(0.75f);
                         break;
                 }
                 break;
