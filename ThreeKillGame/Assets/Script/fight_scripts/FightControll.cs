@@ -48,21 +48,21 @@ public class FightControll : MonoBehaviour
     [Header("npc胜率max")]
     [SerializeField]
     private int maxNum = 70; //胜率随机最大值
-    [Header("进攻扣血最大值")]
+    [Header("进攻扣血最大值（已读表）")]
     [SerializeField]
-    public int maxCutHp = 10;
-    [Header("防守扣血值")]
+    public int maxCutHp;
+    [Header("防守扣血值（已读表）")]
     [SerializeField]
-    public int defCutHp = 2;
-    [Header("进攻金币最大值")]
+    public int defCutHp;
+    [Header("进攻金币最大值（已读表）")]
     [SerializeField]
-    public int maxAddGold = 5;
-    [Header("防守金币值")]
+    public int maxAddGold;
+    [Header("防守金币值（已读表）")]
     [SerializeField]
-    public int defAddGold = 1;
+    public int defAddGold;
     [Header("冒火开启血量百分比")]
     [SerializeField]
-    public float hpFloatToFire = 0.2f;
+    public float hpFloatToFire = 0.3f;
 
     //记录npc的胜率
     private int[] npcWinRate;
@@ -82,6 +82,17 @@ public class FightControll : MonoBehaviour
     {
         fightPosCha = (int)(175f / 1920 * Screen.height);
         difnum = PlayerPrefs.GetInt("DifficultyType");
+    }
+
+    private void Start()
+    {
+        //设置结算金币和扣血
+        string[] arrStr = LoadJsonFile.difficultyChooseDatas[CreateAndUpdate.difficultNum - 1][19].Split(',');
+        defAddGold = int.Parse(arrStr[0]);
+        maxAddGold = int.Parse(arrStr[1]);
+        string[] arrStr1 = LoadJsonFile.difficultyChooseDatas[CreateAndUpdate.difficultNum - 1][20].Split(',');
+        defCutHp = int.Parse(arrStr1[0]);
+        maxCutHp = int.Parse(arrStr1[1]);
     }
 
     private void Update()

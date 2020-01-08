@@ -40,4 +40,8 @@
     /// 介绍
     /// </summary>
     public string introduction { get; set; }
+    /// <summary>
+    /// 特效ID
+    /// </summary>
+    public string effectId { get; set; }
 }

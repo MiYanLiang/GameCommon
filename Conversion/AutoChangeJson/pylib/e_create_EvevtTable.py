@@ -22,7 +22,8 @@ def export_json(xls, fn):
                 ss += "\t\t\t\"shiQi\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"chengFang\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"minXin\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
-                ss += "\t\t\t\"introduction\": \"" + conv_str_bin(c[ri.Next()]) + "\"\n"
+                ss += "\t\t\t\"introduction\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
+                ss += "\t\t\t\"effectId\": \"" + conv_int(c[ri.Next()]) + "\"\n"
                 ss += "\t\t},\n"
                 s += ss
             s = s[:-2]

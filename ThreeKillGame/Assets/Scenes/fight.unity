@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4125,7 +4125,7 @@ MonoBehaviour:
   minNum: 50
   maxNum: 90
   maxCutHp: 20
-  defCutHp: 2
+  defCutHp: 3
   maxAddGold: 5
   defAddGold: 2
   hpFloatToFire: 0.3
@@ -8820,6 +8820,9 @@ MonoBehaviour:
   cityAttValuePy: 
   bigEvent: 000000000000000000000000000000000000000000000000
   bigEventInfoText: {fileID: 528067183}
+  bigEvent_eftObj:
+  - {fileID: 3012279927656701751, guid: 28054fc36d0a01448b63304b3074c998, type: 3}
+  - {fileID: 4087812361708190287, guid: b9c5316ff5b0ffd4a9368b5feba7f761, type: 3}
 --- !u!114 &335961168
 MonoBehaviour:
   m_ObjectHideFlags: 0

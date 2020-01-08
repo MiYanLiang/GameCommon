@@ -64,8 +64,10 @@ public class UIControl : MonoBehaviour
     [SerializeField]
     Transform cityAttObj_world;   //大世界城池属性tran
 
+    [HideInInspector]
     public List<int> cityAttValuePy;   //玩家城池属性值0战意1士气2城防3民心
 
+    [HideInInspector]
     public List<List<int>> cityAttValueNpc;    //NPC城池属性值
 
     private AudioSource backAudioSource;
@@ -74,14 +76,19 @@ public class UIControl : MonoBehaviour
 
     public static int yearsIndex;   //记录周目数
 
+    [HideInInspector]
     public int[] bigEvent = new int[6];     //大事件记录0事件1周目2 - 5加成值
 
+    [HideInInspector]
     public List<int[]> bigEventNpc;    //NPC大事件记录0事件1周目2 - 5加成值
 
     private int npc_Count = 0;   //记录npc数量
 
     [SerializeField]
     Text bigEventInfoText;  //大事件描述文本
+
+    [SerializeField]
+    GameObject[] bigEvent_eftObj;   //0黄龙1闪电
 
     private void Awake()
     {
@@ -385,6 +392,7 @@ public class UIControl : MonoBehaviour
         if (bigEvent[1] <= 0)
         {
             bigEvent = SetEventValue(bigEvent, true);
+            //设置事件特效
         }
         for (int i = 0; i < npc_Count; i++)
         {

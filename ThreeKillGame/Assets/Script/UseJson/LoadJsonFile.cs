@@ -439,6 +439,7 @@ public class LoadJsonFile : MonoBehaviour
                 EventTableDates[i].Add(root.EventTable[i].chengFang);
                 EventTableDates[i].Add(root.EventTable[i].minXin);
                 EventTableDates[i].Add(root.EventTable[i].introduction);
+                EventTableDates[i].Add(root.EventTable[i].effectId);
             }
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
