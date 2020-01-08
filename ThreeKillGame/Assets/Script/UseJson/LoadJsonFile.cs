@@ -443,11 +443,11 @@ public class LoadJsonFile : MonoBehaviour
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
-        //加载TestTable数据
+        //加载TestTable数据:TestTable
         {
             jsonData = LoadJsonByName(tableNames[indexTable]);
             root = JsonMapper.ToObject<Roots>(jsonData);
-            TestTableDates = new List<List<string>>(root.EventTable.Count);
+            TestTableDates = new List<List<string>>(root.TestTable.Count);
             for (int i=0;i<root.TestTable.Count;i++)
             {
                 TestTableDates.Add(new List<string>());
@@ -458,6 +458,8 @@ public class LoadJsonFile : MonoBehaviour
                 TestTableDates[i].Add(root.TestTable[i].answer2);
                 TestTableDates[i].Add(root.TestTable[i].answer3);
             }
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
 
         if (indexTable >= tableNames.Length)

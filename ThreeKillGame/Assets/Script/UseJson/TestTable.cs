@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class TestTableItem
+﻿public class TestTableItem
 {
     /// <summary>
     /// 索引
