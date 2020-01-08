@@ -77,10 +77,10 @@ public class UIControl : MonoBehaviour
     public static int yearsIndex;   //记录周目数
 
     [HideInInspector]
-    public int[] bigEvent = new int[6];     //大事件记录0事件1周目2 - 5加成值
+    public int[] bigEvent = new int[6];     //大事件记录 0事件1周目2 - 5加成值
 
     [HideInInspector]
-    public List<int[]> bigEventNpc;    //NPC大事件记录0事件1周目2 - 5加成值
+    public List<int[]> bigEventNpc;    //NPC大事件记录 0事件1周目2 - 5加成值
 
     private int npc_Count = 0;   //记录npc数量
 
@@ -117,6 +117,7 @@ public class UIControl : MonoBehaviour
         InitSelectForceIndex();
         battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
         initForces();   //初始化势力
+        initEvent();   //初始化大事件
     }
 
     /// <summary>
@@ -126,7 +127,6 @@ public class UIControl : MonoBehaviour
     {
         string[] str_Force = LoadJsonFile.BattleTableDates[battleId][3].Split(',');
         npc_Count = str_Force.Length;
-        initEvent();   //初始化大事件
 
         //玩家势力初始化
         playerForceId = PlayerPrefs.GetInt("forcesId");
@@ -373,12 +373,15 @@ public class UIControl : MonoBehaviour
     {
         //玩家大事件初始化
         bigEvent = SetEventValue(bigEvent, true);
+        //设置事件特效
+        SetEventEffect(bigEvent[0], playerForce.GetChild(4));
         //Npc大事件初始化
         bigEventNpc = new List<int[]>();
-        for (int i = 0; i < npc_Count; i++)
+        for (int i = 0; i < npc_Count - 1; i++)
         {
             int[] npcEvent = new int[6];
             npcEvent = SetEventValue(npcEvent, false);
+            SetEventEffect(npcEvent[0], npcForcesObjs[i].transform.GetChild(3));
             bigEventNpc.Add(npcEvent);
         }
     }
@@ -392,7 +395,7 @@ public class UIControl : MonoBehaviour
         if (bigEvent[1] <= 0)
         {
             bigEvent = SetEventValue(bigEvent, true);
-            //设置事件特效
+            SetEventEffect(bigEvent[0], playerForce.GetChild(4));
         }
         for (int i = 0; i < npc_Count; i++)
         {
@@ -400,6 +403,7 @@ public class UIControl : MonoBehaviour
             if (bigEventNpc[i][1] <= 0)
             {
                 bigEventNpc[i] = SetEventValue(bigEventNpc[i], false);
+                SetEventEffect(bigEventNpc[i][0], npcForcesObjs[i].transform.GetChild(3));
             }
         }
     }
@@ -469,5 +473,26 @@ public class UIControl : MonoBehaviour
             }
         }
         return valueList;
+    }
+
+    /// <summary>
+    /// 设置事件特效
+    /// </summary>
+    /// <param name="index"></param>
+    /// <param name="tran"></param>
+    private void SetEventEffect(int index, Transform tran)
+    {
+        int index_event = int.Parse(LoadJsonFile.EventTableDates[index][10]);
+        if (index_event != -1)
+        {
+            if (tran.childCount > 0)
+            {
+                Destroy(tran.GetChild(0).gameObject);
+            }
+            else
+            {
+                Instantiate(bigEvent_eftObj[index_event], tran);
+            }
+        }
     }
 }
