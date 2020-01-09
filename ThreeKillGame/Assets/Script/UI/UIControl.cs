@@ -118,6 +118,7 @@ public class UIControl : MonoBehaviour
         battle_Text.text = "公元" + LoadJsonFile.BattleTableDates[battleId][4] + "年";
         initForces();   //初始化势力
         initEvent();   //初始化大事件
+        gameObject.GetComponent<BookOfAnswerQ>().InfoQustionOfBook();   //答题初始化
     }
 
     /// <summary>
@@ -397,7 +398,7 @@ public class UIControl : MonoBehaviour
             bigEvent = SetEventValue(bigEvent, true);
             SetEventEffect(bigEvent[0], playerForce.GetChild(4));
         }
-        for (int i = 0; i < npc_Count; i++)
+        for (int i = 0; i < npc_Count - 1; i++)
         {
             bigEventNpc[i][1] -= 1;
             if (bigEventNpc[i][1] <= 0)
