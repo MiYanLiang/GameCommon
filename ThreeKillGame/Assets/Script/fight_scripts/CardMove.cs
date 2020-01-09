@@ -554,9 +554,9 @@ public class CardMove : MonoBehaviour
             Defence += (int)(percent_Defence * Defence);
             if (ArmsSkillStatus == 1)
             {
-                gameObject.transform.GetChild(4).GetComponent<Text>().text = "战意";
+                gameObject.transform.GetChild(4).GetComponent<Text>().text = "勇武";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("战意");
+                Debug.Log("勇武");
             }
             if (ArmsSkillStatus == 2)
             {
