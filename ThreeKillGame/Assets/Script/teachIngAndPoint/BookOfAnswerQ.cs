@@ -49,7 +49,7 @@ public class BookOfAnswerQ : MonoBehaviour
     /// <param name="num"></param>
     public void SelectAnswer(int num)
     {
-
+        TeacherObj.GetChild(num + 2).GetChild(1).gameObject.SetActive(true);
         if (num != rightIndex)
         {
             TeacherObj.GetChild(rightIndex + 2).GetChild(0).GetComponent<Text>().color = Color.green;
