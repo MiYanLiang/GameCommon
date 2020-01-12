@@ -5,27 +5,66 @@ using UnityEngine.UI;
 
 public class SoundControl : MonoBehaviour
 {
-
-    // Use this for initialization
     public GameObject showSoundTxt;
-    public GameObject cameraAudio;
-    int soundStates;
+    private int soundStates;
+
+    [SerializeField]
+    Transform[] transforms;
+
+    private void Awake()
+    {
+        soundStates = 1;
+        soundStates = PlayerPrefs.GetInt("soundStates");
+    }
+
+    private void Start()
+    {
+        if (soundStates == 1)
+        {
+            showSoundTxt.GetComponent<Text>().text = "声音    关";
+        }
+        else
+        {
+            showSoundTxt.GetComponent<Text>().text = "声音    开";
+        }
+        ChangeSoundState();
+    }
 
     public void ClickSoundSet()
     {
-        if (showSoundTxt.GetComponent<Text>().text == "声音    开")
+        if (soundStates == 1)
         {
             soundStates = 0;
-            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
             showSoundTxt.GetComponent<Text>().text = "声音    关";
         }
-        else if (showSoundTxt.GetComponent<Text>().text == "声音    关")
+        else
         {
             soundStates = 1;
-            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
             showSoundTxt.GetComponent<Text>().text = "声音    开";
         }
         PlayerPrefs.SetInt("soundStates", soundStates);
-        print("..................soundStates:" + soundStates);
+        ChangeSoundState();
+    }
+
+    private void ChangeSoundState()
+    {
+        for (int i = 0; i < transforms.Length; i++)
+        {
+            foreach (var item in transforms[i].GetComponentsInChildren<AudioSource>())
+            {
+                if (soundStates == 0)
+                {
+                    item.spatialBlend = item.volume;
+                    item.volume = item.volume * soundStates;
+                    //item.Pause();
+                }
+                else
+                {
+                    item.volume = item.spatialBlend;
+                    item.spatialBlend = 0;
+                    //item.Play();
+                }
+            }
+        }
     }
 }

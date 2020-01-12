@@ -39,7 +39,6 @@ public class ForcesChoose : MonoBehaviour
     {
         prestigeNum = PlayerPrefs.GetInt("prestigeNum");
         prestigeText.text = prestigeNum.ToString();
-        soundContrll_(PlayerPrefs.GetInt("soundStates"));
         RandomBattle();
     }
 
@@ -137,19 +136,6 @@ public class ForcesChoose : MonoBehaviour
         {
             GameObject tipObj = Instantiate(tipsText, prompTran);
             tipObj.GetComponent<Text>().text = str;
-        }
-    }
-
-    //声音控制
-    void soundContrll_(int soundStates)
-    {
-        if (soundStates == 1)
-        {
-            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
-        }
-        else if (soundStates == 0)
-        {
-            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
         }
     }
 

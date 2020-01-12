@@ -4,16 +4,28 @@ using UnityEngine;
 
 public class audioPlayer : MonoBehaviour
 {
-    public AudioSource[] AudioSources;//要播放的音频列表
+    //public AudioSource[] AudioSources;//要播放的音频列表
     public float IntervalSec = 10f;//间隔秒数
+
+    [SerializeField] private AudioClip[] clips;
+    [SerializeField] private float[] volumes;
 
     private AudioSource _currentAudio;//当前播放
     private float _timer;//秒表
 
+    private void Start()
+    {
+        _currentAudio = GetComponent<AudioSource>();
+    }
+
     private void RandomPlay()
     {
-        var random = Random.Range(0, AudioSources.Length);//根据音频数量来获取随机值
-        _currentAudio = AudioSources[random];//设置当前音频
+        //var random = Random.Range(0, AudioSources.Length);//根据音频数量来获取随机值
+        //_currentAudio = AudioSources[random];//设置当前音频
+
+        var random = Random.Range(0, clips.Length);//根据音频数量来获取随机值
+        _currentAudio.clip = clips[random];//设置当前音频
+        _currentAudio.volume = volumes[random];
         _currentAudio.Play();//播放
     }
 

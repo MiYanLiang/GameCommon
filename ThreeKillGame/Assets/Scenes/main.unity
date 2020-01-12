@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1331,7 +1331,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313690738}
+      - m_Target: {fileID: 0}
         m_MethodName: CloseMusic
         m_Mode: 1
         m_Arguments:
@@ -3165,13 +3165,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275354427}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5a7d227ad47d1194698d976a0f9d21cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   showSoundTxt: {fileID: 1652418551}
-  cameraAudio: {fileID: 2023140000}
+  transforms:
+  - {fileID: 871160349}
+  - {fileID: 952110089}
 --- !u!114 &275354430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,7 +3255,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275354429}
+      - m_Target: {fileID: 922524184}
         m_MethodName: ClickSoundSet
         m_Mode: 1
         m_Arguments:
@@ -3734,7 +3736,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 313690737}
-  - component: {fileID: 313690738}
   m_Layer: 5
   m_Name: SoundDeploy
   m_TagString: Untagged
@@ -3767,20 +3768,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &313690738
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 313690736}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a7d227ad47d1194698d976a0f9d21cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  showSoundTxt: {fileID: 0}
-  cameraAudio: {fileID: 0}
 --- !u!1 &314542640
 GameObject:
   m_ObjectHideFlags: 0
@@ -5988,7 +5975,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313690738}
+      - m_Target: {fileID: 0}
         m_MethodName: OpenMusic
         m_Mode: 1
         m_Arguments:
@@ -6698,6 +6685,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 922524183}
+  - component: {fileID: 922524184}
   m_Layer: 5
   m_Name: Setting
   m_TagString: Untagged
@@ -6725,6 +6713,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &922524184
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922524182}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a7d227ad47d1194698d976a0f9d21cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showSoundTxt: {fileID: 1652418551}
+  transforms:
+  - {fileID: 871160349}
+  - {fileID: 952110089}
 --- !u!1 &952110085
 GameObject:
   m_ObjectHideFlags: 0
@@ -7920,7 +7924,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313690738}
+      - m_Target: {fileID: 0}
         m_MethodName: OpenSound
         m_Mode: 1
         m_Arguments:
@@ -10179,7 +10183,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313690738}
+      - m_Target: {fileID: 0}
         m_MethodName: CloseSound
         m_Mode: 1
         m_Arguments:
@@ -10441,7 +10445,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313690738}
+      - m_Target: {fileID: 0}
         m_MethodName: CloseTouchSound
         m_Mode: 1
         m_Arguments:
@@ -12460,7 +12464,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 313690738}
+      - m_Target: {fileID: 0}
         m_MethodName: OpenTouchSound
         m_Mode: 1
         m_Arguments:
@@ -13272,13 +13276,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dceee9ce5ec59941bc6d7f4978ef7b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AudioSources:
-  - {fileID: 2036756960}
-  - {fileID: 2036756959}
-  - {fileID: 2036756958}
-  - {fileID: 2036756957}
-  - {fileID: 2036756963}
   IntervalSec: 10
+  clips: []
+  volumes: []
 --- !u!4 &2036756962
 Transform:
   m_ObjectHideFlags: 0
