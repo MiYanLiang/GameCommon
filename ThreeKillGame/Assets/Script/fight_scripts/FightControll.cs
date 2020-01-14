@@ -27,7 +27,7 @@ public class FightControll : MonoBehaviour
     //记录敌方势力要发展的兵种类型
     List<int[]> npcUnits = new List<int[]>();
     //记录NPC上阵英雄的数据
-    List<List<string>[]> enemyHeroDatas = new List<List<string>[]>();
+    public List<List<string>[]> enemyHeroDatas = new List<List<string>[]>();
     //存储某npc需要传递的数据
     List<string>[] sendData = new List<string>[9];
     //记录npc势力血量
@@ -80,6 +80,7 @@ public class FightControll : MonoBehaviour
 
     private void Awake()
     {
+        speedTime = speed_time;
         fightPosCha = (int)(175f / 1920 * Screen.height);
         difnum = PlayerPrefs.GetInt("DifficultyType");
     }
@@ -98,10 +99,10 @@ public class FightControll : MonoBehaviour
     private void Update()
     {
         //更新卡牌移动速度
-        if (speedTime != speed_time)
-        {
-            speedTime = speed_time;
-        }
+        // if (speedTime != speed_time)
+        // {
+        //     speedTime = speed_time;
+        // }
     }
 
     /// <summary>
@@ -238,10 +239,11 @@ public class FightControll : MonoBehaviour
     /// <summary>
     /// 战斗npc之间的结算
     /// </summary>
-    public void BattleSettlement()
+    public List<int> BattleSettlement()
     {
+        List<int> npcFightPlayerList = new List<int>();
         int npcCount = npcWinRate.Length;
-        int index_list = 1;
+        //int index_list = 1;
         int[] enemyForceIndex = new int[npcCount];//记录每个npc匹配到的对手势力
         //重置npc胜率
         for (int i = 0; i < npcCount; i++)
@@ -266,32 +268,16 @@ public class FightControll : MonoBehaviour
                 enemyForceIndex[i] = enem;
                 if (enem == npcCount - 1)
                 {
+                    npcFightPlayerList.Add(i);  //记录要攻击玩家的敌方势力
                     if (npcWinRate[i] <= 50)  //小于等于50则输
                     {
                         //输了扣血
                         npcPlayerHps[i] -= Random.Range(1 + npcLessHpValue, 11 + npcLessHpValue);
-                        //显示战况信息
-                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "败", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
-                        }
-                        else
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
-                        }
                     }
                     else
                     {
                         //赢了加胜利场数
                         allWinTimes[i]++;
-                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "胜", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
-                        }
-                        else
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#CDCDCD>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1]);
-                        }
                     }
                 }
                 else
@@ -299,31 +285,30 @@ public class FightControll : MonoBehaviour
                     if (npcWinRate[i] <= 50)
                     {
                         npcPlayerHps[i] -= Random.Range(1 + npcLessHpValue, 11 + npcLessHpValue);
-                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "败", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
-                        }
-                        else
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enem] - 1][1]);
-                        }
                     }
                     else
                     {
                         allWinTimes[i]++;
-                        if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "胜", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
-                        }
-                        else
-                        {
-                            //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enem] - 1][1]);
-                        }
+                        // if (FightCardSps[0].GetComponent<FightCardSP>().isSpecialLevel)
+                        // {
+                        //     //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "胜", LoadJsonFile.NPCTableDates[FightCardSps[0].GetComponent<FightCardSP>().specialLevelId][15]);
+                        // }
+                        // else
+                        // {
+                        //     //textList.GetChild(index_list).GetComponent<Text>().text = string.Format("<color=#332D2D>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[i] - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enem] - 1][1]);
+                        // }
                     }
                 }
-                index_list++;
+                //index_list++;
             }
         }
+        string str = "";
+        for (int i = 0; i < npcFightPlayerList.Count; i++)
+        {
+             str += (npcFightPlayerList[i].ToString() + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[npcFightPlayerList[i]] - 1][4] + ",");
+        }
+        Debug.Log("要攻击玩家的势力： " + str );
+        return npcFightPlayerList;
     }
 
     /// <summary>

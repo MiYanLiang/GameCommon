@@ -65,7 +65,7 @@ public class UIControl : MonoBehaviour
     Transform cityAttObj_world;   //大世界城池属性tran
 
     [HideInInspector]
-    public List<int> cityAttValuePy;   //玩家城池属性值0战意1士气2城防3民心
+    public List<int> cityAttValuePy;   //玩家城池属性值0士气1军粮2城防3民心
 
     [HideInInspector]
     public List<List<int>> cityAttValueNpc;    //NPC城池属性值

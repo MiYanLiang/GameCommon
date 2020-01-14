@@ -1753,14 +1753,13 @@ public class CreateAndUpdate : MonoBehaviour
             heroName.RemoveAt(5);
         }
         textHertNum.text = peopleHearts.ToString();
-        int datasNums = LoadJsonFile.RoleTableDatas[0].Count;
         for (int i = 0; i < heroName.Count; i++)
         {
             //兵种显示
             heroBtn[i].GetComponentsInChildren<Text>()[5].text = LoadJsonFile.SoldierTypeDates[int.Parse(soliderKind[i]) - 1][2];
 
             //显示武将背景图片
-            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[excelText[i] - 1][datasNums - 1], typeof(Sprite)) as Sprite;
+            heroBtn[i].transform.GetChild(1).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[excelText[i] - 1][22], typeof(Sprite)) as Sprite;
 
             //英雄名字显示
             heroBtn[i].GetComponentsInChildren<Text>()[0].text = heroName[i].ToString();

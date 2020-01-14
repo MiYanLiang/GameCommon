@@ -11,8 +11,8 @@ public class HeroDataControll : MonoBehaviour
     //public List<string> HeroData { get => heroData; set => heroData = value; }
     //index	    roleName	所属势力    soldierKind	  rarity  recruitingMoney  attack    defense	soldierNum	    闪避率	
     //0         1           2           3             4       5                6         7          8               9       
-    //暴击率	暴击伤害	重击率	    重击伤害	  破甲    装备id           典故id	 武器技id	强化兵种技id	羁绊技id  roleIntro	 IsHero	 roleIcon
-    //10        11          12          13            14      15               16        17         18              19          20          21      22
+    //暴击率	暴击伤害	重击率	    重击伤害	  破甲    装备id           典故id	 武器技id	强化兵种技id	羁绊技id  roleIntro	 IsHero	 roleIcon     addHpPercent
+    //10        11          12          13            14      15               16        17         18              19          20          21      22      23
 
     private int grade_hero;  //记录卡牌品阶
     public int Grade_hero { get => grade_hero; set => grade_hero = value; }

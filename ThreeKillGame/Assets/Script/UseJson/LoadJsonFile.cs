@@ -248,6 +248,7 @@ public class LoadJsonFile : MonoBehaviour
                 RoleTableDatas[i].Add(root.RoleTable[i].roleIntro);
                 RoleTableDatas[i].Add(root.RoleTable[i].isHero);
                 RoleTableDatas[i].Add(root.RoleTable[i].roleIcon);
+                RoleTableDatas[i].Add(root.RoleTable[i].addHpPercent);
             }
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable] + ".Json");

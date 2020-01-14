@@ -406,13 +406,13 @@ public class CardMove : MonoBehaviour
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "虎扑";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("虎扑");
+            //Debug.Log("虎扑");
         }
         else
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "狂战";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("狂战");
+            //Debug.Log("狂战");
         }
         NormalAttackEffects(EnemyObj, 9);
         UpdateEnemyHp(EnemyObj);
@@ -463,13 +463,13 @@ public class CardMove : MonoBehaviour
         if (obj.GetComponent<CardMove>().ArmsSkillStatus == 1)
         {
             hurt = (int)(realDamage * 0.2f);
-            Debug.Log("刺甲");
+            //Debug.Log("刺甲");
             obj.transform.GetChild(4).GetComponent<Text>().text = "刺甲";
         }
         else
         {
             hurt = (int)(realDamage * 0.4f);
-            Debug.Log("刃甲");
+            // Debug.Log("刃甲");
             obj.transform.GetChild(4).GetComponent<Text>().text = "刃甲";
         }
         Health -= hurt;     //反伤
@@ -531,7 +531,7 @@ public class CardMove : MonoBehaviour
                 icon.GetComponent<Image>().sprite = Resources.Load("Image/state/" + StateName.popularName, typeof(Sprite)) as Sprite;
             }
         }
-        Debug.Log("飞兽闪避率：" + realDodgeRate * 100 + "%");
+        // Debug.Log("飞兽闪避率：" + realDodgeRate * 100 + "%");
     }
 
     private int overlayNum_RenJie = 0; //记录 人杰 技能效果叠加次数
@@ -556,13 +556,13 @@ public class CardMove : MonoBehaviour
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "勇武";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("勇武");
+                // Debug.Log("勇武");
             }
             if (ArmsSkillStatus == 2)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "英魂";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("英魂");
+                // Debug.Log("英魂");
             }
             if (!Fight_State.isFightMean) //判断是否有战意状态
             {
@@ -608,13 +608,13 @@ public class CardMove : MonoBehaviour
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "穿刺";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("穿刺");
+                // Debug.Log("穿刺");
             }
             if (ArmsSkillStatus == 2)
             {
                 gameObject.transform.GetChild(4).GetComponent<Text>().text = "突刺";
                 gameObject.transform.GetChild(4).gameObject.SetActive(true);
-                Debug.Log("突刺");
+                // Debug.Log("突刺");
             }
             realDamage = SkillRealDamage(realDamage, obj, false);
             UpdateEnemyHp(obj);
@@ -634,13 +634,13 @@ public class CardMove : MonoBehaviour
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "横扫";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("横扫");
+            // Debug.Log("横扫");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "狂斩";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("狂斩");
+            // Debug.Log("狂斩");
         }
 
         int index = EnemyIndex / 3; //0前排1中排2后排
@@ -681,13 +681,13 @@ public class CardMove : MonoBehaviour
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "雷震";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("雷震");
+            //Debug.Log("雷震");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "天怒";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("天怒");
+            //Debug.Log("天怒");
         }
         realDamage = Force;
         int damageNote = (int)(realDamage * percentage);
@@ -824,13 +824,13 @@ public class CardMove : MonoBehaviour
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "荒火";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("荒火");
+            // Debug.Log("荒火");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "炎爆";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("炎爆");
+            // Debug.Log("炎爆");
         }
         realDamage = Force;
         int damageNote = (int)(realDamage * percent);
@@ -938,13 +938,13 @@ public class CardMove : MonoBehaviour
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "复生";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("复生");
+            // Debug.Log("复生");
         }
         if (ArmsSkillStatus == 2)
         {
             gameObject.transform.GetChild(4).GetComponent<Text>().text = "回天";
             gameObject.transform.GetChild(4).gameObject.SetActive(true);
-            Debug.Log("回天");
+            // Debug.Log("回天");
         }
         float[] minHp = new float[nums];    //临时存储最少百分比hp
         int[] arrs = new int[nums];     //存储受治疗单位的index

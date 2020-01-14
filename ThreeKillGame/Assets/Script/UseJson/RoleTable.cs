@@ -92,4 +92,8 @@
     /// 武将头像id
     /// </summary>
     public string roleIcon { get; set; }
+    /// <summary>
+    /// 回复血量百分比
+    /// </summary>
+    public string addHpPercent { get; set; }
 }

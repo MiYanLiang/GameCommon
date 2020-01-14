@@ -88,6 +88,10 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     UIControl uiControl;
 
+    private List<int> npcForceFightPy;
+
+    private float[] playerCardHpPercentage;   //记录玩家卡牌血量百分比
+
     private void Awake()
     {
         battleId = PlayerPrefs.GetInt("battleId");
@@ -109,11 +113,16 @@ public class FightCardSP : MonoBehaviour
         InitArmsSkillStatus();
         //敌人初始化
         InitializeBattleCard();
+
+        playerCardHpPercentage = new float[9] { 1, 1, 1, 1, 1, 1, 1, 1, 1 };
+
         //上阵初始化
         OtherInitialization();
 
         InitForceFlag();
 
+        npcForceFightPy = fightControll.GetComponent<FightControll>().BattleSettlement();
+        
         isFightNow = false;
         isEndOFInit = true;
         roundTextObj.text = "回合 " + roundNum;
@@ -376,7 +385,7 @@ public class FightCardSP : MonoBehaviour
                             {
                                 //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#57A65F>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "胜", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
                             }
-                            fightControll.GetComponent<FightControll>().BattleSettlement();
+                            //fightControll.GetComponent<FightControll>().BattleSettlement();
 
                             //延时显示结算界面
                             Invoke("ShowSettlementPic", 1f);
@@ -450,7 +459,7 @@ public class FightCardSP : MonoBehaviour
                             {
                                 //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
                             }
-                            fightControll.GetComponent<FightControll>().BattleSettlement();
+                            //fightControll.GetComponent<FightControll>().BattleSettlement();
 
                             Invoke("ShowSettlementPic", 1f);    //延时打开结算界面
 
@@ -464,18 +473,64 @@ public class FightCardSP : MonoBehaviour
     }
 
     /// <summary>
+    /// 改变玩家卡牌血量的百分比
+    /// </summary>
+    private void ChangePlayerCardHpPercentage()
+    {
+        float indexFlo = 1f;
+        float addFlo = 1f + (uiControl.cityAttValuePy[1] + uiControl.bigEvent[3]) / 100f;   //军粮加成
+        for (int n = 0; n < 9; n++)
+        {
+            if (playerCards[n] != null)
+            {
+                indexFlo = float.Parse(jiugongge_BrforeFight.GetChild(n).GetChild(0).GetComponent<HeroDataControll>().HeroData[23]) * addFlo;
+                indexFlo += playerCards[n].GetComponent<CardMove>().Health / (float)playerCards[n].GetComponent<CardMove>().Fullhealth;
+                playerCardHpPercentage[n] = Mathf.Clamp01(indexFlo);
+                Debug.Log("下次战斗血量： " + playerCardHpPercentage[n]);
+            }
+        }
+    }
+
+
+    int indexNpcFightOver = 0;
+    /// <summary>
     /// 显示每轮战斗的结算界面
     /// </summary>
     private void ShowSettlementPic()
     {
-        //设置首显战况
-        Transform tran = SettlementPic.transform.parent;
-        SettlementPic.transform.SetParent(fightControll);
-        SettlementPic.transform.SetParent(tran);
+        //还有势力要和玩家势力战斗
+        if(indexNpcFightOver < npcForceFightPy.Count)
+        {
+            ChangePlayerCardHpPercentage();
 
-        SettlementPic.gameObject.SetActive(true);
-        ShowGameOver();
-        getOrloseText.SetActive(true);
+            RecoverCardData();
+            
+            array_str = fightCtl.enemyHeroDatas[indexNpcFightOver];
+            enemyForceId = indexNpcFightOver;
+            //敌人初始化
+            InitializeBattleCard();
+            //上阵初始化
+            OtherInitialization();
+
+            InitForceFlag();
+
+            indexNpcFightOver++;
+            fightNum = 0;
+            isFightNow = false;
+        }
+        else
+        {
+            Debug.Log("此年战斗结束！");
+            indexNpcFightOver = 0;
+            //设置首显战况
+            Transform tran = SettlementPic.transform.parent;
+            SettlementPic.transform.SetParent(fightControll);
+            SettlementPic.transform.SetParent(tran);
+
+            SettlementPic.gameObject.SetActive(true);
+            ShowGameOver();
+            getOrloseText.SetActive(true);
+        }
     }
 
     /// <summary>
@@ -667,6 +722,8 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     public void InitializeBattleCard()
     {
+        Debug.Log("战斗势力： " + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][4]);
+
         enemyNums = 0;
 
         ChooseIsLoadSpecialNPC();
@@ -870,7 +927,9 @@ public class FightCardSP : MonoBehaviour
                 //兵种技能激活状态
                 playerCards_CM.ArmsSkillStatus = armsSkillStatus[int.Parse(datas[3]) - 1];
                 //血量
-                playerCards_CM.Health = playerCards_CM.Fullhealth = int.Parse(datas[8]);
+                playerCards_CM.Fullhealth = int.Parse(datas[8]);
+                playerCards_CM.Health = (int)(playerCards_CM.Fullhealth * playerCardHpPercentage[i]);
+                playerCards[i].GetComponent<Slider>().value = 1 - playerCards_CM.Health / (float)playerCards_CM.Fullhealth;
                 //攻击力
                 playerCards_CM.Force = (int)(int.Parse(datas[6]) * (1f + (uiControl.cityAttValuePy[0] + uiControl.bigEvent[2] - 50) / 50f));
                 //防御力
@@ -972,7 +1031,7 @@ public class FightCardSP : MonoBehaviour
         {
             specialFightText.text = LoadJsonFile.NPCTableDates[specialLevelId][2];
             npcForceId = int.Parse(LoadJsonFile.NPCTableDates[specialLevelId][16]);
-        }
+        } 
         else
         {
             specialFightText.text = "";
@@ -981,6 +1040,11 @@ public class FightCardSP : MonoBehaviour
         rivalForceFlag.sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;    //设置特殊对手势力的头像
         SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;
         SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1];
+
+        //vs对战提示信息
+        GameObject vsShowObj = Instantiate(Resources.Load("Prefab/VS", typeof(GameObject)) as GameObject, SettlementPic.transform.parent);
+        vsShowObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
+        vsShowObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
     }
 
     private void CardRarityShow(int rarity, Transform imageObj)

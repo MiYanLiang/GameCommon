@@ -16,7 +16,7 @@ public class BookOfAnswerQ : MonoBehaviour
 
     private void Start()
     {
-        TeacherObj.gameObject.AddComponent<Button>().onClick.AddListener(delegate ()
+        TeacherObj.GetChild(0).gameObject.AddComponent<Button>().onClick.AddListener(delegate ()
         {
             CloseThisObj();
         });
