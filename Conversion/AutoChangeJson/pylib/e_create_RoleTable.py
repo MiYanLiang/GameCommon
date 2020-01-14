@@ -35,7 +35,8 @@ def export_json(xls, fn):
                 ss += "\t\t\t\"fetterSkillId\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"roleIntro\": \"" + conv_str_bin(c[ri.Next()]) + "\",\n"
                 ss += "\t\t\t\"isHero\": \"" + conv_int(c[ri.Next()]) + "\",\n"
-                ss += "\t\t\t\"roleIcon\": \"" + conv_int(c[ri.Next()]) + "\"\n"
+                ss += "\t\t\t\"roleIcon\": \"" + conv_int(c[ri.Next()]) + "\",\n"
+                ss += "\t\t\t\"addHpPercent\": \"" + conv_str_bin(c[ri.Next()]) + "\"\n"
                 ss += "\t\t},\n"
                 s += ss
             s = s[:-2]
