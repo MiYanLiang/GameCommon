@@ -4374,7 +4374,7 @@ MonoBehaviour:
   npcPlayer_hpSliders: []
   difnum: 0
   npcLessHpValue: 0
-  minNum: 50
+  minNum: 30
   maxNum: 90
   maxCutHp: 20
   defCutHp: 3
@@ -13286,7 +13286,7 @@ GameObject:
   - component: {fileID: 640422245}
   - component: {fileID: 640422244}
   m_Layer: 5
-  m_Name: zhanYi
+  m_Name: shiQi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13345,7 +13345,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6218\u610F\uFF1A"
+  m_Text: "\u58EB\u6C14\uFF1A"
 --- !u!222 &640422245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14337,7 +14337,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: -4.5299997, y: 0}
   m_SizeDelta: {x: 0.94000053, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -16117,7 +16117,7 @@ GameObject:
   - component: {fileID: 801468029}
   - component: {fileID: 801468028}
   m_Layer: 5
-  m_Name: shiQi
+  m_Name: liangCao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16176,7 +16176,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u58EB\u6C14\uFF1A"
+  m_Text: "\u7CAE\u8349\uFF1A"
 --- !u!222 &801468029
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21824,7 +21824,7 @@ GameObject:
   - component: {fileID: 1037771432}
   - component: {fileID: 1037771431}
   m_Layer: 5
-  m_Name: shiQi
+  m_Name: liangCao
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21883,7 +21883,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u58EB\u6C14\uFF1A"
+  m_Text: "\u7CAE\u8349\uFF1A"
 --- !u!222 &1037771432
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24513,8 +24513,8 @@ RectTransform:
   m_Father: {fileID: 358138360}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -24889,7 +24889,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1159457379
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32362,7 +32362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1544081124
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33490,7 +33490,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1601362498
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36771,7 +36771,7 @@ GameObject:
   - component: {fileID: 1780441344}
   - component: {fileID: 1780441343}
   m_Layer: 5
-  m_Name: zhanYi
+  m_Name: shiQi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36830,7 +36830,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6218\u610F\uFF1A"
+  m_Text: "\u58EB\u6C14\uFF1A"
 --- !u!222 &1780441344
 CanvasRenderer:
   m_ObjectHideFlags: 0
