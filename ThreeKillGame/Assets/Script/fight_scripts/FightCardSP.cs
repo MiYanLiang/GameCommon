@@ -799,18 +799,22 @@ public class FightCardSP : MonoBehaviour
                     enemyCards_CM.ArmsId = datas[3];
                     enemyCards_CM.ArmsSkillStatus = enemyArmsActive[i / 3];
                     enemyCards_CM.Health = enemyCards_CM.Fullhealth = int.Parse(datas[8]);
+                    enemyCards_CM.HpCityAdd = 0;
                     enemyCards_CM.Force = int.Parse(datas[6]);
+                    enemyCards_CM.ForceCityAdd = 0;
                     enemyCards_CM.Defence = int.Parse(datas[7]);
+                    enemyCards_CM.DefenceCityAdd = 0;
                     enemyCards_CM.DodgeRate = float.Parse(datas[9]);
                     enemyCards_CM.ThumpRate = float.Parse(datas[12]);
                     enemyCards_CM.ThumpDamage = float.Parse(datas[13]);
                     enemyCards_CM.CritRate = float.Parse(datas[10]);
+                    enemyCards_CM.CritRateCityAdd = 0;
                     enemyCards_CM.CritDamage = float.Parse(datas[11]);
                     enemyCards_CM.ArmorPenetrationRate = float.Parse(datas[14]);
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = ""; //datas[1];
                     CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
 
-                    enemyCards_CM.OtherDataSet();
+                    //enemyCards_CM.OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
             }
@@ -874,10 +878,16 @@ public class FightCardSP : MonoBehaviour
                     //enemyCards[i].GetComponent<CardMove>().ArmsSkillStatus = 0;
                     //血量
                     enemyCards_CM.Health = enemyCards_CM.Fullhealth = int.Parse(datas[8]);
+                    //城市血量加成
+                    enemyCards_CM.HpCityAdd = 0;
                     //攻击力 （受战意数值影响）
-                    enemyCards_CM.Force = (int)(int.Parse(datas[6]) * (1f + (uiControl.cityAttValueNpc[enemyForceId][0] + uiControl.bigEventNpc[enemyForceId][2] - 50) / 50f));
+                    enemyCards_CM.Force = int.Parse(datas[6]);
+                    //城市攻击力加成
+                    enemyCards_CM.ForceCityAdd =(uiControl.cityAttValueNpc[enemyForceId][0] + uiControl.bigEventNpc[enemyForceId][2] - 50) / 50f;
                     //防御力
                     enemyCards_CM.Defence = int.Parse(datas[7]);
+                    //城市防御力加成
+                    enemyCards_CM.DefenceCityAdd = 0;
                     //闪避率
                     enemyCards_CM.DodgeRate = float.Parse(datas[9]);
                     //重击率
@@ -885,7 +895,9 @@ public class FightCardSP : MonoBehaviour
                     //重击伤害百分比
                     enemyCards_CM.ThumpDamage = float.Parse(datas[13]);
                     //暴击率
-                    enemyCards_CM.CritRate = float.Parse(datas[10]) * (1f + (uiControl.cityAttValueNpc[enemyForceId][3] + uiControl.bigEventNpc[enemyForceId][5] - 50) / 50f * 0.2f);
+                    enemyCards_CM.CritRate = float.Parse(datas[10]);
+                    //城市暴力率加成
+                    enemyCards_CM.CritRateCityAdd = (uiControl.cityAttValueNpc[enemyForceId][3] + uiControl.bigEventNpc[enemyForceId][5] - 50) / 50f * 0.2f;
                     //暴击伤害百分比
                     enemyCards_CM.CritDamage = float.Parse(datas[11]);
                     //破甲百分比
@@ -894,7 +906,7 @@ public class FightCardSP : MonoBehaviour
                     enemyCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                     CardRarityShow(int.Parse(datas[4]), enemyCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
 
-                    enemyCards_CM.OtherDataSet();
+                    //enemyCards_CM.OtherDataSet();
                     InitFightState(enemyCards[i]);
                 }
             }
@@ -930,10 +942,16 @@ public class FightCardSP : MonoBehaviour
                 playerCards_CM.Fullhealth = int.Parse(datas[8]);
                 playerCards_CM.Health = (int)(playerCards_CM.Fullhealth * playerCardHpPercentage[i]);
                 playerCards[i].GetComponent<Slider>().value = 1 - playerCards_CM.Health / (float)playerCards_CM.Fullhealth;
+                //城市血量加成
+                playerCards_CM.HpCityAdd = 0;
                 //攻击力
-                playerCards_CM.Force = (int)(int.Parse(datas[6]) * (1f + (uiControl.cityAttValuePy[0] + uiControl.bigEvent[2] - 50) / 50f));
+                playerCards_CM.Force = int.Parse(datas[6]);
+                //城市攻击力加成
+                playerCards_CM.ForceCityAdd =(uiControl.cityAttValuePy[0] + uiControl.bigEvent[2] - 50) / 50f;
                 //防御力
-                playerCards_CM.Defence = fightCtl.selectForce != -1 ? int.Parse(datas[7]) : (int)(int.Parse(datas[7]) * (1f + (uiControl.cityAttValuePy[2] + uiControl.bigEvent[4] - 50) / 50f));
+                playerCards_CM.Defence = int.Parse(datas[7]);
+                //城市防御力加成
+                playerCards_CM.DefenceCityAdd = fightCtl.selectForce != -1 ? 0 : (uiControl.cityAttValuePy[2] + uiControl.bigEvent[4] - 50) / 50f;
                 //闪避率
                 playerCards_CM.DodgeRate = float.Parse(datas[9]);
                 //重击率
@@ -941,7 +959,9 @@ public class FightCardSP : MonoBehaviour
                 //重击伤害百分比
                 playerCards_CM.ThumpDamage = float.Parse(datas[13]);
                 //暴击率
-                playerCards_CM.CritRate = float.Parse(datas[10]) * (1f + (uiControl.cityAttValuePy[3] + uiControl.bigEvent[5] - 50) / 50f * 0.2f);
+                playerCards_CM.CritRate = float.Parse(datas[10]);
+                //城市暴力率加成
+                playerCards_CM.CritRateCityAdd = (uiControl.cityAttValuePy[3] + uiControl.bigEvent[5] - 50) / 50f * 0.2f;
                 //暴击伤害百分比
                 playerCards_CM.CritDamage = float.Parse(datas[11]);
                 //破甲百分比
@@ -950,7 +970,7 @@ public class FightCardSP : MonoBehaviour
                 playerCards[i].transform.GetChild(3).GetComponent<Text>().text = "";//datas[1];
                 CardRarityShow(int.Parse(datas[4]), playerCards[i].transform.GetChild(1).GetChild(1));   //稀有度颜色表现
 
-                playerCards_CM.OtherDataSet();     //其他初始化
+                //playerCards_CM.OtherDataSet();     //其他初始化
                 InitFightState(playerCards[i]);     //战斗状态控制初始化
             }
         }

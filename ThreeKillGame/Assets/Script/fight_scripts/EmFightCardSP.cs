@@ -142,7 +142,7 @@ public class EmFightCardSP : MonoBehaviour
     //            enemyCards[i].GetComponent<CardMove>().Force = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 7].Value.ToString());
     //            enemyCards[i].GetComponent<CardMove>().Defence = int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 8].Value.ToString());
     //            enemyCards[i].GetComponent<CardMove>().Health = enemyCards[i].GetComponent<CardMove>().Fullhealth = grade_Addition * int.Parse(worksheet_Role.worksheet.Cells[int.Parse(heroIdandclass[0]) + 1, 9].Value.ToString());
-    //            enemyCards[i].GetComponent<CardMove>().OtherDataSet();
+    //            //enemyCards[i].GetComponent<CardMove>().OtherDataSet();
     //        }
     //    }
 
@@ -179,7 +179,7 @@ public class EmFightCardSP : MonoBehaviour
     //            playerCards[i].GetComponent<CardMove>().ArmorPenetrationRate = float.Parse(datas[14]);
     //            //显示武将名
     //            playerCards[i].transform.GetChild(3).GetComponent<Text>().text = datas[1];
-    //            playerCards[i].GetComponent<CardMove>().OtherDataSet();
+    //            //playerCards[i].GetComponent<CardMove>().OtherDataSet();
     //            datas.Clear();
     //        }
     //    }

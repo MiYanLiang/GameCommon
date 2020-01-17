@@ -48,11 +48,20 @@ public class CardMove : MonoBehaviour
     private int health; //血量
     public int Health { get => health; set => health = value; }
 
+    private float hpCityAdd; //城市血量加成
+    public float HpCityAdd { get => hpCityAdd; set => hpCityAdd = value; }
+
     private int defence;//防御
     public int Defence { get => defence; set => defence = value; }
 
+    private float defenceCityAdd;  //城市防御力加成
+    public float DefenceCityAdd { get => defenceCityAdd; set => defenceCityAdd = value; }
+
     private int force;  //攻击力
     public int Force { get => force; set => force = value; }
+
+    private float forceCityAdd;  //城市攻击力加成
+    public float ForceCityAdd { get => forceCityAdd; set => forceCityAdd = value; }
 
     private StateOfAttack isAttack;  //记录武将的攻击状态
     public StateOfAttack IsAttack { get => isAttack; set => isAttack = value; }
@@ -85,6 +94,9 @@ public class CardMove : MonoBehaviour
     private float critRate; //暴击率
     public float CritRate { get => critRate; set => critRate = value; }
 
+    private float critRateCityAdd;  //城市暴击率加成
+    public float CritRateCityAdd { get => critRateCityAdd; set => critRateCityAdd = value; }
+
     private float critDamage;   //暴击伤害
     public float CritDamage { get => critDamage; set => critDamage = value; }
 
@@ -113,22 +125,36 @@ public class CardMove : MonoBehaviour
 
     private void Start()
     {
-        //设置武将头像背景
-        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[HeroId - 1][22], typeof(Sprite)) as Sprite;
         audiosource = GetComponent<AudioSource>();
-        realDodgeRate = DodgeRate;  //真实闪避率初始化
-        ArmsStaticSkillGet(ArmsId, ArmsSkillStatus);   //静态兵种技能
+        ArmsStaticSkillGet(ArmsId, ArmsSkillStatus);   //静态兵种技能+城市属性加成
+        CalculatedAttributeAdd();   //属性加成计算
+        OtherDataSet();
     }
 
     /// <summary>
     /// 其他必要值的赋值
     /// </summary>
-    public void OtherDataSet()
+    private void OtherDataSet()
     {
+        //设置武将头像背景
+        transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load("Image/RoleIcon/" + LoadJsonFile.RoleTableDatas[HeroId - 1][22], typeof(Sprite)) as Sprite;
         transform.GetChild(8).GetChild(0).GetComponent<Text>().text = Grade.ToString();
         ChangeToFight(StateOfAttack.ReadyForFight);
         vec = gameObject.transform.position;
+        realDodgeRate = DodgeRate;  //真实闪避率初始化
         realDamage = Force;
+    }
+
+    /// <summary>
+    /// 属性加成计算
+    /// </summary>
+    private void CalculatedAttributeAdd()
+    {
+        Force = (int)(Force * Mathf.Clamp01(1 + ForceCityAdd));
+        Defence = (int)(Defence * Mathf.Clamp01(1 + DefenceCityAdd));
+        Health = (int)(Health * Mathf.Clamp01(1 + HpCityAdd));
+        Fullhealth = (int)(Fullhealth * Mathf.Clamp01(1 + HpCityAdd));
+        CritRate = (int)(CritRate * Mathf.Clamp01(1 + CritRateCityAdd));
     }
 
     /// <summary>
@@ -1052,10 +1078,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //防御提升10%
-                        Defence = (int)(1.1 * (float)Defence);
+                        DefenceCityAdd += 0.1f;
                         break;
                     case 2:     //防御提升20%
-                        Defence = (int)(1.2 * (float)Defence);
+                        DefenceCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1065,12 +1091,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //血量提升10%
-                        Fullhealth = (int)(1.1 * (float)Fullhealth);
-                        Health = (int)(1.1 * (float)Health);
+                        HpCityAdd += 0.1f;
                         break;
                     case 2:     //血量提升20%
-                        Fullhealth = (int)(1.2 * (float)Fullhealth);
-                        Health = (int)(1.2 * (float)Health);
+                        HpCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1080,10 +1104,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        Force = (int)(1.1 * (float)Force);
+                        ForceCityAdd += 0.1f;
                         break;
                     case 2:     //攻击提升20%
-                        Force = (int)(1.2 * (float)Force);
+                        ForceCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1093,12 +1117,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //血量提升10%
-                        Fullhealth = (int)(1.1 * (float)Fullhealth);
-                        Health = (int)(1.1 * (float)Health);
+                        HpCityAdd += 0.1f;
                         break;
                     case 2:     //血量提升20%
-                        Fullhealth = (int)(1.2 * (float)Fullhealth);
-                        Health = (int)(1.2 * (float)Health);
+                        HpCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1108,10 +1130,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        Force = (int)(1.1 * (float)Force);
+                        ForceCityAdd += 0.1f;
                         break;
                     case 2:     //攻击提升20%
-                        Force = (int)(1.2 * (float)Force);
+                        ForceCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1121,10 +1143,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        Force = (int)(1.1 * (float)Force);
+                        ForceCityAdd += 0.1f;
                         break;
                     case 2:     //攻击提升20%
-                        Force = (int)(1.2 * (float)Force);
+                        ForceCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1134,10 +1156,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        Force = (int)(1.1 * (float)Force);
+                        ForceCityAdd += 0.1f;
                         break;
                     case 2:     //攻击提升20%
-                        Force = (int)(1.2 * (float)Force);
+                        ForceCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1147,10 +1169,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //暴击率提升10%
-                        CritRate = 1.1f * CritRate;
+                        CritRateCityAdd += 0.1f;
                         break;
                     case 2:     //暴击率提升20%
-                        CritRate = 1.1f * CritRate;
+                        CritRateCityAdd += 0.2f;
                         break;
                 }
                 break;
@@ -1160,10 +1182,10 @@ public class CardMove : MonoBehaviour
                     case 0:
                         break;
                     case 1:     //攻击提升10%
-                        Force = (int)(1.1 * (float)Force);
+                        ForceCityAdd += 0.1f;
                         break;
                     case 2:     //攻击提升20%
-                        Force = (int)(1.2 * (float)Force);
+                        ForceCityAdd += 0.2f;
                         break;
                 }
                 break;
