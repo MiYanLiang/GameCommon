@@ -150,9 +150,9 @@ public class CreateAndUpdate : MonoBehaviour
         text_level_map.text = level + "级";
         if (level == maxLevel)
         {
-            goldOfGrade.transform.parent.GetChild(0).GetComponent<Text>().text = "满级";
-            goldOfGrade.transform.parent.GetChild(1).gameObject.SetActive(false);
-            goldOfGrade.transform.parent.GetChild(2).gameObject.SetActive(false);
+            goldOfGrade.transform.parent.parent.GetChild(0).GetComponent<Text>().text = "满级";
+            goldOfGrade.transform.parent.gameObject.SetActive(false);
+            //goldOfGrade.transform.parent.GetChild(2).gameObject.SetActive(false);
         }
     }
 

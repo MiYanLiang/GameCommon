@@ -92,6 +92,11 @@ public class FightCardSP : MonoBehaviour
 
     private float[] playerCardHpPercentage;   //记录玩家卡牌血量百分比
 
+    [SerializeField]
+    Transform bigMapObj;
+    [SerializeField]
+    Transform chooseFightStateObj;
+
     private void Awake()
     {
         battleId = PlayerPrefs.GetInt("battleId");
@@ -299,6 +304,7 @@ public class FightCardSP : MonoBehaviour
                         selectEnemy++;
                         if (selectEnemy >= enemyCards.Length)
                         {
+
                             Debug.Log("玩家获胜");
                             winBattles++;   //胜利场数加一
                                             //结算战斗信息
@@ -322,6 +328,8 @@ public class FightCardSP : MonoBehaviour
 
                             if (fightCtl.npcPlayerHps[enemyForceId] <= 0)
                             {
+                                string str1 = string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
+                                ControllMonthEvent.instance.AddShowMonthEvent(false, str1);
                                 //Debug.Log(string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]));
                                 changeAndGet.GetEnemyStartHero(enemyForceId);   //消灭势力，得到其初始武将
                             }
@@ -374,7 +382,8 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             getOrloseText.GetComponent<Text>().text = string.Format("{0}敌方，获得{1}金币！", str, addMoney);
-
+                            string str2 = "玩家" + str + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "势力";
+                            ControllMonthEvent.instance.AddShowMonthEvent(false, str2);
 
                             //展示战况
                             if (isSpecialLevel)
@@ -447,6 +456,8 @@ public class FightCardSP : MonoBehaviour
                             getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}势力值！", cutHp);
                             player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
 
+                            string str2 = "玩家惜败给了" + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "势力";
+                            ControllMonthEvent.instance.AddShowMonthEvent(false, str2);
 
                             SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
                             SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
@@ -491,6 +502,32 @@ public class FightCardSP : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 选择对战类型
+    /// </summary>
+    public void ChooseFightStateToBigMap(int index) //1迎战-1防守0免战
+    {
+        if (index == 0)
+        {
+            //免战
+            Debug.Log("免战");
+        }
+        else
+        {
+            if (index != -1)
+            {
+                //攻
+            }
+            else
+            {
+                //守
+            }
+            chooseFightStateObj.gameObject.SetActive(false);
+            bigMapObj.gameObject.SetActive(false);
+            fightCtl.selectForce = index;
+            isFightNow = false;
+        }
+    }
 
     int indexNpcFightOver = 0;
     /// <summary>
@@ -516,7 +553,10 @@ public class FightCardSP : MonoBehaviour
 
             indexNpcFightOver++;
             fightNum = 0;
-            isFightNow = false;
+
+            chooseFightStateObj.gameObject.SetActive(true);
+            bigMapObj.gameObject.SetActive(true);
+            //isFightNow = false;
         }
         else
         {

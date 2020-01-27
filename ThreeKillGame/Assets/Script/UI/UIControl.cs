@@ -334,14 +334,14 @@ public class UIControl : MonoBehaviour
     //声音控制，继承main场景选择
     void soundContrll_(int soundStates)
     {
-        if (soundStates == 1)
-        {
-            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
-        }
-        else if (soundStates == 0)
-        {
-            cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
-        }
+        //if (soundStates == 1)
+        //{
+        //    cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(true);
+        //}
+        //else if (soundStates == 0)
+        //{
+        //    cameraAudio.GetComponent<AudioListener>().gameObject.SetActive(false);
+        //}
     }
 
     //延时打开战斗按钮
