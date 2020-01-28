@@ -77,4 +77,14 @@ public class Roots
     /// 答题玩法表
     /// </summary>
     public List<TestTableItem> TestTable { get; set; }
+
+    /// <summary>
+    /// 鸡肋故事数据表
+    /// </summary>
+    public List<StoryATableItem> StoryATable { get; set; }
+
+    /// <summary>
+    /// 鸡肋事件影响数值表
+    /// </summary>
+    public List<EndingATableItem> EndingATable { get; set; }
 }

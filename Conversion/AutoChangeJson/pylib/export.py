@@ -29,6 +29,8 @@ import e_create_NPCTable
 import e_create_flagsTable
 import e_create_EvevtTable
 import e_create_TestTable
+import e_create_StoryATable
+import e_create_EndingATable
 
 taskList = (
 
@@ -48,6 +50,8 @@ taskList = (
 	('/111.xlsx', e_create_flagsTable, '/flagsTable.json'),
 	('/111.xlsx', e_create_EvevtTable, '/EventTable.json'),
 	('/111.xlsx', e_create_TestTable, '/TestTable.json'),
+	('/111.xlsx', e_create_StoryATable, '/StoryATable.json'),
+	('/111.xlsx', e_create_EndingATable, '/EndingATable.json'),
 )
 
 

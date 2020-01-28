@@ -13,7 +13,7 @@ public class LoadJsonFile : MonoBehaviour
     //Resources文件夹下
     public static readonly string Folder = "Jsons/";
     //存放json数据名
-    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable;EventTable;TestTable";
+    private static readonly string tableNameStrs = "LevelTable;DifficultyChoose;ForcesTable;SoldierSkillTable;RoleTable;RandowTable;FetterTable;BattleTable;DifficultyTable;WarDrumTable;TipsTable;SoldierType;NPCTable;flagsTable;EventTable;TestTable;StoryATable;EndingATable";
 
 
     /// <summary>
@@ -95,6 +95,17 @@ public class LoadJsonFile : MonoBehaviour
     /// Test答题玩法数据表
     /// </summary>
     public static List<List<string>> TestTableDates;
+
+    /// <summary>
+    /// 鸡肋故事数据表
+    /// </summary>
+    public static List<List<string>> StoryATableDates;
+
+    /// <summary>
+    /// 鸡肋事件影响数值表
+    /// </summary>
+    public static List<List<string>> EndingATableDates;
+
 
     /// <summary>
     /// 加载json文件获取数据至链表中
@@ -463,6 +474,47 @@ public class LoadJsonFile : MonoBehaviour
             indexTable++;
             //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
         }
+        //加载StoryATable数据:StoryATable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            StoryATableDates = new List<List<string>>(root.StoryATable.Count);
+            for (int i = 0; i < root.StoryATable.Count; i++)
+            {
+                StoryATableDates.Add(new List<string>());
+                StoryATableDates[i].Add(root.StoryATable[i].id);
+                StoryATableDates[i].Add(root.StoryATable[i].weightValue);
+                StoryATableDates[i].Add(root.StoryATable[i].story);
+                StoryATableDates[i].Add(root.StoryATable[i].storyBody);
+                StoryATableDates[i].Add(root.StoryATable[i].exit);
+                StoryATableDates[i].Add(root.StoryATable[i].option1);
+                StoryATableDates[i].Add(root.StoryATable[i].option2);
+                StoryATableDates[i].Add(root.StoryATable[i].option1ToEnding);
+                StoryATableDates[i].Add(root.StoryATable[i].option2ToEnding);
+            }
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+        //加载EndingATable数据:EndingATable
+        {
+            jsonData = LoadJsonByName(tableNames[indexTable]);
+            root = JsonMapper.ToObject<Roots>(jsonData);
+            EndingATableDates = new List<List<string>>(root.EndingATable.Count);
+            for (int i = 0; i < root.EndingATable.Count; i++)
+            {
+                EndingATableDates.Add(new List<string>());
+                EndingATableDates[i].Add(root.EndingATable[i].id);
+                EndingATableDates[i].Add(root.EndingATable[i].ending);
+                EndingATableDates[i].Add(root.EndingATable[i].gold);
+                EndingATableDates[i].Add(root.EndingATable[i].shiQi);
+                EndingATableDates[i].Add(root.EndingATable[i].junLiang);
+                EndingATableDates[i].Add(root.EndingATable[i].chengFang);
+                EndingATableDates[i].Add(root.EndingATable[i].minXin);
+            }
+            indexTable++;
+            //Debug.Log("Json文件加载成功---" + tableNames[indexTable++] + ".Json");
+        }
+
 
         if (indexTable >= tableNames.Length)
             Debug.Log("所有Json数据加载成功。");
