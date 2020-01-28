@@ -96,6 +96,12 @@ public class FightCardSP : MonoBehaviour
     Transform bigMapObj;
     [SerializeField]
     Transform chooseFightStateObj;
+    [SerializeField]
+    Transform vsTitleObj;
+
+    [SerializeField]
+    GameObject[] needHideObj;
+
 
     private void Awake()
     {
@@ -134,6 +140,10 @@ public class FightCardSP : MonoBehaviour
         roundTextObj.gameObject.SetActive(true);
         Invoke("LiteTimeStart", roundWaitTime);
 
+        for (int i = 0; i < needHideObj.Length; i++)
+        {
+            needHideObj[i].SetActive(false);
+        }
     }
 
     private bool isOver = false;    //记录是否结束这轮战斗
@@ -560,6 +570,10 @@ public class FightCardSP : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < needHideObj.Length; i++)
+            {
+                needHideObj[i].SetActive(true);
+            }
             Debug.Log("此年战斗结束！");
             indexNpcFightOver = 0;
             //设置首显战况
@@ -1105,6 +1119,9 @@ public class FightCardSP : MonoBehaviour
         GameObject vsShowObj = Instantiate(Resources.Load("Prefab/VS", typeof(GameObject)) as GameObject, SettlementPic.transform.parent);
         vsShowObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
         vsShowObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
+        //大地图vs
+        vsTitleObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
+        vsTitleObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
     }
 
     private void CardRarityShow(int rarity, Transform imageObj)
