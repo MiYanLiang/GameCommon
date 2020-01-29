@@ -102,6 +102,8 @@ public class FightCardSP : MonoBehaviour
     [SerializeField]
     GameObject[] needHideObj;
 
+    private int avoidWarNums;   //免战次数
+    private bool isMianZhan;    //是否选择免战
 
     private void Awake()
     {
@@ -112,6 +114,10 @@ public class FightCardSP : MonoBehaviour
 
     private void OnEnable()
     {
+        isMianZhan = false;
+
+        avoidWarNums = 1;
+
         ControllMonthEvent.instance.AddShowMonthEvent(true, "");
 
         isStart = false;
@@ -430,60 +436,68 @@ public class FightCardSP : MonoBehaviour
                 else
                 {
                     selectEnemy = 0;
-                    while (playerCards[selectEnemy] == null || playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0)
+
+                    if (isMianZhan)
                     {
-                        selectEnemy++;
-                        if (selectEnemy >= playerCards.Length)
+                        selectEnemy = playerCards.Length;
+                        Debug.Log("玩家免战，电脑获胜");
+                    }
+                    else
+                    {
+                        while ((selectEnemy < playerCards.Length) && (playerCards[selectEnemy] == null || playerCards[selectEnemy].GetComponent<CardMove>().Health <= 0) )
                         {
-                            Debug.Log("电脑获胜");
-                            //结算战斗信息
-
-                            //血量
-                            int remainingHP = 0;    //总血量
-                            int fullHP = 0;         //剩余血量
-                            for (int j = 0; j < 9; j++)
-                            {
-                                if (enemyCards[j] != null)
-                                {
-                                    fullHP += enemyCards[j].GetComponent<CardMove>().Fullhealth;
-                                    remainingHP += enemyCards[j].GetComponent<CardMove>().Health;
-                                }
-                            }
-                            int cutHp = 0;
-                            if (fightCtl.selectForce != -1)
-                            {
-                                float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
-                                cutHp = (int)(remainScale * fightCtl.maxCutHp);    //玩家扣血
-                                cutHp = cutHp > fightCtl.defCutHp ? cutHp : fightCtl.defCutHp;
-                            }
-                            else  //防守
-                            {
-                                cutHp = fightCtl.defCutHp;
-                            }
-                            CreateAndUpdate.playerHp -= cutHp;
-                            getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}势力值！", cutHp);
-                            player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
-
-                            string str2 = "玩家惜败给了" + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "势力";
-                            ControllMonthEvent.instance.AddShowMonthEvent(false, str2);
-
-                            SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
-                            SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
-
-                            if (isSpecialLevel)
-                            {
-                                //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.NPCTableDates[specialLevelId][15]);
-                            }
-                            else
-                            {
-                                //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
-                            }
-                            //fightControll.GetComponent<FightControll>().BattleSettlement();
-
-                            Invoke("ShowSettlementPic", 1f);    //延时打开结算界面
-
-                            return null;
+                            selectEnemy++;
                         }
+                    }
+                    if (selectEnemy >= playerCards.Length)
+                    {
+                        Debug.Log("电脑获胜");
+                        //结算战斗信息
+                        //血量
+                        int remainingHP = 0;    //总血量
+                        int fullHP = 0;         //剩余血量
+                        for (int j = 0; j < 9; j++)
+                        {
+                            if (enemyCards[j] != null)
+                            {
+                                fullHP += enemyCards[j].GetComponent<CardMove>().Fullhealth;
+                                remainingHP += enemyCards[j].GetComponent<CardMove>().Health;
+                            }
+                        }
+                        int cutHp = 0;
+                        if (fightCtl.selectForce != -1)
+                        {
+                            float remainScale = (float)remainingHP / fullHP;    //玩家剩余血量比例
+                            cutHp = (int)(remainScale * fightCtl.maxCutHp);    //玩家扣血
+                            cutHp = cutHp > fightCtl.defCutHp ? cutHp : fightCtl.defCutHp;
+                        }
+                        else  //防守
+                        {
+                            cutHp = fightCtl.defCutHp;
+                        }
+                        CreateAndUpdate.playerHp -= cutHp;
+                        getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}势力值！", cutHp);
+                        player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
+
+                        string str2 = "玩家惜败给了" + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "势力";
+                        ControllMonthEvent.instance.AddShowMonthEvent(false, str2);
+
+                        SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
+                        SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
+
+                        if (isSpecialLevel)
+                        {
+                            //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#FFF0F5>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.NPCTableDates[specialLevelId][15]);
+                        }
+                        else
+                        {
+                            //SettlementPic.transform.GetChild(2).GetChild(1).GetChild(0).GetComponent<Text>().text = string.Format("<color=#CDCDCD>{0}</color>        <color=#E04638>{1}</color>        <color=#332D2D>{2}</color>", LoadJsonFile.forcesTableDatas[UIControl.playerForceId - 1][1], "败", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
+                        }
+                        //fightControll.GetComponent<FightControll>().BattleSettlement();
+
+                        Invoke("ShowSettlementPic", 1f);    //延时打开结算界面
+
+                        return null;
                     }
                     return playerCards[selectEnemy];
                 }
@@ -515,10 +529,21 @@ public class FightCardSP : MonoBehaviour
     /// </summary>
     public void ChooseFightStateToBigMap(int index) //1迎战-1防守0免战
     {
+        isMianZhan = false;
         if (index == 0)
         {
-            //免战
-            Debug.Log("免战");
+            if (avoidWarNums > 0)
+            {
+                //免战
+                isMianZhan = true;
+                avoidWarNums--;
+                ControllMonthEvent.instance.AddShowMonthEvent(false, "免战");
+            }
+            else
+            {
+                Debug.Log("免战次数不足");
+                createAndUpdate.GoldNotEnough("免战次数不足");
+            }
         }
         else
         {
@@ -530,13 +555,13 @@ public class FightCardSP : MonoBehaviour
             {
                 //守
             }
-            EndOfInitToFight();
-            chooseFightStateObj.gameObject.SetActive(false);
-            bigMapObj.gameObject.SetActive(false);
-            vsTitleObj.gameObject.SetActive(false);
             fightCtl.selectForce = index;
-            isFightNow = false;
         }
+        chooseFightStateObj.gameObject.SetActive(false);
+        bigMapObj.gameObject.SetActive(false);
+        vsTitleObj.gameObject.SetActive(false);
+        isFightNow = false;
+        EndOfInitToFight();
     }
 
     int indexNpcFightOver = 0;
