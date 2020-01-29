@@ -112,6 +112,8 @@ public class FightCardSP : MonoBehaviour
 
     private void OnEnable()
     {
+        ControllMonthEvent.instance.AddShowMonthEvent(true, "");
+
         isStart = false;
         isEndOFInit = false;
 
@@ -135,15 +137,11 @@ public class FightCardSP : MonoBehaviour
         npcForceFightPy = fightControll.GetComponent<FightControll>().BattleSettlement();
         
         isFightNow = false;
-        isEndOFInit = true;
         roundTextObj.text = "回合 " + roundNum;
         roundTextObj.gameObject.SetActive(true);
         Invoke("LiteTimeStart", roundWaitTime);
-
-        for (int i = 0; i < needHideObj.Length; i++)
-        {
-            needHideObj[i].SetActive(false);
-        }
+        chooseFightStateObj.gameObject.SetActive(true);
+        OpenOrCloseObj(false);
     }
 
     private bool isOver = false;    //记录是否结束这轮战斗
@@ -532,8 +530,10 @@ public class FightCardSP : MonoBehaviour
             {
                 //守
             }
+            EndOfInitToFight();
             chooseFightStateObj.gameObject.SetActive(false);
             bigMapObj.gameObject.SetActive(false);
+            vsTitleObj.gameObject.SetActive(false);
             fightCtl.selectForce = index;
             isFightNow = false;
         }
@@ -570,10 +570,7 @@ public class FightCardSP : MonoBehaviour
         }
         else
         {
-            for (int i = 0; i < needHideObj.Length; i++)
-            {
-                needHideObj[i].SetActive(true);
-            }
+            OpenOrCloseObj(true);
             Debug.Log("此年战斗结束！");
             indexNpcFightOver = 0;
             //设置首显战况
@@ -1116,12 +1113,17 @@ public class FightCardSP : MonoBehaviour
         SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1];
 
         //vs对战提示信息
-        GameObject vsShowObj = Instantiate(Resources.Load("Prefab/VS", typeof(GameObject)) as GameObject, SettlementPic.transform.parent);
-        vsShowObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
-        vsShowObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
+        //GameObject vsShowObj = Instantiate(Resources.Load("Prefab/VS", typeof(GameObject)) as GameObject, SettlementPic.transform.parent);
+        //vsShowObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
+        //vsShowObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
         //大地图vs
-        vsTitleObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
-        vsTitleObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
+
+        vsTitleObj.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
+        vsTitleObj.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
+
+        string playerFightNpcStr = "玩家"+ ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1];
+        ControllMonthEvent.instance.AddShowMonthEvent(false, playerFightNpcStr);
+        vsTitleObj.gameObject.SetActive(true);
     }
 
     private void CardRarityShow(int rarity, Transform imageObj)
@@ -1144,6 +1146,25 @@ public class FightCardSP : MonoBehaviour
                 //enemyCards[i].transform.GetChild(3).GetComponent<Text>().color = ColorData.red_Color_hero;  //红色
                 imageObj.GetComponent<Image>().color = ColorData.red_Color_hero;  //红色
                 break;
+        }
+    }
+
+    //结束初始化
+    public void EndOfInitToFight()
+    {
+        Invoke("LiteTimeToChooseInit", 2f);
+    }
+
+    private void LiteTimeToChooseInit()
+    {
+        isEndOFInit = true;
+    }
+
+    private void OpenOrCloseObj(bool boo)
+    {
+        for (int i = 0; i < needHideObj.Length; i++)
+        {
+            needHideObj[i].SetActive(boo);
         }
     }
 }
