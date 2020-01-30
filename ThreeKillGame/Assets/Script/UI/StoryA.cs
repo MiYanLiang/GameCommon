@@ -7,12 +7,7 @@ public class StoryA : MonoBehaviour
 {
     [SerializeField]
     Transform StoryAObject;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-    //初始化
+
     public void InitializeStory()
     {
         int storyId = Random.Range(0,LoadJsonFile.StoryATableDates.Count);
@@ -28,10 +23,5 @@ public class StoryA : MonoBehaviour
         }
         //exit
         StoryAObject.GetChild(6).GetChild(0).GetComponent<Text>().text = LoadJsonFile.StoryATableDates[storyId][4];
-    }
-    //玩家做出选择
-    public void SelectOption()
-    {
-
     }
 }

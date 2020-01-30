@@ -40,6 +40,10 @@ public class ControllMonthEvent : MonoBehaviour
         ShowTextForMonthEvent(monthObj.transform.GetComponentsInChildren<Text>()[1], contant);
 
         monthIndex++;
+        if (monthIndex>12)
+        {
+            UpdateMonthData();
+        }
     }
 
     //更新月份
@@ -53,4 +57,6 @@ public class ControllMonthEvent : MonoBehaviour
         eventText.text = "";
         eventText.DOText(data, playTextSpeed).SetEase(Ease.Linear).SetAutoKill(false);
     }
+
+
 }

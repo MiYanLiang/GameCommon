@@ -1144,10 +1144,10 @@ public class FightCardSP : MonoBehaviour
 
         vsTitleObj.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
         vsTitleObj.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
+        vsTitleObj.gameObject.SetActive(true);
 
         string playerFightNpcStr = "玩家"+ ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1]+"的"+ LoadJsonFile.forcesTableDatas[npcForceId - 1][4] + "势力";
         ControllMonthEvent.instance.AddShowMonthEvent(playerFightNpcStr);
-        vsTitleObj.gameObject.SetActive(true);
     }
 
     private void CardRarityShow(int rarity, Transform imageObj)

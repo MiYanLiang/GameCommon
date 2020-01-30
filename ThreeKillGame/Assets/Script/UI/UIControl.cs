@@ -119,7 +119,6 @@ public class UIControl : MonoBehaviour
         initForces();   //初始化势力
         initEvent();   //初始化大事件
         gameObject.GetComponent<BookOfAnswerQ>().InfoQustionOfBook();   //答题初始化
-        gameObject.GetComponent<StoryA>().InitializeStory();//故事A初始化
     }
 
     /// <summary>
