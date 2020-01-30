@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,16 +14,18 @@ public class ControllMonthEvent : MonoBehaviour
     GameObject monthEventObj;
 
     private int monthIndex;
+    [SerializeField]
+    private float playTextSpeed;
 
     // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         if (instance == null)
         {
             instance = this;
         }
-        //monthEventObj = Resources.Load("Prefab/Force/monthEvent", typeof(GameObject)) as GameObject;
         monthIndex = 1;
+        playTextSpeed = 1f;
     }
 
     /// <summary>
@@ -30,28 +33,24 @@ public class ControllMonthEvent : MonoBehaviour
     /// </summary>
     /// <param name="isNextYear"></param>
     /// <param name="contant"></param>
-    public void AddShowMonthEvent(bool isNextYear, string contant)
+    public void AddShowMonthEvent(string contant)
     {
-        UpdateMonthData(isNextYear);
         GameObject monthObj = Instantiate(monthEventObj, sanguoTVContantTran);
-        monthObj.transform.GetComponentsInChildren<Text>()[0].text = monthIndex+"月";
-        monthObj.transform.GetComponentsInChildren<Text>()[1].text = contant;
+        monthObj.transform.GetComponentsInChildren<Text>()[0].text = monthIndex + "月";
+        ShowTextForMonthEvent(monthObj.transform.GetComponentsInChildren<Text>()[1], contant);
+
+        monthIndex++;
     }
 
     //更新月份
-    private void UpdateMonthData(bool isNextYear)
+    public void UpdateMonthData()
     {
-        if (isNextYear)
-        {
-            monthIndex = 1;
-        }
-        else
-        {
-            if (monthIndex<12)
-            {
-                monthIndex++;
-            }
-            //monthIndex += Random.Range(0, 4);
-        }
+        monthIndex = 1;
+    }
+
+    private void ShowTextForMonthEvent(Text eventText, string data)
+    {
+        eventText.text = "";
+        eventText.DOText(data, playTextSpeed).SetEase(Ease.Linear).SetAutoKill(false);
     }
 }

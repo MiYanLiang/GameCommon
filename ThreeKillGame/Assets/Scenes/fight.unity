@@ -24937,6 +24937,7 @@ MonoBehaviour:
   sanguoTVContantTran: {fileID: 528629285}
   monthEventObj: {fileID: 610662173086759624, guid: f602b490d3043d1468ac52ade0e30e6c,
     type: 3}
+  playTextSpeed: 0
 --- !u!1 &1164910373
 GameObject:
   m_ObjectHideFlags: 0
@@ -31629,6 +31630,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: -1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1159457382}
+        m_MethodName: UpdateMonthData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1

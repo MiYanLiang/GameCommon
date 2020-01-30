@@ -118,7 +118,7 @@ public class FightCardSP : MonoBehaviour
 
         avoidWarNums = 1;
 
-        ControllMonthEvent.instance.AddShowMonthEvent(true, "");
+        //ControllMonthEvent.instance.AddShowMonthEvent(true, "");
 
         isStart = false;
         isEndOFInit = false;
@@ -143,8 +143,8 @@ public class FightCardSP : MonoBehaviour
         npcForceFightPy = fightControll.GetComponent<FightControll>().BattleSettlement();
         
         isFightNow = false;
-        roundTextObj.text = "回合 " + roundNum;
-        roundTextObj.gameObject.SetActive(true);
+        //roundTextObj.text = "回合 " + roundNum;
+        //roundTextObj.gameObject.SetActive(true);
         Invoke("LiteTimeStart", roundWaitTime);
         chooseFightStateObj.gameObject.SetActive(true);
         OpenOrCloseObj(false);
@@ -197,6 +197,7 @@ public class FightCardSP : MonoBehaviour
             Debug.Log("///回合" + roundNum + "结束///");
             if (!isOver)
             {
+                Debug.Log("sadasdas");
                 roundNum++;
                 roundTextObj.text = "回合 " + roundNum;
                 roundTextObj.gameObject.SetActive(true);
@@ -342,8 +343,8 @@ public class FightCardSP : MonoBehaviour
 
                             if (fightCtl.npcPlayerHps[enemyForceId] <= 0)
                             {
-                                string str1 = string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]);
-                                ControllMonthEvent.instance.AddShowMonthEvent(false, str1);
+                                string str1 = string.Format("玩家消灭 {0} 的{1}势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1], LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][4]);
+                                ControllMonthEvent.instance.AddShowMonthEvent(str1);
                                 //Debug.Log(string.Format("玩家消灭 {0} 势力", LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1]));
                                 changeAndGet.GetEnemyStartHero(enemyForceId);   //消灭势力，得到其初始武将
                             }
@@ -396,8 +397,8 @@ public class FightCardSP : MonoBehaviour
                                 }
                             }
                             getOrloseText.GetComponent<Text>().text = string.Format("{0}敌方，获得{1}金币！", str, addMoney);
-                            string str2 = "玩家" + str + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "势力";
-                            ControllMonthEvent.instance.AddShowMonthEvent(false, str2);
+                            string str2 = "玩家" + str + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "的"+ LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][4] + "势力";
+                            ControllMonthEvent.instance.AddShowMonthEvent(str2);
 
                             //展示战况
                             if (isSpecialLevel)
@@ -479,8 +480,8 @@ public class FightCardSP : MonoBehaviour
                         getOrloseText.GetComponent<Text>().text = string.Format("惜败敌方，损失{0}势力值！", cutHp);
                         player_hp2.transform.GetChild(3).GetChild(0).GetComponent<cutHpTextMove>().content_text = "-" + cutHp;  //设置城池播放扣血文字内容
 
-                        string str2 = "玩家惜败给了" + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "势力";
-                        ControllMonthEvent.instance.AddShowMonthEvent(false, str2);
+                        string str2 = "玩家惜败给了" + LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][1] + "的"+ LoadJsonFile.forcesTableDatas[UIControl.enemy_forces[enemyForceId] - 1][4] + "势力";
+                        ControllMonthEvent.instance.AddShowMonthEvent(str2);
 
                         SettlementPic.transform.GetChild(3).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/惜", typeof(Sprite)) as Sprite;
                         SettlementPic.transform.GetChild(4).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/BattleEnding/败", typeof(Sprite)) as Sprite;
@@ -537,7 +538,7 @@ public class FightCardSP : MonoBehaviour
                 //免战
                 isMianZhan = true;
                 avoidWarNums--;
-                ControllMonthEvent.instance.AddShowMonthEvent(false, "免战");
+                ControllMonthEvent.instance.AddShowMonthEvent("免战");
             }
             else
             {
@@ -562,6 +563,8 @@ public class FightCardSP : MonoBehaviour
         vsTitleObj.gameObject.SetActive(false);
         isFightNow = false;
         EndOfInitToFight();
+        roundTextObj.text = "回合 " + roundNum;
+        roundTextObj.gameObject.SetActive(true);
     }
 
     int indexNpcFightOver = 0;
@@ -573,6 +576,8 @@ public class FightCardSP : MonoBehaviour
         //还有势力要和玩家势力战斗
         if(indexNpcFightOver < npcForceFightPy.Count)
         {
+            isEndOFInit = false;
+
             ChangePlayerCardHpPercentage();
 
             RecoverCardData();
@@ -1137,17 +1142,11 @@ public class FightCardSP : MonoBehaviour
         SettlementPic.transform.GetChild(1).GetChild(2).GetComponent<Image>().sprite = Resources.Load("Image/calligraphy/Forces/" + LoadJsonFile.forcesTableDatas[npcForceId - 1][4], typeof(Sprite)) as Sprite;
         SettlementPic.transform.GetChild(1).GetChild(3).GetComponent<Text>().text = ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1];
 
-        //vs对战提示信息
-        //GameObject vsShowObj = Instantiate(Resources.Load("Prefab/VS", typeof(GameObject)) as GameObject, SettlementPic.transform.parent);
-        //vsShowObj.transform.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
-        //vsShowObj.transform.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
-        //大地图vs
-
         vsTitleObj.GetChild(0).GetComponent<Image>().sprite = playerForceFlag.sprite;
         vsTitleObj.GetChild(1).GetComponent<Image>().sprite = rivalForceFlag.sprite;
 
-        string playerFightNpcStr = "玩家"+ ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1];
-        ControllMonthEvent.instance.AddShowMonthEvent(false, playerFightNpcStr);
+        string playerFightNpcStr = "玩家"+ ((fightCtl.selectForce != -1) ? "进攻" : "抵御") + LoadJsonFile.forcesTableDatas[npcForceId - 1][1]+"的"+ LoadJsonFile.forcesTableDatas[npcForceId - 1][4] + "势力";
+        ControllMonthEvent.instance.AddShowMonthEvent(playerFightNpcStr);
         vsTitleObj.gameObject.SetActive(true);
     }
 
